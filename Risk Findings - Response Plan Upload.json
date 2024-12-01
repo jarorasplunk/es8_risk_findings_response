@@ -1,0 +1,150 @@
+{
+    "blockly": false,
+    "blockly_xml": "<xml></xml>",
+    "category": "Uncategorized",
+    "coa": {
+        "data": {
+            "description": "",
+            "edges": [
+                {
+                    "id": "port_0_to_port_3",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "3",
+                    "targetPort": "3_in"
+                },
+                {
+                    "id": "port_3_to_port_4",
+                    "sourceNode": "3",
+                    "sourcePort": "3_out",
+                    "targetNode": "4",
+                    "targetPort": "4_in"
+                },
+                {
+                    "id": "port_4_to_port_1",
+                    "sourceNode": "4",
+                    "sourcePort": "4_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                }
+            ],
+            "hash": "7132a5c15abfed79bd7395ff05b745e4fd01b466",
+            "nodes": {
+                "0": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionName": "on_start",
+                        "id": "0",
+                        "type": "start"
+                    },
+                    "errors": {},
+                    "id": "0",
+                    "type": "start",
+                    "warnings": {},
+                    "x": 1000,
+                    "y": 419.9999999999999
+                },
+                "1": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionName": "on_finish",
+                        "id": "1",
+                        "type": "end"
+                    },
+                    "errors": {},
+                    "id": "1",
+                    "type": "end",
+                    "warnings": {},
+                    "x": 1000,
+                    "y": 1000
+                },
+                "3": {
+                    "data": {
+                        "advanced": {
+                            "customName": "create_response_plan_json",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "create_response_plan_json",
+                        "id": "3",
+                        "inputParameters": [],
+                        "outputVariables": [
+                            "risk_findings_response_json_body"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "3",
+                    "type": "code",
+                    "userCode": "\n    # Write your custom code here...\n    \n    var_true = True\n    var_false = False\n    var_0 = 0\n    var_1 = 1\n    var_2 = 2\n    var_3 = 3\n    \n    # Create JSON body for \"Risk Notable Investigation\" response plan\n    \n    create_response_plan_json__risk_findings_response_json_body = {\n        \"name\": \"Risk Findings Response 2\",\n        \"version\": \"1\",\n        \"is_default\": var_false,\n        \"description\": \"A series of tasks for enrichment, investigation and response to incidents created by Risk Notables\",\n        \"template_status\": \"published\",\n        \"phases\": [\n            {\n                \"name\": \"Preprocess\",\n                \"order\": var_1,\n                \"tasks\": [\n                    {\n                        \"name\": \"Prepare the investigation\",\n                        \"order\": var_1,\n                        \"description\": \"In the right hand side panel of this investigation:\\n1. Update the status of this investigation from New to In-Progress\\n2. Assign the owner of this investigation\\n3. Optional: Select a disposition, if it is applicable at this stage.\\n\\nAlternatively, run the playbook (below), which will:\\n1. Assign the incident to you as an analyst\\n2. Change the status from New to In-Progress\",\n                        \"suggestions\": {\n                            \"actions\": [],\n                            \"searches\": [],\n                            \"playbooks\": [\n                                {\n                                    \"name\": \"Risk Finding - Prepare Investigation\",\n                                    \"scope\": \"all\",\n                                    \"description\": \"Risk Finding - Prepare Investigation\",\n                                    \"playbook_id\": \"local/Risk Finding - Prepare Investigation\",\n                                    \"last_job_id\": var_0\n                                }\n                            ]\n                        },\n                        \"is_note_required\": var_false\n                    },\n                    {\n                        \"name\": \"Gather related findings\",\n                        \"order\": var_2,\n                        \"description\": \"Gather related individual findings and intermediate findings that are part of this investigation.\\nRun the playbook (below) which will capture the related findings from the Analyst Queue and will provide you options to close the individual alerts/findings in the Analyst Queue, while you continue to work on this investigation.\",\n                        \"suggestions\": {\n                            \"actions\": [],\n                            \"searches\": [],\n                            \"playbooks\": [\n                                {\n                                    \"name\": \"Risk Finding - Related Findings\",\n                                    \"scope\": \"all\",\n                                    \"description\": \"Risk Finding - Related Findings\",\n                                    \"playbook_id\": \"local/Risk Finding - Related Findings\",\n                                    \"last_job_id\": var_0\n                                }\n                            ]\n                        },\n                        \"is_note_required\": var_false\n                    },\n                    {\n                        \"name\": \"Enrich findings\",\n                        \"order\": var_3,\n                        \"description\": \"This step will extract key entities, indicators and behaviour from the included findings in this investigation and will enrich their context using SOAR automation workflows. The enriched information for all applicable findings will be presented here in the form of notes.\",\n                        \"suggestions\": {\n                            \"actions\": [],\n                            \"searches\": [],\n                            \"playbooks\": [\n                                {\n                                    \"name\": \"Risk Finding - Dispatch Enrichment Playbooks\",\n                                    \"scope\": \"all\",\n                                    \"description\": \"Risk Finding - Dispatch Enrichment Playbooks\",\n                                    \"playbook_id\": \"local/Risk Finding - Dispatch Enrichment Playbooks\",\n                                    \"last_job_id\": var_0\n                                }\n                            ]\n                        },\n                        \"is_note_required\": var_false\n                    },\n                ]\n            }\n        ]\n    }\n    \n    \n    convert_json_risk_findings_response = json.dumps(create_response_plan_json__risk_findings_response_json_body)\n    phantom.debug(convert_json_risk_findings_response)\n    create_response_plan_json__risk_findings_response_json_body = convert_json_risk_findings_response\n\n",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 560
+                },
+                "4": {
+                    "data": {
+                        "action": "post data",
+                        "actionType": "generic",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "HTTP",
+                        "connectorConfigs": [
+                            "es"
+                        ],
+                        "connectorId": "290b7499-0374-4930-9cdc-5e9b05d65827",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "post_data_1",
+                        "id": "4",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "body": "create_response_plan_json:custom_function:risk_findings_response_json_body",
+                            "location": "/v1/responseplans"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "location"
+                            }
+                        ],
+                        "type": "action"
+                    },
+                    "errors": {},
+                    "id": "4",
+                    "type": "action",
+                    "warnings": {},
+                    "x": 1000,
+                    "y": 700
+                }
+            },
+            "notes": ""
+        },
+        "input_spec": null,
+        "output_spec": null,
+        "playbook_trigger": "artifact_created",
+        "playbook_type": "es",
+        "python_version": "3",
+        "schema": "5.0.15",
+        "version": "6.3.1.176"
+    },
+    "create_time": "2024-12-01T23:46:00.219962+00:00",
+    "draft_mode": false,
+    "labels": [
+        "es_soar_integration"
+    ],
+    "tags": []
+}
