@@ -115,7 +115,7 @@
                     "targetPort": "20_in"
                 }
             ],
-            "hash": "319bd97a2491bafef955002fc30a9be69e1dad2c",
+            "hash": "6f7ff0798197f81421a86bcd025939fedac405c4",
             "nodes": {
                 "0": {
                     "data": {
@@ -137,7 +137,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 200,
-                    "y": -6.394884621840902e-14
+                    "y": -1.2789769243681803e-13
                 },
                 "1": {
                     "data": {
@@ -497,7 +497,7 @@
                         },
                         "parameters": {
                             "command": "",
-                            "display": "source_event_id, _time",
+                            "display": "source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value",
                             "query": {
                                 "functionId": 2,
                                 "parameters": [
@@ -506,7 +506,7 @@
                                     "finding:consolidated_findings.info_min_time",
                                     "finding:consolidated_findings.info_max_time"
                                 ],
-                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| table source_event_id _time"
+                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| table source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value\n"
                             },
                             "search_mode": "verbose"
                         },
@@ -848,7 +848,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-01T23:44:51.839553+00:00",
+    "create_time": "2024-12-01T23:55:13.174582+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
