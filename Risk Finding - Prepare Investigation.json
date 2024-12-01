@@ -1,0 +1,701 @@
+{
+    "blockly": false,
+    "blockly_xml": "<xml></xml>",
+    "category": "Uncategorized",
+    "coa": {
+        "data": {
+            "description": "",
+            "edges": [
+                {
+                    "id": "port_8_to_port_9",
+                    "sourceNode": "8",
+                    "sourcePort": "8_out",
+                    "targetNode": "9",
+                    "targetPort": "9_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_9_to_port_4",
+                    "sourceNode": "9",
+                    "sourcePort": "9_out",
+                    "targetNode": "4",
+                    "targetPort": "4_in"
+                },
+                {
+                    "id": "port_3_to_port_11",
+                    "sourceNode": "3",
+                    "sourcePort": "3_out",
+                    "targetNode": "11",
+                    "targetPort": "11_in"
+                },
+                {
+                    "id": "port_11_to_port_7",
+                    "sourceNode": "11",
+                    "sourcePort": "11_out",
+                    "targetNode": "7",
+                    "targetPort": "7_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_9_to_port_12",
+                    "sourceNode": "9",
+                    "sourcePort": "9_out",
+                    "targetNode": "12",
+                    "targetPort": "12_in"
+                },
+                {
+                    "id": "port_4_to_port_2",
+                    "sourceNode": "4",
+                    "sourcePort": "4_out",
+                    "targetNode": "2",
+                    "targetPort": "2_in"
+                },
+                {
+                    "id": "port_2_to_port_1",
+                    "sourceNode": "2",
+                    "sourcePort": "2_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                },
+                {
+                    "id": "port_7_to_port_23",
+                    "sourceNode": "7",
+                    "sourcePort": "7_out",
+                    "targetNode": "23",
+                    "targetPort": "23_in"
+                },
+                {
+                    "id": "port_23_to_port_24",
+                    "sourceNode": "23",
+                    "sourcePort": "23_out",
+                    "targetNode": "24",
+                    "targetPort": "24_in"
+                },
+                {
+                    "id": "port_24_to_port_14",
+                    "sourceNode": "24",
+                    "sourcePort": "24_out",
+                    "targetNode": "14",
+                    "targetPort": "14_in"
+                },
+                {
+                    "id": "port_0_to_port_3",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "3",
+                    "targetPort": "3_in"
+                },
+                {
+                    "id": "port_14_to_port_8",
+                    "sourceNode": "14",
+                    "sourcePort": "14_out",
+                    "targetNode": "8",
+                    "targetPort": "8_in"
+                },
+                {
+                    "id": "port_12_to_port_1",
+                    "sourceNode": "12",
+                    "sourcePort": "12_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                }
+            ],
+            "hash": "732b491e37f664e872638371550d617cf9d3ce79",
+            "nodes": {
+                "0": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionName": "on_start",
+                        "id": "0",
+                        "type": "start"
+                    },
+                    "errors": {
+                        "input_spec": [
+                            {
+                                "name": "Name is required"
+                            }
+                        ]
+                    },
+                    "id": "0",
+                    "type": "start",
+                    "warnings": {},
+                    "x": 200,
+                    "y": -140.00000000000006
+                },
+                "1": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionName": "on_finish",
+                        "id": "1",
+                        "type": "end"
+                    },
+                    "errors": {},
+                    "id": "1",
+                    "type": "end",
+                    "warnings": {},
+                    "x": 190,
+                    "y": 1734
+                },
+                "11": {
+                    "data": {
+                        "action": "run query",
+                        "actionType": "investigate",
+                        "advanced": {
+                            "customName": "current user",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "connector": "Splunk",
+                        "connectorConfigs": [
+                            "splunk"
+                        ],
+                        "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "current_user",
+                        "id": "11",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "command": "|  rest",
+                            "display": "userName, Name",
+                            "query": " /services/authentication/current-context | rename realname as Name, username as userName | fields Name, userName",
+                            "search_mode": "smart"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "query"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "search",
+                                "field": "command"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "smart",
+                                "field": "search_mode"
+                            }
+                        ],
+                        "type": "action"
+                    },
+                    "errors": {},
+                    "id": "11",
+                    "type": "action",
+                    "warnings": {},
+                    "x": 180,
+                    "y": 260
+                },
+                "12": {
+                    "data": {
+                        "action": "update finding or investigation",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "update_finding_or_investigation_2",
+                        "id": "12",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id",
+                            "owner": "current_user:action_result.data.*.userName",
+                            "status": "In Progress"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "12",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 0,
+                    "y": 1420
+                },
+                "14": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "add_task_note_1",
+                        "id": "14",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": "Follow the prompts to manage this Investigation's ownership and status.",
+                            "id": "finding:investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "finding:current_response_plan_phase.response_plan_id",
+                            "task_id": "get_task_id_2:action_result.data.*.task_id",
+                            "title": "User Response Required"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "14",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 180,
+                    "y": 760
+                },
+                "2": {
+                    "data": {
+                        "action": "update finding or investigation",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "update_finding_or_investigation_1",
+                        "id": "2",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id",
+                            "owner": "select_owner:action_result.summary.responses.0",
+                            "status": "In Progress"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "2",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 340,
+                    "y": 1572
+                },
+                "23": {
+                    "data": {
+                        "action": "get phase id",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_phase_id_1",
+                        "id": "23",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id",
+                            "phase_name": "Preprocess",
+                            "response_template_name": "finding:response_plans.*.name"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_template_name"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "23",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 180,
+                    "y": 540
+                },
+                "24": {
+                    "data": {
+                        "action": "get task id",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "get_task_id_2",
+                        "id": "24",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id",
+                            "phase_name": "Preprocess",
+                            "response_template_name": "finding:response_plans.*.name",
+                            "task_name": "Prepare the investigation"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_template_name"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "24",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 180,
+                    "y": 660
+                },
+                "3": {
+                    "data": {
+                        "action": "run query",
+                        "actionType": "investigate",
+                        "advanced": {
+                            "customName": "all users",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "connector": "Splunk",
+                        "connectorConfigs": [
+                            "splunk"
+                        ],
+                        "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "all_users",
+                        "id": "3",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "command": "| rest",
+                            "display": "userName, Name",
+                            "query": "/services/authentication/users |fields title roles realname|rename title as userName|rename realname as Name | where match(roles,\"ess\")",
+                            "search_mode": "smart"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "query"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "search",
+                                "field": "command"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "smart",
+                                "field": "search_mode"
+                            }
+                        ],
+                        "type": "action"
+                    },
+                    "errors": {},
+                    "id": "3",
+                    "type": "action",
+                    "warnings": {},
+                    "x": 180,
+                    "y": 120
+                },
+                "4": {
+                    "data": {
+                        "advanced": {
+                            "customName": "select_owner",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "approver": {
+                            "type": "user",
+                            "value": "launching_user"
+                        },
+                        "functionId": 1,
+                        "functionName": "select_owner",
+                        "id": "4",
+                        "message": "{0}",
+                        "parameters": [
+                            "es_users_list:formatted_data"
+                        ],
+                        "responseTime": 30,
+                        "responses": [
+                            {
+                                "required": true,
+                                "responseOptions": [],
+                                "responsePrompt": "Analyst Name (as copied from above)",
+                                "responseType": "message"
+                            }
+                        ],
+                        "type": "prompt"
+                    },
+                    "errors": {},
+                    "id": "4",
+                    "type": "prompt",
+                    "warnings": {},
+                    "x": 340,
+                    "y": 1410
+                },
+                "7": {
+                    "data": {
+                        "advanced": {
+                            "customName": "es_users_list",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "es_users_list",
+                        "id": "7",
+                        "parameters": [
+                            "all_users:action_result.data.*.Name",
+                            "all_users:action_result.data.*.userName"
+                        ],
+                        "template": "Copy the \"Username\" value from the below list and paste in the below input box to assign an owner to this Investigation:\n\n| Name | Username |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n",
+                        "type": "format"
+                    },
+                    "errors": {},
+                    "id": "7",
+                    "type": "format",
+                    "warnings": {},
+                    "x": 180,
+                    "y": 400
+                },
+                "8": {
+                    "data": {
+                        "advanced": {
+                            "customName": "assignment decision",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "approver": {
+                            "type": "user",
+                            "value": "launching_user"
+                        },
+                        "functionId": 2,
+                        "functionName": "assignment_decision",
+                        "id": "8",
+                        "message": "Do you want to assign this investigation to yourself or to another team member?",
+                        "parameters": [],
+                        "responseTime": 30,
+                        "responses": [
+                            {
+                                "required": true,
+                                "responseOptions": [
+                                    "Yourself",
+                                    "Other"
+                                ],
+                                "responsePrompt": "Owner:",
+                                "responseType": "customList"
+                            }
+                        ],
+                        "type": "prompt"
+                    },
+                    "errors": {},
+                    "id": "8",
+                    "type": "prompt",
+                    "warnings": {},
+                    "x": 180,
+                    "y": 900
+                },
+                "9": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "==",
+                                        "param": "assignment_decision:action_result.summary.responses.0",
+                                        "value": "Yourself"
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "customName": "self",
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 1,
+                                        "op": "==",
+                                        "param": "assignment_decision:action_result.summary.responses.0",
+                                        "value": "Other"
+                                    }
+                                ],
+                                "conditionIndex": 1,
+                                "customName": "other",
+                                "display": "Else If",
+                                "logic": "and",
+                                "type": "elif"
+                            }
+                        ],
+                        "functionId": 1,
+                        "functionName": "decision_1",
+                        "id": "9",
+                        "type": "decision"
+                    },
+                    "errors": {},
+                    "id": "9",
+                    "type": "decision",
+                    "warnings": {},
+                    "x": 260,
+                    "y": 1120
+                }
+            },
+            "notes": ""
+        },
+        "input_spec": null,
+        "output_spec": null,
+        "playbook_trigger": "artifact_created",
+        "playbook_type": "es",
+        "python_version": "3",
+        "schema": "5.0.15",
+        "version": "6.3.1.176"
+    },
+    "create_time": "2024-12-01T23:45:43.633415+00:00",
+    "draft_mode": false,
+    "labels": [
+        "es_soar_integration"
+    ],
+    "tags": []
+}
