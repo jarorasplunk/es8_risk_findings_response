@@ -54,13 +54,6 @@
                     "targetPort": "30_in"
                 },
                 {
-                    "id": "port_30_to_port_23",
-                    "sourceNode": "30",
-                    "sourcePort": "30_out",
-                    "targetNode": "23",
-                    "targetPort": "23_in"
-                },
-                {
                     "id": "port_27_to_port_31",
                     "sourceNode": "27",
                     "sourcePort": "27_out",
@@ -113,9 +106,23 @@
                     "sourcePort": "34_out",
                     "targetNode": "20",
                     "targetPort": "20_in"
+                },
+                {
+                    "id": "port_30_to_port_35",
+                    "sourceNode": "30",
+                    "sourcePort": "30_out",
+                    "targetNode": "35",
+                    "targetPort": "35_in"
+                },
+                {
+                    "id": "port_35_to_port_23",
+                    "sourceNode": "35",
+                    "sourcePort": "35_out",
+                    "targetNode": "23",
+                    "targetPort": "23_in"
                 }
             ],
-            "hash": "6f7ff0798197f81421a86bcd025939fedac405c4",
+            "hash": "fdb7bafabe61b66aafa1f3b9255a0125929f5a53",
             "nodes": {
                 "0": {
                     "data": {
@@ -349,7 +356,7 @@
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
                     "warnings": {},
                     "x": -40,
-                    "y": 1220
+                    "y": 1340
                 },
                 "26": {
                     "data": {
@@ -468,7 +475,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": -40,
-                    "y": 1360
+                    "y": 1440
                 },
                 "30": {
                     "data": {
@@ -771,6 +778,91 @@
                     "x": 160,
                     "y": 540
                 },
+                "35": {
+                    "data": {
+                        "action": "create event",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "create_event_1",
+                        "id": "35",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id",
+                            "pairs": [
+                                {
+                                    "name": "source",
+                                    "value": "run_query_2:action_result.data.*.source"
+                                },
+                                {
+                                    "name": "source_event_id",
+                                    "value": "run_query_2:action_result.data.*.source_event_id"
+                                },
+                                {
+                                    "name": "_time",
+                                    "value": "run_query_2:action_result.data.*._time"
+                                },
+                                {
+                                    "name": "annotations.mitre_attack",
+                                    "value": "run_query_2:action_result.data.*.annotations.mitre_attack"
+                                },
+                                {
+                                    "name": "entity",
+                                    "value": "run_query_2:action_result.data.*.entity"
+                                },
+                                {
+                                    "name": "risk_object",
+                                    "value": "run_query_2:action_result.data.*.risk_object"
+                                },
+                                {
+                                    "name": "normalized_risk_object",
+                                    "value": "run_query_2:action_result.data.*.normalized_risk_object"
+                                },
+                                {
+                                    "name": "threat_object",
+                                    "value": "run_query_2:action_result.data.*.threat_object"
+                                },
+                                {
+                                    "name": "threat_match_value",
+                                    "value": "run_query_2:action_result.data.*.threat_match_value"
+                                }
+                            ]
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "array",
+                                "field": "pairs"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "35",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": -40,
+                    "y": 1244.5
+                },
                 "4": {
                     "data": {
                         "action": "run query",
@@ -848,7 +940,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-01T23:55:13.174582+00:00",
+    "create_time": "2024-12-01T23:59:18.227862+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

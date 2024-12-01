@@ -309,7 +309,7 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_2", assets=["splunk"], callback=update_finding_or_investigation_1)
+    phantom.act("run query", parameters=parameters, name="run_query_2", assets=["splunk"], callback=create_event_1)
 
     return
 
@@ -475,6 +475,51 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
     ################################################################################
 
     phantom.act("get task id", parameters=parameters, name="get_task_id_1", assets=["builtin_mc_connector"], callback=add_task_note_1)
+
+    return
+
+
+@phantom.playbook_block()
+def create_event_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("create_event_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+    run_query_2_result_data = phantom.collect2(container=container, datapath=["run_query_2:action_result.data.*.source","run_query_2:action_result.data.*.source_event_id","run_query_2:action_result.data.*._time","run_query_2:action_result.data.*.annotations.mitre_attack","run_query_2:action_result.data.*.entity","run_query_2:action_result.data.*.risk_object","run_query_2:action_result.data.*.normalized_risk_object","run_query_2:action_result.data.*.threat_object","run_query_2:action_result.data.*.threat_match_value","run_query_2:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'create_event_1' call
+    for finding_data_item in finding_data:
+        for run_query_2_result_item in run_query_2_result_data:
+            if finding_data_item[0] is not None:
+                parameters.append({
+                    "id": finding_data_item[0],
+                    "pairs": [
+                        { "name": "source", "value": run_query_2_result_item[0] },
+                        { "name": "source_event_id", "value": run_query_2_result_item[1] },
+                        { "name": "_time", "value": run_query_2_result_item[2] },
+                        { "name": "annotations.mitre_attack", "value": run_query_2_result_item[3] },
+                        { "name": "entity", "value": run_query_2_result_item[4] },
+                        { "name": "risk_object", "value": run_query_2_result_item[5] },
+                        { "name": "normalized_risk_object", "value": run_query_2_result_item[6] },
+                        { "name": "threat_object", "value": run_query_2_result_item[7] },
+                        { "name": "threat_match_value", "value": run_query_2_result_item[8] },
+                    ],
+                })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("create event", parameters=parameters, name="create_event_1", assets=["builtin_mc_connector"], callback=update_finding_or_investigation_1)
 
     return
 
