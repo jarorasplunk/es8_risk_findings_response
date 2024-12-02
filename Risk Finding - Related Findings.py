@@ -12,8 +12,8 @@ from datetime import datetime, timedelta
 def on_start(container):
     phantom.debug('on_start() called')
 
-    # call 'run_query_1' block
-    run_query_1(container=container)
+    # call 'get_phase_id_1' block
+    get_phase_id_1(container=container)
 
     return
 
@@ -44,10 +44,10 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
                 "query": query_formatted_string,
                 "command": "",
                 "display": "source, source_event_id_count, source_event_id",
+                "end_time": "now",
+                "start_time": "-365d",
                 "search_mode": "verbose",
                 "attach_result": False,
-                "start_time": "-365d",
-                "end_time": "now",
             })
 
     ################################################################################
@@ -60,7 +60,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["splunk"], callback=related_findings_note)
+    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["splunk"], callback=findings_exist)
 
     return
 
@@ -89,7 +89,7 @@ def related_findings_note(action=None, success=None, container=None, results=Non
 
     phantom.format(container=container, template=template, parameters=parameters, name="related_findings_note")
 
-    get_phase_id_1(container=container)
+    add_task_note_1(container=container)
 
     return
 
@@ -304,9 +304,9 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
                 "query": query_formatted_string,
                 "command": "",
                 "display": "source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message, threat_object_type",
-                "search_mode": "verbose",
-                "start_time": "-365d",
                 "end_time": "now",
+                "start_time": "-365d",
+                "search_mode": "verbose",
             })
 
     ################################################################################
@@ -332,11 +332,12 @@ def join_update_task_in_current_phase_1(action=None, success=None, container=Non
     if phantom.get_run_data(key="join_update_task_in_current_phase_1_called"):
         return
 
-    # save the state that the joined function has now been called
-    phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
+    if phantom.completed(action_names=["add_task_note_4"]):
+        # save the state that the joined function has now been called
+        phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
 
-    # call connected block "update_task_in_current_phase_1"
-    update_task_in_current_phase_1(container=container, handle=handle)
+        # call connected block "update_task_in_current_phase_1"
+        update_task_in_current_phase_1(container=container, handle=handle)
 
     return
 
@@ -484,7 +485,7 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get task id", parameters=parameters, name="get_task_id_1", assets=["builtin_mc_connector"], callback=add_task_note_1)
+    phantom.act("get task id", parameters=parameters, name="get_task_id_1", assets=["builtin_mc_connector"], callback=run_query_1)
 
     return
 
@@ -562,6 +563,75 @@ def playbook_risk_finding___enrich_findings_1(action=None, success=None, contain
 
     # call playbook "es8_risk_findings_response/Risk Finding - Enrich Findings", returns the playbook_run_id
     playbook_run_id = phantom.playbook("es8_risk_findings_response/Risk Finding - Enrich Findings", container=container, inputs=inputs)
+
+    return
+
+
+@phantom.playbook_block()
+def findings_exist(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("findings_exist() called")
+
+    # check for 'if' condition 1
+    found_match_1 = phantom.decision(
+        container=container,
+        conditions=[
+            ["run_query_1:action_result.summary.total_events", "!=", 0]
+        ],
+        delimiter=None)
+
+    # call connected blocks if condition 1 matched
+    if found_match_1:
+        related_findings_note(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'else' condition 2
+    add_task_note_4(action=action, success=success, container=container, results=results, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
+def add_task_note_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_task_note_4() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    content_formatted_string = phantom.format(
+        container=container,
+        template="""There are no individual findings in this investigation as it is comprised of only \"Intermediate Findings\".\n\n\nTo review the Intermediate Findings, check the \"Overview\" tab\n""",
+        parameters=[])
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.id"])
+    get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'add_task_note_4' call
+    for finding_data_item in finding_data:
+        for get_task_id_1_result_item in get_task_id_1_result_data:
+            for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                if finding_data_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
+                    parameters.append({
+                        "id": finding_data_item[0],
+                        "title": "Related Intermediate Findings in the Analyst Queue:",
+                        "content": content_formatted_string,
+                        "task_id": get_task_id_1_result_item[0],
+                        "phase_id": get_phase_id_1_result_item[0],
+                        "response_plan_id": finding_data_item[1],
+                    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("add task note", parameters=parameters, name="add_task_note_4", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
 
     return
 
