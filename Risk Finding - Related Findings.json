@@ -54,27 +54,6 @@
                     "targetPort": "34_in"
                 },
                 {
-                    "id": "port_31_to_port_35",
-                    "sourceNode": "31",
-                    "sourcePort": "31_out",
-                    "targetNode": "35",
-                    "targetPort": "35_in"
-                },
-                {
-                    "id": "port_35_to_port_36",
-                    "sourceNode": "35",
-                    "sourcePort": "35_out",
-                    "targetNode": "36",
-                    "targetPort": "36_in"
-                },
-                {
-                    "id": "port_36_to_port_1",
-                    "sourceNode": "36",
-                    "sourcePort": "36_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "id": "port_4_to_port_37",
                     "sourceNode": "4",
                     "sourcePort": "4_out",
@@ -210,9 +189,16 @@
                     "sourcePort": "46_out",
                     "targetNode": "31",
                     "targetPort": "31_in"
+                },
+                {
+                    "id": "port_31_to_port_1",
+                    "sourceNode": "31",
+                    "sourcePort": "31_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "4907dfb395987bb680ad580a799ad64ad1a4ffca",
+            "hash": "67ed4a35f6d6b6499a61b4ebdfe3ab47f05f26ff",
             "nodes": {
                 "0": {
                     "data": {
@@ -884,81 +870,6 @@
                     "x": 430,
                     "y": 298
                 },
-                "35": {
-                    "data": {
-                        "advanced": {
-                            "customName": "gather entities and indicators",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "functionId": 1,
-                        "functionName": "gather_entities_and_indicators",
-                        "id": "35",
-                        "inputParameters": [
-                            "run_query_1:action_result.data.*.threat_object_type",
-                            "run_query_1:action_result.data.*.threat_object",
-                            "run_query_1:action_result.data.*.risk_object_type",
-                            "run_query_1:action_result.data.*.risk_object"
-                        ],
-                        "outputVariables": [
-                            "entities",
-                            "indicators"
-                        ],
-                        "type": "code"
-                    },
-                    "errors": {},
-                    "id": "35",
-                    "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    seen = set()\n    gather_entities_and_indicators__entities = []\n    \n    for pair in list(zip(run_query_1_result_item_2,run_query_1_result_item_3)):\n        if pair not in seen:  # Check if the pair is already added\n            gather_entities_and_indicators__entities.append(pair)\n            seen.add(pair)\n\n    seen = set()\n    gather_entities_and_indicators__indicators = []\n    for pair in list(zip(run_query_1_result_item_0,run_query_1_result_item_1)):\n        if pair not in seen:  # Check if the pair is already added\n            gather_entities_and_indicators__indicators.append(pair)\n            seen.add(pair)\n    \n    #gather_entities_and_indicators__entities = list(set(zip(run_query_2_result_item_2,run_query_2_result_item_3)))\n    #gather_entities_and_indicators__indicators = list(set(zip(run_query_2_result_item_0,run_query_2_result_item_1)))\n\n",
-                    "warnings": {},
-                    "x": 520,
-                    "y": 2691
-                },
-                "36": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "functionId": 1,
-                        "functionName": "playbook_Risk_Finding___Enrich_Findings_1",
-                        "id": "36",
-                        "inputs": {
-                            "entities": {
-                                "datapaths": [
-                                    "gather_entities_and_indicators:custom_function:entities"
-                                ],
-                                "deduplicate": false
-                            },
-                            "indicators": {
-                                "datapaths": [
-                                    "gather_entities_and_indicators:custom_function:indicators"
-                                ],
-                                "deduplicate": false
-                            }
-                        },
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "playbookName": "Risk Finding - Enrich Findings",
-                        "playbookRepo": 3,
-                        "playbookRepoName": "es8_risk_findings_response",
-                        "playbookType": "data",
-                        "synchronous": false,
-                        "type": "playbook"
-                    },
-                    "errors": {},
-                    "id": "36",
-                    "type": "playbook",
-                    "warnings": {},
-                    "x": 520,
-                    "y": 2853
-                },
                 "37": {
                     "data": {
                         "advanced": {
@@ -1480,7 +1391,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T13:20:09.062228+00:00",
+    "create_time": "2024-12-02T13:24:13.935664+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
