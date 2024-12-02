@@ -203,9 +203,16 @@
                     "sourcePort": "47_out",
                     "targetNode": "44",
                     "targetPort": "44_in"
+                },
+                {
+                    "id": "port_46_to_port_31",
+                    "sourceNode": "46",
+                    "sourcePort": "46_out",
+                    "targetNode": "31",
+                    "targetPort": "31_in"
                 }
             ],
-            "hash": "50ff19235b90d895185488b741972c3874c6c9b3",
+            "hash": "c5f911829fc5e5359b0bf8256d846fe5cfb0a768",
             "nodes": {
                 "0": {
                     "data": {
@@ -226,8 +233,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 260,
-                    "y": 20
+                    "x": 450,
+                    "y": 0
                 },
                 "1": {
                     "data": {
@@ -242,8 +249,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 360,
-                    "y": 2660
+                    "x": 540,
+                    "y": 3015
                 },
                 "13": {
                     "data": {
@@ -266,8 +273,8 @@
                     "id": "13",
                     "type": "format",
                     "warnings": {},
-                    "x": 180,
-                    "y": 780
+                    "x": 260,
+                    "y": 776
                 },
                 "20": {
                     "data": {
@@ -336,8 +343,8 @@
                     "id": "20",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 180,
-                    "y": 920
+                    "x": 260,
+                    "y": 925
                 },
                 "22": {
                     "data": {
@@ -375,8 +382,8 @@
                     "id": "22",
                     "type": "prompt",
                     "warnings": {},
-                    "x": 180,
-                    "y": 1080
+                    "x": 260,
+                    "y": 1074
                 },
                 "23": {
                     "data": {
@@ -421,8 +428,8 @@
                         },
                         "parameters": {
                             "disposition": "Closed - As part of investigation",
-                            "finding_time": "time_list:custom_function_result.data.output",
-                            "id": "id_list:custom_function_result.data.output",
+                            "finding_time": "",
+                            "id": "filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.finding_id",
                             "status": "Closed"
                         },
                         "requiredParameters": [
@@ -438,8 +445,8 @@
                     "type": "enterpriseSecurity",
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
                     "warnings": {},
-                    "x": 20,
-                    "y": 2040
+                    "x": 300,
+                    "y": 2160
                 },
                 "26": {
                     "data": {
@@ -487,8 +494,8 @@
                     "id": "26",
                     "type": "decision",
                     "warnings": {},
-                    "x": 280,
-                    "y": 1200
+                    "x": 340,
+                    "y": 1236
                 },
                 "27": {
                     "data": {
@@ -517,11 +524,11 @@
                         },
                         "parameters": {
                             "content": {
-                                "functionId": 2,
                                 "parameters": [
-                                    "filtered-data:filter_1:condition_1:get_finding_metadata_1:action_result.data"
+                                    "filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.finding_id",
+                                    "filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.status_name"
                                 ],
-                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\n\n{0}\n"
+                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | {1} |\n%%"
                             },
                             "id": "finding:investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -562,13 +569,9 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
-                    "x": 0,
-                    "y": 2160
+                    "warnings": {},
+                    "x": 300,
+                    "y": 2280
                 },
                 "30": {
                     "data": {
@@ -639,7 +642,7 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 660,
+                    "x": 750,
                     "y": 0
                 },
                 "31": {
@@ -651,7 +654,8 @@
                             "notRequiredJoins": [
                                 "add_task_note_2",
                                 "add_task_note_3",
-                                "add_task_note_4"
+                                "add_task_note_4",
+                                "add_task_note_5"
                             ]
                         },
                         "connector": "Enterprise Security",
@@ -695,8 +699,8 @@
                     "id": "31",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 280,
-                    "y": 2180
+                    "x": 520,
+                    "y": 2520
                 },
                 "32": {
                     "data": {
@@ -765,8 +769,8 @@
                     "id": "32",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 220,
-                    "y": 1960
+                    "x": 520,
+                    "y": 2373.5
                 },
                 "33": {
                     "data": {
@@ -818,7 +822,7 @@
                     "id": "33",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 340,
+                    "x": 430,
                     "y": 149
                 },
                 "34": {
@@ -876,7 +880,7 @@
                     "id": "34",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 340,
+                    "x": 430,
                     "y": 298
                 },
                 "35": {
@@ -906,8 +910,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    seen = set()\n    gather_entities_and_indicators__entities = []\n    \n    for pair in list(zip(run_query_1_result_item_2,run_query_1_result_item_3)):\n        if pair not in seen:  # Check if the pair is already added\n            gather_entities_and_indicators__entities.append(pair)\n            seen.add(pair)\n\n    seen = set()\n    gather_entities_and_indicators__indicators = []\n    for pair in list(zip(run_query_1_result_item_0,run_query_1_result_item_1)):\n        if pair not in seen:  # Check if the pair is already added\n            gather_entities_and_indicators__indicators.append(pair)\n            seen.add(pair)\n    \n    #gather_entities_and_indicators__entities = list(set(zip(run_query_2_result_item_2,run_query_2_result_item_3)))\n    #gather_entities_and_indicators__indicators = list(set(zip(run_query_2_result_item_0,run_query_2_result_item_1)))\n\n",
                     "warnings": {},
-                    "x": 340,
-                    "y": 2340
+                    "x": 520,
+                    "y": 2691
                 },
                 "36": {
                     "data": {
@@ -951,8 +955,8 @@
                     "id": "36",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 340,
-                    "y": 2498
+                    "x": 520,
+                    "y": 2853
                 },
                 "37": {
                     "data": {
@@ -1002,7 +1006,7 @@
                     "id": "37",
                     "type": "decision",
                     "warnings": {},
-                    "x": 420,
+                    "x": 510,
                     "y": 596
                 },
                 "38": {
@@ -1076,8 +1080,8 @@
                     "id": "38",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 800,
-                    "y": 1400
+                    "x": 860,
+                    "y": 2373.5
                 },
                 "39": {
                     "data": {
@@ -1104,8 +1108,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_0[0])\n    for item in run_query_1_result_item_0:\n        for i in range(len(item)):\n            related_findings_list__related_findings_id.append(item[i])\n    \n    for item in run_query_1_result_item_1:\n        for i in range(len(item)):\n            related_findings_list__related_findings_time.append(item[i])\n            \n    phantom.debug(related_findings_list__related_findings_id)\n    phantom.debug(related_findings_list__related_findings_time)\n    #related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_1[0])\n    #related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
                     "warnings": {},
-                    "x": 0,
-                    "y": 1420
+                    "x": 170,
+                    "y": 1416
                 },
                 "4": {
                     "data": {
@@ -1173,8 +1177,8 @@
                     "id": "4",
                     "type": "action",
                     "warnings": {},
-                    "x": 340,
-                    "y": 440
+                    "x": 430,
+                    "y": 447
                 },
                 "41": {
                     "data": {
@@ -1234,8 +1238,8 @@
                     "id": "41",
                     "type": "utility",
                     "warnings": {},
-                    "x": 0,
-                    "y": 1560
+                    "x": 170,
+                    "y": 1565
                 },
                 "42": {
                     "data": {
@@ -1295,8 +1299,8 @@
                     "id": "42",
                     "type": "utility",
                     "warnings": {},
-                    "x": 0,
-                    "y": 1720
+                    "x": 170,
+                    "y": 1714
                 },
                 "44": {
                     "data": {
@@ -1309,8 +1313,8 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "!=",
-                                        "param": "get_finding_or_investigation_1:action_result.data.*.status",
-                                        "value": "5"
+                                        "param": "get_finding_or_investigation_1:action_result.data.*.status_name",
+                                        "value": "Closed"
                                     }
                                 ],
                                 "conditionIndex": 0,
@@ -1322,8 +1326,8 @@
                                     {
                                         "conditionIndex": 1,
                                         "op": "==",
-                                        "param": "get_finding_or_investigation_1:action_result.data.*.status",
-                                        "value": "5"
+                                        "param": "get_finding_or_investigation_1:action_result.data.*.status_name",
+                                        "value": "Closed"
                                     }
                                 ],
                                 "conditionIndex": 1,
@@ -1340,8 +1344,8 @@
                     "id": "44",
                     "type": "filter",
                     "warnings": {},
-                    "x": 60,
-                    "y": 1920
+                    "x": 240,
+                    "y": 2020
                 },
                 "46": {
                     "data": {
@@ -1373,9 +1377,9 @@
                                 "functionId": 5,
                                 "parameters": [
                                     "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.finding_id",
-                                    "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status"
+                                    "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status_name"
                                 ],
-                                "template": "| Finding ID | Status (Closed = 5) |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n"
+                                "template": "| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n"
                             },
                             "id": "finding:investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -1417,8 +1421,8 @@
                     "id": "46",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": -320,
-                    "y": 2080
+                    "x": -240,
+                    "y": 2160
                 },
                 "47": {
                     "data": {
@@ -1461,8 +1465,8 @@
                     "id": "47",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 0,
-                    "y": 1820
+                    "x": 170,
+                    "y": 1863
                 }
             },
             "notes": ""
@@ -1475,7 +1479,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T12:51:32.816980+00:00",
+    "create_time": "2024-12-02T12:56:38.309022+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

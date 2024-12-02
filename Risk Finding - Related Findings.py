@@ -178,21 +178,19 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    id_list__result = phantom.collect2(container=container, datapath=["id_list:custom_function_result.data.output"])
-    time_list__result = phantom.collect2(container=container, datapath=["time_list:custom_function_result.data.output"])
+    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.finding_id"])
 
     parameters = []
 
     # build parameters list for 'update_finding_or_investigation_1' call
-    for id_list__result_item in id_list__result:
-        for time_list__result_item in time_list__result:
-            if id_list__result_item[0] is not None:
-                parameters.append({
-                    "id": id_list__result_item[0],
-                    "status": "Closed",
-                    "disposition": "Closed - As part of investigation",
-                    "finding_time": time_list__result_item[0],
-                })
+    for filtered_result_0_item_filter_1 in filtered_result_0_data_filter_1:
+        if filtered_result_0_item_filter_1[0] is not None:
+            parameters.append({
+                "id": filtered_result_0_item_filter_1[0],
+                "status": "Closed",
+                "disposition": "Closed - As part of investigation",
+                "finding_time": "",
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -241,13 +239,14 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\n\n{0}\n""",
+        template="""Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | {1} |\n%%""",
         parameters=[
-            "filtered-data:filter_1:condition_1:get_finding_metadata_1:action_result.data"
+            "filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.finding_id",
+            "filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.status_name"
         ])
 
     finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.id"])
-    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:get_finding_metadata_1:action_result.data"])
+    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.finding_id","filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.status_name"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
 
@@ -751,7 +750,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
         conditions=[
-            ["get_finding_or_investigation_1:action_result.data.*.status", "!=", 5]
+            ["get_finding_or_investigation_1:action_result.data.*.status_name", "!=", "Closed"]
         ],
         name="filter_1:condition_1",
         delimiter=None)
@@ -764,7 +763,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     matched_artifacts_2, matched_results_2 = phantom.condition(
         container=container,
         conditions=[
-            ["get_finding_or_investigation_1:action_result.data.*.status", "==", 5]
+            ["get_finding_or_investigation_1:action_result.data.*.status_name", "==", "Closed"]
         ],
         name="filter_1:condition_2",
         delimiter=None)
@@ -784,13 +783,13 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""| Finding ID | Status (Closed = 5) |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n""",
+        template="""| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n""",
         parameters=[
             "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.finding_id",
-            "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status"
+            "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status_name"
         ])
 
-    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.finding_id","filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status"])
+    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.finding_id","filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status_name"])
     finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.id"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
@@ -822,7 +821,7 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_5", assets=["builtin_mc_connector"])
+    phantom.act("add task note", parameters=parameters, name="add_task_note_5", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
 
     return
 
