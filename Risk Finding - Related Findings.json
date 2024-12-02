@@ -28,25 +28,6 @@
                     "targetPort": "27_in"
                 },
                 {
-                    "conditions": [
-                        {
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_26_to_port_30",
-                    "sourceNode": "26",
-                    "sourcePort": "26_out",
-                    "targetNode": "30",
-                    "targetPort": "30_in"
-                },
-                {
-                    "id": "port_30_to_port_23",
-                    "sourceNode": "30",
-                    "sourcePort": "30_out",
-                    "targetNode": "23",
-                    "targetPort": "23_in"
-                },
-                {
                     "id": "port_27_to_port_31",
                     "sourceNode": "27",
                     "sourcePort": "27_out",
@@ -158,9 +139,28 @@
                     "sourcePort": "38_out",
                     "targetNode": "31",
                     "targetPort": "31_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_26_to_port_39",
+                    "sourceNode": "26",
+                    "sourcePort": "26_out",
+                    "targetNode": "39",
+                    "targetPort": "39_in"
+                },
+                {
+                    "id": "port_39_to_port_23",
+                    "sourceNode": "39",
+                    "sourcePort": "39_out",
+                    "targetNode": "23",
+                    "targetPort": "23_in"
                 }
             ],
-            "hash": "2f87e1f1d1c1909150151531d87d3c3fde8d7e43",
+            "hash": "c2e7d36139c307a7b1659505a70f5422b4869ae3",
             "nodes": {
                 "0": {
                     "data": {
@@ -182,7 +182,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 190,
-                    "y": 0
+                    "y": -4.263256414560601e-14
                 },
                 "1": {
                     "data": {
@@ -392,7 +392,11 @@
                     "id": "23",
                     "type": "enterpriseSecurity",
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 0,
                     "y": 1565
                 },
@@ -442,8 +446,8 @@
                     "id": "26",
                     "type": "decision",
                     "warnings": {},
-                    "x": 250,
-                    "y": 1236
+                    "x": 260,
+                    "y": 1240
                 },
                 "27": {
                     "data": {
@@ -515,7 +519,7 @@
                     "id": "27",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 0,
+                    "x": -1.4210854715202004e-14,
                     "y": 1727
                 },
                 "30": {
@@ -582,9 +586,13 @@
                     "errors": {},
                     "id": "30",
                     "type": "action",
-                    "warnings": {},
-                    "x": 0,
-                    "y": 1416
+                    "warnings": {
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": -520,
+                    "y": 1400
                 },
                 "31": {
                     "data": {
@@ -762,7 +770,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 170,
-                    "y": 149
+                    "y": 148.99999999999994
                 },
                 "34": {
                     "data": {
@@ -820,7 +828,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 170,
-                    "y": 298
+                    "y": 297.99999999999994
                 },
                 "35": {
                     "data": {
@@ -848,7 +856,11 @@
                     "id": "35",
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    seen = set()\n    gather_entities_and_indicators__entities = []\n    \n    for pair in list(zip(run_query_2_result_item_2,run_query_2_result_item_3)):\n        if pair not in seen:  # Check if the pair is already added\n            gather_entities_and_indicators__entities.append(pair)\n            seen.add(pair)\n\n    seen = set()\n    gather_entities_and_indicators__indicators = []\n    for pair in list(zip(run_query_2_result_item_0,run_query_2_result_item_1)):\n        if pair not in seen:  # Check if the pair is already added\n            gather_entities_and_indicators__indicators.append(pair)\n            seen.add(pair)\n    \n    #gather_entities_and_indicators__entities = list(set(zip(run_query_2_result_item_2,run_query_2_result_item_3)))\n    #gather_entities_and_indicators__indicators = list(set(zip(run_query_2_result_item_0,run_query_2_result_item_1)))\n\n",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 170,
                     "y": 2038
                 },
@@ -1021,6 +1033,32 @@
                     "x": -280,
                     "y": 840
                 },
+                "39": {
+                    "data": {
+                        "advanced": {
+                            "customName": "related findings list",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 2,
+                        "functionName": "related_findings_list",
+                        "id": "39",
+                        "inputParameters": [
+                            "run_query_1:action_result.data.*.source_event_id"
+                        ],
+                        "outputVariables": [
+                            "related_findings"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "39",
+                    "type": "code",
+                    "userCode": "\n    # Write your custom code here...\n    related_findings_list__related_findings = []\n    for item in run_query_1_result_item_0:\n        related_findings_list__related_findings.append(item)\n    \n\n",
+                    "warnings": {},
+                    "x": -1.4210854715202004e-14,
+                    "y": 1364.5
+                },
                 "4": {
                     "data": {
                         "action": "run query",
@@ -1057,9 +1095,10 @@
                                     "finding:consolidated_findings.normalized_risk_object",
                                     "finding:consolidated_findings.risk_object_type",
                                     "finding:consolidated_findings.info_min_time",
-                                    "finding:consolidated_findings.info_max_time"
+                                    "finding:consolidated_findings.info_max_time",
+                                    "finding:investigation_id"
                                 ],
-                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id by source"
+                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")` \n| eval earliest={2} \n| eval latest={3} \n| search eventtype=\"notable\" \n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id, values(annotations.mitre_attack) as annotations.mitre_attack, values(entity) as entity, values(risk_object) as risk_object, values(normalized_risk_object) as normalized_risk_object, values(threat_object) as threat_object, values(risk_message) as risk_message, values(threat_object_type) as threat_object_type by source\n| `add_events({4}"
                             },
                             "search_mode": "verbose",
                             "start_time": "-365d"
@@ -1086,8 +1125,8 @@
                     "id": "4",
                     "type": "action",
                     "warnings": {},
-                    "x": 170,
-                    "y": 447
+                    "x": 180,
+                    "y": 440
                 }
             },
             "notes": ""
@@ -1100,7 +1139,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T05:29:34.769918+00:00",
+    "create_time": "2024-12-02T07:25:16.579372+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

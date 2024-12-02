@@ -25,15 +25,16 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id by source""",
+        template="""| `risk_event_timeline_search(\"{0}\",\"{1}\")` \n| eval earliest={2} \n| eval latest={3} \n| search eventtype=\"notable\" \n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id, values(annotations.mitre_attack) as annotations.mitre_attack, values(entity) as entity, values(risk_object) as risk_object, values(normalized_risk_object) as normalized_risk_object, values(threat_object) as threat_object, values(risk_message) as risk_message, values(threat_object_type) as threat_object_type by source\n| `add_events({4}""",
         parameters=[
             "finding:consolidated_findings.normalized_risk_object",
             "finding:consolidated_findings.risk_object_type",
             "finding:consolidated_findings.info_min_time",
-            "finding:consolidated_findings.info_max_time"
+            "finding:consolidated_findings.info_max_time",
+            "finding:investigation_id"
         ])
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object","finding:consolidated_findings.risk_object_type","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object","finding:consolidated_findings.risk_object_type","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time","finding:investigation_id"])
 
     parameters = []
 
@@ -221,11 +222,11 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        run_query_2(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'else' condition 2
     add_task_note_3(action=action, success=success, container=container, results=results, handle=handle)
+    related_findings_list(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 
@@ -319,7 +320,7 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_2", assets=["splunk"], callback=update_finding_or_investigation_1)
+    phantom.act("run query", parameters=parameters, name="run_query_2", assets=["splunk"])
 
     return
 
@@ -632,6 +633,37 @@ def add_task_note_4(action=None, success=None, container=None, results=None, han
     ################################################################################
 
     phantom.act("add task note", parameters=parameters, name="add_task_note_4", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
+
+    return
+
+
+@phantom.playbook_block()
+def related_findings_list(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("related_findings_list() called")
+
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.source_event_id"], action_results=results)
+
+    run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
+
+    related_findings_list__related_findings = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    related_findings_list__related_findings = []
+    for item in run_query_1_result_item_0:
+        related_findings_list__related_findings.append(item)
+    
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_run_data(key="related_findings_list:related_findings", value=json.dumps(related_findings_list__related_findings))
+
+    update_finding_or_investigation_1(container=container)
 
     return
 
