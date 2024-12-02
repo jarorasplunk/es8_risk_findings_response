@@ -179,7 +179,6 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
     related_findings_list__related_findings_id = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings_id")) != "" else "null")  # pylint: disable=used-before-assignment
-    related_findings_list__related_findings_time = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings_time")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
@@ -188,7 +187,7 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
             "id": related_findings_list__related_findings_id,
             "status": "Closed",
             "disposition": "Closed - As part of investigation",
-            "finding_time": related_findings_list__related_findings_time,
+            "finding_time": "",
         })
 
     ################################################################################
