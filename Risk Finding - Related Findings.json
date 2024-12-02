@@ -143,7 +143,7 @@
                 {
                     "conditions": [
                         {
-                            "index": 1
+                            "index": 0
                         }
                     ],
                     "id": "port_26_to_port_39",
@@ -160,7 +160,7 @@
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "79a2d72f772da851049503aa8284626977f19dd0",
+            "hash": "73fbd3ff1dded4451e7edcbdbc913d5925d9d4fe",
             "nodes": {
                 "0": {
                     "data": {
@@ -1131,7 +1131,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T07:29:08.014407+00:00",
+    "create_time": "2024-12-02T07:34:20.917934+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
