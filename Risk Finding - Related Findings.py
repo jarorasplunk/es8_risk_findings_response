@@ -738,39 +738,7 @@ def time_list(action=None, success=None, container=None, results=None, handle=No
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="time_list", callback=get_finding_metadata_1)
-
-    return
-
-
-@phantom.playbook_block()
-def get_finding_metadata_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("get_finding_metadata_1() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    id_list__result = phantom.collect2(container=container, datapath=["id_list:custom_function_result.data.output"])
-
-    parameters = []
-
-    # build parameters list for 'get_finding_metadata_1' call
-    for id_list__result_item in id_list__result:
-        if id_list__result_item[0] is not None:
-            parameters.append({
-                "id": id_list__result_item[0],
-            })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("get finding metadata", parameters=parameters, name="get_finding_metadata_1", assets=["builtin_mc_connector"], callback=filter_1)
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="time_list", callback=get_finding_or_investigation_1)
 
     return
 
@@ -783,7 +751,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
         conditions=[
-            ["get_finding_metadata_1:action_result.data.*.status", "!=", 5]
+            ["get_finding_or_investigation_1:action_result.data.*.status", "!=", 5]
         ],
         name="filter_1:condition_1",
         delimiter=None)
@@ -796,7 +764,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     matched_artifacts_2, matched_results_2 = phantom.condition(
         container=container,
         conditions=[
-            ["get_finding_metadata_1:action_result.data.*.status", "==", 5]
+            ["get_finding_or_investigation_1:action_result.data.*.status", "==", 5]
         ],
         name="filter_1:condition_2",
         delimiter=None)
@@ -816,12 +784,13 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""{0}\n""",
+        template="""{0} | {1}\n""",
         parameters=[
-            "get_finding_metadata_1:action_result.data.*.notes.*.incident_id"
+            "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.finding_id",
+            "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status"
         ])
 
-    get_finding_metadata_1_result_data = phantom.collect2(container=container, datapath=["get_finding_metadata_1:action_result.data.*.notes.*.incident_id","get_finding_metadata_1:action_result.parameter.context.artifact_id"], action_results=results)
+    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.finding_id","filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status"])
     finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.id"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
@@ -829,7 +798,7 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
     parameters = []
 
     # build parameters list for 'add_task_note_5' call
-    for get_finding_metadata_1_result_item in get_finding_metadata_1_result_data:
+    for filtered_result_0_item_filter_1 in filtered_result_0_data_filter_1:
         for finding_data_item in finding_data:
             for get_task_id_1_result_item in get_task_id_1_result_data:
                 for get_phase_id_1_result_item in get_phase_id_1_result_data:
@@ -854,6 +823,41 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
     ################################################################################
 
     phantom.act("add task note", parameters=parameters, name="add_task_note_5", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def get_finding_or_investigation_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_finding_or_investigation_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    id_list__result = phantom.collect2(container=container, datapath=["id_list:custom_function_result.data.output"])
+    time_list__result = phantom.collect2(container=container, datapath=["time_list:custom_function_result.data.output"])
+
+    parameters = []
+
+    # build parameters list for 'get_finding_or_investigation_1' call
+    for id_list__result_item in id_list__result:
+        for time_list__result_item in time_list__result:
+            if id_list__result_item[0] is not None:
+                parameters.append({
+                    "id": id_list__result_item[0],
+                    "finding_time": time_list__result_item[0],
+                })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=filter_1)
 
     return
 

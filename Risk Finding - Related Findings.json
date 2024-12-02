@@ -160,20 +160,6 @@
                     "targetPort": "42_in"
                 },
                 {
-                    "id": "port_42_to_port_43",
-                    "sourceNode": "42",
-                    "sourcePort": "42_out",
-                    "targetNode": "43",
-                    "targetPort": "43_in"
-                },
-                {
-                    "id": "port_43_to_port_44",
-                    "sourceNode": "43",
-                    "sourcePort": "43_out",
-                    "targetNode": "44",
-                    "targetPort": "44_in"
-                },
-                {
                     "id": "port_23_to_port_27",
                     "sourceNode": "23",
                     "sourcePort": "23_out",
@@ -203,9 +189,23 @@
                     "sourcePort": "44_out",
                     "targetNode": "46",
                     "targetPort": "46_in"
+                },
+                {
+                    "id": "port_42_to_port_47",
+                    "sourceNode": "42",
+                    "sourcePort": "42_out",
+                    "targetNode": "47",
+                    "targetPort": "47_in"
+                },
+                {
+                    "id": "port_47_to_port_44",
+                    "sourceNode": "47",
+                    "sourcePort": "47_out",
+                    "targetNode": "44",
+                    "targetPort": "44_in"
                 }
             ],
-            "hash": "2f87e1f1d1c1909150151531d87d3c3fde8d7e43",
+            "hash": "a877de1291bdcd8ff373bd45c98259135c3fe382",
             "nodes": {
                 "0": {
                     "data": {
@@ -562,7 +562,11 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 0,
                     "y": 2160
                 },
@@ -1294,49 +1298,6 @@
                     "x": 0,
                     "y": 1720
                 },
-                "43": {
-                    "data": {
-                        "action": "get finding metadata",
-                        "actionType": "get",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "get_finding_metadata_1",
-                        "id": "43",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "id": "id_list:custom_function_result.data.output"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "43",
-                    "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 20,
-                    "y": 1820
-                },
                 "44": {
                     "data": {
                         "advanced": {
@@ -1348,7 +1309,7 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "!=",
-                                        "param": "get_finding_metadata_1:action_result.data.*.status",
+                                        "param": "get_finding_or_investigation_1:action_result.data.*.status",
                                         "value": "5"
                                     }
                                 ],
@@ -1361,7 +1322,7 @@
                                     {
                                         "conditionIndex": 1,
                                         "op": "==",
-                                        "param": "get_finding_metadata_1:action_result.data.*.status",
+                                        "param": "get_finding_or_investigation_1:action_result.data.*.status",
                                         "value": "5"
                                     }
                                 ],
@@ -1379,7 +1340,7 @@
                     "id": "44",
                     "type": "filter",
                     "warnings": {},
-                    "x": 80,
+                    "x": 60,
                     "y": 1920
                 },
                 "46": {
@@ -1409,11 +1370,11 @@
                         },
                         "parameters": {
                             "content": {
-                                "functionId": 5,
                                 "parameters": [
-                                    "get_finding_metadata_1:action_result.data.*.notes.*.incident_id"
+                                    "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.finding_id",
+                                    "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status"
                                 ],
-                                "template": "{0}\n"
+                                "template": "{0} | {1}\n"
                             },
                             "id": "finding:investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -1457,6 +1418,50 @@
                     "warnings": {},
                     "x": -300,
                     "y": 2080
+                },
+                "47": {
+                    "data": {
+                        "action": "get finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_finding_or_investigation_1",
+                        "id": "47",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "finding_time": "time_list:custom_function_result.data.output",
+                            "id": "id_list:custom_function_result.data.output"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "47",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 0,
+                    "y": 1820
                 }
             },
             "notes": ""
@@ -1469,7 +1474,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T12:33:37.302380+00:00",
+    "create_time": "2024-12-02T12:41:15.640383+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
