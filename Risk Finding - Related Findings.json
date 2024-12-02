@@ -174,7 +174,7 @@
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "53d8288861a1e1702895bb6395e0d2d69007059f",
+            "hash": "2f87e1f1d1c1909150151531d87d3c3fde8d7e43",
             "nodes": {
                 "0": {
                     "data": {
@@ -870,7 +870,7 @@
                     "userCode": "\n    # Write your custom code here...\n    seen = set()\n    gather_entities_and_indicators__entities = []\n    \n    for pair in list(zip(run_query_1_result_item_2,run_query_1_result_item_3)):\n        if pair not in seen:  # Check if the pair is already added\n            gather_entities_and_indicators__entities.append(pair)\n            seen.add(pair)\n\n    seen = set()\n    gather_entities_and_indicators__indicators = []\n    for pair in list(zip(run_query_1_result_item_0,run_query_1_result_item_1)):\n        if pair not in seen:  # Check if the pair is already added\n            gather_entities_and_indicators__indicators.append(pair)\n            seen.add(pair)\n    \n    #gather_entities_and_indicators__entities = list(set(zip(run_query_2_result_item_2,run_query_2_result_item_3)))\n    #gather_entities_and_indicators__indicators = list(set(zip(run_query_2_result_item_0,run_query_2_result_item_1)))\n\n",
                     "warnings": {},
                     "x": 340,
-                    "y": 2336
+                    "y": 2340
                 },
                 "36": {
                     "data": {
