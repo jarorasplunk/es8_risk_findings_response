@@ -518,6 +518,36 @@ def gather_entities_and_indicators(action=None, success=None, container=None, re
     phantom.save_run_data(key="gather_entities_and_indicators:entities", value=json.dumps(gather_entities_and_indicators__entities))
     phantom.save_run_data(key="gather_entities_and_indicators:indicators", value=json.dumps(gather_entities_and_indicators__indicators))
 
+    playbook_risk_finding___enrich_findings_1(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_risk_finding___enrich_findings_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_risk_finding___enrich_findings_1() called")
+
+    gather_entities_and_indicators__entities = json.loads(_ if (_ := phantom.get_run_data(key="gather_entities_and_indicators:entities")) != "" else "null")  # pylint: disable=used-before-assignment
+    gather_entities_and_indicators__indicators = json.loads(_ if (_ := phantom.get_run_data(key="gather_entities_and_indicators:indicators")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    inputs = {
+        "entities": gather_entities_and_indicators__entities,
+        "indicators": gather_entities_and_indicators__indicators,
+    }
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    # call playbook "es8_risk_findings_response/Risk Finding - Enrich Findings", returns the playbook_run_id
+    playbook_run_id = phantom.playbook("es8_risk_findings_response/Risk Finding - Enrich Findings", container=container, inputs=inputs)
+
     return
 
 

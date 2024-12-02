@@ -113,9 +113,23 @@
                     "sourcePort": "31_out",
                     "targetNode": "35",
                     "targetPort": "35_in"
+                },
+                {
+                    "id": "port_35_to_port_36",
+                    "sourceNode": "35",
+                    "sourcePort": "35_out",
+                    "targetNode": "36",
+                    "targetPort": "36_in"
+                },
+                {
+                    "id": "port_36_to_port_1",
+                    "sourceNode": "36",
+                    "sourcePort": "36_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "cd8c44533651af98e69d9acf8f3aa37c40163398",
+            "hash": "19253ae5110d608f562ab677c2c8417d3f40f7fd",
             "nodes": {
                 "0": {
                     "data": {
@@ -807,6 +821,51 @@
                     "x": 180,
                     "y": 1720
                 },
+                "36": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "playbook_Risk_Finding___Enrich_Findings_1",
+                        "id": "36",
+                        "inputs": {
+                            "entities": {
+                                "datapaths": [
+                                    "gather_entities_and_indicators:custom_function:entities"
+                                ],
+                                "deduplicate": false
+                            },
+                            "indicators": {
+                                "datapaths": [
+                                    "gather_entities_and_indicators:custom_function:indicators"
+                                ],
+                                "deduplicate": false
+                            }
+                        },
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "playbookName": "Risk Finding - Enrich Findings",
+                        "playbookRepo": 3,
+                        "playbookRepoName": "es8_risk_findings_response",
+                        "playbookType": "data",
+                        "synchronous": false,
+                        "type": "playbook"
+                    },
+                    "errors": {},
+                    "id": "36",
+                    "type": "playbook",
+                    "warnings": {},
+                    "x": 180,
+                    "y": 1904.5
+                },
                 "4": {
                     "data": {
                         "action": "run query",
@@ -886,7 +945,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T02:19:35.470403+00:00",
+    "create_time": "2024-12-02T02:20:03.996142+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
