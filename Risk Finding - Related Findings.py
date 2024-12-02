@@ -178,18 +178,21 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    related_findings_list__related_findings_id = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings_id")) != "" else "null")  # pylint: disable=used-before-assignment
-    related_findings_list__related_findings_time = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings_time")) != "" else "null")  # pylint: disable=used-before-assignment
+    id_list__result = phantom.collect2(container=container, datapath=["id_list:custom_function_result.data.output"])
+    time_list__result = phantom.collect2(container=container, datapath=["time_list:custom_function_result.data.output"])
 
     parameters = []
 
-    if related_findings_list__related_findings_id is not None:
-        parameters.append({
-            "id": related_findings_list__related_findings_id,
-            "status": "Closed",
-            "disposition": "Closed - As part of investigation",
-            "finding_time": related_findings_list__related_findings_time,
-        })
+    # build parameters list for 'update_finding_or_investigation_1' call
+    for id_list__result_item in id_list__result:
+        for time_list__result_item in time_list__result:
+            if id_list__result_item[0] is not None:
+                parameters.append({
+                    "id": id_list__result_item[0],
+                    "status": "Closed",
+                    "disposition": "Closed - As part of investigation",
+                    "finding_time": time_list__result_item[0],
+                })
 
     ################################################################################
     ## Custom Code Start
@@ -678,7 +681,61 @@ def related_findings_list(action=None, success=None, container=None, results=Non
     phantom.save_run_data(key="related_findings_list:related_findings_id", value=json.dumps(related_findings_list__related_findings_id))
     phantom.save_run_data(key="related_findings_list:related_findings_time", value=json.dumps(related_findings_list__related_findings_time))
 
-    update_finding_or_investigation_1(container=container)
+    id_list(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def id_list(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("id_list() called")
+
+    related_findings_list__related_findings_id = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings_id")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    parameters.append({
+        "input_list": related_findings_list__related_findings_id,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="id_list", callback=time_list)
+
+    return
+
+
+@phantom.playbook_block()
+def time_list(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("time_list() called")
+
+    related_findings_list__related_findings_time = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings_time")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    parameters.append({
+        "input_list": related_findings_list__related_findings_time,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="time_list", callback=update_finding_or_investigation_1)
 
     return
 

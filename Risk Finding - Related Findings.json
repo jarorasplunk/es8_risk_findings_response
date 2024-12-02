@@ -153,14 +153,28 @@
                     "targetPort": "39_in"
                 },
                 {
-                    "id": "port_39_to_port_23",
+                    "id": "port_39_to_port_41",
                     "sourceNode": "39",
                     "sourcePort": "39_out",
+                    "targetNode": "41",
+                    "targetPort": "41_in"
+                },
+                {
+                    "id": "port_41_to_port_42",
+                    "sourceNode": "41",
+                    "sourcePort": "41_out",
+                    "targetNode": "42",
+                    "targetPort": "42_in"
+                },
+                {
+                    "id": "port_42_to_port_23",
+                    "sourceNode": "42",
+                    "sourcePort": "42_out",
                     "targetNode": "23",
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "2f87e1f1d1c1909150151531d87d3c3fde8d7e43",
+            "hash": "049ecf966274a5696be7dce8dabab74edb20d502",
             "nodes": {
                 "0": {
                     "data": {
@@ -376,8 +390,8 @@
                         },
                         "parameters": {
                             "disposition": "Closed - As part of investigation",
-                            "finding_time": "related_findings_list:custom_function:related_findings_time",
-                            "id": "related_findings_list:custom_function:related_findings_id",
+                            "finding_time": "time_list:custom_function_result.data.output",
+                            "id": "id_list:custom_function_result.data.output",
                             "status": "Closed"
                         },
                         "requiredParameters": [
@@ -1121,6 +1135,128 @@
                     "warnings": {},
                     "x": 180,
                     "y": 460
+                },
+                "41": {
+                    "data": {
+                        "advanced": {
+                            "customName": "id list",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_demux",
+                            "repoName": "community"
+                        },
+                        "functionId": 2,
+                        "functionName": "id_list",
+                        "id": "41",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_demux",
+                                "name": "list_demux"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_demux": {
+                                "input_list": "related_findings_list:custom_function:related_findings_id"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "41",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": -420,
+                    "y": 1560
+                },
+                "42": {
+                    "data": {
+                        "advanced": {
+                            "customName": "time list",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_demux",
+                            "repoName": "community"
+                        },
+                        "functionId": 3,
+                        "functionName": "time_list",
+                        "id": "42",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_demux",
+                                "name": "list_demux"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_demux": {
+                                "input_list": "related_findings_list:custom_function:related_findings_time"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "42",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": -460,
+                    "y": 1680
                 }
             },
             "notes": ""
@@ -1133,7 +1269,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T08:52:43.716005+00:00",
+    "create_time": "2024-12-02T08:56:40.677376+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
