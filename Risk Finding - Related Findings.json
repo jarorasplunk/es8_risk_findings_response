@@ -115,7 +115,7 @@
                     "targetPort": "20_in"
                 }
             ],
-            "hash": "d1a72d095a6bc2a210c07122f74e333f4e0a3704",
+            "hash": "362e121beb95dde127995419bf92a750ce74ee50",
             "nodes": {
                 "0": {
                     "data": {
@@ -426,7 +426,10 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "content": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.",
+                            "content": {
+                                "parameters": [],
+                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n"
+                            },
                             "id": "finding:investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
                             "response_plan_id": "finding:response_plans.*.id",
@@ -853,7 +856,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T02:15:53.820126+00:00",
+    "create_time": "2024-12-02T02:16:49.459738+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
