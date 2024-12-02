@@ -94,13 +94,6 @@
                     "targetPort": "8_in"
                 },
                 {
-                    "id": "port_12_to_port_25",
-                    "sourceNode": "12",
-                    "sourcePort": "12_out",
-                    "targetNode": "25",
-                    "targetPort": "25_in"
-                },
-                {
                     "id": "port_2_to_port_25",
                     "sourceNode": "2",
                     "sourcePort": "2_out",
@@ -113,9 +106,23 @@
                     "sourcePort": "25_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
+                },
+                {
+                    "id": "port_12_to_port_26",
+                    "sourceNode": "12",
+                    "sourcePort": "12_out",
+                    "targetNode": "26",
+                    "targetPort": "26_in"
+                },
+                {
+                    "id": "port_26_to_port_1",
+                    "sourceNode": "26",
+                    "sourcePort": "26_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "06252367a430bff7ea8686542ad7adf49ea81f51",
+            "hash": "1b8d85a0f4ec7b11b4df008f3f65468d8aadb236",
             "nodes": {
                 "0": {
                     "data": {
@@ -490,10 +497,7 @@
                         "actionType": "post",
                         "advanced": {
                             "join": [],
-                            "notRequiredJoins": [
-                                "update_finding_or_investigation_1",
-                                "update_finding_or_investigation_2"
-                            ]
+                            "notRequiredJoins": []
                         },
                         "connector": "Enterprise Security",
                         "connectorConfigs": [
@@ -535,8 +539,58 @@
                     "id": "25",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 140,
-                    "y": 1780
+                    "x": 340,
+                    "y": 1720
+                },
+                "26": {
+                    "data": {
+                        "action": "update task in current phase",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "update_task_in_current_phase_2",
+                        "id": "26",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id",
+                            "name": "Prepare the investigation",
+                            "status": "Ended",
+                            "task_id": "get_task_id_2:action_result.data.*.task_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "26",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": -80,
+                    "y": 1560
                 },
                 "3": {
                     "data": {
@@ -753,7 +807,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T00:04:57.547660+00:00",
+    "create_time": "2024-12-02T00:11:09.594215+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

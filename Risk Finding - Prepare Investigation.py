@@ -48,7 +48,7 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update finding or investigation", parameters=parameters, name="update_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
+    phantom.act("update finding or investigation", parameters=parameters, name="update_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=update_task_in_current_phase_1)
 
     return
 
@@ -270,7 +270,7 @@ def update_finding_or_investigation_2(action=None, success=None, container=None,
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update finding or investigation", parameters=parameters, name="update_finding_or_investigation_2", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
+    phantom.act("update finding or investigation", parameters=parameters, name="update_finding_or_investigation_2", assets=["builtin_mc_connector"], callback=update_task_in_current_phase_2)
 
     return
 
@@ -386,23 +386,6 @@ def get_task_id_2(action=None, success=None, container=None, results=None, handl
 
 
 @phantom.playbook_block()
-def join_update_task_in_current_phase_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("join_update_task_in_current_phase_1() called")
-
-    # if the joined function has already been called, do nothing
-    if phantom.get_run_data(key="join_update_task_in_current_phase_1_called"):
-        return
-
-    # save the state that the joined function has now been called
-    phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
-
-    # call connected block "update_task_in_current_phase_1"
-    update_task_in_current_phase_1(container=container, handle=handle)
-
-    return
-
-
-@phantom.playbook_block()
 def update_task_in_current_phase_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("update_task_in_current_phase_1() called")
 
@@ -435,6 +418,43 @@ def update_task_in_current_phase_1(action=None, success=None, container=None, re
     ################################################################################
 
     phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_1", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def update_task_in_current_phase_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("update_task_in_current_phase_2() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+    get_task_id_2_result_data = phantom.collect2(container=container, datapath=["get_task_id_2:action_result.data.*.task_id","get_task_id_2:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'update_task_in_current_phase_2' call
+    for finding_data_item in finding_data:
+        for get_task_id_2_result_item in get_task_id_2_result_data:
+            if finding_data_item[0] is not None and get_task_id_2_result_item[0] is not None:
+                parameters.append({
+                    "id": finding_data_item[0],
+                    "name": "Prepare the investigation",
+                    "status": "Ended",
+                    "task_id": get_task_id_2_result_item[0],
+                })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"])
 
     return
 
