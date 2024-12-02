@@ -21,13 +21,6 @@
                     "targetPort": "26_in"
                 },
                 {
-                    "id": "port_23_to_port_27",
-                    "sourceNode": "23",
-                    "sourcePort": "23_out",
-                    "targetNode": "27",
-                    "targetPort": "27_in"
-                },
-                {
                     "id": "port_27_to_port_31",
                     "sourceNode": "27",
                     "sourcePort": "27_out",
@@ -167,14 +160,33 @@
                     "targetPort": "42_in"
                 },
                 {
-                    "id": "port_42_to_port_23",
+                    "id": "port_42_to_port_43",
                     "sourceNode": "42",
                     "sourcePort": "42_out",
-                    "targetNode": "23",
-                    "targetPort": "23_in"
+                    "targetNode": "43",
+                    "targetPort": "43_in"
+                },
+                {
+                    "id": "port_43_to_port_44",
+                    "sourceNode": "43",
+                    "sourcePort": "43_out",
+                    "targetNode": "44",
+                    "targetPort": "44_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_44_to_port_27",
+                    "sourceNode": "44",
+                    "sourcePort": "44_out",
+                    "targetNode": "27",
+                    "targetPort": "27_in"
                 }
             ],
-            "hash": "2f87e1f1d1c1909150151531d87d3c3fde8d7e43",
+            "hash": "ba8fbc06b9e49359ba1379bfa583552efb477de4",
             "nodes": {
                 "0": {
                     "data": {
@@ -406,9 +418,16 @@
                     "id": "23",
                     "type": "enterpriseSecurity",
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
-                    "warnings": {},
-                    "x": 0,
-                    "y": 1863
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 20,
+                    "y": 2080
                 },
                 "26": {
                     "data": {
@@ -456,8 +475,8 @@
                     "id": "26",
                     "type": "decision",
                     "warnings": {},
-                    "x": 250,
-                    "y": 1236
+                    "x": 280,
+                    "y": 1200
                 },
                 "27": {
                     "data": {
@@ -486,9 +505,10 @@
                         },
                         "parameters": {
                             "content": {
-                                "functionId": 2,
-                                "parameters": [],
-                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n"
+                                "parameters": [
+                                    "filtered-data:filter_1:condition_1:get_finding_metadata_1:action_result.data"
+                                ],
+                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\n\n{0}\n"
                             },
                             "id": "finding:investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -530,8 +550,8 @@
                     "id": "27",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 0,
-                    "y": 2025
+                    "x": -140,
+                    "y": 2240
                 },
                 "30": {
                     "data": {
@@ -1259,6 +1279,93 @@
                     "warnings": {},
                     "x": 0,
                     "y": 1714
+                },
+                "43": {
+                    "data": {
+                        "action": "get finding metadata",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_finding_metadata_1",
+                        "id": "43",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "id_list:custom_function_result.data.output"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "43",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 10,
+                    "y": 1824.5
+                },
+                "44": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "!=",
+                                        "param": "get_finding_metadata_1:action_result.data.*.status",
+                                        "value": "Closed"
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "customName": "not closed",
+                                "logic": "and"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "op": "==",
+                                        "param": "get_finding_metadata_1:action_result.data.*.status",
+                                        "value": "Closed"
+                                    }
+                                ],
+                                "conditionIndex": 1,
+                                "customName": "closed",
+                                "logic": "and"
+                            }
+                        ],
+                        "functionId": 1,
+                        "functionName": "filter_1",
+                        "id": "44",
+                        "type": "filter"
+                    },
+                    "errors": {},
+                    "id": "44",
+                    "type": "filter",
+                    "warnings": {},
+                    "x": 70,
+                    "y": 1924.5
                 }
             },
             "notes": ""
@@ -1271,7 +1378,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T09:43:08.667155+00:00",
+    "create_time": "2024-12-02T12:06:24.850628+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
