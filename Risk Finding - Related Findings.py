@@ -784,7 +784,7 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""{0} | {1}\n""",
+        template="""| Finding ID | Status (Closed = 5) |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n""",
         parameters=[
             "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.finding_id",
             "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status"

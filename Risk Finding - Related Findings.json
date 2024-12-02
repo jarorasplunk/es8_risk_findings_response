@@ -205,7 +205,7 @@
                     "targetPort": "44_in"
                 }
             ],
-            "hash": "c6f2a0b29edaf3d681c7071c9b7cf44261f155be",
+            "hash": "50ff19235b90d895185488b741972c3874c6c9b3",
             "nodes": {
                 "0": {
                     "data": {
@@ -1375,7 +1375,7 @@
                                     "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.finding_id",
                                     "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status"
                                 ],
-                                "template": "{0} | {1}\n"
+                                "template": "| Finding ID | Status (Closed = 5) |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n"
                             },
                             "id": "finding:investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -1475,7 +1475,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T12:48:37.345138+00:00",
+    "create_time": "2024-12-02T12:51:32.816980+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
