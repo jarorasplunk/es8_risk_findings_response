@@ -239,7 +239,7 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | {1} |\n%%""",
+        template="""Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\nClosed Findings as part of this Investigation:\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | {1} |\n%%""",
         parameters=[
             "filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.finding_id",
             "filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.status_name"
@@ -805,7 +805,7 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
                         parameters.append({
                             "content": content_formatted_string,
                             "id": finding_data_item[0],
-                            "title": "Closed findings:",
+                            "title": "Previously Closed Findings:",
                             "task_id": get_task_id_1_result_item[0],
                             "phase_id": get_phase_id_1_result_item[0],
                             "response_plan_id": finding_data_item[1],
