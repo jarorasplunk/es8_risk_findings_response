@@ -160,7 +160,7 @@
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "2f87e1f1d1c1909150151531d87d3c3fde8d7e43",
+            "hash": "79a2d72f772da851049503aa8284626977f19dd0",
             "nodes": {
                 "0": {
                     "data": {
@@ -1090,7 +1090,7 @@
                                     "finding:consolidated_findings.info_max_time",
                                     "finding:investigation_id"
                                 ],
-                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")` \n| eval earliest={2} \n| eval latest={3} \n| search eventtype=\"notable\" \n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id, values(annotations.mitre_attack) as annotations.mitre_attack, values(entity) as entity, values(risk_object) as risk_object, values(normalized_risk_object) as normalized_risk_object, values(threat_object) as threat_object, values(risk_message) as risk_message, values(threat_object_type) as threat_object_type, values(_time) as _time by source\n| `add_events({4}"
+                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")` \n| eval earliest={2} \n| eval latest={3} \n| search eventtype=\"notable\" \n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id, values(annotations.mitre_attack) as annotations.mitre_attack, values(entity) as entity, values(risk_object) as risk_object, values(normalized_risk_object) as normalized_risk_object, values(threat_object) as threat_object, values(risk_message) as risk_message, values(threat_object_type) as threat_object_type, values(_time) as _time by source\n| `add_events({4})`"
                             },
                             "search_mode": "verbose",
                             "start_time": "-365d"
@@ -1118,7 +1118,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 180,
-                    "y": 440
+                    "y": 460
                 }
             },
             "notes": ""
@@ -1131,7 +1131,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T07:27:59.622329+00:00",
+    "create_time": "2024-12-02T07:29:08.014407+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
