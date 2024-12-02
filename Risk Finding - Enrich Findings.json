@@ -25,12 +25,18 @@
                         "id": "0",
                         "type": "start"
                     },
-                    "errors": {},
+                    "errors": {
+                        "input_spec": [
+                            {
+                                "name": "Name is required"
+                            }
+                        ]
+                    },
                     "id": "0",
                     "type": "start",
                     "warnings": {},
                     "x": 1000,
-                    "y": 419.9999999999998
+                    "y": 419.9999999999997
                 },
                 "1": {
                     "data": {
@@ -222,7 +228,7 @@
                     "type": "utility",
                     "warnings": {},
                     "x": 980,
-                    "y": 544.5
+                    "y": 540
                 }
             },
             "notes": ""
