@@ -122,7 +122,7 @@
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "0b35b7f8dec64bc9c8c812b4b86f851cf75a9520",
+            "hash": "a31d3e3651424a21a0ab8f75213279f25d9b17c8",
             "nodes": {
                 "0": {
                     "data": {
@@ -505,6 +505,7 @@
                         "parameters": {
                             "command": "",
                             "display": "source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value",
+                            "end_time": "now",
                             "query": {
                                 "functionId": 2,
                                 "parameters": [
@@ -515,7 +516,8 @@
                                 ],
                                 "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| table source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value\n"
                             },
-                            "search_mode": "verbose"
+                            "search_mode": "verbose",
+                            "start_time": "-365d"
                         },
                         "requiredParameters": [
                             {
@@ -942,7 +944,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T00:15:13.672715+00:00",
+    "create_time": "2024-12-02T00:15:37.461574+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

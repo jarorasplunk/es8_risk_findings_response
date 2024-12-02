@@ -299,6 +299,8 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
                 "command": "",
                 "display": "source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value",
                 "search_mode": "verbose",
+                "start_time": "-365d",
+                "end_time": "now",
             })
 
     ################################################################################
