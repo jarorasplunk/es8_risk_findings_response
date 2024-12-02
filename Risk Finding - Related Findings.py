@@ -46,6 +46,8 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
                 "display": "source, source_event_id_count, source_event_id",
                 "search_mode": "verbose",
                 "attach_result": False,
+                "start_time": "-365d",
+                "end_time": "now",
             })
 
     ################################################################################

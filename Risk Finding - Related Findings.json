@@ -122,7 +122,7 @@
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "fdb7bafabe61b66aafa1f3b9255a0125929f5a53",
+            "hash": "0b35b7f8dec64bc9c8c812b4b86f851cf75a9520",
             "nodes": {
                 "0": {
                     "data": {
@@ -892,6 +892,7 @@
                             "attach_result": false,
                             "command": "",
                             "display": "source, source_event_id_count, source_event_id",
+                            "end_time": "now",
                             "query": {
                                 "functionId": 1,
                                 "parameters": [
@@ -902,7 +903,8 @@
                                 ],
                                 "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id by source"
                             },
-                            "search_mode": "verbose"
+                            "search_mode": "verbose",
+                            "start_time": "-365d"
                         },
                         "requiredParameters": [
                             {
@@ -940,7 +942,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-01T23:59:18.227862+00:00",
+    "create_time": "2024-12-02T00:15:13.672715+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
