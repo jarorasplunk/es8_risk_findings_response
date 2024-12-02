@@ -26,20 +26,6 @@
                     "targetPort": "5_in"
                 },
                 {
-                    "id": "port_5_to_port_7",
-                    "sourceNode": "5",
-                    "sourcePort": "5_out",
-                    "targetNode": "7",
-                    "targetPort": "7_in"
-                },
-                {
-                    "id": "port_0_to_port_12",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "12",
-                    "targetPort": "12_in"
-                },
-                {
                     "conditions": [
                         {
                             "index": 1
@@ -92,21 +78,49 @@
                     "targetPort": "1_in"
                 },
                 {
-                    "id": "port_7_to_port_1",
-                    "sourceNode": "7",
-                    "sourcePort": "7_out",
+                    "id": "port_0_to_port_16",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "16",
+                    "targetPort": "16_in"
+                },
+                {
+                    "id": "port_16_to_port_17",
+                    "sourceNode": "16",
+                    "sourcePort": "16_out",
+                    "targetNode": "17",
+                    "targetPort": "17_in"
+                },
+                {
+                    "id": "port_17_to_port_2",
+                    "sourceNode": "17",
+                    "sourcePort": "17_out",
+                    "targetNode": "2",
+                    "targetPort": "2_in"
+                },
+                {
+                    "id": "port_17_to_port_12",
+                    "sourceNode": "17",
+                    "sourcePort": "17_out",
+                    "targetNode": "12",
+                    "targetPort": "12_in"
+                },
+                {
+                    "id": "port_18_to_port_1",
+                    "sourceNode": "18",
+                    "sourcePort": "18_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
                 },
                 {
-                    "id": "port_0_to_port_2",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "2",
-                    "targetPort": "2_in"
+                    "id": "port_5_to_port_18",
+                    "sourceNode": "5",
+                    "sourcePort": "5_out",
+                    "targetNode": "18",
+                    "targetPort": "18_in"
                 }
             ],
-            "hash": "e0e74797daffb6b8b85e8a37818efb9aee28ab47",
+            "hash": "e36617a812a5e26e2799e034bd789e0d53619db2",
             "nodes": {
                 "0": {
                     "data": {
@@ -128,7 +142,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 360,
-                    "y": 0
+                    "y": -200
                 },
                 "1": {
                     "data": {
@@ -144,7 +158,7 @@
                     "type": "end",
                     "warnings": {},
                     "x": 360,
-                    "y": 814
+                    "y": 880
                 },
                 "10": {
                     "data": {
@@ -416,6 +430,204 @@
                     "x": 1020,
                     "y": -3.907985046680551e-14
                 },
+                "16": {
+                    "data": {
+                        "action": "get phase id",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_phase_id_1",
+                        "id": "16",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id",
+                            "phase_name": "Preprocess",
+                            "response_template_name": "finding:response_plans.*.name"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_template_name"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "16",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 350,
+                    "y": -75.50000000000004
+                },
+                "17": {
+                    "data": {
+                        "action": "get task id",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_task_id_1",
+                        "id": "17",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id",
+                            "phase_name": "Preprocess",
+                            "response_template_name": "finding:response_plans.*.name",
+                            "task_name": "Enrich findings"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_template_name"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "17",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 370,
+                    "y": 44.49999999999996
+                },
+                "18": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "add_task_note_1",
+                        "id": "18",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": {
+                                "functionId": 1,
+                                "parameters": [
+                                    "finding:consolidated_findings.risk_object_type",
+                                    "finding:consolidated_findings.risk_object",
+                                    "finding:consolidated_findings.risk_score",
+                                    "finding:consolidated_findings.info_min_time",
+                                    "finding:consolidated_findings.info_max_time",
+                                    "mitre_format:custom_function:output"
+                                ],
+                                "template": "### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1})\n\n# MITRE ATT&CK\u00ae\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}"
+                            },
+                            "id": "finding:investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "finding:response_plans.*.id",
+                            "task_id": "get_task_id_1:action_result.data.*.task_id",
+                            "title": {
+                                "functionId": 1,
+                                "parameters": [
+                                    "finding:consolidated_findings.risk_object"
+                                ],
+                                "template": "SOAR Analysis for: {0}\n"
+                            }
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "18",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 660,
+                    "y": 740
+                },
                 "2": {
                     "data": {
                         "action": "run query",
@@ -607,15 +819,22 @@
                     "errors": {},
                     "id": "7",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 680,
-                    "y": 652
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 860,
+                    "y": 600
                 }
             },
             "notes": "",
             "origin": {
-                "playbook_id": 159,
-                "playbook_name": "Risk Findings Enrich",
+                "playbook_id": 226,
+                "playbook_name": "Risk Notable Enrich",
                 "playbook_repo_id": 2,
                 "playbook_repo_name": "local"
             }
@@ -628,7 +847,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T13:24:46.998863+00:00",
+    "create_time": "2024-12-02T13:30:10.554734+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

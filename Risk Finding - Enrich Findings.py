@@ -12,10 +12,8 @@ from datetime import datetime, timedelta
 def on_start(container):
     phantom.debug('on_start() called')
 
-    # call 'decision_3' block
-    decision_3(container=container)
-    # call 'run_query_1' block
-    run_query_1(container=container)
+    # call 'get_phase_id_1' block
+    get_phase_id_1(container=container)
 
     return
 
@@ -189,7 +187,7 @@ def mitre_format(action=None, success=None, container=None, results=None, handle
 
     phantom.save_run_data(key="mitre_format:output", value=json.dumps(mitre_format__output))
 
-    add_finding_or_investigation_note_1(container=container)
+    add_task_note_1(container=container)
 
     return
 
@@ -451,6 +449,147 @@ def format_2(action=None, success=None, container=None, results=None, handle=Non
     phantom.format(container=container, template=template, parameters=parameters, name="format_2", drop_none=True)
 
     add_finding_or_investigation_note_2(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def get_phase_id_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_phase_id_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.name"])
+
+    parameters = []
+
+    # build parameters list for 'get_phase_id_1' call
+    for finding_data_item in finding_data:
+        if finding_data_item[0] is not None and finding_data_item[1] is not None:
+            parameters.append({
+                "id": finding_data_item[0],
+                "phase_name": "Preprocess",
+                "response_template_name": finding_data_item[1],
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("get phase id", parameters=parameters, name="get_phase_id_1", assets=["builtin_mc_connector"], callback=get_task_id_1)
+
+    return
+
+
+@phantom.playbook_block()
+def get_task_id_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_task_id_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.name"])
+
+    parameters = []
+
+    # build parameters list for 'get_task_id_1' call
+    for finding_data_item in finding_data:
+        if finding_data_item[0] is not None and finding_data_item[1] is not None:
+            parameters.append({
+                "id": finding_data_item[0],
+                "task_name": "Enrich findings",
+                "phase_name": "Preprocess",
+                "response_template_name": finding_data_item[1],
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("get task id", parameters=parameters, name="get_task_id_1", assets=["builtin_mc_connector"], callback=get_task_id_1_callback)
+
+    return
+
+
+@phantom.playbook_block()
+def get_task_id_1_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_task_id_1_callback() called")
+
+    
+    run_query_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+    decision_3(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+
+
+    return
+
+
+@phantom.playbook_block()
+def add_task_note_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_task_note_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    title_formatted_string = phantom.format(
+        container=container,
+        template="""SOAR Analysis for: {0}\n""",
+        parameters=[
+            "finding:consolidated_findings.risk_object"
+        ])
+    content_formatted_string = phantom.format(
+        container=container,
+        template="""### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1})\n\n# MITRE ATT&CK®\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}""",
+        parameters=[
+            "finding:consolidated_findings.risk_object_type",
+            "finding:consolidated_findings.risk_object",
+            "finding:consolidated_findings.risk_score",
+            "finding:consolidated_findings.info_min_time",
+            "finding:consolidated_findings.info_max_time",
+            "mitre_format:custom_function:output"
+        ])
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:consolidated_findings.risk_object","finding:consolidated_findings.risk_object_type","finding:consolidated_findings.risk_score","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time","finding:response_plans.*.id"])
+    get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    mitre_format__output = json.loads(_ if (_ := phantom.get_run_data(key="mitre_format:output")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    # build parameters list for 'add_task_note_1' call
+    for finding_data_item in finding_data:
+        for get_task_id_1_result_item in get_task_id_1_result_data:
+            for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                if finding_data_item[0] is not None and title_formatted_string is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[6] is not None:
+                    parameters.append({
+                        "id": finding_data_item[0],
+                        "title": title_formatted_string,
+                        "content": content_formatted_string,
+                        "task_id": get_task_id_1_result_item[0],
+                        "phase_id": get_phase_id_1_result_item[0],
+                        "response_plan_id": finding_data_item[6],
+                    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"])
 
     return
 
