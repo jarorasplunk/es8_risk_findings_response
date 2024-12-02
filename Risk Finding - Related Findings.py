@@ -25,7 +25,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""| `risk_event_timeline_search(\"{0}\",\"{1}\")` \n| eval earliest={2} \n| eval latest={3} \n| search eventtype=\"notable\" \n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id, values(annotations.mitre_attack) as annotations.mitre_attack, values(entity) as entity, values(risk_object) as risk_object, values(normalized_risk_object) as normalized_risk_object, values(threat_object) as threat_object, values(risk_message) as risk_message, values(threat_object_type) as threat_object_type by source\n| `add_events({4}""",
+        template="""| `risk_event_timeline_search(\"{0}\",\"{1}\")` \n| eval earliest={2} \n| eval latest={3} \n| search eventtype=\"notable\" \n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id, values(annotations.mitre_attack) as annotations.mitre_attack, values(entity) as entity, values(risk_object) as risk_object, values(normalized_risk_object) as normalized_risk_object, values(threat_object) as threat_object, values(risk_message) as risk_message, values(threat_object_type) as threat_object_type, values(_time) as _time by source\n| `add_events({4}""",
         parameters=[
             "finding:consolidated_findings.normalized_risk_object",
             "finding:consolidated_findings.risk_object_type",
@@ -178,19 +178,19 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    run_query_2_result_data = phantom.collect2(container=container, datapath=["run_query_2:action_result.data.*._time","run_query_2:action_result.parameter.context.artifact_id"], action_results=results)
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*._time","run_query_1:action_result.parameter.context.artifact_id"], action_results=results)
     related_findings_list__related_findings = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     # build parameters list for 'update_finding_or_investigation_1' call
-    for run_query_2_result_item in run_query_2_result_data:
+    for run_query_1_result_item in run_query_1_result_data:
         if related_findings_list__related_findings is not None:
             parameters.append({
                 "id": related_findings_list__related_findings,
                 "status": "Closed",
                 "disposition": "Closed - As part of investigation",
-                "finding_time": run_query_2_result_item[0],
+                "finding_time": run_query_1_result_item[0],
             })
 
     ################################################################################
@@ -496,12 +496,12 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
 def gather_entities_and_indicators(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("gather_entities_and_indicators() called")
 
-    run_query_2_result_data = phantom.collect2(container=container, datapath=["run_query_2:action_result.data.*.threat_object_type","run_query_2:action_result.data.*.threat_object","run_query_2:action_result.data.*.risk_object_type","run_query_2:action_result.data.*.risk_object"], action_results=results)
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.threat_object_type","run_query_1:action_result.data.*.threat_object","run_query_1:action_result.data.*.risk_object_type","run_query_1:action_result.data.*.risk_object"], action_results=results)
 
-    run_query_2_result_item_0 = [item[0] for item in run_query_2_result_data]
-    run_query_2_result_item_1 = [item[1] for item in run_query_2_result_data]
-    run_query_2_result_item_2 = [item[2] for item in run_query_2_result_data]
-    run_query_2_result_item_3 = [item[3] for item in run_query_2_result_data]
+    run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
+    run_query_1_result_item_1 = [item[1] for item in run_query_1_result_data]
+    run_query_1_result_item_2 = [item[2] for item in run_query_1_result_data]
+    run_query_1_result_item_3 = [item[3] for item in run_query_1_result_data]
 
     gather_entities_and_indicators__entities = None
     gather_entities_and_indicators__indicators = None
@@ -514,14 +514,14 @@ def gather_entities_and_indicators(action=None, success=None, container=None, re
     seen = set()
     gather_entities_and_indicators__entities = []
     
-    for pair in list(zip(run_query_2_result_item_2,run_query_2_result_item_3)):
+    for pair in list(zip(run_query_1_result_item_2,run_query_1_result_item_3)):
         if pair not in seen:  # Check if the pair is already added
             gather_entities_and_indicators__entities.append(pair)
             seen.add(pair)
 
     seen = set()
     gather_entities_and_indicators__indicators = []
-    for pair in list(zip(run_query_2_result_item_0,run_query_2_result_item_1)):
+    for pair in list(zip(run_query_1_result_item_0,run_query_1_result_item_1)):
         if pair not in seen:  # Check if the pair is already added
             gather_entities_and_indicators__indicators.append(pair)
             seen.add(pair)
