@@ -151,9 +151,16 @@
                     "sourcePort": "26_out",
                     "targetNode": "39",
                     "targetPort": "39_in"
+                },
+                {
+                    "id": "port_39_to_port_23",
+                    "sourceNode": "39",
+                    "sourcePort": "39_out",
+                    "targetNode": "23",
+                    "targetPort": "23_in"
                 }
             ],
-            "hash": "7bc195f8d2cbbad731bede2d18269057135fe42d",
+            "hash": "9dcc37edb9152d4ce593d239fdd7a7711d149816",
             "nodes": {
                 "0": {
                     "data": {
@@ -369,7 +376,7 @@
                         },
                         "parameters": {
                             "disposition": "Closed - As part of investigation",
-                            "finding_time": "",
+                            "finding_time": "related_findings_list:custom_function:related_findings_time",
                             "id": "related_findings_list:custom_function:related_findings_id",
                             "status": "Closed"
                         },
@@ -385,14 +392,7 @@
                     "id": "23",
                     "type": "enterpriseSecurity",
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 0,
                     "y": 1560
                 },
@@ -514,12 +514,8 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
-                    "x": 0,
+                    "warnings": {},
+                    "x": -1.4210854715202004e-14,
                     "y": 1727
                 },
                 "30": {
@@ -1137,7 +1133,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T08:52:23.605435+00:00",
+    "create_time": "2024-12-02T08:52:43.716005+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
