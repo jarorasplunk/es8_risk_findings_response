@@ -129,7 +129,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "be53afbcd21cb28baed7c9a0c9ceaf3e8804e833",
+            "hash": "6348f2a106c9de5c706665bbf492b1c0410da6ea",
             "nodes": {
                 "0": {
                     "data": {
@@ -816,7 +816,7 @@
                     "errors": {},
                     "id": "35",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    gather_entities_and_indicators__entities = list(set(zip(run_query_2_result_item_2,run_query_2_result_item_3)))\n    gather_entities_and_indicators__indicators = list(set(zip(run_query_2_result_item_0,run_query_2_result_item_1)))\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    seen = set()\n    gather_entities_and_indicators__entities = []\n    \n    for pair in zip(run_query_2_result_item_2,run_query_2_result_item_3):\n        if pair not in seen:  # Check if the pair is already added\n            gather_entities_and_indicators__entities.append(pair)\n            seen.add(pair)\n\n    seen = set()\n    gather_entities_and_indicators__indicators = []\n    for pair in zip(run_query_2_result_item_0,run_query_2_result_item_1):\n        if pair not in seen:  # Check if the pair is already added\n            gather_entities_and_indicators__indicators.append(pair)\n            seen.add(pair)\n    \n    #gather_entities_and_indicators__entities = list(set(zip(run_query_2_result_item_2,run_query_2_result_item_3)))\n    #gather_entities_and_indicators__indicators = list(set(zip(run_query_2_result_item_0,run_query_2_result_item_1)))\n\n",
                     "warnings": {},
                     "x": 180,
                     "y": 1720
@@ -945,7 +945,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T02:31:36.895887+00:00",
+    "create_time": "2024-12-02T02:55:30.205463+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

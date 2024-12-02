@@ -508,8 +508,23 @@ def gather_entities_and_indicators(action=None, success=None, container=None, re
     ################################################################################
 
     # Write your custom code here...
-    gather_entities_and_indicators__entities = list(set(zip(run_query_2_result_item_2,run_query_2_result_item_3)))
-    gather_entities_and_indicators__indicators = list(set(zip(run_query_2_result_item_0,run_query_2_result_item_1)))
+    seen = set()
+    gather_entities_and_indicators__entities = []
+    
+    for pair in zip(run_query_2_result_item_2,run_query_2_result_item_3):
+        if pair not in seen:  # Check if the pair is already added
+            gather_entities_and_indicators__entities.append(pair)
+            seen.add(pair)
+
+    seen = set()
+    gather_entities_and_indicators__indicators = []
+    for pair in zip(run_query_2_result_item_0,run_query_2_result_item_1):
+        if pair not in seen:  # Check if the pair is already added
+            gather_entities_and_indicators__indicators.append(pair)
+            seen.add(pair)
+    
+    #gather_entities_and_indicators__entities = list(set(zip(run_query_2_result_item_2,run_query_2_result_item_3)))
+    #gather_entities_and_indicators__indicators = list(set(zip(run_query_2_result_item_0,run_query_2_result_item_1)))
 
     ################################################################################
     ## Custom Code End
