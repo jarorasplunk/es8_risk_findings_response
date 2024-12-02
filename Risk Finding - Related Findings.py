@@ -70,7 +70,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 def related_findings_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("related_findings_note() called")
 
-    template = """| Detection | Count |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n\n\n\n*Follow the prompt to manage these related findings in the Analyst Queue.*"""
+    template = """| Detection | Count |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n\n\n\n\n\n*Follow the prompt to manage these related findings in the Analyst Queue.*"""
 
     # parameter list for template variable replacement
     parameters = [
