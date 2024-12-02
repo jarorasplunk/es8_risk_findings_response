@@ -803,7 +803,57 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        pass
+        add_task_note_5(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+
+    return
+
+
+@phantom.playbook_block()
+def add_task_note_5(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_task_note_5() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    content_formatted_string = phantom.format(
+        container=container,
+        template="""{0}\n""",
+        parameters=[
+            "get_finding_metadata_1:action_result.data.*.notes.*.incident_id"
+        ])
+
+    get_finding_metadata_1_result_data = phantom.collect2(container=container, datapath=["get_finding_metadata_1:action_result.data.*.notes.*.incident_id","get_finding_metadata_1:action_result.parameter.context.artifact_id"], action_results=results)
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.id"])
+    get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'add_task_note_5' call
+    for get_finding_metadata_1_result_item in get_finding_metadata_1_result_data:
+        for finding_data_item in finding_data:
+            for get_task_id_1_result_item in get_task_id_1_result_data:
+                for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                    if content_formatted_string is not None and finding_data_item[0] is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
+                        parameters.append({
+                            "content": content_formatted_string,
+                            "id": finding_data_item[0],
+                            "title": "Closed findings:",
+                            "task_id": get_task_id_1_result_item[0],
+                            "phase_id": get_phase_id_1_result_item[0],
+                            "response_plan_id": finding_data_item[1],
+                        })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("add task note", parameters=parameters, name="add_task_note_5", assets=["builtin_mc_connector"])
 
     return
 

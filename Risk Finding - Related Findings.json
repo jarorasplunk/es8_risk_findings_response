@@ -191,9 +191,21 @@
                     "sourcePort": "44_out",
                     "targetNode": "23",
                     "targetPort": "23_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_44_to_port_46",
+                    "sourceNode": "44",
+                    "sourcePort": "44_out",
+                    "targetNode": "46",
+                    "targetPort": "46_in"
                 }
             ],
-            "hash": "fb180c60cd5ca7e260a8217941c2db2b0a92dd51",
+            "hash": "af942833a9fdb61f6b95e323d6bfa4b21ac8f8cb",
             "nodes": {
                 "0": {
                     "data": {
@@ -254,8 +266,8 @@
                     "id": "13",
                     "type": "format",
                     "warnings": {},
-                    "x": 170,
-                    "y": 776
+                    "x": 180,
+                    "y": 780
                 },
                 "20": {
                     "data": {
@@ -324,8 +336,8 @@
                     "id": "20",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 170,
-                    "y": 925
+                    "x": 180,
+                    "y": 920
                 },
                 "22": {
                     "data": {
@@ -363,8 +375,8 @@
                     "id": "22",
                     "type": "prompt",
                     "warnings": {},
-                    "x": 170,
-                    "y": 1074
+                    "x": 180,
+                    "y": 1080
                 },
                 "23": {
                     "data": {
@@ -505,6 +517,7 @@
                         },
                         "parameters": {
                             "content": {
+                                "functionId": 2,
                                 "parameters": [
                                     "filtered-data:filter_1:condition_1:get_finding_metadata_1:action_result.data"
                                 ],
@@ -550,7 +563,7 @@
                     "id": "27",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": -1.4210854715202004e-14,
+                    "x": 0,
                     "y": 2160
                 },
                 "30": {
@@ -963,6 +976,7 @@
                             {
                                 "comparisons": [
                                     {
+                                        "conditionIndex": 1,
                                         "op": "==",
                                         "param": "",
                                         "value": ""
@@ -1087,7 +1101,7 @@
                     "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_0[0])\n    for item in run_query_1_result_item_0:\n        for i in range(len(item)):\n            related_findings_list__related_findings_id.append(item[i])\n    \n    for item in run_query_1_result_item_1:\n        for i in range(len(item)):\n            related_findings_list__related_findings_time.append(item[i])\n            \n    phantom.debug(related_findings_list__related_findings_id)\n    phantom.debug(related_findings_list__related_findings_time)\n    #related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_1[0])\n    #related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
                     "warnings": {},
                     "x": 0,
-                    "y": 1416
+                    "y": 1420
                 },
                 "4": {
                     "data": {
@@ -1217,7 +1231,7 @@
                     "type": "utility",
                     "warnings": {},
                     "x": 0,
-                    "y": 1565
+                    "y": 1560
                 },
                 "42": {
                     "data": {
@@ -1278,7 +1292,7 @@
                     "type": "utility",
                     "warnings": {},
                     "x": 0,
-                    "y": 1714
+                    "y": 1720
                 },
                 "43": {
                     "data": {
@@ -1320,8 +1334,8 @@
                     "id": "43",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 10,
-                    "y": 1824.5
+                    "x": 20,
+                    "y": 1820
                 },
                 "44": {
                     "data": {
@@ -1364,13 +1378,85 @@
                     "errors": {},
                     "id": "44",
                     "type": "filter",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
+                    "warnings": {},
+                    "x": 80,
+                    "y": 1920
+                },
+                "46": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 5,
+                        "functionName": "add_task_note_5",
+                        "id": "46",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": {
+                                "functionId": 5,
+                                "parameters": [
+                                    "get_finding_metadata_1:action_result.data.*.notes.*.incident_id"
+                                ],
+                                "template": "{0}\n"
+                            },
+                            "id": "finding:investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "finding:response_plans.*.id",
+                            "task_id": "get_task_id_1:action_result.data.*.task_id",
+                            "title": "Closed findings:"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
                     },
-                    "x": 70,
-                    "y": 1924.5
+                    "errors": {},
+                    "id": "46",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": -300,
+                    "y": 2080
                 }
             },
             "notes": ""
@@ -1383,7 +1469,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T12:24:45.143787+00:00",
+    "create_time": "2024-12-02T12:33:37.302380+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
