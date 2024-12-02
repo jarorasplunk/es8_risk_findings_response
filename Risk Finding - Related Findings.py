@@ -527,8 +527,12 @@ def gather_variables_for_enrichment(action=None, success=None, container=None, r
 def on_finish(container, summary):
     phantom.debug("on_finish() called")
 
+    gather_variables_for_enrichment__entities = json.loads(_ if (_ := phantom.get_run_data(key="gather_variables_for_enrichment:entities")) != "" else "null")  # pylint: disable=used-before-assignment
+    gather_variables_for_enrichment__indicators = json.loads(_ if (_ := phantom.get_run_data(key="gather_variables_for_enrichment:indicators")) != "" else "null")  # pylint: disable=used-before-assignment
+
     output = {
-        "risk": [],
+        "entities": gather_variables_for_enrichment__entities,
+        "indicators": gather_variables_for_enrichment__indicators,
     }
 
     ################################################################################

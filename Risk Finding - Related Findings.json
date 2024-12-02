@@ -113,9 +113,16 @@
                     "sourcePort": "31_out",
                     "targetNode": "37",
                     "targetPort": "37_in"
+                },
+                {
+                    "id": "port_37_to_port_1",
+                    "sourceNode": "37",
+                    "sourcePort": "37_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "957a9487f149e569cbfe3782463c3a905be6d504",
+            "hash": "6e198d33f725bfd5f090930f0f288f6c8b21acb6",
             "nodes": {
                 "0": {
                     "data": {
@@ -883,11 +890,23 @@
         "output_spec": [
             {
                 "contains": [],
-                "datapaths": [],
+                "datapaths": [
+                    "gather_variables_for_enrichment:custom_function:entities"
+                ],
                 "deduplicate": false,
                 "description": "",
                 "metadata": {},
-                "name": "risk"
+                "name": "entities"
+            },
+            {
+                "contains": [],
+                "datapaths": [
+                    "gather_variables_for_enrichment:custom_function:indicators"
+                ],
+                "deduplicate": false,
+                "description": "",
+                "metadata": {},
+                "name": "indicators"
             }
         ],
         "playbook_trigger": "artifact_created",
@@ -896,7 +915,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T02:04:07.108983+00:00",
+    "create_time": "2024-12-02T02:04:51.225740+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
