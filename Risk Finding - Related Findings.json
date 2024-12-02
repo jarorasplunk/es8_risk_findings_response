@@ -153,7 +153,7 @@
                     "targetPort": "39_in"
                 }
             ],
-            "hash": "2f87e1f1d1c1909150151531d87d3c3fde8d7e43",
+            "hash": "7bc195f8d2cbbad731bede2d18269057135fe42d",
             "nodes": {
                 "0": {
                     "data": {
@@ -1052,7 +1052,7 @@
                     "errors": {},
                     "id": "39",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    related_findings_list__related_findings_id = []\n    phantom.debug(run_query_1_result_item_0[0])\n    for item in run_query_1_result_item_0:\n        for i in range(len(item)):\n            related_findings_list__related_findings_id.append(item[i])\n    \n    phantom.debug(related_findings_list__related_findings_id)\n    #related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_1[0])\n    #related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
+                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_0[0])\n    for item in run_query_1_result_item_0:\n        for i in range(len(item)):\n            related_findings_list__related_findings_id.append(item[i])\n    \n    for item in run_query_1_result_item_1:\n        for i in range(len(item)):\n            related_findings_list__related_findings_time.append(item[i])\n            \n    phantom.debug(related_findings_list__related_findings_id)\n    phantom.debug(related_findings_list__related_findings_time)\n    #related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_1[0])\n    #related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
                     "warnings": {},
                     "x": -240,
                     "y": 1460
@@ -1137,7 +1137,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T08:49:32.218422+00:00",
+    "create_time": "2024-12-02T08:52:23.605435+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
