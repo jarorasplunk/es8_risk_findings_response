@@ -61,13 +61,6 @@
                     "targetPort": "31_in"
                 },
                 {
-                    "id": "port_31_to_port_1",
-                    "sourceNode": "31",
-                    "sourcePort": "31_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "conditions": [
                         {
                             "index": 1
@@ -113,9 +106,16 @@
                     "sourcePort": "30_out",
                     "targetNode": "23",
                     "targetPort": "23_in"
+                },
+                {
+                    "id": "port_31_to_port_37",
+                    "sourceNode": "31",
+                    "sourcePort": "31_out",
+                    "targetNode": "37",
+                    "targetPort": "37_in"
                 }
             ],
-            "hash": "319bd97a2491bafef955002fc30a9be69e1dad2c",
+            "hash": "957a9487f149e569cbfe3782463c3a905be6d504",
             "nodes": {
                 "0": {
                     "data": {
@@ -137,7 +137,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 200,
-                    "y": -1.2789769243681803e-13
+                    "y": -1.3855583347321954e-13
                 },
                 "1": {
                     "data": {
@@ -152,8 +152,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 190,
-                    "y": 1882
+                    "x": 200,
+                    "y": 1880
                 },
                 "13": {
                     "data": {
@@ -177,7 +177,7 @@
                     "type": "format",
                     "warnings": {},
                     "x": 170,
-                    "y": 296
+                    "y": 295.99999999999994
                 },
                 "20": {
                     "data": {
@@ -427,6 +427,7 @@
                         },
                         "parameters": {
                             "content": {
+                                "functionId": 2,
                                 "parameters": [],
                                 "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nThe individual findings are also added to the \"Events\" tab as evidence.\n\n"
                             },
@@ -503,6 +504,7 @@
                             "display": "source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message",
                             "end_time": "now",
                             "query": {
+                                "functionId": 2,
                                 "parameters": [
                                     "finding:consolidated_findings.normalized_risk_object",
                                     "finding:consolidated_findings.risk_object_type",
@@ -510,7 +512,7 @@
                                     "finding:consolidated_findings.info_max_time",
                                     "finding:investigation_id"
                                 ],
-                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| fields source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message\n| `add_events({4})`\n"
+                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| fields source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_object_type, threat_match_value, risk_message\n| `add_events({4})`\n"
                             },
                             "search_mode": "verbose",
                             "start_time": "-365d"
@@ -537,7 +539,7 @@
                     "id": "30",
                     "type": "action",
                     "warnings": {},
-                    "x": -40,
+                    "x": -40.000000000000014,
                     "y": 1120
                 },
                 "31": {
@@ -716,7 +718,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 160,
-                    "y": 420
+                    "y": 419.99999999999994
                 },
                 "34": {
                     "data": {
@@ -775,6 +777,36 @@
                     "warnings": {},
                     "x": 160,
                     "y": 540
+                },
+                "37": {
+                    "data": {
+                        "advanced": {
+                            "customName": "gather variables for enrichment",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "gather_variables_for_enrichment",
+                        "id": "37",
+                        "inputParameters": [
+                            "run_query_2:action_result.data.*.threat_object",
+                            "run_query_2:action_result.data.*.threat_object_type",
+                            "run_query_2:action_result.data.*.risk_object",
+                            "run_query_2:action_result.data.*.risk_object_type"
+                        ],
+                        "outputVariables": [
+                            "entities",
+                            "indicators"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "37",
+                    "type": "code",
+                    "userCode": "\n    # Write your custom code here...\n    gather_variables_for_enrichment__entities = list(zip(run_query_2_result_item_1,run_query_2_result_item_0))\n    gather_variables_for_enrichment__indicators = list(zip(run_query_2_result_item_3,run_query_2_result_item_2))\n    \n    \n\n",
+                    "warnings": {},
+                    "x": 180,
+                    "y": 1700
                 },
                 "4": {
                     "data": {
@@ -842,20 +874,29 @@
                     "type": "action",
                     "warnings": {},
                     "x": 180,
-                    "y": 140
+                    "y": 139.99999999999994
                 }
             },
             "notes": ""
         },
         "input_spec": null,
-        "output_spec": null,
+        "output_spec": [
+            {
+                "contains": [],
+                "datapaths": [],
+                "deduplicate": false,
+                "description": "",
+                "metadata": {},
+                "name": "risk"
+            }
+        ],
         "playbook_trigger": "artifact_created",
         "playbook_type": "es",
         "python_version": "3",
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T01:08:15.125788+00:00",
+    "create_time": "2024-12-02T02:04:07.108983+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

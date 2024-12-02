@@ -284,7 +284,7 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| fields source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message\n| `add_events({4})`\n""",
+        template="""| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| fields source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_object_type, threat_match_value, risk_message\n| `add_events({4})`\n""",
         parameters=[
             "finding:consolidated_findings.normalized_risk_object",
             "finding:consolidated_findings.risk_object_type",
@@ -374,7 +374,7 @@ def update_task_in_current_phase_1(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_1", assets=["builtin_mc_connector"])
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_1", assets=["builtin_mc_connector"], callback=gather_variables_for_enrichment)
 
     return
 
@@ -490,8 +490,46 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
 
 
 @phantom.playbook_block()
+def gather_variables_for_enrichment(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("gather_variables_for_enrichment() called")
+
+    run_query_2_result_data = phantom.collect2(container=container, datapath=["run_query_2:action_result.data.*.threat_object","run_query_2:action_result.data.*.threat_object_type","run_query_2:action_result.data.*.risk_object","run_query_2:action_result.data.*.risk_object_type"], action_results=results)
+
+    run_query_2_result_item_0 = [item[0] for item in run_query_2_result_data]
+    run_query_2_result_item_1 = [item[1] for item in run_query_2_result_data]
+    run_query_2_result_item_2 = [item[2] for item in run_query_2_result_data]
+    run_query_2_result_item_3 = [item[3] for item in run_query_2_result_data]
+
+    gather_variables_for_enrichment__entities = None
+    gather_variables_for_enrichment__indicators = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    gather_variables_for_enrichment__entities = list(zip(run_query_2_result_item_1,run_query_2_result_item_0))
+    gather_variables_for_enrichment__indicators = list(zip(run_query_2_result_item_3,run_query_2_result_item_2))
+    
+    
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_run_data(key="gather_variables_for_enrichment:entities", value=json.dumps(gather_variables_for_enrichment__entities))
+    phantom.save_run_data(key="gather_variables_for_enrichment:indicators", value=json.dumps(gather_variables_for_enrichment__indicators))
+
+    return
+
+
+@phantom.playbook_block()
 def on_finish(container, summary):
     phantom.debug("on_finish() called")
+
+    output = {
+        "risk": [],
+    }
 
     ################################################################################
     ## Custom Code Start
@@ -502,5 +540,7 @@ def on_finish(container, summary):
     ################################################################################
     ## Custom Code End
     ################################################################################
+
+    phantom.save_playbook_output_data(output=output)
 
     return
