@@ -212,7 +212,7 @@
                     "targetPort": "31_in"
                 }
             ],
-            "hash": "f7709cb4f1144d3f350d8620823845e0481bbedd",
+            "hash": "4907dfb395987bb680ad580a799ad64ad1a4ffca",
             "nodes": {
                 "0": {
                     "data": {
@@ -1151,7 +1151,7 @@
                                     "finding:consolidated_findings.info_max_time",
                                     "finding:investigation_id"
                                 ],
-                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")` \n| eval earliest={2} \n| eval latest={3} \n| search eventtype=\"notable\" \n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id, values(annotations.mitre_attack) as annotations.mitre_attack, values(entity) as entity, values(risk_object) as risk_object, values(risk_object_type) as risk_object_type, values(normalized_risk_object) as normalized_risk_object, values(threat_object) as threat_object, values(risk_message) as risk_message, values(threat_object_type) as threat_object_type, values(_time) as _time by source\n| `add_events({4})`"
+                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")` \n| eval earliest={2} \n| eval latest={3} \n| search eventtype=\"notable\" \n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id, values(annotations.mitre_attack) as annotations.mitre_attack, values(entity) as entity, values(risk_object) as risk_object, values(risk_object_type) as risk_object_type, values(normalized_risk_object) as normalized_risk_object, values(threat_object) as threat_object, values(risk_message) as risk_message, values(threat_object_type) as threat_object_type, values(_time) as _time, values(mitre_tactic) as mitre_tactic, values(mitre_tactic_id) as mitre_tactic_id, values(mitre_technique) as mitre_technique, values(mitre_technique_id) as mitre_technique_id by source\n| `add_events({4})`"
                             },
                             "search_mode": "verbose",
                             "start_time": "-365d"
@@ -1178,8 +1178,8 @@
                     "id": "4",
                     "type": "action",
                     "warnings": {},
-                    "x": 430,
-                    "y": 447
+                    "x": 440,
+                    "y": 440
                 },
                 "41": {
                     "data": {
@@ -1480,7 +1480,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T12:58:59.300871+00:00",
+    "create_time": "2024-12-02T13:20:09.062228+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
