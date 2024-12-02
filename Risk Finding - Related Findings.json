@@ -129,7 +129,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "19253ae5110d608f562ab677c2c8417d3f40f7fd",
+            "hash": "27ec20c66d05a93e5a20384e9152feac53ad6e1f",
             "nodes": {
                 "0": {
                     "data": {
@@ -731,7 +731,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 160,
-                    "y": 419.99999999999994
+                    "y": 420
                 },
                 "34": {
                     "data": {
@@ -816,7 +816,7 @@
                     "errors": {},
                     "id": "35",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    gather_entities_and_indicators__entities = list(zip(run_query_2_result_item_2,run_query_2_result_item_3))\n    gather_entities_and_indicators__indicators = list(zip(run_query_2_result_item_0,run_query_2_result_item_1))\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    gather_entities_and_indicators__entities = list(set(zip(run_query_2_result_item_2,run_query_2_result_item_3)))\n    gather_entities_and_indicators__indicators = list(set(zip(run_query_2_result_item_0,run_query_2_result_item_1)))\n\n",
                     "warnings": {},
                     "x": 180,
                     "y": 1720
@@ -945,7 +945,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T02:20:03.996142+00:00",
+    "create_time": "2024-12-02T02:31:36.895887+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
