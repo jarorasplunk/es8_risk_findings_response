@@ -21,12 +21,18 @@ def on_start(container):
 def debug_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("debug_1() called")
 
+    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.risk_object","finding:consolidated_findings.threat_object","finding:consolidated_findings.all_risk_objects"])
+
+    finding_consolidated_findings_risk_object = [item[0] for item in finding_data]
+    finding_consolidated_findings_threat_object = [item[1] for item in finding_data]
+    finding_consolidated_findings_all_risk_objects = [item[2] for item in finding_data]
+
     parameters = []
 
     parameters.append({
-        "input_1": None,
-        "input_2": None,
-        "input_3": None,
+        "input_1": finding_consolidated_findings_risk_object,
+        "input_2": finding_consolidated_findings_threat_object,
+        "input_3": finding_consolidated_findings_all_risk_objects,
         "input_4": None,
         "input_5": None,
         "input_6": None,

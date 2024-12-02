@@ -14,7 +14,7 @@
                     "targetPort": "2_in"
                 }
             ],
-            "hash": "138635c02c56260265c63d47a575493511c4aa93",
+            "hash": "4e08d2d064fcca9c5f45f778ba51c0eed211ab5c",
             "nodes": {
                 "0": {
                     "data": {
@@ -210,10 +210,16 @@
                         "utilityType": "custom_function",
                         "values": {
                             "debug": {
-                                "input_1": null,
+                                "input_1": [
+                                    "finding:consolidated_findings.risk_object"
+                                ],
                                 "input_10": null,
-                                "input_2": null,
-                                "input_3": null,
+                                "input_2": [
+                                    "finding:consolidated_findings.threat_object"
+                                ],
+                                "input_3": [
+                                    "finding:consolidated_findings.all_risk_objects"
+                                ],
                                 "input_4": null,
                                 "input_5": null,
                                 "input_6": null,
@@ -241,7 +247,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-01T23:44:20.743860+00:00",
+    "create_time": "2024-12-02T01:33:35.980377+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
