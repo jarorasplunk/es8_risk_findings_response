@@ -174,7 +174,7 @@
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "2f87e1f1d1c1909150151531d87d3c3fde8d7e43",
+            "hash": "787a1a333f9ff4c4808cea43f0d49c1fdca0d113",
             "nodes": {
                 "0": {
                     "data": {
@@ -195,8 +195,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 190,
-                    "y": -4.263256414560601e-14
+                    "x": 360,
+                    "y": 0
                 },
                 "1": {
                     "data": {
@@ -211,8 +211,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 190,
-                    "y": 2362
+                    "x": 360,
+                    "y": 2660
                 },
                 "13": {
                     "data": {
@@ -305,8 +305,8 @@
                     "id": "20",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 180,
-                    "y": 920
+                    "x": 170,
+                    "y": 925
                 },
                 "22": {
                     "data": {
@@ -408,7 +408,7 @@
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
                     "warnings": {},
                     "x": 0,
-                    "y": 1560
+                    "y": 1863
                 },
                 "26": {
                     "data": {
@@ -456,8 +456,8 @@
                     "id": "26",
                     "type": "decision",
                     "warnings": {},
-                    "x": 260,
-                    "y": 1240
+                    "x": 250,
+                    "y": 1236
                 },
                 "27": {
                     "data": {
@@ -486,6 +486,7 @@
                         },
                         "parameters": {
                             "content": {
+                                "functionId": 2,
                                 "parameters": [],
                                 "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n"
                             },
@@ -529,8 +530,8 @@
                     "id": "27",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": -1.4210854715202004e-14,
-                    "y": 1727
+                    "x": 0,
+                    "y": 2025
                 },
                 "30": {
                     "data": {
@@ -601,8 +602,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": -520,
-                    "y": 1400
+                    "x": 660,
+                    "y": 0
                 },
                 "31": {
                     "data": {
@@ -612,7 +613,8 @@
                             "join": [],
                             "notRequiredJoins": [
                                 "add_task_note_2",
-                                "add_task_note_3"
+                                "add_task_note_3",
+                                "add_task_note_4"
                             ]
                         },
                         "connector": "Enterprise Security",
@@ -656,8 +658,8 @@
                     "id": "31",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 180,
-                    "y": 1880
+                    "x": 280,
+                    "y": 2180
                 },
                 "32": {
                     "data": {
@@ -726,8 +728,8 @@
                     "id": "32",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 340,
-                    "y": 1727
+                    "x": 220,
+                    "y": 1960
                 },
                 "33": {
                     "data": {
@@ -779,8 +781,8 @@
                     "id": "33",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 170,
-                    "y": 148.99999999999994
+                    "x": 340,
+                    "y": 149
                 },
                 "34": {
                     "data": {
@@ -837,8 +839,8 @@
                     "id": "34",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 170,
-                    "y": 297.99999999999994
+                    "x": 340,
+                    "y": 298
                 },
                 "35": {
                     "data": {
@@ -867,8 +869,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    seen = set()\n    gather_entities_and_indicators__entities = []\n    \n    for pair in list(zip(run_query_1_result_item_2,run_query_1_result_item_3)):\n        if pair not in seen:  # Check if the pair is already added\n            gather_entities_and_indicators__entities.append(pair)\n            seen.add(pair)\n\n    seen = set()\n    gather_entities_and_indicators__indicators = []\n    for pair in list(zip(run_query_1_result_item_0,run_query_1_result_item_1)):\n        if pair not in seen:  # Check if the pair is already added\n            gather_entities_and_indicators__indicators.append(pair)\n            seen.add(pair)\n    \n    #gather_entities_and_indicators__entities = list(set(zip(run_query_2_result_item_2,run_query_2_result_item_3)))\n    #gather_entities_and_indicators__indicators = list(set(zip(run_query_2_result_item_0,run_query_2_result_item_1)))\n\n",
                     "warnings": {},
-                    "x": 170,
-                    "y": 2038
+                    "x": 340,
+                    "y": 2336
                 },
                 "36": {
                     "data": {
@@ -912,8 +914,8 @@
                     "id": "36",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 170,
-                    "y": 2200
+                    "x": 340,
+                    "y": 2498
                 },
                 "37": {
                     "data": {
@@ -962,7 +964,7 @@
                     "id": "37",
                     "type": "decision",
                     "warnings": {},
-                    "x": 250,
+                    "x": 420,
                     "y": 596
                 },
                 "38": {
@@ -1036,8 +1038,8 @@
                     "id": "38",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": -280,
-                    "y": 840
+                    "x": 800,
+                    "y": 1400
                 },
                 "39": {
                     "data": {
@@ -1064,8 +1066,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_0[0])\n    for item in run_query_1_result_item_0:\n        for i in range(len(item)):\n            related_findings_list__related_findings_id.append(item[i])\n    \n    for item in run_query_1_result_item_1:\n        for i in range(len(item)):\n            related_findings_list__related_findings_time.append(item[i])\n            \n    phantom.debug(related_findings_list__related_findings_id)\n    phantom.debug(related_findings_list__related_findings_time)\n    #related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_1[0])\n    #related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
                     "warnings": {},
-                    "x": -240,
-                    "y": 1460
+                    "x": 0,
+                    "y": 1416
                 },
                 "4": {
                     "data": {
@@ -1133,8 +1135,8 @@
                     "id": "4",
                     "type": "action",
                     "warnings": {},
-                    "x": 180,
-                    "y": 460
+                    "x": 340,
+                    "y": 447
                 },
                 "41": {
                     "data": {
@@ -1194,8 +1196,8 @@
                     "id": "41",
                     "type": "utility",
                     "warnings": {},
-                    "x": -420,
-                    "y": 1560
+                    "x": 0,
+                    "y": 1565
                 },
                 "42": {
                     "data": {
@@ -1255,8 +1257,8 @@
                     "id": "42",
                     "type": "utility",
                     "warnings": {},
-                    "x": -460,
-                    "y": 1680
+                    "x": 0,
+                    "y": 1714
                 }
             },
             "notes": ""
@@ -1269,7 +1271,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T08:56:40.677376+00:00",
+    "create_time": "2024-12-02T09:26:54.218408+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
