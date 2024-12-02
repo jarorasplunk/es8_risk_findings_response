@@ -205,7 +205,7 @@
                     "targetPort": "44_in"
                 }
             ],
-            "hash": "2f87e1f1d1c1909150151531d87d3c3fde8d7e43",
+            "hash": "c6f2a0b29edaf3d681c7071c9b7cf44261f155be",
             "nodes": {
                 "0": {
                     "data": {
@@ -1370,6 +1370,7 @@
                         },
                         "parameters": {
                             "content": {
+                                "functionId": 5,
                                 "parameters": [
                                     "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.finding_id",
                                     "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status"
@@ -1416,7 +1417,7 @@
                     "id": "46",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": -300,
+                    "x": -320,
                     "y": 2080
                 },
                 "47": {
@@ -1445,7 +1446,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "finding_time": "time_list:custom_function_result.data.output",
+                            "finding_time": "",
                             "id": "id_list:custom_function_result.data.output"
                         },
                         "requiredParameters": [
@@ -1474,7 +1475,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T12:41:15.640383+00:00",
+    "create_time": "2024-12-02T12:48:37.345138+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
