@@ -160,7 +160,7 @@
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "57f81e9f403bb03519242aa30cf024601abe7910",
+            "hash": "2f87e1f1d1c1909150151531d87d3c3fde8d7e43",
             "nodes": {
                 "0": {
                     "data": {
@@ -1048,8 +1048,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    related_findings_list__related_findings = []\n    for item in run_query_1_result_item_0[0]:\n        related_findings_list__related_findings.append(item)\n    \n\n",
                     "warnings": {},
-                    "x": -1.4210854715202004e-14,
-                    "y": 1364.5
+                    "x": 0,
+                    "y": 1360
                 },
                 "4": {
                     "data": {
