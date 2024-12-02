@@ -783,7 +783,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
         conditions=[
-            ["get_finding_metadata_1:action_result.data.*.status", "!=", "Closed"]
+            ["get_finding_metadata_1:action_result.data.*.status", "!=", 5]
         ],
         name="filter_1:condition_1",
         delimiter=None)
@@ -796,7 +796,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     matched_artifacts_2, matched_results_2 = phantom.condition(
         container=container,
         conditions=[
-            ["get_finding_metadata_1:action_result.data.*.status", "==", "Closed"]
+            ["get_finding_metadata_1:action_result.data.*.status", "==", 5]
         ],
         name="filter_1:condition_2",
         delimiter=None)
