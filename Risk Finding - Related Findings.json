@@ -115,7 +115,7 @@
                     "targetPort": "35_in"
                 }
             ],
-            "hash": "4e02bd9d16743a3aecf14a777495c9328aa9c7f9",
+            "hash": "cd8c44533651af98e69d9acf8f3aa37c40163398",
             "nodes": {
                 "0": {
                     "data": {
@@ -802,9 +802,10 @@
                     "errors": {},
                     "id": "35",
                     "type": "code",
+                    "userCode": "\n    # Write your custom code here...\n    gather_entities_and_indicators__entities = list(zip(run_query_2_result_item_2,run_query_2_result_item_3))\n    gather_entities_and_indicators__indicators = list(zip(run_query_2_result_item_0,run_query_2_result_item_1))\n\n",
                     "warnings": {},
                     "x": 180,
-                    "y": 1724.5
+                    "y": 1720
                 },
                 "4": {
                     "data": {
@@ -885,7 +886,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T02:18:27.559034+00:00",
+    "create_time": "2024-12-02T02:19:35.470403+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
