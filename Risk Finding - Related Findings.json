@@ -160,7 +160,7 @@
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "c2e7d36139c307a7b1659505a70f5422b4869ae3",
+            "hash": "708e171c44664bd92d561857a4b70857c38673f7",
             "nodes": {
                 "0": {
                     "data": {
@@ -377,7 +377,7 @@
                         "parameters": {
                             "disposition": "Closed - As part of investigation",
                             "finding_time": "run_query_2:action_result.data.*._time",
-                            "id": "run_query_2:action_result.data.*.source_event_id",
+                            "id": "related_findings_list:custom_function:related_findings",
                             "status": "Closed"
                         },
                         "requiredParameters": [
@@ -1139,7 +1139,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T07:25:16.579372+00:00",
+    "create_time": "2024-12-02T07:25:39.012003+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

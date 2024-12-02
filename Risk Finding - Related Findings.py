@@ -178,18 +178,19 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    run_query_2_result_data = phantom.collect2(container=container, datapath=["run_query_2:action_result.data.*.source_event_id","run_query_2:action_result.data.*._time","run_query_2:action_result.parameter.context.artifact_id"], action_results=results)
+    run_query_2_result_data = phantom.collect2(container=container, datapath=["run_query_2:action_result.data.*._time","run_query_2:action_result.parameter.context.artifact_id"], action_results=results)
+    related_findings_list__related_findings = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     # build parameters list for 'update_finding_or_investigation_1' call
     for run_query_2_result_item in run_query_2_result_data:
-        if run_query_2_result_item[0] is not None:
+        if related_findings_list__related_findings is not None:
             parameters.append({
-                "id": run_query_2_result_item[0],
+                "id": related_findings_list__related_findings,
                 "status": "Closed",
                 "disposition": "Closed - As part of investigation",
-                "finding_time": run_query_2_result_item[1],
+                "finding_time": run_query_2_result_item[0],
             })
 
     ################################################################################
