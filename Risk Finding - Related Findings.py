@@ -236,6 +236,11 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
+    content_formatted_string = phantom.format(
+        container=container,
+        template="""Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nThe individual findings are also added to the \"Events\" tab as evidence.\n\n""",
+        parameters=[])
+
     finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.id"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
@@ -246,11 +251,11 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
     for finding_data_item in finding_data:
         for get_task_id_1_result_item in get_task_id_1_result_data:
             for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                if finding_data_item[0] is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
+                if finding_data_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
                     parameters.append({
                         "id": finding_data_item[0],
                         "title": "Analyst decision to close related findings",
-                        "content": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.",
+                        "content": content_formatted_string,
                         "task_id": get_task_id_1_result_item[0],
                         "phase_id": get_phase_id_1_result_item[0],
                         "response_plan_id": finding_data_item[1],
@@ -279,15 +284,16 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| table source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value\n""",
+        template="""| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| fields source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message\n| `add_events({4})`\n""",
         parameters=[
             "finding:consolidated_findings.normalized_risk_object",
             "finding:consolidated_findings.risk_object_type",
             "finding:consolidated_findings.info_min_time",
-            "finding:consolidated_findings.info_max_time"
+            "finding:consolidated_findings.info_max_time",
+            "finding:investigation_id"
         ])
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object","finding:consolidated_findings.risk_object_type","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object","finding:consolidated_findings.risk_object_type","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time","finding:investigation_id"])
 
     parameters = []
 
@@ -297,7 +303,7 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
             parameters.append({
                 "query": query_formatted_string,
                 "command": "",
-                "display": "source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value",
+                "display": "source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message",
                 "search_mode": "verbose",
                 "start_time": "-365d",
                 "end_time": "now",
@@ -313,7 +319,7 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_2", assets=["splunk"], callback=create_event_1)
+    phantom.act("run query", parameters=parameters, name="run_query_2", assets=["splunk"], callback=update_finding_or_investigation_1)
 
     return
 
@@ -479,51 +485,6 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
     ################################################################################
 
     phantom.act("get task id", parameters=parameters, name="get_task_id_1", assets=["builtin_mc_connector"], callback=add_task_note_1)
-
-    return
-
-
-@phantom.playbook_block()
-def create_event_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("create_event_1() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
-    run_query_2_result_data = phantom.collect2(container=container, datapath=["run_query_2:action_result.data.*.source","run_query_2:action_result.data.*.source_event_id","run_query_2:action_result.data.*._time","run_query_2:action_result.data.*.annotations.mitre_attack","run_query_2:action_result.data.*.entity","run_query_2:action_result.data.*.risk_object","run_query_2:action_result.data.*.normalized_risk_object","run_query_2:action_result.data.*.threat_object","run_query_2:action_result.data.*.threat_match_value","run_query_2:action_result.parameter.context.artifact_id"], action_results=results)
-
-    parameters = []
-
-    # build parameters list for 'create_event_1' call
-    for finding_data_item in finding_data:
-        for run_query_2_result_item in run_query_2_result_data:
-            if finding_data_item[0] is not None:
-                parameters.append({
-                    "id": finding_data_item[0],
-                    "pairs": [
-                        { "name": "source", "value": run_query_2_result_item[0] },
-                        { "name": "source_event_id", "value": run_query_2_result_item[1] },
-                        { "name": "_time", "value": run_query_2_result_item[2] },
-                        { "name": "annotations.mitre_attack", "value": run_query_2_result_item[3] },
-                        { "name": "entity", "value": run_query_2_result_item[4] },
-                        { "name": "risk_object", "value": run_query_2_result_item[5] },
-                        { "name": "normalized_risk_object", "value": run_query_2_result_item[6] },
-                        { "name": "threat_object", "value": run_query_2_result_item[7] },
-                        { "name": "threat_match_value", "value": run_query_2_result_item[8] },
-                    ],
-                })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("create event", parameters=parameters, name="create_event_1", assets=["builtin_mc_connector"], callback=update_finding_or_investigation_1)
 
     return
 

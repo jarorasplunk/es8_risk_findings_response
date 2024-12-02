@@ -108,21 +108,14 @@
                     "targetPort": "20_in"
                 },
                 {
-                    "id": "port_30_to_port_35",
+                    "id": "port_30_to_port_23",
                     "sourceNode": "30",
                     "sourcePort": "30_out",
-                    "targetNode": "35",
-                    "targetPort": "35_in"
-                },
-                {
-                    "id": "port_35_to_port_23",
-                    "sourceNode": "35",
-                    "sourcePort": "35_out",
                     "targetNode": "23",
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "319bd97a2491bafef955002fc30a9be69e1dad2c",
+            "hash": "1f687a86aa5570c9c4435b0b2ef05dd758b0e530",
             "nodes": {
                 "0": {
                     "data": {
@@ -356,7 +349,7 @@
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
                     "warnings": {},
                     "x": -40,
-                    "y": 1340
+                    "y": 1260
                 },
                 "26": {
                     "data": {
@@ -433,7 +426,10 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "content": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.",
+                            "content": {
+                                "parameters": [],
+                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nThe individual findings are also added to the \"Events\" tab as evidence.\n\n"
+                            },
                             "id": "finding:investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
                             "response_plan_id": "finding:response_plans.*.id",
@@ -504,17 +500,17 @@
                         },
                         "parameters": {
                             "command": "",
-                            "display": "source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value",
+                            "display": "source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message",
                             "end_time": "now",
                             "query": {
-                                "functionId": 2,
                                 "parameters": [
                                     "finding:consolidated_findings.normalized_risk_object",
                                     "finding:consolidated_findings.risk_object_type",
                                     "finding:consolidated_findings.info_min_time",
-                                    "finding:consolidated_findings.info_max_time"
+                                    "finding:consolidated_findings.info_max_time",
+                                    "finding:investigation_id"
                                 ],
-                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| table source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value\n"
+                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| fields source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message\n| `add_events({4})`\n"
                             },
                             "search_mode": "verbose",
                             "start_time": "-365d"
@@ -780,91 +776,6 @@
                     "x": 160,
                     "y": 540
                 },
-                "35": {
-                    "data": {
-                        "action": "create event",
-                        "actionType": "post",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "create_event_1",
-                        "id": "35",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "id": "finding:investigation_id",
-                            "pairs": [
-                                {
-                                    "name": "source",
-                                    "value": "run_query_2:action_result.data.*.source"
-                                },
-                                {
-                                    "name": "source_event_id",
-                                    "value": "run_query_2:action_result.data.*.source_event_id"
-                                },
-                                {
-                                    "name": "_time",
-                                    "value": "run_query_2:action_result.data.*._time"
-                                },
-                                {
-                                    "name": "annotations.mitre_attack",
-                                    "value": "run_query_2:action_result.data.*.annotations.mitre_attack"
-                                },
-                                {
-                                    "name": "entity",
-                                    "value": "run_query_2:action_result.data.*.entity"
-                                },
-                                {
-                                    "name": "risk_object",
-                                    "value": "run_query_2:action_result.data.*.risk_object"
-                                },
-                                {
-                                    "name": "normalized_risk_object",
-                                    "value": "run_query_2:action_result.data.*.normalized_risk_object"
-                                },
-                                {
-                                    "name": "threat_object",
-                                    "value": "run_query_2:action_result.data.*.threat_object"
-                                },
-                                {
-                                    "name": "threat_match_value",
-                                    "value": "run_query_2:action_result.data.*.threat_match_value"
-                                }
-                            ]
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            },
-                            {
-                                "data_type": "array",
-                                "field": "pairs"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "35",
-                    "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": -40,
-                    "y": 1244.5
-                },
                 "4": {
                     "data": {
                         "action": "run query",
@@ -944,7 +855,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T00:15:37.461574+00:00",
+    "create_time": "2024-12-02T01:08:15.125788+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
