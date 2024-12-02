@@ -151,16 +151,9 @@
                     "sourcePort": "26_out",
                     "targetNode": "39",
                     "targetPort": "39_in"
-                },
-                {
-                    "id": "port_39_to_port_23",
-                    "sourceNode": "39",
-                    "sourcePort": "39_out",
-                    "targetNode": "23",
-                    "targetPort": "23_in"
                 }
             ],
-            "hash": "2f87e1f1d1c1909150151531d87d3c3fde8d7e43",
+            "hash": "df149fe20052bb2a3084cee5d67e873f6a3bf272",
             "nodes": {
                 "0": {
                     "data": {
@@ -392,7 +385,14 @@
                     "id": "23",
                     "type": "enterpriseSecurity",
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 0,
                     "y": 1560
                 },
@@ -514,8 +514,12 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": -1.4210854715202004e-14,
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
+                    "x": 0,
                     "y": 1727
                 },
                 "30": {
@@ -1048,10 +1052,10 @@
                     "errors": {},
                     "id": "39",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    related_findings_list__related_findings_id = []\n    phantom.debug(run_query_1_result_item_0[0])\n    for item in run_query_1_result_item_0[0]:\n        related_findings_list__related_findings_id.append(item)\n    \n    related_findings_list__related_findings_time = []\n    phantom.debug(run_query_1_result_item_1[0])\n    related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
+                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    #related_findings_list__related_findings_id = []\n    #phantom.debug(run_query_1_result_item_0[0])\n    #for item in run_query_1_result_item_0[0]:\n    #    related_findings_list__related_findings_id.append(item)\n    \n    #related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_1[0])\n    #related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
                     "warnings": {},
-                    "x": 0,
-                    "y": 1360
+                    "x": -240,
+                    "y": 1460
                 },
                 "4": {
                     "data": {
@@ -1133,7 +1137,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T08:32:45.403772+00:00",
+    "create_time": "2024-12-02T08:41:06.035244+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
