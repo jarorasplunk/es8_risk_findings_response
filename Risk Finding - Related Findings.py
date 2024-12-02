@@ -642,27 +642,31 @@ def add_task_note_4(action=None, success=None, container=None, results=None, han
 def related_findings_list(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("related_findings_list() called")
 
-    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.source_event_id"], action_results=results)
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.source_event_id","run_query_1:action_result.data.*._time"], action_results=results)
 
     run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
+    run_query_1_result_item_1 = [item[1] for item in run_query_1_result_data]
 
-    related_findings_list__related_findings = None
+    related_findings_list__related_findings_id = None
+    related_findings_list__related_findings_time = None
 
     ################################################################################
     ## Custom Code Start
     ################################################################################
 
     # Write your custom code here...
-    related_findings_list__related_findings = []
+    related_findings_list__related_findings_id = []
     for item in run_query_1_result_item_0[0]:
-        related_findings_list__related_findings.append(item)
+        related_findings_list__related_findings_id.append(item)
     
-
+    related_findings_list__related_findings_time = []
+    related_findings_list__related_findings_time = run_query_1_result_item_1[0]
     ################################################################################
     ## Custom Code End
     ################################################################################
 
-    phantom.save_run_data(key="related_findings_list:related_findings", value=json.dumps(related_findings_list__related_findings))
+    phantom.save_run_data(key="related_findings_list:related_findings_id", value=json.dumps(related_findings_list__related_findings_id))
+    phantom.save_run_data(key="related_findings_list:related_findings_time", value=json.dumps(related_findings_list__related_findings_time))
 
     update_finding_or_investigation_1(container=container)
 

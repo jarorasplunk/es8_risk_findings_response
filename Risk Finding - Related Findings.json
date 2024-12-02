@@ -160,7 +160,7 @@
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "2f87e1f1d1c1909150151531d87d3c3fde8d7e43",
+            "hash": "887b179ce88ba7c9207badcb5dfa48edaa43a3a4",
             "nodes": {
                 "0": {
                     "data": {
@@ -1036,17 +1036,19 @@
                         "functionName": "related_findings_list",
                         "id": "39",
                         "inputParameters": [
-                            "run_query_1:action_result.data.*.source_event_id"
+                            "run_query_1:action_result.data.*.source_event_id",
+                            "run_query_1:action_result.data.*._time"
                         ],
                         "outputVariables": [
-                            "related_findings"
+                            "related_findings_id",
+                            "related_findings_time"
                         ],
                         "type": "code"
                     },
                     "errors": {},
                     "id": "39",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    related_findings_list__related_findings = []\n    for item in run_query_1_result_item_0[0]:\n        related_findings_list__related_findings.append(item)\n    \n\n",
+                    "userCode": "\n    # Write your custom code here...\n    related_findings_list__related_findings_id = []\n    for item in run_query_1_result_item_0[0]:\n        related_findings_list__related_findings_id.append(item)\n    \n    related_findings_list__related_findings_time = []\n    related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
                     "warnings": {},
                     "x": 0,
                     "y": 1360
@@ -1131,7 +1133,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T08:04:40.280320+00:00",
+    "create_time": "2024-12-02T08:20:45.071083+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
