@@ -115,7 +115,7 @@
                     "targetPort": "20_in"
                 }
             ],
-            "hash": "319bd97a2491bafef955002fc30a9be69e1dad2c",
+            "hash": "d1a72d095a6bc2a210c07122f74e333f4e0a3704",
             "nodes": {
                 "0": {
                     "data": {
@@ -137,7 +137,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 200,
-                    "y": -4.263256414560601e-14
+                    "y": 0
                 },
                 "1": {
                     "data": {
@@ -497,18 +497,21 @@
                         },
                         "parameters": {
                             "command": "",
-                            "display": "source_event_id, _time",
+                            "display": "source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message, threat_object_type",
+                            "end_time": "now",
                             "query": {
                                 "functionId": 2,
                                 "parameters": [
                                     "finding:consolidated_findings.normalized_risk_object",
                                     "finding:consolidated_findings.risk_object_type",
                                     "finding:consolidated_findings.info_min_time",
-                                    "finding:consolidated_findings.info_max_time"
+                                    "finding:consolidated_findings.info_max_time",
+                                    "finding:investigation_id"
                                 ],
-                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| table source_event_id _time"
+                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| fields source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message, threat_object_type\n| `add_events({4})`"
                             },
-                            "search_mode": "verbose"
+                            "search_mode": "verbose",
+                            "start_time": "-365d"
                         },
                         "requiredParameters": [
                             {
@@ -532,7 +535,7 @@
                     "id": "30",
                     "type": "action",
                     "warnings": {},
-                    "x": -40.000000000000014,
+                    "x": -40,
                     "y": 1120
                 },
                 "31": {
@@ -800,6 +803,7 @@
                             "attach_result": false,
                             "command": "",
                             "display": "source, source_event_id_count, source_event_id",
+                            "end_time": "now",
                             "query": {
                                 "functionId": 1,
                                 "parameters": [
@@ -810,7 +814,8 @@
                                 ],
                                 "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id by source"
                             },
-                            "search_mode": "verbose"
+                            "search_mode": "verbose",
+                            "start_time": "-365d"
                         },
                         "requiredParameters": [
                             {
@@ -835,7 +840,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 180,
-                    "y": 139.99999999999994
+                    "y": 140
                 }
             },
             "notes": ""
@@ -848,7 +853,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T02:12:11.556440+00:00",
+    "create_time": "2024-12-02T02:15:53.820126+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

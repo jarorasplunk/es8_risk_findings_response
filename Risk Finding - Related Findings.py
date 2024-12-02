@@ -46,6 +46,8 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
                 "display": "source, source_event_id_count, source_event_id",
                 "search_mode": "verbose",
                 "attach_result": False,
+                "start_time": "-365d",
+                "end_time": "now",
             })
 
     ################################################################################
@@ -277,15 +279,16 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| table source_event_id _time""",
+        template="""| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| fields source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message, threat_object_type\n| `add_events({4})`""",
         parameters=[
             "finding:consolidated_findings.normalized_risk_object",
             "finding:consolidated_findings.risk_object_type",
             "finding:consolidated_findings.info_min_time",
-            "finding:consolidated_findings.info_max_time"
+            "finding:consolidated_findings.info_max_time",
+            "finding:investigation_id"
         ])
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object","finding:consolidated_findings.risk_object_type","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object","finding:consolidated_findings.risk_object_type","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time","finding:investigation_id"])
 
     parameters = []
 
@@ -295,8 +298,10 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
             parameters.append({
                 "query": query_formatted_string,
                 "command": "",
-                "display": "source_event_id, _time",
+                "display": "source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message, threat_object_type",
                 "search_mode": "verbose",
+                "start_time": "-365d",
+                "end_time": "now",
             })
 
     ################################################################################
