@@ -654,11 +654,13 @@ def related_findings_list(action=None, success=None, container=None, results=Non
     # Write your custom code here...
     phantom.debug(run_query_1_result_item_0)
     phantom.debug(run_query_1_result_item_1)
-    #related_findings_list__related_findings_id = []
-    #phantom.debug(run_query_1_result_item_0[0])
-    #for item in run_query_1_result_item_0[0]:
-    #    related_findings_list__related_findings_id.append(item)
+    related_findings_list__related_findings_id = []
+    phantom.debug(run_query_1_result_item_0[0])
+    for item in run_query_1_result_item_0:
+        for i in range(len(item)):
+            related_findings_list__related_findings_id.append(item[i])
     
+    phantom.debug(related_findings_list__related_findings_id)
     #related_findings_list__related_findings_time = []
     #phantom.debug(run_query_1_result_item_1[0])
     #related_findings_list__related_findings_time = run_query_1_result_item_1[0]
