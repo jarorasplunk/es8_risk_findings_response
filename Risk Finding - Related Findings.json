@@ -68,13 +68,6 @@
                     "targetPort": "31_in"
                 },
                 {
-                    "id": "port_31_to_port_1",
-                    "sourceNode": "31",
-                    "sourcePort": "31_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "conditions": [
                         {
                             "index": 1
@@ -113,9 +106,16 @@
                     "sourcePort": "34_out",
                     "targetNode": "20",
                     "targetPort": "20_in"
+                },
+                {
+                    "id": "port_31_to_port_35",
+                    "sourceNode": "31",
+                    "sourcePort": "31_out",
+                    "targetNode": "35",
+                    "targetPort": "35_in"
                 }
             ],
-            "hash": "362e121beb95dde127995419bf92a750ce74ee50",
+            "hash": "4e02bd9d16743a3aecf14a777495c9328aa9c7f9",
             "nodes": {
                 "0": {
                     "data": {
@@ -152,8 +152,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 190,
-                    "y": 1882
+                    "x": 200,
+                    "y": 2020
                 },
                 "13": {
                     "data": {
@@ -777,6 +777,35 @@
                     "x": 160,
                     "y": 540
                 },
+                "35": {
+                    "data": {
+                        "advanced": {
+                            "customName": "gather entities and indicators",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "gather_entities_and_indicators",
+                        "id": "35",
+                        "inputParameters": [
+                            "run_query_2:action_result.data.*.threat_object_type",
+                            "run_query_2:action_result.data.*.threat_object",
+                            "run_query_2:action_result.data.*.risk_object_type",
+                            "run_query_2:action_result.data.*.risk_object"
+                        ],
+                        "outputVariables": [
+                            "entities",
+                            "indicators"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "35",
+                    "type": "code",
+                    "warnings": {},
+                    "x": 180,
+                    "y": 1724.5
+                },
                 "4": {
                     "data": {
                         "action": "run query",
@@ -856,7 +885,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T02:16:49.459738+00:00",
+    "create_time": "2024-12-02T02:18:27.559034+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

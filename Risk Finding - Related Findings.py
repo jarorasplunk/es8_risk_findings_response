@@ -374,7 +374,7 @@ def update_task_in_current_phase_1(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_1", assets=["builtin_mc_connector"])
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_1", assets=["builtin_mc_connector"], callback=gather_entities_and_indicators)
 
     return
 
@@ -485,6 +485,36 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
     ################################################################################
 
     phantom.act("get task id", parameters=parameters, name="get_task_id_1", assets=["builtin_mc_connector"], callback=add_task_note_1)
+
+    return
+
+
+@phantom.playbook_block()
+def gather_entities_and_indicators(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("gather_entities_and_indicators() called")
+
+    run_query_2_result_data = phantom.collect2(container=container, datapath=["run_query_2:action_result.data.*.threat_object_type","run_query_2:action_result.data.*.threat_object","run_query_2:action_result.data.*.risk_object_type","run_query_2:action_result.data.*.risk_object"], action_results=results)
+
+    run_query_2_result_item_0 = [item[0] for item in run_query_2_result_data]
+    run_query_2_result_item_1 = [item[1] for item in run_query_2_result_data]
+    run_query_2_result_item_2 = [item[2] for item in run_query_2_result_data]
+    run_query_2_result_item_3 = [item[3] for item in run_query_2_result_data]
+
+    gather_entities_and_indicators__entities = None
+    gather_entities_and_indicators__indicators = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_run_data(key="gather_entities_and_indicators:entities", value=json.dumps(gather_entities_and_indicators__entities))
+    phantom.save_run_data(key="gather_entities_and_indicators:indicators", value=json.dumps(gather_entities_and_indicators__indicators))
 
     return
 
