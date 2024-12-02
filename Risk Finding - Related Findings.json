@@ -160,7 +160,7 @@
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "73fbd3ff1dded4451e7edcbdbc913d5925d9d4fe",
+            "hash": "57f81e9f403bb03519242aa30cf024601abe7910",
             "nodes": {
                 "0": {
                     "data": {
@@ -1046,7 +1046,7 @@
                     "errors": {},
                     "id": "39",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    related_findings_list__related_findings = []\n    for item in run_query_1_result_item_0:\n        related_findings_list__related_findings.append(item)\n    \n\n",
+                    "userCode": "\n    # Write your custom code here...\n    related_findings_list__related_findings = []\n    for item in run_query_1_result_item_0[0]:\n        related_findings_list__related_findings.append(item)\n    \n\n",
                     "warnings": {},
                     "x": -1.4210854715202004e-14,
                     "y": 1364.5
@@ -1131,7 +1131,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T07:34:20.917934+00:00",
+    "create_time": "2024-12-02T08:04:40.280320+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

@@ -654,7 +654,7 @@ def related_findings_list(action=None, success=None, container=None, results=Non
 
     # Write your custom code here...
     related_findings_list__related_findings = []
-    for item in run_query_1_result_item_0:
+    for item in run_query_1_result_item_0[0]:
         related_findings_list__related_findings.append(item)
     
 
