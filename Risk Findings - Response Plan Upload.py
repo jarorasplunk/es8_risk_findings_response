@@ -61,7 +61,7 @@ def create_response_plan_json(action=None, success=None, container=None, results
                                     "name": "Risk Finding - Prepare Investigation",
                                     "scope": "all",
                                     "description": "Risk Finding - Prepare Investigation",
-                                    "playbook_id": "local/Risk Finding - Prepare Investigation",
+                                    "playbook_id": "es8_risk_findings_response/Risk Finding - Prepare Investigation",
                                     "last_job_id": var_0
                                 }
                             ]
@@ -80,7 +80,7 @@ def create_response_plan_json(action=None, success=None, container=None, results
                                     "name": "Risk Finding - Related Findings",
                                     "scope": "all",
                                     "description": "Risk Finding - Related Findings",
-                                    "playbook_id": "local/Risk Finding - Related Findings",
+                                    "playbook_id": "es8_risk_findings_response/Risk Finding - Related Findings",
                                     "last_job_id": var_0
                                 }
                             ]
@@ -99,10 +99,65 @@ def create_response_plan_json(action=None, success=None, container=None, results
                                     "name": "Risk Finding - Dispatch Enrichment Playbooks",
                                     "scope": "all",
                                     "description": "Risk Finding - Dispatch Enrichment Playbooks",
-                                    "playbook_id": "local/Risk Finding - Dispatch Enrichment Playbooks",
+                                    "playbook_id": "es8_risk_findings_response/Risk Finding - Dispatch Enrichment Playbooks",
                                     "last_job_id": var_0
                                 }
                             ]
+                        },
+                        "is_note_required": var_false
+                    },
+                ]
+            },
+            {
+                "name": "Investigate",
+                "order": var_1,
+                "tasks": [
+                    {
+                        "name": "Investigate findings",
+                        "order": var_1,
+                        "description": "Investigate individual findings in this Risk Investigation. An autoamted playbook has trigerred and captured additonal details about the individal findings, please review them and conduct further investigation.",
+                        "suggestions": {
+                            "actions": [],
+                            "searches": [],
+                            "playbooks": [
+                                {
+                                    "name": "Risk Finding - Investigate Findings",
+                                    "scope": "all",
+                                    "description": "Risk Finding - Investigate Findings",
+                                    "playbook_id": "es8_risk_findings_response/Risk Finding - Investigate Findings",
+                                    "last_job_id": var_0
+                                }
+                            ]
+                        },
+                        "is_note_required": var_false
+                    },
+                    {
+                        "name": "Hunt Indicators",
+                        "order": var_2,
+                        "description": "Hunt for the involved indicators from this Risk Finding across Splunk logs. Gather evidence of presence of these indicators.",
+                        "suggestions": {
+                            "actions": [],
+                            "searches": [],
+                            "playbooks": [
+                                {
+                                    "name": "Risk Finding - Hunt Indicators",
+                                    "scope": "all",
+                                    "description": "Risk Finding - Hunt Indicators",
+                                    "playbook_id": "es8_risk_findings_response/Risk Finding - Hunt Indicators",
+                                    "last_job_id": var_0
+                                }
+                            ]
+                        },
+                        "is_note_required": var_false
+                    },
+                    {
+                        "name": "Optional: Investigation notes",
+                        "order": var_3,
+                        "description": "Add any additional investigation details performed outside of this response plan. Create manual notes and attach files etc.",
+                        "suggestions": {
+                            "actions": [],
+                            "searches": [],
+                            "playbooks": []
                         },
                         "is_note_required": var_false
                     },
