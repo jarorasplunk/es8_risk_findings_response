@@ -23,7 +23,7 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:create_time"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
 
     parameters = []
 
@@ -33,7 +33,7 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
             parameters.append({
                 "map_consolidated_findings": 1,
                 "id": finding_data_item[0],
-                "finding_time": finding_data_item[1],
+                "finding_time": "",
             })
 
     ################################################################################
