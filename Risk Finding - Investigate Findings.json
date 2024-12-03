@@ -5,8 +5,23 @@
     "coa": {
         "data": {
             "description": "",
-            "edges": [],
-            "hash": "34f214649e27c33ea22c0dd6363172679b9d6dd0",
+            "edges": [
+                {
+                    "id": "port_0_to_port_2",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "2",
+                    "targetPort": "2_in"
+                },
+                {
+                    "id": "port_2_to_port_1",
+                    "sourceNode": "2",
+                    "sourcePort": "2_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                }
+            ],
+            "hash": "d2c6dcef19d5a0aaa7a6338ab992ae373252a38a",
             "nodes": {
                 "0": {
                     "data": {
@@ -39,6 +54,51 @@
                     "warnings": {},
                     "x": 1000,
                     "y": 1000
+                },
+                "2": {
+                    "data": {
+                        "action": "get finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_finding_or_investigation_1",
+                        "id": "2",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "finding_time": "finding:create_time",
+                            "id": "finding:investigation_id",
+                            "map_consolidated_findings": "1"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "2",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 990,
+                    "y": 564.5
                 }
             },
             "notes": ""
@@ -51,7 +111,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-03T06:05:26.174302+00:00",
+    "create_time": "2024-12-03T06:07:51.663280+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
