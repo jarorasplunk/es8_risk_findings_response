@@ -14,13 +14,14 @@
                     "targetPort": "2_in"
                 },
                 {
-                    "id": "port_2_to_port_1",
+                    "id": "port_2_to_port_4",
                     "sourceNode": "2",
                     "sourcePort": "2_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
+                    "targetNode": "4",
+                    "targetPort": "4_in"
                 }
             ],
+            "hash": "5359a2f17455560d572a1c3691ab2dee08df6499",
             "nodes": {
                 "0": {
                     "data": {
@@ -104,6 +105,72 @@
                     "warnings": {},
                     "x": 1000,
                     "y": 560
+                },
+                "4": {
+                    "data": {
+                        "action": "run query",
+                        "actionType": "investigate",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Splunk",
+                        "connectorConfigs": [
+                            "splunk"
+                        ],
+                        "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "run_query_1",
+                        "id": "4",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "command": "| from",
+                            "end_time": "now",
+                            "query": {
+                                "functionId": 1,
+                                "parameters": [
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_min_time",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_max_time",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type"
+                                ],
+                                "template": " datamodel:Risk \n| search risk_object=\"{0}\" risk_object_type=\"{3}\" \n| where _time>={1} AND _time<={2}  | eval risk_event_id = if(isnull(risk_event_id), index + \"_\" + _cd + \"_\" + splunk_server, risk_event_id) | eventstats count by risk_event_id | where count < 2 \n| eval risk_message=coalesce(risk_message,source) \n| eval threat_zip = mvzip(threat_object, threat_object_type) \n| rename annotations.mitre_attack.mitre_technique_id as mitre_technique_id annotations.mitre_attack.mitre_tactic as mitre_tactic annotations.mitre_attack.mitre_technique as mitre_technique \n| fields - annotations* orig_sid orig_rid risk_factor* splunk_server host sourcetype tag threat_object* \n| stats list(risk_event_id) as risk_event_ids list(_time) as original_timestamps count as _event_count sum(calculated_risk_score) as _total_risk_score earliest(_time) as earliest latest(_time) as latest values(*) as * by search_name risk_message \n| where NOT (match(source, \"Splunk\\sSOAR\") AND _total_risk_score<=0) \n| fields mitre* _event_count _total_risk_score original_timestamps threat_zip risk_event_ids threat_object\n    [| rest /services/datamodel/model \n    | search eai:acl.app IN (Splunk_SA_CIM, SA-IdentityManagement, SA-NetworkProtection, SA-ThreatIntelligence, DA-ESS-ThreatIntelligence) \n    | fields description \n    | spath input=description path=objects{{}}.fields{{}}.fieldName \n    | spath input=description path=objects{{}}.calculations{{}}.outputFields{{}}.fieldName \n    | eval fieldNames=mvappend('objects{{}}.fields{{}}.fieldName', 'objects{{}}.calculations{{}}.outputFields{{}}.fieldName') \n    | stats values(fieldNames) as fieldNames \n    | mvexpand fieldNames \n    | regex fieldNames=\"^[_a-z]+$\" \n    | stats values(fieldNames) as search] \n| sort + latest \n| `uitime(earliest)` \n| `uitime(latest)` \n| eval _time=latest \n| rex field=threat_zip \"(?<threat_object>.*)\\,(?<threat_object_type>.*)\" \n| fields - threat_zip\n"
+                            },
+                            "search_mode": "verbose",
+                            "start_time": "-365d"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "query"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "search",
+                                "field": "command"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "smart",
+                                "field": "search_mode"
+                            }
+                        ],
+                        "type": "action"
+                    },
+                    "errors": {},
+                    "id": "4",
+                    "type": "action",
+                    "warnings": {},
+                    "x": 1020,
+                    "y": 700
                 }
             },
             "notes": ""
@@ -116,7 +183,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-03T06:09:06.733864+00:00",
+    "create_time": "2024-12-03T06:22:22.263874+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
