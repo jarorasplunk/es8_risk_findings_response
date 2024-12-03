@@ -198,7 +198,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "8c1df678d728aa8f077a662f29f3d524cbc73ee6",
+            "hash": "cf054ba6d4fc3fb560589d1c58c67d17284de6eb",
             "nodes": {
                 "0": {
                     "data": {
@@ -1018,7 +1018,7 @@
                     "errors": {},
                     "id": "39",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_0[0])\n    for item in run_query_1_result_item_0:\n        if len([item]) != 1:\n            for i in range(len(item)):\n                related_findings_list__related_findings_id.append(item[0][i])\n        else:\n            related_findings_list__related_findings_id.append([item][0])\n    \n    for item in run_query_1_result_item_1:\n        if len([item]) != 1:\n            for i in range(len(item)):\n                related_findings_list__related_findings_time.append(item[0][i])\n        else:\n            related_findings_list__related_findings_time.append([item][0])\n            \n    phantom.debug(related_findings_list__related_findings_id)\n    phantom.debug(related_findings_list__related_findings_time)\n    #related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_1[0])\n    #related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
+                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_0[0])\n    for item in run_query_1_result_item_0:\n        if len([item]) != 1:\n            for i in range(len(item)):\n                related_findings_list__related_findings_id.append(item[0][0][i])\n        else:\n            related_findings_list__related_findings_id.append([item][0])\n    \n    for item in run_query_1_result_item_1:\n        if len([item]) != 1:\n            for i in range(len(item)):\n                related_findings_list__related_findings_time.append(item[0][0][i])\n        else:\n            related_findings_list__related_findings_time.append([item][0])\n            \n    phantom.debug(related_findings_list__related_findings_id)\n    phantom.debug(related_findings_list__related_findings_time)\n    #related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_1[0])\n    #related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
                     "warnings": {},
                     "x": 170,
                     "y": 1416
@@ -1391,7 +1391,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-03T01:20:27.905784+00:00",
+    "create_time": "2024-12-03T01:24:06.328159+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
