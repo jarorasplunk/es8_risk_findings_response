@@ -593,7 +593,15 @@ def related_findings_list(action=None, success=None, container=None, results=Non
         else:
             related_findings_list__related_findings_id.append(item)
     
+    for item in run_query_1_result_item_1:
+        phantom.debug(item)
+        if isinstance(item, list):
+            for id in item:
+                related_findings_list__related_findings_time.append(id)
+        else:
+            related_findings_list__related_findings_time.append(item)
     phantom.debug(related_findings_list__related_findings_id)
+    phantom.debug(related_findings_list__related_findings_time)
     ################################################################################
     ## Custom Code End
     ################################################################################
