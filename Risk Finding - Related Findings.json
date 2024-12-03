@@ -198,7 +198,7 @@
                     "targetPort": "41_in"
                 }
             ],
-            "hash": "8c1df678d728aa8f077a662f29f3d524cbc73ee6",
+            "hash": "293a4b2b4ef4c6e2191ac186f4ad3ca47175b3c7",
             "nodes": {
                 "0": {
                     "data": {
@@ -1211,8 +1211,8 @@
                     "id": "42",
                     "type": "utility",
                     "warnings": {},
-                    "x": 170,
-                    "y": 1714
+                    "x": 180,
+                    "y": 1720
                 },
                 "44": {
                     "data": {
@@ -1362,8 +1362,8 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "finding_time": "time_list:custom_function_result.data.output",
-                            "id": "id_list:custom_function_result.data.output"
+                            "finding_time": "related_findings_list:custom_function:related_findings_time",
+                            "id": "related_findings_list:custom_function:related_findings_id"
                         },
                         "requiredParameters": [
                             {
@@ -1376,9 +1376,10 @@
                     "errors": {},
                     "id": "47",
                     "type": "enterpriseSecurity",
+                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(related_findings_list__related_findings_id)\n    phantom.debug(related_findings_list__related_findings_time)\n\n",
                     "warnings": {},
-                    "x": 170,
-                    "y": 1863
+                    "x": 180,
+                    "y": 1860
                 }
             },
             "notes": ""
@@ -1391,7 +1392,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-03T04:44:53.639860+00:00",
+    "create_time": "2024-12-03T09:01:45.191910+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

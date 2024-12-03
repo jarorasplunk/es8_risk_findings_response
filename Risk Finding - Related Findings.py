@@ -758,25 +758,24 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    id_list__result = phantom.collect2(container=container, datapath=["id_list:custom_function_result.data.output"])
-    time_list__result = phantom.collect2(container=container, datapath=["time_list:custom_function_result.data.output"])
+    related_findings_list__related_findings_id = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings_id")) != "" else "null")  # pylint: disable=used-before-assignment
+    related_findings_list__related_findings_time = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings_time")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
-    # build parameters list for 'get_finding_or_investigation_1' call
-    for id_list__result_item in id_list__result:
-        for time_list__result_item in time_list__result:
-            if id_list__result_item[0] is not None:
-                parameters.append({
-                    "id": id_list__result_item[0],
-                    "finding_time": time_list__result_item[0],
-                })
+    if related_findings_list__related_findings_id is not None:
+        parameters.append({
+            "id": related_findings_list__related_findings_id,
+            "finding_time": related_findings_list__related_findings_time,
+        })
 
     ################################################################################
     ## Custom Code Start
     ################################################################################
 
     # Write your custom code here...
+    phantom.debug(related_findings_list__related_findings_id)
+    phantom.debug(related_findings_list__related_findings_time)
 
     ################################################################################
     ## Custom Code End
