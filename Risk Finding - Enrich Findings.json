@@ -120,7 +120,7 @@
                     "targetPort": "18_in"
                 }
             ],
-            "hash": "e36617a812a5e26e2799e034bd789e0d53619db2",
+            "hash": "27e754bc9e0e4f5689827dff578cdc6d57f18fbe",
             "nodes": {
                 "0": {
                     "data": {
@@ -142,7 +142,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 360,
-                    "y": -200
+                    "y": -200.00000000000003
                 },
                 "1": {
                     "data": {
@@ -171,13 +171,13 @@
                         "inputs": {
                             "device": {
                                 "datapaths": [
-                                    "finding:consolidated_findings.risk_object"
+                                    "finding:consolidated_findings.normalized_risk_object"
                                 ],
                                 "deduplicate": false
                             },
                             "user": {
                                 "datapaths": [
-                                    "finding:consolidated_findings.risk_object"
+                                    "finding:consolidated_findings.normalized_risk_object"
                                 ],
                                 "deduplicate": false
                             }
@@ -203,7 +203,7 @@
                     "type": "playbook",
                     "warnings": {},
                     "x": 340,
-                    "y": 652
+                    "y": 660
                 },
                 "11": {
                     "data": {
@@ -216,7 +216,7 @@
                         "inputs": {
                             "device": {
                                 "datapaths": [
-                                    "finding:consolidated_findings.risk_object"
+                                    "finding:consolidated_findings.normalized_risk_object"
                                 ],
                                 "deduplicate": false
                             }
@@ -242,7 +242,7 @@
                     "type": "playbook",
                     "warnings": {},
                     "x": 0,
-                    "y": 652
+                    "y": 660
                 },
                 "12": {
                     "data": {
@@ -304,7 +304,7 @@
                         "inputs": {
                             "device": {
                                 "datapaths": [
-                                    "finding:consolidated_findings.risk_object"
+                                    "finding:consolidated_findings.normalized_risk_object"
                                 ],
                                 "deduplicate": false
                             },
@@ -393,7 +393,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 1020,
-                    "y": 147.99999999999994
+                    "y": 147.9999999999999
                 },
                 "15": {
                     "data": {
@@ -428,7 +428,7 @@
                         ]
                     },
                     "x": 1020,
-                    "y": -3.907985046680551e-14
+                    "y": -7.815970093361102e-14
                 },
                 "16": {
                     "data": {
@@ -481,7 +481,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 350,
-                    "y": -75.50000000000004
+                    "y": -75.50000000000009
                 },
                 "17": {
                     "data": {
@@ -538,8 +538,8 @@
                     "id": "17",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 370,
-                    "y": 44.49999999999996
+                    "x": 380,
+                    "y": 40
                 },
                 "18": {
                     "data": {
@@ -684,7 +684,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 680,
-                    "y": 160
+                    "y": 159.99999999999994
                 },
                 "4": {
                     "data": {
@@ -847,7 +847,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T13:30:10.554734+00:00",
+    "create_time": "2024-12-03T06:35:17.891073+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

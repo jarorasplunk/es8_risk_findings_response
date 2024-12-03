@@ -249,13 +249,13 @@ def add_finding_or_investigation_note_1(action=None, success=None, container=Non
 def playbook_azure_ad_graph_user_attribute_lookup_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_azure_ad_graph_user_attribute_lookup_2() called")
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.risk_object"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object"])
 
-    finding_consolidated_findings_risk_object = [item[0] for item in finding_data]
+    finding_consolidated_findings_normalized_risk_object = [item[0] for item in finding_data]
 
     inputs = {
-        "user": finding_consolidated_findings_risk_object,
-        "device": finding_consolidated_findings_risk_object,
+        "user": finding_consolidated_findings_normalized_risk_object,
+        "device": finding_consolidated_findings_normalized_risk_object,
     }
 
     ################################################################################
@@ -290,12 +290,12 @@ def playbook_azure_ad_graph_user_attribute_lookup_2_callback(action=None, succes
 def playbook_crowdstrike_oauth_api_device_attribute_lookup_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_crowdstrike_oauth_api_device_attribute_lookup_1() called")
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.risk_object"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object"])
 
-    finding_consolidated_findings_risk_object = [item[0] for item in finding_data]
+    finding_consolidated_findings_normalized_risk_object = [item[0] for item in finding_data]
 
     inputs = {
-        "device": finding_consolidated_findings_risk_object,
+        "device": finding_consolidated_findings_normalized_risk_object,
     }
 
     ################################################################################
@@ -363,13 +363,13 @@ def decision_3(action=None, success=None, container=None, results=None, handle=N
 def playbook_azure_ad_graph_user_attribute_lookup_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_azure_ad_graph_user_attribute_lookup_1() called")
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.risk_object"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object"])
 
-    finding_consolidated_findings_risk_object = [item[0] for item in finding_data]
+    finding_consolidated_findings_normalized_risk_object = [item[0] for item in finding_data]
 
     inputs = {
         "user": [],
-        "device": finding_consolidated_findings_risk_object,
+        "device": finding_consolidated_findings_normalized_risk_object,
     }
 
     ################################################################################
