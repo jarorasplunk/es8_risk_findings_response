@@ -587,8 +587,13 @@ def related_findings_list(action=None, success=None, container=None, results=Non
     
     for item in run_query_1_result_item_0:
         phantom.debug(item)
-        phantom.debug(len([item]))
-
+        if isinstance(item, list):
+            for id in item:
+                related_findings_list__related_findings_id.append(id)
+        else:
+            related_findings_list__related_findings_id.append(item)
+    
+    phantom.debug(related_findings_list__related_findings_id)
     ################################################################################
     ## Custom Code End
     ################################################################################

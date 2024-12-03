@@ -191,7 +191,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "8c1df678d728aa8f077a662f29f3d524cbc73ee6",
+            "hash": "d023be95b97c4aba52836f564418f9a1fe172a00",
             "nodes": {
                 "0": {
                     "data": {
@@ -1015,7 +1015,7 @@
                     "errors": {},
                     "id": "39",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    \n    for item in run_query_1_result_item_0:\n        phantom.debug(item)\n        phantom.debug(len([item]))\n\n",
+                    "userCode": "\n    # Write your custom code here...\n\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    \n    for item in run_query_1_result_item_0:\n        phantom.debug(item)\n        if isinstance(item, list):\n            for id in item:\n                related_findings_list__related_findings_id.append(id)\n        else:\n            related_findings_list__related_findings_id.append(item)\n    \n    phantom.debug(related_findings_list__related_findings_id)\n",
                     "warnings": {},
                     "x": 180,
                     "y": 1440
@@ -1403,7 +1403,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-03T04:24:17.267781+00:00",
+    "create_time": "2024-12-03T04:39:36.215759+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
