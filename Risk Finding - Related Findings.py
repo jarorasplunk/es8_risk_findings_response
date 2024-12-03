@@ -712,23 +712,23 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
             "filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status_name"
         ])
 
-    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.finding_id","filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status_name"])
     finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.id"])
+    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.finding_id","filtered-data:filter_1:condition_2:get_finding_or_investigation_1:action_result.data.*.status_name"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'add_task_note_5' call
-    for filtered_result_0_item_filter_1 in filtered_result_0_data_filter_1:
-        for finding_data_item in finding_data:
+    for finding_data_item in finding_data:
+        for filtered_result_0_item_filter_1 in filtered_result_0_data_filter_1:
             for get_task_id_1_result_item in get_task_id_1_result_data:
                 for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                    if content_formatted_string is not None and finding_data_item[0] is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
+                    if finding_data_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
                         parameters.append({
-                            "content": content_formatted_string,
                             "id": finding_data_item[0],
                             "title": "Previously Closed Findings:",
+                            "content": content_formatted_string,
                             "task_id": get_task_id_1_result_item[0],
                             "phase_id": get_phase_id_1_result_item[0],
                             "response_plan_id": finding_data_item[1],
