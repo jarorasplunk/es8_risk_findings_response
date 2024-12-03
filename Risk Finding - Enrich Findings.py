@@ -74,7 +74,7 @@ def run_query_decision(action=None, success=None, container=None, results=None, 
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        mitre_format(action=action, success=success, container=container, results=results, handle=handle)
+        asset_get_attributes_1(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     return
@@ -548,17 +548,19 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
         ])
     content_formatted_string = phantom.format(
         container=container,
-        template="""### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1})\n\n# MITRE ATT&CK®\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}""",
+        template="""### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](https://{6}/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1})\n\n# MITRE ATT&CK®\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}""",
         parameters=[
             "finding:consolidated_findings.risk_object_type",
             "finding:consolidated_findings.risk_object",
             "finding:consolidated_findings.risk_score",
             "finding:consolidated_findings.info_min_time",
             "finding:consolidated_findings.info_max_time",
-            "mitre_format:custom_function:output"
+            "mitre_format:custom_function:output",
+            "asset_get_attributes_1:custom_function_result.data.configuration.device"
         ])
 
     finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:consolidated_findings.risk_object","finding:consolidated_findings.risk_object_type","finding:consolidated_findings.risk_score","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time","finding:response_plans.*.id"])
+    asset_get_attributes_1__result = phantom.collect2(container=container, datapath=["asset_get_attributes_1:custom_function_result.data.configuration.device"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     mitre_format__output = json.loads(_ if (_ := phantom.get_run_data(key="mitre_format:output")) != "" else "null")  # pylint: disable=used-before-assignment
@@ -567,17 +569,18 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
 
     # build parameters list for 'add_task_note_1' call
     for finding_data_item in finding_data:
-        for get_task_id_1_result_item in get_task_id_1_result_data:
-            for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                if finding_data_item[0] is not None and title_formatted_string is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[6] is not None:
-                    parameters.append({
-                        "id": finding_data_item[0],
-                        "title": title_formatted_string,
-                        "content": content_formatted_string,
-                        "task_id": get_task_id_1_result_item[0],
-                        "phase_id": get_phase_id_1_result_item[0],
-                        "response_plan_id": finding_data_item[6],
-                    })
+        for asset_get_attributes_1__result_item in asset_get_attributes_1__result:
+            for get_task_id_1_result_item in get_task_id_1_result_data:
+                for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                    if finding_data_item[0] is not None and title_formatted_string is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[6] is not None:
+                        parameters.append({
+                            "id": finding_data_item[0],
+                            "title": title_formatted_string,
+                            "content": content_formatted_string,
+                            "task_id": get_task_id_1_result_item[0],
+                            "phase_id": get_phase_id_1_result_item[0],
+                            "response_plan_id": finding_data_item[6],
+                        })
 
     ################################################################################
     ## Custom Code Start
@@ -590,6 +593,31 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     ################################################################################
 
     phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def asset_get_attributes_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("asset_get_attributes_1() called")
+
+    parameters = []
+
+    parameters.append({
+        "asset": "splunk",
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/asset_get_attributes", parameters=parameters, name="asset_get_attributes_1", callback=mitre_format)
 
     return
 
