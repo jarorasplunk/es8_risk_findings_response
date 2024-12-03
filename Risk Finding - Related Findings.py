@@ -589,7 +589,7 @@ def related_findings_list(action=None, success=None, container=None, results=Non
     phantom.debug("length of incoming")
     phantom.debug(len(run_query_1_result_item_0))
     for i in range(len(run_query_1_result_item_0)):
-        if len(run_query_1_result_item_0[i]) != 1:
+        if len([run_query_1_result_item_0[i]]) != 1:
             phantom.debug("length of each item")
             phantom.debug(len(run_query_1_result_item_0[i]))
         else:
