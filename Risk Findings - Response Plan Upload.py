@@ -39,7 +39,7 @@ def create_response_plan_json(action=None, success=None, container=None, results
     # Create JSON body for "Risk Notable Investigation" response plan
     
     create_response_plan_json__risk_findings_response_json_body = {
-        "name": "Risk Findings Response 2",
+        "name": "Risk Findings Response",
         "version": "1",
         "is_default": var_false,
         "description": "A series of tasks for enrichment, investigation and response to incidents created by Risk Notables",
