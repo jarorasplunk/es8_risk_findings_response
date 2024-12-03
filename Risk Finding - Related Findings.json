@@ -191,7 +191,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "8c1df678d728aa8f077a662f29f3d524cbc73ee6",
+            "hash": "2626a765e6746da64ac530c1f7e1bc310819bc94",
             "nodes": {
                 "0": {
                     "data": {
@@ -1015,7 +1015,7 @@
                     "errors": {},
                     "id": "39",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_0[0])\n    phantom.debug(\"length of incoming\")\n    phantom.debug(len(run_query_1_result_item_0))\n    for i in range(len(run_query_1_result_item_0)):\n        phantom.debug(\"length of each item\")\n        phantom.debug(len(run_query_1_result_item_0[i]))\n        \n        \n#        if islist( len([item]) != 1:\n#            for i in range(len(item)):\n#                related_findings_list__related_findings_id.append(item[0][0][i])\n#        else:\n#            related_findings_list__related_findings_id.append([item][0])\n#    \n#    for item in run_query_1_result_item_1:\n#        if len([item]) != 1:\n#            for i in range(len(item)):\n##                related_findings_list__related_findings_time.append(item[0][0][i])\n#       else:\n#            related_findings_list__related_findings_time.append([item][0])\n#            \n#    phantom.debug(related_findings_list__related_findings_id)\n#    phantom.debug(related_findings_list__related_findings_time)\n    #related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_1[0])\n    #related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
+                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_0[0])\n    phantom.debug(\"length of incoming\")\n    phantom.debug(len(run_query_1_result_item_0))\n    for i in range(len(run_query_1_result_item_0)):\n        if len(run_query_1_result_item_0[i]) != 1:\n            phantom.debug(\"length of each item\")\n            phantom.debug(len(run_query_1_result_item_0[i]))\n        else:\n            phantom.debug(\"length of each item\")\n            phantom.debug(len([run_query_1_result_item_0[i]]))\n        \n#        if islist( len([item]) != 1:\n#            for i in range(len(item)):\n#                related_findings_list__related_findings_id.append(item[0][0][i])\n#        else:\n#            related_findings_list__related_findings_id.append([item][0])\n#    \n#    for item in run_query_1_result_item_1:\n#        if len([item]) != 1:\n#            for i in range(len(item)):\n##                related_findings_list__related_findings_time.append(item[0][0][i])\n#       else:\n#            related_findings_list__related_findings_time.append([item][0])\n#            \n#    phantom.debug(related_findings_list__related_findings_id)\n#    phantom.debug(related_findings_list__related_findings_time)\n    #related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_1[0])\n    #related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
                     "warnings": {},
                     "x": 180,
                     "y": 1440
@@ -1403,7 +1403,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-03T03:56:19.442609+00:00",
+    "create_time": "2024-12-03T04:11:22.975481+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
