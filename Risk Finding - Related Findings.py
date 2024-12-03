@@ -609,6 +609,8 @@ def related_findings_list(action=None, success=None, container=None, results=Non
     phantom.save_run_data(key="related_findings_list:related_findings_id", value=json.dumps(related_findings_list__related_findings_id))
     phantom.save_run_data(key="related_findings_list:related_findings_time", value=json.dumps(related_findings_list__related_findings_time))
 
+    id_list(container=container)
+
     return
 
 
