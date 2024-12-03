@@ -586,22 +586,27 @@ def related_findings_list(action=None, success=None, container=None, results=Non
     related_findings_list__related_findings_id = []
     related_findings_list__related_findings_time = []
     #phantom.debug(run_query_1_result_item_0[0])
+    phantom.debug("length of incoming")
+    phantom.debug(len(run_query_1_result_item_0))
     for item in run_query_1_result_item_0:
-        if len([item]) != 1:
-            for i in range(len(item)):
-                related_findings_list__related_findings_id.append(item[0][0][i])
-        else:
-            related_findings_list__related_findings_id.append([item][0])
-    
-    for item in run_query_1_result_item_1:
-        if len([item]) != 1:
-            for i in range(len(item)):
-                related_findings_list__related_findings_time.append(item[0][0][i])
-        else:
-            related_findings_list__related_findings_time.append([item][0])
-            
-    phantom.debug(related_findings_list__related_findings_id)
-    phantom.debug(related_findings_list__related_findings_time)
+        phantom.debug("length of each item")
+        phantom.debug(len(item))
+        
+#        if islist( len([item]) != 1:
+#            for i in range(len(item)):
+#                related_findings_list__related_findings_id.append(item[0][0][i])
+#        else:
+#            related_findings_list__related_findings_id.append([item][0])
+#    
+#    for item in run_query_1_result_item_1:
+#        if len([item]) != 1:
+#            for i in range(len(item)):
+##                related_findings_list__related_findings_time.append(item[0][0][i])
+#       else:
+#            related_findings_list__related_findings_time.append([item][0])
+#            
+#    phantom.debug(related_findings_list__related_findings_id)
+#    phantom.debug(related_findings_list__related_findings_time)
     #related_findings_list__related_findings_time = []
     #phantom.debug(run_query_1_result_item_1[0])
     #related_findings_list__related_findings_time = run_query_1_result_item_1[0]
@@ -611,8 +616,6 @@ def related_findings_list(action=None, success=None, container=None, results=Non
 
     phantom.save_run_data(key="related_findings_list:related_findings_id", value=json.dumps(related_findings_list__related_findings_id))
     phantom.save_run_data(key="related_findings_list:related_findings_time", value=json.dumps(related_findings_list__related_findings_time))
-
-    id_list(container=container)
 
     return
 

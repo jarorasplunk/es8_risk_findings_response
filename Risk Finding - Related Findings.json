@@ -125,13 +125,6 @@
                     "targetPort": "39_in"
                 },
                 {
-                    "id": "port_39_to_port_41",
-                    "sourceNode": "39",
-                    "sourcePort": "39_out",
-                    "targetNode": "41",
-                    "targetPort": "41_in"
-                },
-                {
                     "id": "port_41_to_port_42",
                     "sourceNode": "41",
                     "sourcePort": "41_out",
@@ -198,7 +191,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "8c1df678d728aa8f077a662f29f3d524cbc73ee6",
+            "hash": "c151c8ddc94c3ed3eb73b4174f38033bd4afcf06",
             "nodes": {
                 "0": {
                     "data": {
@@ -556,7 +549,11 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 300,
                     "y": 2280
                 },
@@ -1018,10 +1015,10 @@
                     "errors": {},
                     "id": "39",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_0[0])\n    for item in run_query_1_result_item_0:\n        if len([item]) != 1:\n            for i in range(len(item)):\n                related_findings_list__related_findings_id.append(item[0][0][i])\n        else:\n            related_findings_list__related_findings_id.append([item][0])\n    \n    for item in run_query_1_result_item_1:\n        if len([item]) != 1:\n            for i in range(len(item)):\n                related_findings_list__related_findings_time.append(item[0][0][i])\n        else:\n            related_findings_list__related_findings_time.append([item][0])\n            \n    phantom.debug(related_findings_list__related_findings_id)\n    phantom.debug(related_findings_list__related_findings_time)\n    #related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_1[0])\n    #related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
+                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_0[0])\n    phantom.debug(\"length of incoming\")\n    phantom.debug(len(run_query_1_result_item_0))\n    for item in run_query_1_result_item_0:\n        phantom.debug(\"length of each item\")\n        phantom.debug(len(item))\n        \n#        if islist( len([item]) != 1:\n#            for i in range(len(item)):\n#                related_findings_list__related_findings_id.append(item[0][0][i])\n#        else:\n#            related_findings_list__related_findings_id.append([item][0])\n#    \n#    for item in run_query_1_result_item_1:\n#        if len([item]) != 1:\n#            for i in range(len(item)):\n##                related_findings_list__related_findings_time.append(item[0][0][i])\n#       else:\n#            related_findings_list__related_findings_time.append([item][0])\n#            \n#    phantom.debug(related_findings_list__related_findings_id)\n#    phantom.debug(related_findings_list__related_findings_time)\n    #related_findings_list__related_findings_time = []\n    #phantom.debug(run_query_1_result_item_1[0])\n    #related_findings_list__related_findings_time = run_query_1_result_item_1[0]\n",
                     "warnings": {},
-                    "x": 170,
-                    "y": 1416
+                    "x": 180,
+                    "y": 1440
                 },
                 "4": {
                     "data": {
@@ -1149,7 +1146,14 @@
                     "errors": {},
                     "id": "41",
                     "type": "utility",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 180,
                     "y": 1560
                 },
@@ -1210,7 +1214,11 @@
                     "errors": {},
                     "id": "42",
                     "type": "utility",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 170,
                     "y": 1714
                 },
@@ -1332,7 +1340,11 @@
                     "errors": {},
                     "id": "46",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": -240,
                     "y": 2160
                 },
@@ -1391,7 +1403,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-03T01:24:06.328159+00:00",
+    "create_time": "2024-12-03T03:53:04.007231+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
