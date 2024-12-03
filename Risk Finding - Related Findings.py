@@ -776,6 +776,12 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
     # Write your custom code here...
     phantom.debug(related_findings_list__related_findings_id)
     phantom.debug(related_findings_list__related_findings_time)
+    parameters = []
+    for i in range(len(related_findings_list__related_findings_id)):
+        parameters.append({
+            "id": related_findings_list__related_findings_id[i],
+            "finding_time": related_findings_list__related_findings_time[i],
+        })
 
     ################################################################################
     ## Custom Code End
