@@ -7,20 +7,6 @@
             "description": "",
             "edges": [
                 {
-                    "id": "port_0_to_port_2",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "2",
-                    "targetPort": "2_in"
-                },
-                {
-                    "id": "port_2_to_port_4",
-                    "sourceNode": "2",
-                    "sourcePort": "2_out",
-                    "targetNode": "4",
-                    "targetPort": "4_in"
-                },
-                {
                     "id": "port_4_to_port_5",
                     "sourceNode": "4",
                     "sourcePort": "4_out",
@@ -52,21 +38,89 @@
                     "targetPort": "8_in"
                 },
                 {
-                    "id": "port_7_to_port_1",
+                    "id": "port_0_to_port_2",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "2",
+                    "targetPort": "2_in"
+                },
+                {
+                    "id": "port_2_to_port_9",
+                    "sourceNode": "2",
+                    "sourcePort": "2_out",
+                    "targetNode": "9",
+                    "targetPort": "9_in"
+                },
+                {
+                    "id": "port_9_to_port_10",
+                    "sourceNode": "9",
+                    "sourcePort": "9_out",
+                    "targetNode": "10",
+                    "targetPort": "10_in"
+                },
+                {
+                    "id": "port_10_to_port_4",
+                    "sourceNode": "10",
+                    "sourcePort": "10_out",
+                    "targetNode": "4",
+                    "targetPort": "4_in"
+                },
+                {
+                    "id": "port_7_to_port_11",
                     "sourceNode": "7",
                     "sourcePort": "7_out",
+                    "targetNode": "11",
+                    "targetPort": "11_in"
+                },
+                {
+                    "id": "port_8_to_port_12",
+                    "sourceNode": "8",
+                    "sourcePort": "8_out",
+                    "targetNode": "12",
+                    "targetPort": "12_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 2
+                        }
+                    ],
+                    "id": "port_5_to_port_13",
+                    "sourceNode": "5",
+                    "sourcePort": "5_out",
+                    "targetNode": "13",
+                    "targetPort": "13_in"
+                },
+                {
+                    "id": "port_13_to_port_14",
+                    "sourceNode": "13",
+                    "sourcePort": "13_out",
+                    "targetNode": "14",
+                    "targetPort": "14_in"
+                },
+                {
+                    "id": "port_11_to_port_1",
+                    "sourceNode": "11",
+                    "sourcePort": "11_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
                 },
                 {
-                    "id": "port_8_to_port_1",
-                    "sourceNode": "8",
-                    "sourcePort": "8_out",
+                    "id": "port_12_to_port_1",
+                    "sourceNode": "12",
+                    "sourcePort": "12_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                },
+                {
+                    "id": "port_14_to_port_1",
+                    "sourceNode": "14",
+                    "sourcePort": "14_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "6dfa7cf075743b917ed109f984cc5065584d44c2",
+            "hash": "d7f05fa2ae479a1dc2133c01903b2a526551001c",
             "nodes": {
                 "0": {
                     "data": {
@@ -88,7 +142,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 1000,
-                    "y": 419.9999999999999
+                    "y": -40
                 },
                 "1": {
                     "data": {
@@ -104,7 +158,330 @@
                     "type": "end",
                     "warnings": {},
                     "x": 1000,
-                    "y": 1180
+                    "y": 1320
+                },
+                "10": {
+                    "data": {
+                        "action": "get task id",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_task_id_1",
+                        "id": "10",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id",
+                            "phase_name": "Investigate",
+                            "response_template_name": "finding:response_plans.*.name",
+                            "task_name": "Investigate findings"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_template_name"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "10",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 399.99999999999994
+                },
+                "11": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "add_task_note_1",
+                        "id": "11",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": {
+                                "functionId": 1,
+                                "parameters": [
+                                    "playbook_splunk_identifier_activity_analysis_1:playbook_output:observable",
+                                    "playbook_splunk_identifier_activity_analysis_1:playbook_output:markdown_report"
+                                ],
+                                "template": "{0}\n\n\n{1}\n\n"
+                            },
+                            "id": "finding:investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "finding:response_plans.*.id",
+                            "task_id": "get_task_id_1:action_result.data.*.task_id",
+                            "title": "Identifier Activity Analysis:"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "11",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 740,
+                    "y": 1080
+                },
+                "12": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "add_task_note_2",
+                        "id": "12",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": {
+                                "functionId": 2,
+                                "parameters": [
+                                    ""
+                                ],
+                                "template": "Host {0} is under investigation.\n"
+                            },
+                            "id": "finding:investigation_id",
+                            "title": "Windows Host investigation:"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "12",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 1120,
+                    "y": 1060
+                },
+                "13": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "playbook_encoded_powershell_investigation_1",
+                        "id": "13",
+                        "inputs": {
+                            "powershell_process": {
+                                "datapaths": [
+                                    "run_query_1:action_result.data.*.threat_object"
+                                ],
+                                "deduplicate": false
+                            }
+                        },
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "playbookName": "encoded_powershell_investigation",
+                        "playbookRepo": 2,
+                        "playbookRepoName": "local",
+                        "playbookType": "data",
+                        "synchronous": true,
+                        "type": "playbook"
+                    },
+                    "errors": {},
+                    "id": "13",
+                    "type": "playbook",
+                    "warnings": {},
+                    "x": 1460,
+                    "y": 904.5
+                },
+                "14": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 3,
+                        "functionName": "add_task_note_3",
+                        "id": "14",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": "playbook_encoded_powershell_investigation_1:playbook_output:note_content",
+                            "id": "finding:investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "finding:response_plans.*.id",
+                            "task_id": "get_task_id_1:action_result.data.*.task_id",
+                            "title": {
+                                "functionId": 3,
+                                "parameters": [
+                                    "playbook_encoded_powershell_investigation_1:playbook_output:note_title"
+                                ],
+                                "template": "Malicious Powershell Analysis:  {0}\n"
+                            }
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "14",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 1480,
+                    "y": 1040
                 },
                 "2": {
                     "data": {
@@ -149,7 +526,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 980,
-                    "y": 520
+                    "y": 120
                 },
                 "4": {
                     "data": {
@@ -229,7 +606,7 @@
                                         "conditionIndex": 0,
                                         "op": "in",
                                         "param": "run_query_1:action_result.data.*.threat_object_type",
-                                        "value": "url,file,file_hash,hash,domain,ip"
+                                        "value": "url,file,hash,domain,ip"
                                     }
                                 ],
                                 "conditionIndex": 0,
@@ -245,6 +622,7 @@
                                         "value": "process"
                                     },
                                     {
+                                        "conditionIndex": 1,
                                         "op": "in",
                                         "param": "windows",
                                         "value": "run_query_1:action_result.data.*.risk_object_category"
@@ -252,6 +630,29 @@
                                 ],
                                 "conditionIndex": 1,
                                 "customName": "process",
+                                "logic": "and"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 2,
+                                        "op": "==",
+                                        "param": "run_query_1:action_result.data.*.threat_object_type",
+                                        "value": "process"
+                                    },
+                                    {
+                                        "op": "==",
+                                        "param": "run_query_1:action_result.data.*.threat_object_type",
+                                        "value": "file_hash"
+                                    },
+                                    {
+                                        "op": "==",
+                                        "param": "run_query_1:action_result.data.*.threat_object_type",
+                                        "value": "hash"
+                                    }
+                                ],
+                                "conditionIndex": 2,
+                                "customName": "malicious powershell",
                                 "logic": "and"
                             }
                         ],
@@ -353,15 +754,68 @@
                         "playbookRepo": 1,
                         "playbookRepoName": "community",
                         "playbookType": "data",
-                        "synchronous": false,
+                        "synchronous": true,
                         "type": "playbook"
                     },
                     "errors": {},
                     "id": "8",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 1100,
-                    "y": 924.5
+                    "x": 1120,
+                    "y": 900
+                },
+                "9": {
+                    "data": {
+                        "action": "get phase id",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_phase_id_1",
+                        "id": "9",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id",
+                            "phase_name": "Investigate",
+                            "response_template_name": "finding:response_plans.*.name"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_name"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_template_name"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "9",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 259.99999999999994
                 }
             },
             "notes": ""
@@ -374,7 +828,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T00:54:05.967466+00:00",
+    "create_time": "2024-12-04T03:14:06.168703+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
