@@ -339,10 +339,8 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""Host {0} is under investigation.\n""",
-        parameters=[
-            ""
-        ])
+        template="""Host investigation launched, please check the diag files returned from the host.\n""",
+        parameters=[])
 
     finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
 

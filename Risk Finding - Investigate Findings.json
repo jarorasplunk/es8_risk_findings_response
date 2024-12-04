@@ -120,7 +120,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "b75f017100886e15b67ea3e38408d61d364422d8",
+            "hash": "f648fad5033770945df0a25ae358412f05b047e1",
             "nodes": {
                 "0": {
                     "data": {
@@ -322,11 +322,8 @@
                         },
                         "parameters": {
                             "content": {
-                                "functionId": 2,
-                                "parameters": [
-                                    ""
-                                ],
-                                "template": "Host {0} is under investigation.\n"
+                                "parameters": [],
+                                "template": "Host investigation launched, please check the diag files returned from the host.\n"
                             },
                             "id": "finding:investigation_id",
                             "title": "Windows Host investigation:"
@@ -830,7 +827,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T04:47:58.178027+00:00",
+    "create_time": "2024-12-04T04:48:33.539816+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
