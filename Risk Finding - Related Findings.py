@@ -25,16 +25,16 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""| `risk_event_timeline_search(\"{0}\",\"{1}\")` \n| eval earliest={2} \n| eval latest={3} \n| search eventtype=\"notable\" \n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id, values(annotations.mitre_attack) as annotations.mitre_attack, values(entity) as entity, values(risk_object) as risk_object, values(risk_object_type) as risk_object_type, values(normalized_risk_object) as normalized_risk_object, values(threat_object) as threat_object, values(risk_message) as risk_message, values(threat_object_type) as threat_object_type, values(_time) as _time, values(mitre_tactic) as mitre_tactic, values(mitre_tactic_id) as mitre_tactic_id, values(mitre_technique) as mitre_technique, values(mitre_technique_id) as mitre_technique_id by source\n| `add_events({4})`""",
+        template="""datamodel Risk.All_Risk | where [| tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1}  by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index | `get_mitre_annotations` | rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type | `generate_findings_summary` | stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object, risk_object_type)` | `dedup_and_compute_common_fbd_fields`, annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack'), threat_object=mvdedup(threat_object) | fillnull value=0 mitre_tactic_id_count, mitre_technique_id_count | fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids | `drop_dm_object_name(\"All_Risk\")` | where total_event_count > 5 AND normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\" | eval all_finding_ids=mvappend(intermediate_finding_ids, finding_ids) | fields all_finding_ids | mvexpand all_finding_ids | rename all_finding_ids AS source_event_id]\n| `add_events({4})`""",
         parameters=[
+            "finding:consolidated_findings.info_min_time",
+            "finding:consolidated_findings._indextime",
             "finding:consolidated_findings.normalized_risk_object",
             "finding:consolidated_findings.risk_object_type",
-            "finding:consolidated_findings.info_min_time",
-            "finding:consolidated_findings.info_max_time",
             "finding:investigation_id"
         ])
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object","finding:consolidated_findings.risk_object_type","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time","finding:investigation_id"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.info_min_time","finding:consolidated_findings._indextime","finding:consolidated_findings.normalized_risk_object","finding:consolidated_findings.risk_object_type","finding:investigation_id"])
 
     parameters = []
 
@@ -43,8 +43,8 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
         if query_formatted_string is not None:
             parameters.append({
                 "query": query_formatted_string,
-                "command": "",
-                "display": "source, source_event_id_count, source_event_id",
+                "command": "| from ",
+                "display": "",
                 "end_time": "now",
                 "start_time": "-365d",
                 "search_mode": "verbose",
