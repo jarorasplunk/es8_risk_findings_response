@@ -141,7 +141,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "98b00f78ecac5493a77dc811fa613a62da6bdd98",
+            "hash": "d1bcaabf88a29ddf9a2ab952dc7eac0147984b46",
             "nodes": {
                 "0": {
                     "data": {
@@ -592,7 +592,7 @@
                                     "mitre_format:custom_function:output",
                                     "asset_get_attributes_1:custom_function_result.data.configuration.device"
                                 ],
-                                "template": "### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](https://{6}/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1})\n\n# MITRE ATT&CK\u00ae\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}"
+                                "template": "### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](https://{6}/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1}) \n\n\n\n# MITRE ATT&CK\u00ae\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}"
                             },
                             "id": "finding:investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -896,7 +896,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T03:36:09.739072+00:00",
+    "create_time": "2024-12-04T03:38:25.338534+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
