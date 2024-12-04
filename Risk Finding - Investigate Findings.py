@@ -31,9 +31,9 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
     for finding_data_item in finding_data:
         if finding_data_item[0] is not None:
             parameters.append({
-                "map_consolidated_findings": 1,
                 "id": finding_data_item[0],
                 "finding_time": "",
+                "map_consolidated_findings": 1,
             })
 
     ################################################################################
@@ -75,11 +75,11 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
     for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         if query_formatted_string is not None:
             parameters.append({
-                "command": "| from",
-                "search_mode": "verbose",
                 "query": query_formatted_string,
-                "start_time": "-365d",
+                "command": "| from",
                 "end_time": "now",
+                "start_time": "-365d",
+                "search_mode": "verbose",
             })
 
     ################################################################################
