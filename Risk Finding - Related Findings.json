@@ -198,7 +198,7 @@
                     "targetPort": "41_in"
                 }
             ],
-            "hash": "42c2fc6ea391fc06b87691d9ac3788ff996493d7",
+            "hash": "b9f2641c03b1f678f2230dd55321fe853265d865",
             "nodes": {
                 "0": {
                     "data": {
@@ -220,7 +220,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 460,
-                    "y": 0
+                    "y": -4.263256414560601e-14
                 },
                 "1": {
                     "data": {
@@ -598,7 +598,7 @@
                                     "finding:consolidated_findings.info_max_time",
                                     "finding:investigation_id"
                                 ],
-                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")`\n| where _time>={2} AND _time<={3}\n| search eventtype=\"notable\"\n| fields source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message, threat_object_type\n| `add_events({4})`"
+                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")` \n| eval earliest={2} \n| eval latest={3} \n| search eventtype=\"notable\" \n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id, values(annotations.mitre_attack) as annotations.mitre_attack, values(entity) as entity, values(risk_object) as risk_object, values(risk_object_type) as risk_object_type, values(normalized_risk_object) as normalized_risk_object, values(threat_object) as threat_object, values(risk_message) as risk_message, values(threat_object_type) as threat_object_type, values(_time) as _time, values(mitre_tactic) as mitre_tactic, values(mitre_tactic_id) as mitre_tactic_id, values(mitre_technique) as mitre_technique, values(mitre_technique_id) as mitre_technique_id by source\n| `add_events({4})`"
                             },
                             "search_mode": "verbose",
                             "start_time": "-365d"
@@ -629,8 +629,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 750,
-                    "y": -3.907985046680551e-14
+                    "x": 760,
+                    "y": 0
                 },
                 "31": {
                     "data": {
@@ -810,7 +810,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 430,
-                    "y": 148.99999999999994
+                    "y": 148.9999999999999
                 },
                 "34": {
                     "data": {
@@ -868,7 +868,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 430,
-                    "y": 297.99999999999994
+                    "y": 297.9999999999999
                 },
                 "37": {
                     "data": {
@@ -1090,7 +1090,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 440,
-                    "y": 439.99999999999994
+                    "y": 440
                 },
                 "41": {
                     "data": {
@@ -1392,7 +1392,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-03T09:13:21.416502+00:00",
+    "create_time": "2024-12-04T05:26:49.487092+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
