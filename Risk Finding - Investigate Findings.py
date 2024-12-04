@@ -104,82 +104,48 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     # collect filtered artifact ids and results for 'if' condition 1
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
-        logical_operator="or",
         conditions=[
-            ["run_query_1:action_result.data.*.threat_object_type", "==", "ip"],
-            ["run_query_1:action_result.data.*.threat_object_type", "==", "ipv6"]
+            ["run_query_1:action_result.data.*.threat_object_type", "in", "url,file,file_hash,hash,domain,ip"]
         ],
         name="filter_1:condition_1",
         delimiter=None)
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        debug_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+        playbook_splunk_identifier_activity_analysis_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids and results for 'if' condition 2
     matched_artifacts_2, matched_results_2 = phantom.condition(
         container=container,
+        logical_operator="and",
         conditions=[
-            ["run_query_1:action_result.data.*.threat_object_type", "==", "hash"]
+            ["run_query_1:action_result.data.*.threat_object_type", "==", "process"],
+            ["windows", "in", "run_query_1:action_result.data.*.risk_object_category"]
         ],
         name="filter_1:condition_2",
         delimiter=None)
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        pass
-
-    # collect filtered artifact ids and results for 'if' condition 3
-    matched_artifacts_3, matched_results_3 = phantom.condition(
-        container=container,
-        conditions=[
-            ["run_query_1:action_result.data.*.threat_object_type", "==", "url"]
-        ],
-        name="filter_1:condition_3",
-        delimiter=None)
-
-    # call connected blocks if filtered artifacts or results
-    if matched_artifacts_3 or matched_results_3:
-        pass
-
-    # collect filtered artifact ids and results for 'if' condition 4
-    matched_artifacts_4, matched_results_4 = phantom.condition(
-        container=container,
-        conditions=[
-            ["run_query_1:action_result.data.*.threat_object_type", "==", "process"]
-        ],
-        name="filter_1:condition_4",
-        delimiter=None)
-
-    # call connected blocks if filtered artifacts or results
-    if matched_artifacts_4 or matched_results_4:
-        pass
+        playbook_internal_host_winrm_investigate_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     return
 
 
 @phantom.playbook_block()
-def debug_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("debug_1() called")
+def playbook_splunk_identifier_activity_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_splunk_identifier_activity_analysis_1() called")
 
-    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:run_query_1:action_result.data.*.threat_object"])
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.threat_object"], action_results=results)
 
-    filtered_result_0_data___threat_object = [item[0] for item in filtered_result_0_data_filter_1]
+    run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
 
-    parameters = []
-
-    parameters.append({
-        "input_1": filtered_result_0_data___threat_object,
-        "input_2": None,
-        "input_3": None,
-        "input_4": None,
-        "input_5": None,
-        "input_6": None,
-        "input_7": None,
-        "input_8": None,
-        "input_9": None,
-        "input_10": None,
-    })
+    inputs = {
+        "url": run_query_1_result_item_0,
+        "file": run_query_1_result_item_0,
+        "domain": run_query_1_result_item_0,
+        "ip": run_query_1_result_item_0,
+    }
 
     ################################################################################
     ## Custom Code Start
@@ -191,7 +157,48 @@ def debug_1(action=None, success=None, container=None, results=None, handle=None
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_1")
+    # call playbook "local/Splunk_Identifier_Activity_Analysis", returns the playbook_run_id
+    playbook_run_id = phantom.playbook("local/Splunk_Identifier_Activity_Analysis", container=container, name="playbook_splunk_identifier_activity_analysis_1", callback=playbook_splunk_identifier_activity_analysis_1_callback, inputs=inputs)
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_splunk_identifier_activity_analysis_1_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_splunk_identifier_activity_analysis_1_callback() called")
+
+    
+    # Downstream End block cannot be called directly, since execution will call on_finish automatically.
+    # Using placeholder callback function so child playbook is run synchronously.
+
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_internal_host_winrm_investigate_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_internal_host_winrm_investigate_1() called")
+
+    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_2:run_query_1:action_result.data.*.risk_object"])
+
+    filtered_result_0_data___risk_object = [item[0] for item in filtered_result_0_data_filter_1]
+
+    inputs = {
+        "ip_or_hostname": filtered_result_0_data___risk_object,
+    }
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    # call playbook "community/internal_host_winrm_investigate", returns the playbook_run_id
+    playbook_run_id = phantom.playbook("community/internal_host_winrm_investigate", container=container, inputs=inputs)
 
     return
 
