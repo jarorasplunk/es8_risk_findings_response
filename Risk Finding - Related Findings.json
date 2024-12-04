@@ -198,7 +198,7 @@
                     "targetPort": "41_in"
                 }
             ],
-            "hash": "42c2fc6ea391fc06b87691d9ac3788ff996493d7",
+            "hash": "6e0439423c5d3183c7bf0a30a820cbccff45a658",
             "nodes": {
                 "0": {
                     "data": {
@@ -1363,7 +1363,7 @@
                         },
                         "parameters": {
                             "finding_time": "",
-                            "id": "related_findings_list:custom_function:related_findings_id"
+                            "id": "id_list:custom_function_result.data.output"
                         },
                         "requiredParameters": [
                             {
@@ -1392,7 +1392,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T06:33:13.185365+00:00",
+    "create_time": "2024-12-04T06:35:10.835339+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
