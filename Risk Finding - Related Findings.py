@@ -25,7 +25,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""datamodel Risk.All_Risk | where [| tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1}  by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index | `get_mitre_annotations` | rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type | `generate_findings_summary` | stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object, risk_object_type)` | `dedup_and_compute_common_fbd_fields`, annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack'), threat_object=mvdedup(threat_object) | fillnull value=0 mitre_tactic_id_count, mitre_technique_id_count | fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids | `drop_dm_object_name(\"All_Risk\")` | where total_event_count > 5 AND normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\" | eval all_finding_ids=mvappend(intermediate_finding_ids, finding_ids) | fields all_finding_ids | mvexpand all_finding_ids | rename all_finding_ids AS source_event_id]\n| `add_events({4})`""",
+        template="""datamodel Risk.All_Risk | where [| tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1}  by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index | `get_mitre_annotations` | rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type | `generate_findings_summary` | stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object, risk_object_type)` | `dedup_and_compute_common_fbd_fields`, annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack'), threat_object=mvdedup(threat_object) | fillnull value=0 mitre_tactic_id_count, mitre_technique_id_count | fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids | `drop_dm_object_name(\"All_Risk\")` | where total_event_count > 5 AND normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\" | eval all_finding_ids=mvappend(intermediate_finding_ids, finding_ids) | fields all_finding_ids | mvexpand all_finding_ids | rename all_finding_ids AS source_event_id]\n| stats values(*) as *, count(source) as source_event_id_count by source\n| `add_events({4})`""",
         parameters=[
             "finding:consolidated_findings.info_min_time",
             "finding:consolidated_findings._indextime",
@@ -758,30 +758,31 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    related_findings_list__related_findings_id = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings_id")) != "" else "null")  # pylint: disable=used-before-assignment
-    related_findings_list__related_findings_time = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings_time")) != "" else "null")  # pylint: disable=used-before-assignment
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.source_event_id","run_query_1:action_result.data.*._time","run_query_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
-    if related_findings_list__related_findings_id is not None:
-        parameters.append({
-            "id": related_findings_list__related_findings_id,
-            "finding_time": related_findings_list__related_findings_time,
-        })
+    # build parameters list for 'get_finding_or_investigation_1' call
+    for run_query_1_result_item in run_query_1_result_data:
+        if run_query_1_result_item[0] is not None:
+            parameters.append({
+                "id": run_query_1_result_item[0],
+                "finding_time": run_query_1_result_item[1],
+            })
 
     ################################################################################
     ## Custom Code Start
     ################################################################################
 
     # Write your custom code here...
-    phantom.debug(related_findings_list__related_findings_id)
-    phantom.debug(related_findings_list__related_findings_time)
-    parameters = []
-    for i in range(len(related_findings_list__related_findings_id)):
-        parameters.append({
-            "id": related_findings_list__related_findings_id[i],
-            "finding_time": related_findings_list__related_findings_time[i],
-        })
+    #phantom.debug(related_findings_list__related_findings_id)
+    #phantom.debug(related_findings_list__related_findings_time)
+    #parameters = []
+    #for i in range(len(related_findings_list__related_findings_id)):
+    #    parameters.append({
+    #        "id": related_findings_list__related_findings_id[i],
+    #        "finding_time": related_findings_list__related_findings_time[i],
+    #    })
 
     ################################################################################
     ## Custom Code End

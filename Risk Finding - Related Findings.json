@@ -198,7 +198,7 @@
                     "targetPort": "41_in"
                 }
             ],
-            "hash": "3f56ebe3c91211c3e0ec9a7f21962e9132fc4e8e",
+            "hash": "e030969ccf2ae98b82cf10f0e35b0cb0602db77b",
             "nodes": {
                 "0": {
                     "data": {
@@ -260,7 +260,7 @@
                     "type": "format",
                     "warnings": {},
                     "x": 260,
-                    "y": 776
+                    "y": 780
                 },
                 "20": {
                     "data": {
@@ -369,7 +369,7 @@
                     "type": "prompt",
                     "warnings": {},
                     "x": 260,
-                    "y": 1074
+                    "y": 1080
                 },
                 "23": {
                     "data": {
@@ -1062,7 +1062,7 @@
                                     "finding:consolidated_findings.risk_object_type",
                                     "finding:investigation_id"
                                 ],
-                                "template": "datamodel Risk.All_Risk | where [| tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1}  by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index | `get_mitre_annotations` | rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type | `generate_findings_summary` | stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object, risk_object_type)` | `dedup_and_compute_common_fbd_fields`, annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack'), threat_object=mvdedup(threat_object) | fillnull value=0 mitre_tactic_id_count, mitre_technique_id_count | fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids | `drop_dm_object_name(\"All_Risk\")` | where total_event_count > 5 AND normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\" | eval all_finding_ids=mvappend(intermediate_finding_ids, finding_ids) | fields all_finding_ids | mvexpand all_finding_ids | rename all_finding_ids AS source_event_id]\n| `add_events({4})`"
+                                "template": "datamodel Risk.All_Risk | where [| tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1}  by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index | `get_mitre_annotations` | rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type | `generate_findings_summary` | stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object, risk_object_type)` | `dedup_and_compute_common_fbd_fields`, annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack'), threat_object=mvdedup(threat_object) | fillnull value=0 mitre_tactic_id_count, mitre_technique_id_count | fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids | `drop_dm_object_name(\"All_Risk\")` | where total_event_count > 5 AND normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\" | eval all_finding_ids=mvappend(intermediate_finding_ids, finding_ids) | fields all_finding_ids | mvexpand all_finding_ids | rename all_finding_ids AS source_event_id]\n| stats values(*) as *, count(source) as source_event_id_count by source\n| `add_events({4})`"
                             },
                             "search_mode": "verbose",
                             "start_time": "-365d"
@@ -1362,8 +1362,8 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "finding_time": "related_findings_list:custom_function:related_findings_time",
-                            "id": "related_findings_list:custom_function:related_findings_id"
+                            "finding_time": "run_query_1:action_result.data.*._time",
+                            "id": "run_query_1:action_result.data.*.source_event_id"
                         },
                         "requiredParameters": [
                             {
@@ -1376,7 +1376,7 @@
                     "errors": {},
                     "id": "47",
                     "type": "enterpriseSecurity",
-                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(related_findings_list__related_findings_id)\n    phantom.debug(related_findings_list__related_findings_time)\n    parameters = []\n    for i in range(len(related_findings_list__related_findings_id)):\n        parameters.append({\n            \"id\": related_findings_list__related_findings_id[i],\n            \"finding_time\": related_findings_list__related_findings_time[i],\n        })\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(related_findings_list__related_findings_id)\n    #phantom.debug(related_findings_list__related_findings_time)\n    #parameters = []\n    #for i in range(len(related_findings_list__related_findings_id)):\n    #    parameters.append({\n    #        \"id\": related_findings_list__related_findings_id[i],\n    #        \"finding_time\": related_findings_list__related_findings_time[i],\n    #    })\n\n",
                     "warnings": {},
                     "x": 180,
                     "y": 1860
@@ -1392,7 +1392,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T05:31:51.024030+00:00",
+    "create_time": "2024-12-04T06:27:20.765084+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
