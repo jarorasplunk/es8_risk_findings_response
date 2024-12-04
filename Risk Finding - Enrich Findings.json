@@ -52,20 +52,6 @@
                     "targetPort": "14_in"
                 },
                 {
-                    "id": "port_10_to_port_1",
-                    "sourceNode": "10",
-                    "sourcePort": "10_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
-                    "id": "port_11_to_port_1",
-                    "sourceNode": "11",
-                    "sourcePort": "11_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "id": "port_0_to_port_16",
                     "sourceNode": "0",
                     "sourcePort": "0_out",
@@ -94,13 +80,6 @@
                     "targetPort": "12_in"
                 },
                 {
-                    "id": "port_18_to_port_1",
-                    "sourceNode": "18",
-                    "sourcePort": "18_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "id": "port_5_to_port_18",
                     "sourceNode": "5",
                     "sourcePort": "5_out",
@@ -125,9 +104,44 @@
                     "sourcePort": "19_out",
                     "targetNode": "5",
                     "targetPort": "5_in"
+                },
+                {
+                    "id": "port_11_to_port_15",
+                    "sourceNode": "11",
+                    "sourcePort": "11_out",
+                    "targetNode": "15",
+                    "targetPort": "15_in"
+                },
+                {
+                    "id": "port_10_to_port_15",
+                    "sourceNode": "10",
+                    "sourcePort": "10_out",
+                    "targetNode": "15",
+                    "targetPort": "15_in"
+                },
+                {
+                    "id": "port_14_to_port_20",
+                    "sourceNode": "14",
+                    "sourcePort": "14_out",
+                    "targetNode": "20",
+                    "targetPort": "20_in"
+                },
+                {
+                    "id": "port_18_to_port_20",
+                    "sourceNode": "18",
+                    "sourcePort": "18_out",
+                    "targetNode": "20",
+                    "targetPort": "20_in"
+                },
+                {
+                    "id": "port_20_to_port_1",
+                    "sourceNode": "20",
+                    "sourcePort": "20_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "e36617a812a5e26e2799e034bd789e0d53619db2",
+            "hash": "98b00f78ecac5493a77dc811fa613a62da6bdd98",
             "nodes": {
                 "0": {
                     "data": {
@@ -164,8 +178,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 360,
-                    "y": 880
+                    "x": 460,
+                    "y": 1480
                 },
                 "10": {
                     "data": {
@@ -209,8 +223,8 @@
                     "id": "10",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 340,
-                    "y": 660
+                    "x": 360,
+                    "y": 680
                 },
                 "11": {
                     "data": {
@@ -399,8 +413,8 @@
                     "id": "14",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 1020,
-                    "y": 147.9999999999999
+                    "x": 140,
+                    "y": 1200
                 },
                 "15": {
                     "data": {
@@ -426,16 +440,9 @@
                     "errors": {},
                     "id": "15",
                     "type": "format",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 1020,
-                    "y": -7.815970093361102e-14
+                    "warnings": {},
+                    "x": 140,
+                    "y": 1060
                 },
                 "16": {
                     "data": {
@@ -753,6 +760,60 @@
                     "x": 680,
                     "y": 160
                 },
+                "20": {
+                    "data": {
+                        "action": "update task in current phase",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": [],
+                            "notRequiredJoins": [
+                                "add_finding_or_investigation_note_2",
+                                "add_task_note_1"
+                            ]
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "update_task_in_current_phase_1",
+                        "id": "20",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id",
+                            "name": "Enrich findings",
+                            "status": "Ended",
+                            "task_id": "get_task_id_1:action_result.data.*.task_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "20",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 420,
+                    "y": 1360
+                },
                 "4": {
                     "data": {
                         "advanced": {
@@ -817,85 +878,6 @@
                     "warnings": {},
                     "x": 680,
                     "y": 540
-                },
-                "7": {
-                    "data": {
-                        "action": "add finding or investigation note",
-                        "actionType": "post",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "add_finding_or_investigation_note_1",
-                        "id": "7",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "content": {
-                                "functionId": 1,
-                                "parameters": [
-                                    "finding:consolidated_findings.risk_object_type",
-                                    "finding:consolidated_findings.risk_object",
-                                    "finding:consolidated_findings.risk_score",
-                                    "finding:consolidated_findings.info_min_time",
-                                    "finding:consolidated_findings.info_max_time",
-                                    "mitre_format:custom_function:output"
-                                ],
-                                "template": "### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1})\n\n# MITRE ATT&CK\u00ae\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}"
-                            },
-                            "id": "finding:id",
-                            "title": {
-                                "functionId": 1,
-                                "parameters": [
-                                    "finding:consolidated_findings.risk_object"
-                                ],
-                                "template": "SOAR Analysis for: {0}\n"
-                            }
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "title"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "content"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "7",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 1000,
-                    "y": 720
                 }
             },
             "notes": "",
@@ -914,7 +896,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-03T07:05:42.613203+00:00",
+    "create_time": "2024-12-04T03:36:09.739072+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

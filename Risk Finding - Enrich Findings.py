@@ -193,59 +193,6 @@ def mitre_format(action=None, success=None, container=None, results=None, handle
 
 
 @phantom.playbook_block()
-def add_finding_or_investigation_note_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("add_finding_or_investigation_note_1() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    title_formatted_string = phantom.format(
-        container=container,
-        template="""SOAR Analysis for: {0}\n""",
-        parameters=[
-            "finding:consolidated_findings.risk_object"
-        ])
-    content_formatted_string = phantom.format(
-        container=container,
-        template="""### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1})\n\n# MITRE ATT&CK®\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}""",
-        parameters=[
-            "finding:consolidated_findings.risk_object_type",
-            "finding:consolidated_findings.risk_object",
-            "finding:consolidated_findings.risk_score",
-            "finding:consolidated_findings.info_min_time",
-            "finding:consolidated_findings.info_max_time",
-            "mitre_format:custom_function:output"
-        ])
-
-    finding_data = phantom.collect2(container=container, datapath=["finding:id","finding:consolidated_findings.risk_object","finding:consolidated_findings.risk_object_type","finding:consolidated_findings.risk_score","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time"])
-    mitre_format__output = json.loads(_ if (_ := phantom.get_run_data(key="mitre_format:output")) != "" else "null")  # pylint: disable=used-before-assignment
-
-    parameters = []
-
-    # build parameters list for 'add_finding_or_investigation_note_1' call
-    for finding_data_item in finding_data:
-        if finding_data_item[0] is not None and title_formatted_string is not None and content_formatted_string is not None:
-            parameters.append({
-                "id": finding_data_item[0],
-                "title": title_formatted_string,
-                "content": content_formatted_string,
-            })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("add finding or investigation note", parameters=parameters, name="add_finding_or_investigation_note_1", assets=["builtin_mc_connector"])
-
-    return
-
-
-@phantom.playbook_block()
 def playbook_azure_ad_graph_user_attribute_lookup_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_azure_ad_graph_user_attribute_lookup_2() called")
 
@@ -269,19 +216,7 @@ def playbook_azure_ad_graph_user_attribute_lookup_2(action=None, success=None, c
     ################################################################################
 
     # call playbook "local/Azure_AD_Graph_User_Attribute_Lookup", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("local/Azure_AD_Graph_User_Attribute_Lookup", container=container, name="playbook_azure_ad_graph_user_attribute_lookup_2", callback=playbook_azure_ad_graph_user_attribute_lookup_2_callback, inputs=inputs)
-
-    return
-
-
-@phantom.playbook_block()
-def playbook_azure_ad_graph_user_attribute_lookup_2_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("playbook_azure_ad_graph_user_attribute_lookup_2_callback() called")
-
-    
-    # Downstream End block cannot be called directly, since execution will call on_finish automatically.
-    # Using placeholder callback function so child playbook is run synchronously.
-
+    playbook_run_id = phantom.playbook("local/Azure_AD_Graph_User_Attribute_Lookup", container=container, name="playbook_azure_ad_graph_user_attribute_lookup_2", callback=join_format_2, inputs=inputs)
 
     return
 
@@ -309,19 +244,7 @@ def playbook_crowdstrike_oauth_api_device_attribute_lookup_1(action=None, succes
     ################################################################################
 
     # call playbook "local/CrowdStrike_OAuth_API_Device_Attribute_Lookup", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("local/CrowdStrike_OAuth_API_Device_Attribute_Lookup", container=container, name="playbook_crowdstrike_oauth_api_device_attribute_lookup_1", callback=playbook_crowdstrike_oauth_api_device_attribute_lookup_1_callback, inputs=inputs)
-
-    return
-
-
-@phantom.playbook_block()
-def playbook_crowdstrike_oauth_api_device_attribute_lookup_1_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("playbook_crowdstrike_oauth_api_device_attribute_lookup_1_callback() called")
-
-    
-    # Downstream End block cannot be called directly, since execution will call on_finish automatically.
-    # Using placeholder callback function so child playbook is run synchronously.
-
+    playbook_run_id = phantom.playbook("local/CrowdStrike_OAuth_API_Device_Attribute_Lookup", container=container, name="playbook_crowdstrike_oauth_api_device_attribute_lookup_1", callback=join_format_2, inputs=inputs)
 
     return
 
@@ -418,7 +341,24 @@ def add_finding_or_investigation_note_2(action=None, success=None, container=Non
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add finding or investigation note", parameters=parameters, name="add_finding_or_investigation_note_2", assets=["builtin_mc_connector"])
+    phantom.act("add finding or investigation note", parameters=parameters, name="add_finding_or_investigation_note_2", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
+
+    return
+
+
+@phantom.playbook_block()
+def join_format_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("join_format_2() called")
+
+    # if the joined function has already been called, do nothing
+    if phantom.get_run_data(key="join_format_2_called"):
+        return
+
+    # save the state that the joined function has now been called
+    phantom.save_run_data(key="join_format_2_called", value="format_2")
+
+    # call connected block "format_2"
+    format_2(container=container, handle=handle)
 
     return
 
@@ -592,7 +532,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"])
+    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
 
     return
 
@@ -618,6 +558,60 @@ def asset_get_attributes_1(action=None, success=None, container=None, results=No
     ################################################################################
 
     phantom.custom_function(custom_function="community/asset_get_attributes", parameters=parameters, name="asset_get_attributes_1", callback=mitre_format)
+
+    return
+
+
+@phantom.playbook_block()
+def join_update_task_in_current_phase_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("join_update_task_in_current_phase_1() called")
+
+    # if the joined function has already been called, do nothing
+    if phantom.get_run_data(key="join_update_task_in_current_phase_1_called"):
+        return
+
+    # save the state that the joined function has now been called
+    phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
+
+    # call connected block "update_task_in_current_phase_1"
+    update_task_in_current_phase_1(container=container, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
+def update_task_in_current_phase_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("update_task_in_current_phase_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+    get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'update_task_in_current_phase_1' call
+    for finding_data_item in finding_data:
+        for get_task_id_1_result_item in get_task_id_1_result_data:
+            if finding_data_item[0] is not None and get_task_id_1_result_item[0] is not None:
+                parameters.append({
+                    "id": finding_data_item[0],
+                    "name": "Enrich findings",
+                    "status": "Ended",
+                    "task_id": get_task_id_1_result_item[0],
+                })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_1", assets=["builtin_mc_connector"])
 
     return
 
