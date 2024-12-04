@@ -120,7 +120,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "d7f05fa2ae479a1dc2133c01903b2a526551001c",
+            "hash": "18516fca1ee3abc0fba71373981ba0463eda337a",
             "nodes": {
                 "0": {
                     "data": {
@@ -637,20 +637,20 @@
                                     {
                                         "conditionIndex": 2,
                                         "op": "in",
-                                        "param": "run_query_1:action_result.data.*.threat_object_type",
-                                        "value": "process"
+                                        "param": "process",
+                                        "value": "run_query_1:action_result.data.*.threat_object_type"
                                     },
                                     {
                                         "conditionIndex": 2,
                                         "op": "in",
-                                        "param": "run_query_1:action_result.data.*.threat_object_type",
-                                        "value": "file_hash"
+                                        "param": "file_hash",
+                                        "value": "run_query_1:action_result.data.*.threat_object_type"
                                     },
                                     {
                                         "conditionIndex": 2,
                                         "op": "in",
-                                        "param": "run_query_1:action_result.data.*.threat_object_type",
-                                        "value": "hash"
+                                        "param": "hash",
+                                        "value": "run_query_1:action_result.data.*.threat_object_type"
                                     }
                                 ],
                                 "conditionIndex": 2,
@@ -830,7 +830,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T04:21:44.109060+00:00",
+    "create_time": "2024-12-04T04:25:08.054566+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

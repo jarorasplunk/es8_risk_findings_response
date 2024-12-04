@@ -134,9 +134,9 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
         container=container,
         logical_operator="and",
         conditions=[
-            ["run_query_1:action_result.data.*.threat_object_type", "in", "process"],
-            ["run_query_1:action_result.data.*.threat_object_type", "in", "file_hash"],
-            ["run_query_1:action_result.data.*.threat_object_type", "in", "hash"]
+            ["process", "in", "run_query_1:action_result.data.*.threat_object_type"],
+            ["file_hash", "in", "run_query_1:action_result.data.*.threat_object_type"],
+            ["hash", "in", "run_query_1:action_result.data.*.threat_object_type"]
         ],
         name="filter_1:condition_3",
         delimiter=None)
