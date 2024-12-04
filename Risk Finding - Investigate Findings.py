@@ -157,10 +157,10 @@ def playbook_splunk_identifier_activity_analysis_1(action=None, success=None, co
     run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
 
     inputs = {
+        "ip": run_query_1_result_item_0,
         "url": run_query_1_result_item_0,
         "file": run_query_1_result_item_0,
         "domain": run_query_1_result_item_0,
-        "ip": run_query_1_result_item_0,
     }
 
     ################################################################################
@@ -247,7 +247,7 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:response_plans.*.name","finding:investigation_id"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.name"])
 
     parameters = []
 
@@ -255,10 +255,10 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
     for finding_data_item in finding_data:
         if finding_data_item[0] is not None and finding_data_item[1] is not None:
             parameters.append({
-                "response_template_name": finding_data_item[0],
-                "id": finding_data_item[1],
+                "id": finding_data_item[0],
                 "task_name": "Investigate findings",
                 "phase_name": "Investigate",
+                "response_template_name": finding_data_item[1],
             })
 
     ################################################################################
