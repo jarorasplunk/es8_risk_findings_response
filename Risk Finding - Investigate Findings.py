@@ -105,7 +105,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
         conditions=[
-            ["run_query_1:action_result.data.*threat_object_type", "in", "ip,hash,url,domain"]
+            ["run_query_1:action_result.data.*.threat_object_type", "in", "ip,hash,url,domain,process"]
         ],
         name="filter_1:condition_1",
         delimiter=None)

@@ -40,7 +40,7 @@
                     "targetPort": "6_in"
                 }
             ],
-            "hash": "71064b528d0c1200b7dfd0a542f8fa51d1d95cfe",
+            "hash": "88775ad680022b2f39d098bd388912520d809f5b",
             "nodes": {
                 "0": {
                     "data": {
@@ -202,8 +202,8 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "in",
-                                        "param": "run_query_1:action_result.data.*threat_object_type",
-                                        "value": "ip,hash,url,domain"
+                                        "param": "run_query_1:action_result.data.*.threat_object_type",
+                                        "value": "ip,hash,url,domain,process"
                                     }
                                 ],
                                 "conditionIndex": 0,
@@ -412,7 +412,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T00:21:26.621265+00:00",
+    "create_time": "2024-12-04T00:26:09.464016+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
