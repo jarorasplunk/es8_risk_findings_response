@@ -120,7 +120,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "aca187ed80df04e2f66e3786def9f5209e269804",
+            "hash": "b75f017100886e15b67ea3e38408d61d364422d8",
             "nodes": {
                 "0": {
                     "data": {
@@ -681,27 +681,27 @@
                         "inputs": {
                             "domain": {
                                 "datapaths": [
-                                    "run_query_1:action_result.data.*.threat_object"
+                                    "filtered-data:filter_1:condition_3:run_query_1:action_result.data.*.threat_object"
                                 ],
-                                "deduplicate": false
+                                "deduplicate": true
                             },
                             "file": {
                                 "datapaths": [
-                                    "run_query_1:action_result.data.*.threat_object"
+                                    "filtered-data:filter_1:condition_3:run_query_1:action_result.data.*.threat_object"
                                 ],
-                                "deduplicate": false
+                                "deduplicate": true
                             },
                             "ip": {
                                 "datapaths": [
-                                    "run_query_1:action_result.data.*.threat_object"
+                                    "filtered-data:filter_1:condition_3:run_query_1:action_result.data.*.threat_object"
                                 ],
-                                "deduplicate": false
+                                "deduplicate": true
                             },
                             "url": {
                                 "datapaths": [
-                                    "run_query_1:action_result.data.*.threat_object"
+                                    "filtered-data:filter_1:condition_3:run_query_1:action_result.data.*.threat_object"
                                 ],
-                                "deduplicate": false
+                                "deduplicate": true
                             }
                         },
                         "loop": {
@@ -830,7 +830,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T04:47:15.343628+00:00",
+    "create_time": "2024-12-04T04:47:58.178027+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

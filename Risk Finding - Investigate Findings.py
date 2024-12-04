@@ -152,15 +152,17 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
 def playbook_splunk_identifier_activity_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_splunk_identifier_activity_analysis_1() called")
 
-    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.threat_object"], action_results=results)
+    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_3:run_query_1:action_result.data.*.threat_object"])
 
-    run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
+    filtered_result_0_data___threat_object = [item[0] for item in filtered_result_0_data_filter_1]
+
+    ip_domain_file_url_combined_value = phantom.concatenate(filtered_result_0_data___threat_object, dedup=True)
 
     inputs = {
-        "ip": run_query_1_result_item_0,
-        "url": run_query_1_result_item_0,
-        "file": run_query_1_result_item_0,
-        "domain": run_query_1_result_item_0,
+        "url": ip_domain_file_url_combined_value,
+        "file": ip_domain_file_url_combined_value,
+        "domain": ip_domain_file_url_combined_value,
+        "ip": ip_domain_file_url_combined_value,
     }
 
     ################################################################################
