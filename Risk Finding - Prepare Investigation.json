@@ -115,21 +115,21 @@
                     "targetPort": "1_in"
                 },
                 {
-                    "id": "port_0_to_port_27",
+                    "id": "port_0_to_port_28",
                     "sourceNode": "0",
                     "sourcePort": "0_out",
-                    "targetNode": "27",
-                    "targetPort": "27_in"
+                    "targetNode": "28",
+                    "targetPort": "28_in"
                 },
                 {
-                    "id": "port_27_to_port_3",
-                    "sourceNode": "27",
-                    "sourcePort": "27_out",
+                    "id": "port_28_to_port_3",
+                    "sourceNode": "28",
+                    "sourcePort": "28_out",
                     "targetNode": "3",
                     "targetPort": "3_in"
                 }
             ],
-            "hash": "4b6c3dd04ef184d578a4c2ad73272cb4ce3f1805",
+            "hash": "efce8fa3b91d2a6534c1ac0c2694815828d83073",
             "nodes": {
                 "0": {
                     "data": {
@@ -151,7 +151,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 200,
-                    "y": -300
+                    "y": -300.00000000000006
                 },
                 "1": {
                     "data": {
@@ -225,7 +225,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 180,
-                    "y": 259.99999999999983
+                    "y": 259.9999999999998
                 },
                 "12": {
                     "data": {
@@ -639,8 +639,55 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
+                    "warnings": {
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": -160,
+                    "y": -140
+                },
+                "28": {
+                    "data": {
+                        "action": "refresh finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "refresh_finding_or_investigation_1",
+                        "id": "28",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "28",
+                    "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 170,
+                    "x": 190,
                     "y": -135.50000000000006
                 },
                 "3": {
@@ -699,7 +746,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 180,
-                    "y": 119.99999999999983
+                    "y": 119.99999999999977
                 },
                 "4": {
                     "data": {
@@ -759,7 +806,7 @@
                     "type": "format",
                     "warnings": {},
                     "x": 180,
-                    "y": 399.99999999999983
+                    "y": 399.9999999999998
                 },
                 "8": {
                     "data": {
@@ -858,7 +905,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-02T13:37:21.171603+00:00",
+    "create_time": "2024-12-04T03:31:26.421695+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
