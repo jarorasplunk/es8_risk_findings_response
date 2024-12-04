@@ -104,8 +104,10 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     # collect filtered artifact ids and results for 'if' condition 1
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
+        logical_operator="or",
         conditions=[
-            ["run_query_1:action_result.data.*.threat_object_type", "in", "ip,hash,url,domain,process"]
+            ["run_query_1:action_result.data.*.threat_object_type", "==", "ip"],
+            ["run_query_1:action_result.data.*.threat_object_type", "==", "ipv6"]
         ],
         name="filter_1:condition_1",
         delimiter=None)
@@ -113,6 +115,45 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
         debug_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+
+    # collect filtered artifact ids and results for 'if' condition 2
+    matched_artifacts_2, matched_results_2 = phantom.condition(
+        container=container,
+        conditions=[
+            ["run_query_1:action_result.data.*.threat_object_type", "==", "hash"]
+        ],
+        name="filter_1:condition_2",
+        delimiter=None)
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_2 or matched_results_2:
+        pass
+
+    # collect filtered artifact ids and results for 'if' condition 3
+    matched_artifacts_3, matched_results_3 = phantom.condition(
+        container=container,
+        conditions=[
+            ["run_query_1:action_result.data.*.threat_object_type", "==", "url"]
+        ],
+        name="filter_1:condition_3",
+        delimiter=None)
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_3 or matched_results_3:
+        pass
+
+    # collect filtered artifact ids and results for 'if' condition 4
+    matched_artifacts_4, matched_results_4 = phantom.condition(
+        container=container,
+        conditions=[
+            ["run_query_1:action_result.data.*.threat_object_type", "==", "process"]
+        ],
+        name="filter_1:condition_4",
+        delimiter=None)
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_4 or matched_results_4:
+        pass
 
     return
 

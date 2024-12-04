@@ -40,7 +40,7 @@
                     "targetPort": "6_in"
                 }
             ],
-            "hash": "88775ad680022b2f39d098bd388912520d809f5b",
+            "hash": "eff46165c135bc90968cac00ace924aaa0777754",
             "nodes": {
                 "0": {
                     "data": {
@@ -78,7 +78,7 @@
                     "type": "end",
                     "warnings": {},
                     "x": 1000,
-                    "y": 1060
+                    "y": 1180
                 },
                 "2": {
                     "data": {
@@ -201,13 +201,54 @@
                                 "comparisons": [
                                     {
                                         "conditionIndex": 0,
-                                        "op": "in",
+                                        "op": "==",
                                         "param": "run_query_1:action_result.data.*.threat_object_type",
-                                        "value": "ip,hash,url,domain,process"
+                                        "value": "ip"
+                                    },
+                                    {
+                                        "op": "==",
+                                        "param": "run_query_1:action_result.data.*.threat_object_type",
+                                        "value": "ipv6"
                                     }
                                 ],
                                 "conditionIndex": 0,
-                                "customName": "threat indicators",
+                                "customName": "ip",
+                                "logic": "or"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "op": "==",
+                                        "param": "run_query_1:action_result.data.*.threat_object_type",
+                                        "value": "hash"
+                                    }
+                                ],
+                                "conditionIndex": 1,
+                                "customName": "hash",
+                                "logic": "and"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "op": "==",
+                                        "param": "run_query_1:action_result.data.*.threat_object_type",
+                                        "value": "url"
+                                    }
+                                ],
+                                "conditionIndex": 2,
+                                "customName": "url",
+                                "logic": "and"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "op": "==",
+                                        "param": "run_query_1:action_result.data.*.threat_object_type",
+                                        "value": "process"
+                                    }
+                                ],
+                                "conditionIndex": 3,
+                                "customName": "process",
                                 "logic": "and"
                             }
                         ],
@@ -412,7 +453,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T00:26:09.464016+00:00",
+    "create_time": "2024-12-04T00:42:54.798039+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
