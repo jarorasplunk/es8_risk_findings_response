@@ -758,17 +758,15 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.source_event_id","run_query_1:action_result.data.*._time","run_query_1:action_result.parameter.context.artifact_id"], action_results=results)
+    related_findings_list__related_findings_id = json.loads(_ if (_ := phantom.get_run_data(key="related_findings_list:related_findings_id")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
-    # build parameters list for 'get_finding_or_investigation_1' call
-    for run_query_1_result_item in run_query_1_result_data:
-        if run_query_1_result_item[0] is not None:
-            parameters.append({
-                "id": run_query_1_result_item[0],
-                "finding_time": run_query_1_result_item[1],
-            })
+    if related_findings_list__related_findings_id is not None:
+        parameters.append({
+            "id": related_findings_list__related_findings_id,
+            "finding_time": "",
+        })
 
     ################################################################################
     ## Custom Code Start
