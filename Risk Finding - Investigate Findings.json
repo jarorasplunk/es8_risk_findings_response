@@ -120,7 +120,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "884a47b0c2f4b338c9a5c62680097900e19452c4",
+            "hash": "4ac843adffa3bade073b27bcc418d0f970993950",
             "nodes": {
                 "0": {
                     "data": {
@@ -636,17 +636,19 @@
                                 "comparisons": [
                                     {
                                         "conditionIndex": 2,
-                                        "op": "==",
+                                        "op": "in",
                                         "param": "run_query_1:action_result.data.*.threat_object_type",
                                         "value": "process"
                                     },
                                     {
-                                        "op": "==",
+                                        "conditionIndex": 2,
+                                        "op": "in",
                                         "param": "run_query_1:action_result.data.*.threat_object_type",
                                         "value": "file_hash"
                                     },
                                     {
-                                        "op": "==",
+                                        "conditionIndex": 2,
+                                        "op": "in",
                                         "param": "run_query_1:action_result.data.*.threat_object_type",
                                         "value": "hash"
                                     }
@@ -828,7 +830,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T04:18:20.975390+00:00",
+    "create_time": "2024-12-04T04:21:44.109060+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
