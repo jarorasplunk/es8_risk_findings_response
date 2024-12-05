@@ -141,7 +141,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "d1bcaabf88a29ddf9a2ab952dc7eac0147984b46",
+            "hash": "f85ac9e661de2dfbb40f885f64faaff6d782e9eb",
             "nodes": {
                 "0": {
                     "data": {
@@ -163,7 +163,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 360,
-                    "y": -200.00000000000003
+                    "y": -200.00000000000006
                 },
                 "1": {
                     "data": {
@@ -495,7 +495,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 350,
-                    "y": -75.50000000000009
+                    "y": -75.50000000000013
                 },
                 "17": {
                     "data": {
@@ -553,7 +553,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 380,
-                    "y": 40
+                    "y": 39.99999999999996
                 },
                 "18": {
                     "data": {
@@ -699,7 +699,7 @@
                     "id": "19",
                     "type": "utility",
                     "warnings": {},
-                    "x": 680,
+                    "x": 700,
                     "y": 420
                 },
                 "2": {
@@ -861,9 +861,9 @@
                         "functionName": "mitre_format",
                         "id": "5",
                         "inputParameters": [
-                            "run_query_1:action_result.data.*.mitre_tactic",
-                            "run_query_1:action_result.data.*.mitre_technique",
-                            "run_query_1:action_result.data.*.mitre_technique_id",
+                            "run_query_1:action_result.data.*.annotations.mitre_attack.mitre_tactic",
+                            "run_query_1:action_result.data.*.annotations.mitre_attack.mitre_technique",
+                            "run_query_1:action_result.data.*.annotations.mitre_attack.mitre_technique_id",
                             "run_query_1:action_result.data.*.risk_message"
                         ],
                         "outputVariables": [
@@ -896,7 +896,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T03:38:25.338534+00:00",
+    "create_time": "2024-12-05T23:56:51.997762+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

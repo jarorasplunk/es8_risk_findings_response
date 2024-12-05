@@ -84,7 +84,7 @@ def run_query_decision(action=None, success=None, container=None, results=None, 
 def mitre_format(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("mitre_format() called")
 
-    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.mitre_tactic","run_query_1:action_result.data.*.mitre_technique","run_query_1:action_result.data.*.mitre_technique_id","run_query_1:action_result.data.*.risk_message"], action_results=results)
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.annotations.mitre_attack.mitre_tactic","run_query_1:action_result.data.*.annotations.mitre_attack.mitre_technique","run_query_1:action_result.data.*.annotations.mitre_attack.mitre_technique_id","run_query_1:action_result.data.*.risk_message"], action_results=results)
 
     run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
     run_query_1_result_item_1 = [item[1] for item in run_query_1_result_data]
