@@ -162,6 +162,45 @@ def create_response_plan_json(action=None, success=None, container=None, results
                         "is_note_required": var_false
                     },
                 ]
+            },
+            {
+                "name": "Containment",
+                "order": var_1,
+                "tasks": [
+                    {
+                        "name": "Protect Users",
+                        "order": var_1,
+                        "description": "Execute comtainment actions to protect users.\n- Temporariliy disable users\n- Reset Users password\n- Notify users about incident\n- Create blocklists.",
+                        "suggestions": {
+                            "actions": [],
+                            "searches": [],
+                            "playbooks": []
+                        },
+                        "is_note_required": var_false
+                    },
+                    {
+                        "name": "Protect Assets",
+                        "order": var_2,
+                        "description": "Execute comtainment actions to protect systems and assets.\n- Temporariliy isolate devices\n- Temporarily shutdown devices\n- Create tickets for re-imaging machines\n- Create blocklists.",
+                        "suggestions": {
+                            "actions": [],
+                            "searches": [],
+                            "playbooks": []
+                        },
+                        "is_note_required": var_false
+                    },
+                    {
+                        "name": "Post Incident Activities",
+                        "order": var_3,
+                        "description": "Create a report for this investigation for audit and review. Gather lessons learned and document them. Apply additional security practices to prevent this incident from happening.",
+                        "suggestions": {
+                            "actions": [],
+                            "searches": [],
+                            "playbooks": []
+                        },
+                        "is_note_required": var_false
+                    },
+                ]
             }
         ]
     }
