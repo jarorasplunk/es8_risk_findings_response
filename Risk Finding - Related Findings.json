@@ -198,7 +198,7 @@
                     "targetPort": "41_in"
                 }
             ],
-            "hash": "b4c06becf79db8fc82a21ee67d7cdadfa5d5039f",
+            "hash": "890b29ed4dc9265663941473afcb04adc6a27586",
             "nodes": {
                 "0": {
                     "data": {
@@ -515,7 +515,7 @@
                                     "filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.finding_id",
                                     "Closed"
                                 ],
-                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\nClosed Findings as part of this Investigation:\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | {1} |\n%%"
+                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\nClosed Findings as part of this Investigation:\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n\n\nOther findings are found to be \"Intermediate Findings\" contributing to this investigation and hence they are not applicable to be closed."
                             },
                             "id": "finding:investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -1398,7 +1398,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-05T23:16:06.711105+00:00",
+    "create_time": "2024-12-05T23:20:57.592698+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
