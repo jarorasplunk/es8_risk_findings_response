@@ -678,7 +678,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
         logical_operator="and",
         conditions=[
             ["get_finding_or_investigation_1:action_result.data.*.status_name", "!=", "Closed"],
-            ["get_finding_or_investigation_1:action_result.data.*.source_event_id", "!=", ""]
+            ["get_finding_or_investigation_1:action_result.data.*.finding_id", "!=", ""]
         ],
         name="filter_1:condition_1",
         delimiter=None)
