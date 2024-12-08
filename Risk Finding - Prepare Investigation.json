@@ -122,13 +122,6 @@
                     "targetPort": "30_in"
                 },
                 {
-                    "id": "port_30_to_port_29",
-                    "sourceNode": "30",
-                    "sourcePort": "30_out",
-                    "targetNode": "29",
-                    "targetPort": "29_in"
-                },
-                {
                     "id": "port_26_to_port_31",
                     "sourceNode": "26",
                     "sourcePort": "26_out",
@@ -148,9 +141,23 @@
                     "sourcePort": "29_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
+                },
+                {
+                    "id": "port_30_to_port_32",
+                    "sourceNode": "30",
+                    "sourcePort": "30_out",
+                    "targetNode": "32",
+                    "targetPort": "32_in"
+                },
+                {
+                    "id": "port_32_to_port_1",
+                    "sourceNode": "32",
+                    "sourcePort": "32_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "f521e2269e9ef8a1f66375261e0520ed657a309b",
+            "hash": "69db2c3f44fd7c1d2611f7373f16eac7b8dcb40b",
             "nodes": {
                 "0": {
                     "data": {
@@ -669,10 +676,7 @@
                         "actionType": "post",
                         "advanced": {
                             "join": [],
-                            "notRequiredJoins": [
-                                "refresh_finding_or_investigation_2",
-                                "refresh_finding_or_investigation_3"
-                            ]
+                            "notRequiredJoins": []
                         },
                         "connector": "Enterprise Security",
                         "connectorConfigs": [
@@ -696,14 +700,13 @@
                             "content": {
                                 "functionId": 2,
                                 "parameters": [
-                                    "refresh_finding_or_investigation_3:action_result.data.*.data.owner",
-                                    "refresh_finding_or_investigation_2:action_result.data.*.data.owner"
+                                    "refresh_finding_or_investigation_3:action_result.data.*.data.owner"
                                 ],
-                                "template": "The investigation status has been changed to \"In Progress\" and it has been assigned to: {0} {1{1}}\n"
+                                "template": "The investigation status has been changed to \"In Progress\" and it has been assigned to: {0}"
                             },
-                            "id": "finding:investigation_id",
+                            "id": "refresh_finding_or_investigation_3:action_result.data.*.data.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "finding:current_response_plan_phase.response_plan_id",
+                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
                             "task_id": "get_task_id_2:action_result.data.*.task_id",
                             "title": "Investigation assignment:"
                         },
@@ -741,8 +744,8 @@
                     "id": "29",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 120,
-                    "y": 1920
+                    "x": -80,
+                    "y": 1880
                 },
                 "3": {
                     "data": {
@@ -887,6 +890,82 @@
                     "warnings": {},
                     "x": -60,
                     "y": 1700
+                },
+                "32": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 3,
+                        "functionName": "add_task_note_3",
+                        "id": "32",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": {
+                                "functionId": 3,
+                                "parameters": [
+                                    "refresh_finding_or_investigation_2:action_result.data.*.data.owner"
+                                ],
+                                "template": "The investigation status has been changed to \"In Progress\" and it has been assigned to: {0}\n"
+                            },
+                            "id": "refresh_finding_or_investigation_2:action_result.data.*.data.investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
+                            "task_id": "get_task_id_2:action_result.data.*.task_id",
+                            "title": "Investigation assignment:"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "32",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 360,
+                    "y": 1920
                 },
                 "4": {
                     "data": {
@@ -1045,7 +1124,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T02:25:04.026052+00:00",
+    "create_time": "2024-12-08T02:32:02.282421+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
