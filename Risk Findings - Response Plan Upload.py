@@ -52,7 +52,7 @@ def create_response_plan_json(action=None, success=None, container=None, results
                     {
                         "name": "Prepare the investigation",
                         "order": var_1,
-                        "description": "In the right hand side panel of this investigation:\n1. Update the status of this investigation from New to In-Progress\n2. Assign the owner of this investigation\n3. Optional: Select a disposition, if it is applicable at this stage.\n\nAlternatively, run the playbook (below), which will:\n1. Assign the incident to you as an analyst\n2. Change the status from New to In-Progress",
+                        "description": "In the right hand side panel of this investigation:\n1. Update the status of this investigation from New to In-Progress\n2. Assign the owner of this investigation\n3. Optional: Select a disposition, if it is applicable at this stage.\n\nAlternatively, run the playbook (below), which will:\n1. Send you an input prompt to Assign the incident to yourself or to another analyst\n2. Change the status from New to In-Progress",
                         "suggestions": {
                             "actions": [],
                             "searches": [],
