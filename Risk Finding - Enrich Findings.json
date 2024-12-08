@@ -26,18 +26,6 @@
                     "targetPort": "13_in"
                 },
                 {
-                    "conditions": [
-                        {
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_12_to_port_10",
-                    "sourceNode": "12",
-                    "sourcePort": "12_out",
-                    "targetNode": "10",
-                    "targetPort": "10_in"
-                },
-                {
                     "id": "port_13_to_port_11",
                     "sourceNode": "13",
                     "sourcePort": "13_out",
@@ -99,13 +87,6 @@
                     "targetPort": "15_in"
                 },
                 {
-                    "id": "port_10_to_port_15",
-                    "sourceNode": "10",
-                    "sourcePort": "10_out",
-                    "targetNode": "15",
-                    "targetPort": "15_in"
-                },
-                {
                     "id": "port_14_to_port_20",
                     "sourceNode": "14",
                     "sourcePort": "14_out",
@@ -132,9 +113,28 @@
                     "sourcePort": "17_out",
                     "targetNode": "2",
                     "targetPort": "2_in"
+                },
+                {
+                    "id": "port_17_to_port_12",
+                    "sourceNode": "17",
+                    "sourcePort": "17_out",
+                    "targetNode": "12",
+                    "targetPort": "12_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_12_to_port_22",
+                    "sourceNode": "12",
+                    "sourcePort": "12_out",
+                    "targetNode": "22",
+                    "targetPort": "22_in"
                 }
             ],
-            "hash": "48322a25ec603eb52e5427df4db28f3e5a92b85d",
+            "hash": "053a40b419367f7c815031d8d23d71152ddc6799",
             "nodes": {
                 "0": {
                     "data": {
@@ -173,51 +173,6 @@
                     "warnings": {},
                     "x": 460,
                     "y": 1480
-                },
-                "10": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "functionId": 2,
-                        "functionName": "playbook_Azure_AD_Graph_User_Attribute_Lookup_2",
-                        "id": "10",
-                        "inputs": {
-                            "device": {
-                                "datapaths": [
-                                    "finding:consolidated_findings.normalized_risk_object"
-                                ],
-                                "deduplicate": false
-                            },
-                            "user": {
-                                "datapaths": [
-                                    "finding:consolidated_findings.normalized_risk_object"
-                                ],
-                                "deduplicate": false
-                            }
-                        },
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "playbookName": "Azure_AD_Graph_User_Attribute_Lookup",
-                        "playbookRepo": 2,
-                        "playbookRepoName": "local",
-                        "playbookType": "data",
-                        "synchronous": true,
-                        "type": "playbook"
-                    },
-                    "errors": {},
-                    "id": "10",
-                    "type": "playbook",
-                    "warnings": {},
-                    "x": 360,
-                    "y": 680
                 },
                 "11": {
                     "data": {
@@ -303,13 +258,9 @@
                     "errors": {},
                     "id": "12",
                     "type": "decision",
-                    "warnings": {
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 250,
-                    "y": 310
+                    "warnings": {},
+                    "x": 160,
+                    "y": 160
                 },
                 "13": {
                     "data": {
@@ -437,7 +388,11 @@
                     "errors": {},
                     "id": "15",
                     "type": "format",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 140,
                     "y": 1060
                 },
@@ -811,53 +766,28 @@
                     "x": 420,
                     "y": 1360
                 },
-                "21": {
+                "22": {
                     "data": {
-                        "action": "get events",
-                        "actionType": "get",
                         "advanced": {
+                            "customName": "user enrichment note",
+                            "customNameId": 0,
                             "join": []
                         },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
                         "functionId": 1,
-                        "functionName": "get_events_1",
-                        "id": "21",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "id": "finding:investigation_id",
-                            "limit": "50"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            }
+                        "functionName": "user_enrichment_note",
+                        "id": "22",
+                        "parameters": [
+                            "finding:consolidated_findings.normalized_risk_object"
                         ],
-                        "type": "enterpriseSecurity"
+                        "template": "Review the user {0} details in Assets and Identities database:\n\nhttps://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/identity_center?form.username={0}&form.priority=*&form.bunit=*&form.category=*&form.watchlist=*\n\nGather intelligence about the user {0} in Asset and Risk Intelligence:\n\nhttps://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkAssetRiskIntelligence/ari_user_search?form.time.earliest=-30d%40d&form.time.latest=now&form.profile=ip&form.series={0}\n",
+                        "type": "format"
                     },
                     "errors": {},
-                    "id": "21",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": -200,
-                    "y": 99.99999999999997
+                    "id": "22",
+                    "type": "format",
+                    "warnings": {},
+                    "x": 340,
+                    "y": 460
                 },
                 "4": {
                     "data": {
@@ -941,7 +871,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T13:51:26.024300+00:00",
+    "create_time": "2024-12-08T14:17:55.451583+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
