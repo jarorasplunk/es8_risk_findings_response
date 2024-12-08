@@ -619,6 +619,7 @@ def get_events_1(action=None, success=None, container=None, results=None, handle
         if finding_data_item[0] is not None:
             parameters.append({
                 "id": finding_data_item[0],
+                "limit": 50,
             })
 
     ################################################################################

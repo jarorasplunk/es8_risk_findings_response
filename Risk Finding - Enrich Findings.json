@@ -134,7 +134,7 @@
                     "targetPort": "21_in"
                 }
             ],
-            "hash": "d1bcaabf88a29ddf9a2ab952dc7eac0147984b46",
+            "hash": "bbe632b1396cc69224d47673d848ad3c570f6804",
             "nodes": {
                 "0": {
                     "data": {
@@ -849,7 +849,8 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "finding:investigation_id"
+                            "id": "finding:investigation_id",
+                            "limit": "50"
                         },
                         "requiredParameters": [
                             {
@@ -863,8 +864,8 @@
                     "id": "21",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": -210,
-                    "y": 104.49999999999997
+                    "x": -200,
+                    "y": 100
                 },
                 "4": {
                     "data": {
@@ -948,7 +949,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T13:24:15.691523+00:00",
+    "create_time": "2024-12-08T13:25:36.277558+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
