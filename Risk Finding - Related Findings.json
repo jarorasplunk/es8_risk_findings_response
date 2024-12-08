@@ -198,7 +198,7 @@
                     "targetPort": "41_in"
                 }
             ],
-            "hash": "890b29ed4dc9265663941473afcb04adc6a27586",
+            "hash": "c260c2d6e6643092f64951de71ff61f53416b191",
             "nodes": {
                 "0": {
                     "data": {
@@ -219,8 +219,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 460,
-                    "y": -8.526512829121202e-14
+                    "x": 440,
+                    "y": 0
                 },
                 "1": {
                     "data": {
@@ -560,78 +560,6 @@
                     "x": 300,
                     "y": 2280
                 },
-                "30": {
-                    "data": {
-                        "action": "run query",
-                        "actionType": "investigate",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Splunk",
-                        "connectorConfigs": [
-                            "splunk"
-                        ],
-                        "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
-                        "connectorVersion": "v1",
-                        "functionId": 2,
-                        "functionName": "run_query_2",
-                        "id": "30",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "command": "",
-                            "display": "source, source_event_id _time, annotations.mitre_attack, entity, risk_object, normalized_risk_object, threat_object, threat_match_value, risk_message, threat_object_type",
-                            "end_time": "now",
-                            "query": {
-                                "functionId": 2,
-                                "parameters": [
-                                    "finding:consolidated_findings.normalized_risk_object",
-                                    "finding:consolidated_findings.risk_object_type",
-                                    "finding:consolidated_findings.info_min_time",
-                                    "finding:consolidated_findings.info_max_time",
-                                    "finding:investigation_id"
-                                ],
-                                "template": "| `risk_event_timeline_search(\"{0}\",\"{1}\")` \n| eval earliest={2} \n| eval latest={3} \n| search eventtype=\"notable\" \n| stats count(source_event_id) as source_event_id_count, values(source_event_id) as source_event_id, values(annotations.mitre_attack) as annotations.mitre_attack, values(entity) as entity, values(risk_object) as risk_object, values(risk_object_type) as risk_object_type, values(normalized_risk_object) as normalized_risk_object, values(threat_object) as threat_object, values(risk_message) as risk_message, values(threat_object_type) as threat_object_type, values(_time) as _time, values(mitre_tactic) as mitre_tactic, values(mitre_tactic_id) as mitre_tactic_id, values(mitre_technique) as mitre_technique, values(mitre_technique_id) as mitre_technique_id by source\n| `add_events({4})`"
-                            },
-                            "search_mode": "verbose",
-                            "start_time": "-365d"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "query"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "search",
-                                "field": "command"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "smart",
-                                "field": "search_mode"
-                            }
-                        ],
-                        "type": "action"
-                    },
-                    "errors": {},
-                    "id": "30",
-                    "type": "action",
-                    "warnings": {
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 760,
-                    "y": -3.907985046680551e-14
-                },
                 "31": {
                     "data": {
                         "action": "update task in current phase",
@@ -810,7 +738,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 430,
-                    "y": 148.99999999999983
+                    "y": 148.9999999999998
                 },
                 "34": {
                     "data": {
@@ -868,7 +796,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 430,
-                    "y": 297.99999999999983
+                    "y": 297.9999999999998
                 },
                 "37": {
                     "data": {
@@ -1062,7 +990,7 @@
                                     "finding:consolidated_findings.risk_object_type",
                                     "finding:investigation_id"
                                 ],
-                                "template": "datamodel Risk.All_Risk | where [| tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1}  by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index | `get_mitre_annotations` | rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type | `generate_findings_summary` | stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object, risk_object_type)` | `dedup_and_compute_common_fbd_fields`, annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack'), threat_object=mvdedup(threat_object) | fillnull value=0 mitre_tactic_id_count, mitre_technique_id_count | fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids | `drop_dm_object_name(\"All_Risk\")` | where total_event_count > 5 AND normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\" | eval all_finding_ids=mvappend(intermediate_finding_ids, finding_ids) | fields all_finding_ids | mvexpand all_finding_ids | rename all_finding_ids AS source_event_id]\n| stats values(*) as *, count(source) as source_event_id_count by source\n| `add_events({4})`"
+                                "template": "datamodel Risk.All_Risk \n| where \n    [| tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1} by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index \n    | `get_mitre_annotations` \n    | rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type \n    | `generate_findings_summary` \n    | stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)` \n    | `dedup_and_compute_common_fbd_fields`, threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type), num_mitre_techniques=mvcount('annotations.mitre_attack'), annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack')\n    | fillnull value=0 num_mitre_techniques, mitre_tactic_id_count, mitre_technique_id_count \n    | fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids \n    | `drop_dm_object_name(\"All_Risk\")` \n    | where normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\" \n    | where (num_mitre_techniques > 3 OR risk_score > 100 OR total_event_count > 5)\n    | eval all_finding_ids=mvappend(intermediate_finding_ids, finding_ids) \n    | fields all_finding_ids intermediate_finding_ids finding_ids\n    | mvexpand all_finding_ids \n    | rename all_finding_ids AS source_event_id]\n| `add_events({4})`"
                             },
                             "search_mode": "verbose",
                             "start_time": "-365d"
@@ -1090,7 +1018,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 440,
-                    "y": 439.99999999999994
+                    "y": 439.9999999999999
                 },
                 "41": {
                     "data": {
@@ -1398,7 +1326,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-05T23:20:57.592698+00:00",
+    "create_time": "2024-12-08T02:48:43.868364+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
