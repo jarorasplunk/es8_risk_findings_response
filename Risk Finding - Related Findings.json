@@ -198,7 +198,7 @@
                     "targetPort": "41_in"
                 }
             ],
-            "hash": "6e2d50926ef0cc365abbc549eaa79e8788a86dbb",
+            "hash": "0ee5715523a96142c0875fc240ef5408739cea43",
             "nodes": {
                 "0": {
                     "data": {
@@ -514,7 +514,7 @@
                                 "parameters": [
                                     "filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.finding_id"
                                 ],
-                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\nClosed Findings as part of this Investigation:\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | Closed |\n%%\n\n\nOther findings are found to be \"Intermediate Findings\" contributing to this investigation and hence they are not applicable to be closed."
+                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\nClosed Findings as part of this Investigation:\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | Closed |\n%%\n\n\n\nThere may be other \"Intermediate Findings\" contributing to this investigation, please review them in the Overview tab"
                             },
                             "id": "finding:investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -1325,7 +1325,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T13:13:16.099604+00:00",
+    "create_time": "2024-12-08T13:18:27.000001+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
