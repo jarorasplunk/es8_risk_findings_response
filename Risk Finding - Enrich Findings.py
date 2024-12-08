@@ -25,15 +25,15 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""datamodel Risk.All_Risk | where [| tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={1} latest={2}  by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index | `get_mitre_annotations` | rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type | `generate_findings_summary` | stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)` | `dedup_and_compute_common_fbd_fields`, annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack'), threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type) | fillnull value=0 mitre_tactic_id_count, mitre_technique_id_count | fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids | `drop_dm_object_name(\"All_Risk\")` | where risk_score > 100 AND normalized_risk_object=\"{0}\" | eval all_finding_ids=mvappend(intermediate_finding_ids, finding_ids) | fields all_finding_ids | mvexpand all_finding_ids | rename all_finding_ids AS source_event_id]""",
+        template="""datamodel Risk.All_Risk \n| search [ | tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1} by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index\n| `get_mitre_annotations`\n| rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type\n| `generate_findings_summary`\n| stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)`\n| `dedup_and_compute_common_fbd_fields`, threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type), num_mitre_techniques=mvcount('annotations.mitre_attack'), annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack')\n| fillnull value=0 num_mitre_techniques, mitre_tactic_id_count, mitre_technique_id_count, total_event_count, risk_score\n| fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids\n| `drop_dm_object_name(\"All_Risk\")`\n| where normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n| where num_mitre_techniques>3 OR risk_score>100 OR total_event_count>5\n| eval all_finding_ids=mvdedup(finding_ids)\n| fields all_finding_ids\n| mvexpand all_finding_ids\n| rename all_finding_ids AS source_event_id ]\n| fields annotations.mitre_attack.mitre_tactic, annotations.mitre_attack.mitre_technique, annotations.mitre_attack.mitre_technique_id, risk_message""",
         parameters=[
-            "finding:consolidated_findings.normalized_risk_object",
             "finding:consolidated_findings.info_min_time",
             "finding:consolidated_findings.info_max_time",
+            "finding:consolidated_findings.normalized_risk_object",
             "finding:consolidated_findings.risk_object_type"
         ])
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time","finding:consolidated_findings.risk_object_type"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time","finding:consolidated_findings.normalized_risk_object","finding:consolidated_findings.risk_object_type"])
 
     parameters = []
 
@@ -457,7 +457,7 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get task id", parameters=parameters, name="get_task_id_1", assets=["builtin_mc_connector"], callback=get_events_1)
+    phantom.act("get task id", parameters=parameters, name="get_task_id_1", assets=["builtin_mc_connector"], callback=run_query_1)
 
     return
 

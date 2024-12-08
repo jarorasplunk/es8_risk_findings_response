@@ -127,14 +127,14 @@
                     "targetPort": "1_in"
                 },
                 {
-                    "id": "port_17_to_port_21",
+                    "id": "port_17_to_port_2",
                     "sourceNode": "17",
                     "sourcePort": "17_out",
-                    "targetNode": "21",
-                    "targetPort": "21_in"
+                    "targetNode": "2",
+                    "targetPort": "2_in"
                 }
             ],
-            "hash": "bbe632b1396cc69224d47673d848ad3c570f6804",
+            "hash": "91fe420cdc2081877d324facc865256f26802c7c",
             "nodes": {
                 "0": {
                     "data": {
@@ -156,7 +156,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 380,
-                    "y": -340
+                    "y": -340.00000000000006
                 },
                 "1": {
                     "data": {
@@ -492,7 +492,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 360,
-                    "y": -140
+                    "y": -140.00000000000003
                 },
                 "17": {
                     "data": {
@@ -550,7 +550,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 360,
-                    "y": -20
+                    "y": -20.000000000000025
                 },
                 "18": {
                     "data": {
@@ -636,11 +636,7 @@
                     "errors": {},
                     "id": "18",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 680,
                     "y": 640
                 },
@@ -733,12 +729,12 @@
                             "query": {
                                 "functionId": 1,
                                 "parameters": [
-                                    "finding:consolidated_findings.normalized_risk_object",
                                     "finding:consolidated_findings.info_min_time",
                                     "finding:consolidated_findings.info_max_time",
+                                    "finding:consolidated_findings.normalized_risk_object",
                                     "finding:consolidated_findings.risk_object_type"
                                 ],
-                                "template": "datamodel Risk.All_Risk | where [| tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={1} latest={2}  by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index | `get_mitre_annotations` | rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type | `generate_findings_summary` | stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)` | `dedup_and_compute_common_fbd_fields`, annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack'), threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type) | fillnull value=0 mitre_tactic_id_count, mitre_technique_id_count | fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids | `drop_dm_object_name(\"All_Risk\")` | where risk_score > 100 AND normalized_risk_object=\"{0}\" | eval all_finding_ids=mvappend(intermediate_finding_ids, finding_ids) | fields all_finding_ids | mvexpand all_finding_ids | rename all_finding_ids AS source_event_id]"
+                                "template": "datamodel Risk.All_Risk \n| search [ | tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1} by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index\n| `get_mitre_annotations`\n| rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type\n| `generate_findings_summary`\n| stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)`\n| `dedup_and_compute_common_fbd_fields`, threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type), num_mitre_techniques=mvcount('annotations.mitre_attack'), annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack')\n| fillnull value=0 num_mitre_techniques, mitre_tactic_id_count, mitre_technique_id_count, total_event_count, risk_score\n| fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids\n| `drop_dm_object_name(\"All_Risk\")`\n| where normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n| where num_mitre_techniques>3 OR risk_score>100 OR total_event_count>5\n| eval all_finding_ids=mvdedup(finding_ids)\n| fields all_finding_ids\n| mvexpand all_finding_ids\n| rename all_finding_ids AS source_event_id ]\n| fields annotations.mitre_attack.mitre_tactic, annotations.mitre_attack.mitre_technique, annotations.mitre_attack.mitre_technique_id, risk_message"
                             }
                         },
                         "requiredParameters": [
@@ -757,13 +753,9 @@
                     "errors": {},
                     "id": "2",
                     "type": "action",
-                    "warnings": {
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 680,
-                    "y": 159.99999999999997
+                    "y": 159.99999999999994
                 },
                 "20": {
                     "data": {
@@ -815,11 +807,7 @@
                     "errors": {},
                     "id": "20",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 420,
                     "y": 1360
                 },
@@ -863,9 +851,13 @@
                     "errors": {},
                     "id": "21",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": -200,
-                    "y": 100
+                    "y": 99.99999999999997
                 },
                 "4": {
                     "data": {
@@ -949,7 +941,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T13:25:36.277558+00:00",
+    "create_time": "2024-12-08T13:35:57.554340+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
