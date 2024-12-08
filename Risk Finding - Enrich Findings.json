@@ -54,13 +54,6 @@
                     "targetPort": "5_in"
                 },
                 {
-                    "id": "port_18_to_port_20",
-                    "sourceNode": "18",
-                    "sourcePort": "18_out",
-                    "targetNode": "20",
-                    "targetPort": "20_in"
-                },
-                {
                     "id": "port_20_to_port_1",
                     "sourceNode": "20",
                     "sourcePort": "20_out",
@@ -132,9 +125,30 @@
                     "sourcePort": "25_out",
                     "targetNode": "20",
                     "targetPort": "20_in"
+                },
+                {
+                    "id": "port_18_to_port_27",
+                    "sourceNode": "18",
+                    "sourcePort": "18_out",
+                    "targetNode": "27",
+                    "targetPort": "27_in"
+                },
+                {
+                    "id": "port_27_to_port_28",
+                    "sourceNode": "27",
+                    "sourcePort": "27_out",
+                    "targetNode": "28",
+                    "targetPort": "28_in"
+                },
+                {
+                    "id": "port_28_to_port_20",
+                    "sourceNode": "28",
+                    "sourcePort": "28_out",
+                    "targetNode": "20",
+                    "targetPort": "20_in"
                 }
             ],
-            "hash": "80f20ac620fb1600b0a4044d7973eef038f66dc7",
+            "hash": "8a13427d32a01157699946d6c7b7015f8f73e432",
             "nodes": {
                 "0": {
                     "data": {
@@ -671,7 +685,7 @@
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
                             "response_plan_id": "finding:response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
-                            "title": "Asset enrichment:"
+                            "title": "Asset information:"
                         },
                         "requiredParameters": [
                             {
@@ -741,7 +755,7 @@
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
                             "response_plan_id": "finding:response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
-                            "title": "User enrichment:"
+                            "title": "User information:"
                         },
                         "requiredParameters": [
                             {
@@ -779,6 +793,100 @@
                     "warnings": {},
                     "x": 340,
                     "y": 600
+                },
+                "27": {
+                    "data": {
+                        "advanced": {
+                            "customName": "threat objects note",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 4,
+                        "functionName": "threat_objects_note",
+                        "id": "27",
+                        "parameters": [
+                            "run_query_1:action_result.data.*.threat_object_type",
+                            "run_query_1:action_result.data.*.threat_object"
+                        ],
+                        "template": "Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n%%\n| {0} | {1} |\n%%\n\n\n\n",
+                        "type": "format"
+                    },
+                    "errors": {},
+                    "id": "27",
+                    "type": "format",
+                    "warnings": {},
+                    "x": 680,
+                    "y": 780
+                },
+                "28": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 4,
+                        "functionName": "add_task_note_4",
+                        "id": "28",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": "threat_objects_note:formatted_data",
+                            "id": "finding:investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "finding:response_plans.*.id",
+                            "task_id": "get_task_id_1:action_result.data.*.task_id",
+                            "title": "Threat information:"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "28",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 680,
+                    "y": 900
                 },
                 "4": {
                     "data": {
@@ -862,7 +970,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T14:28:56.826767+00:00",
+    "create_time": "2024-12-08T14:33:04.111514+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

@@ -364,7 +364,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=threat_objects_note)
 
     return
 
@@ -402,11 +402,12 @@ def join_update_task_in_current_phase_1(action=None, success=None, container=Non
     if phantom.get_run_data(key="join_update_task_in_current_phase_1_called"):
         return
 
-    # save the state that the joined function has now been called
-    phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
+    if phantom.completed(action_names=["add_task_note_4"]):
+        # save the state that the joined function has now been called
+        phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
 
-    # call connected block "update_task_in_current_phase_1"
-    update_task_in_current_phase_1(container=container, handle=handle)
+        # call connected block "update_task_in_current_phase_1"
+        update_task_in_current_phase_1(container=container, handle=handle)
 
     return
 
@@ -524,7 +525,7 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
                 if finding_data_item[0] is not None and asset_enrichment_note is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
                     parameters.append({
                         "id": finding_data_item[0],
-                        "title": "Asset enrichment:",
+                        "title": "Asset information:",
                         "content": asset_enrichment_note,
                         "task_id": get_task_id_1_result_item[0],
                         "phase_id": get_phase_id_1_result_item[0],
@@ -569,7 +570,7 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
                         "response_plan_id": finding_data_item[1],
                         "task_id": get_task_id_1_result_item[0],
                         "phase_id": get_phase_id_1_result_item[0],
-                        "title": "User enrichment:",
+                        "title": "User information:",
                         "content": user_enrichment_note,
                     })
 
@@ -584,6 +585,77 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
     ################################################################################
 
     phantom.act("add task note", parameters=parameters, name="add_task_note_3", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
+
+    return
+
+
+@phantom.playbook_block()
+def threat_objects_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("threat_objects_note() called")
+
+    template = """Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n%%\n| {0} | {1} |\n%%\n\n\n\n"""
+
+    # parameter list for template variable replacement
+    parameters = [
+        "run_query_1:action_result.data.*.threat_object_type",
+        "run_query_1:action_result.data.*.threat_object"
+    ]
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.format(container=container, template=template, parameters=parameters, name="threat_objects_note")
+
+    add_task_note_4(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def add_task_note_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_task_note_4() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.id"])
+    get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    threat_objects_note = phantom.get_format_data(name="threat_objects_note")
+
+    parameters = []
+
+    # build parameters list for 'add_task_note_4' call
+    for finding_data_item in finding_data:
+        for get_task_id_1_result_item in get_task_id_1_result_data:
+            for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                if finding_data_item[0] is not None and finding_data_item[1] is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and threat_objects_note is not None:
+                    parameters.append({
+                        "id": finding_data_item[0],
+                        "response_plan_id": finding_data_item[1],
+                        "task_id": get_task_id_1_result_item[0],
+                        "phase_id": get_phase_id_1_result_item[0],
+                        "title": "Threat information:",
+                        "content": threat_objects_note,
+                    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("add task note", parameters=parameters, name="add_task_note_4", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
 
     return
 
