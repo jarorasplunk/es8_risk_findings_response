@@ -417,7 +417,7 @@ def update_task_in_current_phase_1(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_1", assets=["builtin_mc_connector"])
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_1", assets=["builtin_mc_connector"], callback=refresh_finding_or_investigation_2)
 
     return
 
@@ -454,7 +454,7 @@ def update_task_in_current_phase_2(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"])
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"], callback=refresh_finding_or_investigation_3)
 
     return
 
@@ -520,6 +520,135 @@ def refresh_finding_or_investigation_1(action=None, success=None, container=None
     ################################################################################
 
     phantom.act("refresh finding or investigation", parameters=parameters, name="refresh_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=all_users)
+
+    return
+
+
+@phantom.playbook_block()
+def join_add_task_note_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("join_add_task_note_2() called")
+
+    # if the joined function has already been called, do nothing
+    if phantom.get_run_data(key="join_add_task_note_2_called"):
+        return
+
+    # save the state that the joined function has now been called
+    phantom.save_run_data(key="join_add_task_note_2_called", value="add_task_note_2")
+
+    # call connected block "add_task_note_2"
+    add_task_note_2(container=container, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
+def add_task_note_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_task_note_2() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    content_formatted_string = phantom.format(
+        container=container,
+        template="""The investigation status has been changed to \"In Progress\" and it has been assigned to: {0}\n""",
+        parameters=[
+            "finding:owner"
+        ])
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:owner","finding:current_response_plan_phase.response_plan_id"])
+    get_task_id_2_result_data = phantom.collect2(container=container, datapath=["get_task_id_2:action_result.data.*.task_id","get_task_id_2:action_result.parameter.context.artifact_id"], action_results=results)
+    get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'add_task_note_2' call
+    for finding_data_item in finding_data:
+        for get_task_id_2_result_item in get_task_id_2_result_data:
+            for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                if finding_data_item[0] is not None and content_formatted_string is not None and get_task_id_2_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[2] is not None:
+                    parameters.append({
+                        "id": finding_data_item[0],
+                        "title": "Investigation assignment:",
+                        "content": content_formatted_string,
+                        "task_id": get_task_id_2_result_item[0],
+                        "phase_id": get_phase_id_1_result_item[0],
+                        "response_plan_id": finding_data_item[2],
+                    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("add task note", parameters=parameters, name="add_task_note_2", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def refresh_finding_or_investigation_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("refresh_finding_or_investigation_2() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+
+    parameters = []
+
+    # build parameters list for 'refresh_finding_or_investigation_2' call
+    for finding_data_item in finding_data:
+        if finding_data_item[0] is not None:
+            parameters.append({
+                "id": finding_data_item[0],
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("refresh finding or investigation", parameters=parameters, name="refresh_finding_or_investigation_2", assets=["builtin_mc_connector"], callback=join_add_task_note_2)
+
+    return
+
+
+@phantom.playbook_block()
+def refresh_finding_or_investigation_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("refresh_finding_or_investigation_3() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+
+    parameters = []
+
+    # build parameters list for 'refresh_finding_or_investigation_3' call
+    for finding_data_item in finding_data:
+        if finding_data_item[0] is not None:
+            parameters.append({
+                "id": finding_data_item[0],
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("refresh finding or investigation", parameters=parameters, name="refresh_finding_or_investigation_3", assets=["builtin_mc_connector"], callback=join_add_task_note_2)
 
     return
 

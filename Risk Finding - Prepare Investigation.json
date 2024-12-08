@@ -94,25 +94,11 @@
                     "targetPort": "25_in"
                 },
                 {
-                    "id": "port_25_to_port_1",
-                    "sourceNode": "25",
-                    "sourcePort": "25_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "id": "port_12_to_port_26",
                     "sourceNode": "12",
                     "sourcePort": "12_out",
                     "targetNode": "26",
                     "targetPort": "26_in"
-                },
-                {
-                    "id": "port_26_to_port_1",
-                    "sourceNode": "26",
-                    "sourcePort": "26_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
                 },
                 {
                     "id": "port_0_to_port_28",
@@ -127,9 +113,44 @@
                     "sourcePort": "28_out",
                     "targetNode": "3",
                     "targetPort": "3_in"
+                },
+                {
+                    "id": "port_25_to_port_30",
+                    "sourceNode": "25",
+                    "sourcePort": "25_out",
+                    "targetNode": "30",
+                    "targetPort": "30_in"
+                },
+                {
+                    "id": "port_30_to_port_29",
+                    "sourceNode": "30",
+                    "sourcePort": "30_out",
+                    "targetNode": "29",
+                    "targetPort": "29_in"
+                },
+                {
+                    "id": "port_26_to_port_31",
+                    "sourceNode": "26",
+                    "sourcePort": "26_out",
+                    "targetNode": "31",
+                    "targetPort": "31_in"
+                },
+                {
+                    "id": "port_31_to_port_29",
+                    "sourceNode": "31",
+                    "sourcePort": "31_out",
+                    "targetNode": "29",
+                    "targetPort": "29_in"
+                },
+                {
+                    "id": "port_29_to_port_1",
+                    "sourceNode": "29",
+                    "sourcePort": "29_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "efce8fa3b91d2a6534c1ac0c2694815828d83073",
+            "hash": "576f6deca0144bd79b835888a3628efa7a027e3c",
             "nodes": {
                 "0": {
                     "data": {
@@ -151,7 +172,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 200,
-                    "y": -300.00000000000006
+                    "y": -300.0000000000001
                 },
                 "1": {
                     "data": {
@@ -167,7 +188,7 @@
                     "type": "end",
                     "warnings": {},
                     "x": 160,
-                    "y": 1900
+                    "y": 2060
                 },
                 "11": {
                     "data": {
@@ -385,7 +406,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 340,
-                    "y": 1572
+                    "y": 1520
                 },
                 "23": {
                     "data": {
@@ -547,7 +568,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 340,
-                    "y": 1720
+                    "y": 1660
                 },
                 "26": {
                     "data": {
@@ -688,7 +709,87 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 190,
-                    "y": -135.50000000000006
+                    "y": -135.50000000000009
+                },
+                "29": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": [],
+                            "notRequiredJoins": [
+                                "refresh_finding_or_investigation_2",
+                                "refresh_finding_or_investigation_3"
+                            ]
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "add_task_note_2",
+                        "id": "29",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": {
+                                "functionId": 2,
+                                "parameters": [
+                                    "finding:owner"
+                                ],
+                                "template": "The investigation status has been changed to \"In Progress\" and it has been assigned to: {0}\n"
+                            },
+                            "id": "finding:investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "finding:current_response_plan_phase.response_plan_id",
+                            "task_id": "get_task_id_2:action_result.data.*.task_id",
+                            "title": "Investigation assignment:"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "29",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 140,
+                    "y": 1920
                 },
                 "3": {
                     "data": {
@@ -746,7 +847,93 @@
                     "type": "action",
                     "warnings": {},
                     "x": 180,
-                    "y": 119.99999999999977
+                    "y": 119.99999999999974
+                },
+                "30": {
+                    "data": {
+                        "action": "refresh finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "refresh_finding_or_investigation_2",
+                        "id": "30",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "30",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 340,
+                    "y": 1780
+                },
+                "31": {
+                    "data": {
+                        "action": "refresh finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 3,
+                        "functionName": "refresh_finding_or_investigation_3",
+                        "id": "31",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "31",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": -70,
+                    "y": 1704.5
                 },
                 "4": {
                     "data": {
@@ -782,7 +969,7 @@
                     "type": "prompt",
                     "warnings": {},
                     "x": 340,
-                    "y": 1410
+                    "y": 1400
                 },
                 "7": {
                     "data": {
@@ -905,7 +1092,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T03:31:26.421695+00:00",
+    "create_time": "2024-12-08T02:18:01.187767+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
