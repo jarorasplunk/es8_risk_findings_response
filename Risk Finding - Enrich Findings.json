@@ -148,7 +148,7 @@
                     "targetPort": "20_in"
                 }
             ],
-            "hash": "8a13427d32a01157699946d6c7b7015f8f73e432",
+            "hash": "65032ff5ce61a91838ff903f5ba05a4b1e64210f",
             "nodes": {
                 "0": {
                     "data": {
@@ -560,9 +560,9 @@
                         "advanced": {
                             "join": [],
                             "notRequiredJoins": [
-                                "add_task_note_1",
                                 "add_task_note_3",
-                                "add_task_note_2"
+                                "add_task_note_2",
+                                "add_task_note_4"
                             ]
                         },
                         "connector": "Enterprise Security",
@@ -970,7 +970,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T14:33:04.111514+00:00",
+    "create_time": "2024-12-08T14:48:18.045209+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

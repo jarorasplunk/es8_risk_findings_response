@@ -402,12 +402,11 @@ def join_update_task_in_current_phase_1(action=None, success=None, container=Non
     if phantom.get_run_data(key="join_update_task_in_current_phase_1_called"):
         return
 
-    if phantom.completed(action_names=["add_task_note_4"]):
-        # save the state that the joined function has now been called
-        phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
+    # save the state that the joined function has now been called
+    phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
 
-        # call connected block "update_task_in_current_phase_1"
-        update_task_in_current_phase_1(container=container, handle=handle)
+    # call connected block "update_task_in_current_phase_1"
+    update_task_in_current_phase_1(container=container, handle=handle)
 
     return
 
