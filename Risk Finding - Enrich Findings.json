@@ -134,7 +134,7 @@
                     "targetPort": "2_in"
                 }
             ],
-            "hash": "04ad5f98b21d666f734ff0b53bc9085622bebd31",
+            "hash": "d0580aacce8fae92147a16e3f47dd80856efcd64",
             "nodes": {
                 "0": {
                     "data": {
@@ -906,9 +906,9 @@
                         "functionName": "mitre_format",
                         "id": "5",
                         "inputParameters": [
-                            "run_query_1:action_result.data.*.annotations.mitre_attack.mitre_tactic",
-                            "run_query_1:action_result.data.*.annotations.mitre_attack.mitre_technique",
-                            "run_query_1:action_result.data.*.annotations.mitre_attack.mitre_technique_id",
+                            "run_query_1:action_result.data.*.mitre_tactic",
+                            "run_query_1:action_result.data.*.mitre_technique",
+                            "run_query_1:action_result.data.*.mitre_technique_id",
                             "run_query_1:action_result.data.*.risk_message"
                         ],
                         "outputVariables": [
@@ -941,7 +941,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T13:46:46.254896+00:00",
+    "create_time": "2024-12-08T13:48:01.316626+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
