@@ -134,7 +134,7 @@
                     "targetPort": "2_in"
                 }
             ],
-            "hash": "d0580aacce8fae92147a16e3f47dd80856efcd64",
+            "hash": "48322a25ec603eb52e5427df4db28f3e5a92b85d",
             "nodes": {
                 "0": {
                     "data": {
@@ -582,7 +582,7 @@
                                 "functionId": 1,
                                 "parameters": [
                                     "finding:consolidated_findings.risk_object_type",
-                                    "finding:consolidated_findings.risk_object",
+                                    "finding:consolidated_findings.normalized_risk_object",
                                     "finding:consolidated_findings.risk_score",
                                     "finding:consolidated_findings.info_min_time",
                                     "finding:consolidated_findings.info_max_time",
@@ -598,7 +598,7 @@
                             "title": {
                                 "functionId": 1,
                                 "parameters": [
-                                    "finding:consolidated_findings.risk_object"
+                                    "finding:consolidated_findings.normalized_risk_object"
                                 ],
                                 "template": "SOAR Analysis for: {0}\n"
                             }
@@ -941,7 +941,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T13:48:01.316626+00:00",
+    "create_time": "2024-12-08T13:51:26.024300+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

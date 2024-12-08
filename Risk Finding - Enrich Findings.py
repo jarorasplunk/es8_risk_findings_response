@@ -472,14 +472,14 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
         container=container,
         template="""SOAR Analysis for: {0}\n""",
         parameters=[
-            "finding:consolidated_findings.risk_object"
+            "finding:consolidated_findings.normalized_risk_object"
         ])
     content_formatted_string = phantom.format(
         container=container,
         template="""### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](https://{6}/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1}) \n\n\n\n# MITRE ATT&CK®\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}""",
         parameters=[
             "finding:consolidated_findings.risk_object_type",
-            "finding:consolidated_findings.risk_object",
+            "finding:consolidated_findings.normalized_risk_object",
             "finding:consolidated_findings.risk_score",
             "finding:consolidated_findings.info_min_time",
             "finding:consolidated_findings.info_max_time",
@@ -487,7 +487,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
             "asset_get_attributes_1:custom_function_result.data.configuration.device"
         ])
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:consolidated_findings.risk_object","finding:consolidated_findings.risk_object_type","finding:consolidated_findings.risk_score","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time","finding:response_plans.*.id"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:consolidated_findings.normalized_risk_object","finding:consolidated_findings.risk_object_type","finding:consolidated_findings.risk_score","finding:consolidated_findings.info_min_time","finding:consolidated_findings.info_max_time","finding:response_plans.*.id"])
     asset_get_attributes_1__result = phantom.collect2(container=container, datapath=["asset_get_attributes_1:custom_function_result.data.configuration.device"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
