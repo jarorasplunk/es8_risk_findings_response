@@ -198,7 +198,7 @@
                     "targetPort": "41_in"
                 }
             ],
-            "hash": "fbde34fb6a7bae7a91227c863b65485010cb9425",
+            "hash": "6e2d50926ef0cc365abbc549eaa79e8788a86dbb",
             "nodes": {
                 "0": {
                     "data": {
@@ -512,10 +512,9 @@
                             "content": {
                                 "functionId": 2,
                                 "parameters": [
-                                    "filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.finding_id",
-                                    "Closed"
+                                    "filtered-data:filter_1:condition_1:get_finding_or_investigation_1:action_result.data.*.finding_id"
                                 ],
-                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\nClosed Findings as part of this Investigation:\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n\n\nOther findings are found to be \"Intermediate Findings\" contributing to this investigation and hence they are not applicable to be closed."
+                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\nClosed Findings as part of this Investigation:\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | Closed |\n%%\n\n\nOther findings are found to be \"Intermediate Findings\" contributing to this investigation and hence they are not applicable to be closed."
                             },
                             "id": "finding:investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -685,7 +684,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 520,
-                    "y": 2373.5
+                    "y": 2380
                 },
                 "33": {
                     "data": {
@@ -920,8 +919,8 @@
                     "id": "38",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 860,
-                    "y": 2373.5
+                    "x": 840,
+                    "y": 2380
                 },
                 "39": {
                     "data": {
@@ -1326,7 +1325,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T13:03:21.957663+00:00",
+    "create_time": "2024-12-08T13:13:16.099604+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
