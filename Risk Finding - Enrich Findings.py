@@ -193,34 +193,6 @@ def mitre_format(action=None, success=None, container=None, results=None, handle
 
 
 @phantom.playbook_block()
-def playbook_crowdstrike_oauth_api_device_attribute_lookup_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("playbook_crowdstrike_oauth_api_device_attribute_lookup_1() called")
-
-    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object"])
-
-    finding_consolidated_findings_normalized_risk_object = [item[0] for item in finding_data]
-
-    inputs = {
-        "device": finding_consolidated_findings_normalized_risk_object,
-    }
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    # call playbook "local/CrowdStrike_OAuth_API_Device_Attribute_Lookup", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("local/CrowdStrike_OAuth_API_Device_Attribute_Lookup", container=container, name="playbook_crowdstrike_oauth_api_device_attribute_lookup_1", callback=format_2, inputs=inputs)
-
-    return
-
-
-@phantom.playbook_block()
 def decision_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("decision_3() called")
 
@@ -247,37 +219,8 @@ def decision_3(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 2 matched
     if found_match_2:
-        playbook_azure_ad_graph_user_attribute_lookup_1(action=action, success=success, container=container, results=results, handle=handle)
+        asset_enrichment_note(action=action, success=success, container=container, results=results, handle=handle)
         return
-
-    return
-
-
-@phantom.playbook_block()
-def playbook_azure_ad_graph_user_attribute_lookup_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("playbook_azure_ad_graph_user_attribute_lookup_1() called")
-
-    finding_data = phantom.collect2(container=container, datapath=["finding:consolidated_findings.normalized_risk_object"])
-
-    finding_consolidated_findings_normalized_risk_object = [item[0] for item in finding_data]
-
-    inputs = {
-        "user": [],
-        "device": finding_consolidated_findings_normalized_risk_object,
-    }
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    # call playbook "local/Azure_AD_Graph_User_Attribute_Lookup", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("local/Azure_AD_Graph_User_Attribute_Lookup", container=container, name="playbook_azure_ad_graph_user_attribute_lookup_1", callback=playbook_crowdstrike_oauth_api_device_attribute_lookup_1, inputs=inputs)
 
     return
 
@@ -574,7 +517,7 @@ def update_task_in_current_phase_1(action=None, success=None, container=None, re
 def user_enrichment_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("user_enrichment_note() called")
 
-    template = """Review the user {0} details in Assets and Identities database:\n\nhttps://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/identity_center?form.username={0}&form.priority=*&form.bunit=*&form.category=*&form.watchlist=*\n\nGather intelligence about the user {0} in Asset and Risk Intelligence:\n\nhttps://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkAssetRiskIntelligence/ari_user_search?form.time.earliest=-30d%40d&form.time.latest=now&form.profile=ip&form.series={0}\n"""
+    template = """Review the user: {0} details in Assets and Identities database:\n\nhttps://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/identity_center?form.username={0}&form.priority=*&form.bunit=*&form.category=*&form.watchlist=*\n\nGather intelligence about the user {0} in Asset and Risk Intelligence:\n\nhttps://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkAssetRiskIntelligence/ari_user_search?form.time.earliest=-30d%40d&form.time.latest=now&form.profile=ip&form.series={0}\n"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -592,6 +535,32 @@ def user_enrichment_note(action=None, success=None, container=None, results=None
     ################################################################################
 
     phantom.format(container=container, template=template, parameters=parameters, name="user_enrichment_note")
+
+    return
+
+
+@phantom.playbook_block()
+def asset_enrichment_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("asset_enrichment_note() called")
+
+    template = """Review the asset: {0} details in Assets and Identities database:\n\nhttps://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/asset_center?form.pci_domain=*&form.asset={0}&form.priority=*&form.bunit=*&form.category=*&form.owner=*\n\nGather intelligence about the user {0} in Asset and Risk Intelligence:\n\nhttps://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkAssetRiskIntelligence/ari_network_search?form.time.earliest=-7d%40h&form.time.latest=now&form.profile=ip&form.series={0}"""
+
+    # parameter list for template variable replacement
+    parameters = [
+        "finding:consolidated_findings.normalized_risk_object"
+    ]
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.format(container=container, template=template, parameters=parameters, name="asset_enrichment_note")
 
     return
 
