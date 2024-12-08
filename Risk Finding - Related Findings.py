@@ -683,7 +683,7 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
                     if finding_data_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
                         parameters.append({
                             "id": finding_data_item[0],
-                            "title": "Previously Closed Findings:",
+                            "title": "Previously or Already Closed Findings:",
                             "content": content_formatted_string,
                             "task_id": get_task_id_1_result_item[0],
                             "phase_id": get_phase_id_1_result_item[0],

@@ -198,7 +198,7 @@
                     "targetPort": "41_in"
                 }
             ],
-            "hash": "0ee5715523a96142c0875fc240ef5408739cea43",
+            "hash": "83b9c31125a5c7bbf65c17148a74a6ad860f1ced",
             "nodes": {
                 "0": {
                     "data": {
@@ -1230,7 +1230,7 @@
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
                             "response_plan_id": "finding:response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
-                            "title": "Previously Closed Findings:"
+                            "title": "Previously or Already Closed Findings:"
                         },
                         "requiredParameters": [
                             {
@@ -1325,7 +1325,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T13:18:27.000001+00:00",
+    "create_time": "2024-12-08T13:19:26.077042+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
