@@ -23,17 +23,17 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     select_owner_result_data = phantom.collect2(container=container, datapath=["select_owner:action_result.summary.responses.0","select_owner:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'update_finding_or_investigation_1' call
-    for finding_data_item in finding_data:
+    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
         for select_owner_result_item in select_owner_result_data:
-            if finding_data_item[0] is not None:
+            if refresh_finding_or_investigation_1_result_item[0] is not None:
                 parameters.append({
-                    "id": finding_data_item[0],
+                    "id": refresh_finding_or_investigation_1_result_item[0],
                     "owner": select_owner_result_item[0],
                     "status": "In Progress",
                 })
@@ -245,17 +245,17 @@ def update_finding_or_investigation_2(action=None, success=None, container=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     current_user_result_data = phantom.collect2(container=container, datapath=["current_user:action_result.data.*.userName","current_user:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'update_finding_or_investigation_2' call
-    for finding_data_item in finding_data:
+    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
         for current_user_result_item in current_user_result_data:
-            if finding_data_item[0] is not None:
+            if refresh_finding_or_investigation_1_result_item[0] is not None:
                 parameters.append({
-                    "id": finding_data_item[0],
+                    "id": refresh_finding_or_investigation_1_result_item[0],
                     "owner": current_user_result_item[0],
                     "status": "In Progress",
                 })
@@ -281,24 +281,24 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:current_response_plan_phase.response_plan_id"])
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_2_result_data = phantom.collect2(container=container, datapath=["get_task_id_2:action_result.data.*.task_id","get_task_id_2:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'add_task_note_1' call
-    for finding_data_item in finding_data:
+    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
         for get_task_id_2_result_item in get_task_id_2_result_data:
             for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                if finding_data_item[0] is not None and get_task_id_2_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
+                if refresh_finding_or_investigation_1_result_item[0] is not None and get_task_id_2_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
                     parameters.append({
-                        "id": finding_data_item[0],
+                        "id": refresh_finding_or_investigation_1_result_item[0],
                         "title": "User Response Required",
                         "content": "Follow the prompts to manage this Investigation's ownership and status.",
                         "task_id": get_task_id_2_result_item[0],
                         "phase_id": get_phase_id_1_result_item[0],
-                        "response_plan_id": finding_data_item[1],
+                        "response_plan_id": refresh_finding_or_investigation_1_result_item[1],
                     })
 
     ################################################################################
@@ -322,17 +322,17 @@ def get_phase_id_1(action=None, success=None, container=None, results=None, hand
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.name"])
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.name","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'get_phase_id_1' call
-    for finding_data_item in finding_data:
-        if finding_data_item[0] is not None and finding_data_item[1] is not None:
+    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+        if refresh_finding_or_investigation_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
             parameters.append({
-                "id": finding_data_item[0],
+                "id": refresh_finding_or_investigation_1_result_item[0],
                 "phase_name": "Preprocess",
-                "response_template_name": finding_data_item[1],
+                "response_template_name": refresh_finding_or_investigation_1_result_item[1],
             })
 
     ################################################################################
@@ -356,18 +356,18 @@ def get_task_id_2(action=None, success=None, container=None, results=None, handl
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.name"])
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.name","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'get_task_id_2' call
-    for finding_data_item in finding_data:
-        if finding_data_item[0] is not None and finding_data_item[1] is not None:
+    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+        if refresh_finding_or_investigation_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
             parameters.append({
-                "id": finding_data_item[0],
+                "id": refresh_finding_or_investigation_1_result_item[0],
                 "task_name": "Prepare the investigation",
                 "phase_name": "Preprocess",
-                "response_template_name": finding_data_item[1],
+                "response_template_name": refresh_finding_or_investigation_1_result_item[1],
             })
 
     ################################################################################
@@ -391,17 +391,17 @@ def update_task_in_current_phase_1(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_2_result_data = phantom.collect2(container=container, datapath=["get_task_id_2:action_result.data.*.task_id","get_task_id_2:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'update_task_in_current_phase_1' call
-    for finding_data_item in finding_data:
+    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
         for get_task_id_2_result_item in get_task_id_2_result_data:
-            if finding_data_item[0] is not None and get_task_id_2_result_item[0] is not None:
+            if refresh_finding_or_investigation_1_result_item[0] is not None and get_task_id_2_result_item[0] is not None:
                 parameters.append({
-                    "id": finding_data_item[0],
+                    "id": refresh_finding_or_investigation_1_result_item[0],
                     "name": "Prepare the investigation",
                     "status": "Ended",
                     "task_id": get_task_id_2_result_item[0],
@@ -428,17 +428,17 @@ def update_task_in_current_phase_2(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_2_result_data = phantom.collect2(container=container, datapath=["get_task_id_2:action_result.data.*.task_id","get_task_id_2:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'update_task_in_current_phase_2' call
-    for finding_data_item in finding_data:
+    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
         for get_task_id_2_result_item in get_task_id_2_result_data:
-            if finding_data_item[0] is not None and get_task_id_2_result_item[0] is not None:
+            if refresh_finding_or_investigation_1_result_item[0] is not None and get_task_id_2_result_item[0] is not None:
                 parameters.append({
-                    "id": finding_data_item[0],
+                    "id": refresh_finding_or_investigation_1_result_item[0],
                     "name": "Prepare the investigation",
                     "status": "Ended",
                     "task_id": get_task_id_2_result_item[0],
@@ -455,39 +455,6 @@ def update_task_in_current_phase_2(action=None, success=None, container=None, re
     ################################################################################
 
     phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"], callback=refresh_finding_or_investigation_3)
-
-    return
-
-
-@phantom.playbook_block()
-def get_finding_or_investigation_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("get_finding_or_investigation_1() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
-
-    parameters = []
-
-    # build parameters list for 'get_finding_or_investigation_1' call
-    for finding_data_item in finding_data:
-        if finding_data_item[0] is not None:
-            parameters.append({
-                "id": finding_data_item[0],
-                "map_consolidated_findings": 1,
-            })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"])
 
     return
 
@@ -549,12 +516,15 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""The investigation status has been changed to \"In Progress\" and it has been assigned to: {0}\n""",
+        template="""The investigation status has been changed to \"In Progress\" and it has been assigned to: {0} {1{1}}\n""",
         parameters=[
-            "finding:owner"
+            "refresh_finding_or_investigation_3:action_result.data.*.data.owner",
+            "refresh_finding_or_investigation_2:action_result.data.*.data.owner"
         ])
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:owner","finding:current_response_plan_phase.response_plan_id"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:current_response_plan_phase.response_plan_id"])
+    refresh_finding_or_investigation_3_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_3:action_result.data.*.data.owner","refresh_finding_or_investigation_3:action_result.parameter.context.artifact_id"], action_results=results)
+    refresh_finding_or_investigation_2_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_2:action_result.data.*.data.owner","refresh_finding_or_investigation_2:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_2_result_data = phantom.collect2(container=container, datapath=["get_task_id_2:action_result.data.*.task_id","get_task_id_2:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
 
@@ -562,17 +532,19 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
 
     # build parameters list for 'add_task_note_2' call
     for finding_data_item in finding_data:
-        for get_task_id_2_result_item in get_task_id_2_result_data:
-            for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                if finding_data_item[0] is not None and content_formatted_string is not None and get_task_id_2_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[2] is not None:
-                    parameters.append({
-                        "id": finding_data_item[0],
-                        "title": "Investigation assignment:",
-                        "content": content_formatted_string,
-                        "task_id": get_task_id_2_result_item[0],
-                        "phase_id": get_phase_id_1_result_item[0],
-                        "response_plan_id": finding_data_item[2],
-                    })
+        for refresh_finding_or_investigation_3_result_item in refresh_finding_or_investigation_3_result_data:
+            for refresh_finding_or_investigation_2_result_item in refresh_finding_or_investigation_2_result_data:
+                for get_task_id_2_result_item in get_task_id_2_result_data:
+                    for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                        if finding_data_item[0] is not None and content_formatted_string is not None and get_task_id_2_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
+                            parameters.append({
+                                "id": finding_data_item[0],
+                                "title": "Investigation assignment:",
+                                "content": content_formatted_string,
+                                "task_id": get_task_id_2_result_item[0],
+                                "phase_id": get_phase_id_1_result_item[0],
+                                "response_plan_id": finding_data_item[1],
+                            })
 
     ################################################################################
     ## Custom Code Start
@@ -595,15 +567,15 @@ def refresh_finding_or_investigation_2(action=None, success=None, container=None
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'refresh_finding_or_investigation_2' call
-    for finding_data_item in finding_data:
-        if finding_data_item[0] is not None:
+    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+        if refresh_finding_or_investigation_1_result_item[0] is not None:
             parameters.append({
-                "id": finding_data_item[0],
+                "id": refresh_finding_or_investigation_1_result_item[0],
             })
 
     ################################################################################
@@ -627,15 +599,15 @@ def refresh_finding_or_investigation_3(action=None, success=None, container=None
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'refresh_finding_or_investigation_3' call
-    for finding_data_item in finding_data:
-        if finding_data_item[0] is not None:
+    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+        if refresh_finding_or_investigation_1_result_item[0] is not None:
             parameters.append({
-                "id": finding_data_item[0],
+                "id": refresh_finding_or_investigation_1_result_item[0],
             })
 
     ################################################################################
