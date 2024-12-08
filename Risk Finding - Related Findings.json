@@ -198,7 +198,7 @@
                     "targetPort": "41_in"
                 }
             ],
-            "hash": "997aebcafb489563019570577cf1c3dc33e8e001",
+            "hash": "fbde34fb6a7bae7a91227c863b65485010cb9425",
             "nodes": {
                 "0": {
                     "data": {
@@ -252,7 +252,7 @@
                             "run_query_1:action_result.data.*.source",
                             "run_query_1:action_result.data.*.source_event_id"
                         ],
-                        "template": "| Detection Name| Finding ID |\n| --- | --- |\n%%\n| {0} | [{1}]\\S(https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) |\n%%\n\n\n\n\n\n*Follow the prompt to manage these related findings in the Analyst Queue.*",
+                        "template": "| Detection Name| Finding ID | Link |\n| --- | --- | --- |\n%%\n| {0} | {1} | [Right click and open in new tab](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) |\n%%\n\n\n\n\n\n*Follow the prompt to manage these related findings in the Analyst Queue.*",
                         "type": "format"
                     },
                     "errors": {},
@@ -1326,7 +1326,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T12:59:41.859395+00:00",
+    "create_time": "2024-12-08T13:03:21.957663+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
