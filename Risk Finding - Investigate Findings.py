@@ -828,15 +828,11 @@ def code_2(action=None, success=None, container=None, results=None, handle=None,
     # Write your custom code here...
     phantom.debug(filtered_cf_result_0_data_output[0])
     phantom.debug(filtered_cf_result_1_data_output[0])
-    phantom.debug(filtered_cf_result_3_data_output[0])
+    phantom.debug(filtered_cf_result_2_data_output[0])
     phantom.debug(filtered_cf_result_3_data_output[0])
     phantom.debug(filtered_cf_result_4_data_output[0])
     
-    phantom.debug(filtered_cf_result_0_data_output[0][1])
-    phantom.debug(filtered_cf_result_1_data_output[0][1])
-    phantom.debug(filtered_cf_result_3_data_output[0][1])
-    phantom.debug(filtered_cf_result_3_data_output[0][1])
-    phantom.debug(filtered_cf_result_4_data_output[0][1])
+    
 
     ################################################################################
     ## Custom Code End
