@@ -784,10 +784,7 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     # Write your custom code here...
     threat_list__threat_list = []
     
-    for i in range(len(run_query_1_result_item_0)):
-        threat_list_tuple = []
-        threat_list_tuple = zip(run_query_1_result_item_0[i],run_query_1_result_item_1[i])
-        threat_list__threat_list.append(threat_list_tuple)
+    threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]
             
     phantom.debug(threat_list__threat_list)
     ################################################################################

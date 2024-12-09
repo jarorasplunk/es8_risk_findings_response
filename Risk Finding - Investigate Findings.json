@@ -138,7 +138,7 @@
                     "targetPort": "24_in"
                 }
             ],
-            "hash": "1e24c6607d95f479cd29d8440f0bd358d1920dfe",
+            "hash": "b6180a234f9142ed2a818be5bd7fcde9a92921c1",
             "nodes": {
                 "0": {
                     "data": {
@@ -1498,7 +1498,7 @@
                     "errors": {},
                     "id": "24",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    threat_list__threat_list = []\n    \n    for i in range(len(run_query_1_result_item_0)):\n        threat_list_tuple = []\n        threat_list_tuple = zip(run_query_1_result_item_0[i],run_query_1_result_item_1[i])\n        threat_list__threat_list.append(threat_list_tuple)\n            \n    phantom.debug(threat_list__threat_list)\n",
+                    "userCode": "\n    # Write your custom code here...\n    threat_list__threat_list = []\n    \n    threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]\n            \n    phantom.debug(threat_list__threat_list)\n",
                     "warnings": {},
                     "x": 1440,
                     "y": 500
@@ -1797,7 +1797,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T02:28:05.029014+00:00",
+    "create_time": "2024-12-09T02:32:24.021332+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
