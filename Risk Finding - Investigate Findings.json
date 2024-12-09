@@ -211,7 +211,7 @@
                     "targetPort": "13_in"
                 }
             ],
-            "hash": "5dd28e60c9ba6bd985593e3f212efa433a11d91d",
+            "hash": "2d55a7fba5b4bc2ad539fe9ad7e241f07ee4b954",
             "nodes": {
                 "0": {
                     "data": {
@@ -729,7 +729,7 @@
                     "errors": {},
                     "id": "27",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    if filtered_cf_result_0_data_output:\n        code_2__threat_indicator_hash = filtered_cf_result_0_data_output[0][1]\n        \n    if filtered_cf_result_1_data_output:\n        code_2__threat_indicator_process = filtered_cf_result_1_data_output[0][1]\n    \n    if filtered_cf_result_2_data_output:\n        code_2__threat_indicator_ip = filtered_cf_result_2_data_output[0][1]\n\n    if filtered_cf_result_3_data_output:\n        code_2__threat_indicator_url = filtered_cf_result_3_data_output[0][1]\n\n    if filtered_cf_result_4_data_output:\n        code_2__threat_indicator_domain = filtered_cf_result_4_data_output[0][1]\n    \n    phantom.debug(code_2__threat_indicator_hash)\n    phantom.debug(code_2__threat_indicator_process)\n    phantom.debug(code_2__threat_indicator_ip)\n    phantom.debug(code_2__threat_indicator_url)\n    phantom.debug(code_2__threat_indicator_domain)\n    \n    \n\n",
+                    "userCode": "\n    # Write your custom code here...\n    if filtered_cf_result_0_data_output:\n        threat_indicator_values__threat_indicator_hash = filtered_cf_result_0_data_output[0][1]\n        \n    if filtered_cf_result_1_data_output:\n        threat_indicator_values__threat_indicator_process = filtered_cf_result_1_data_output[0][1]\n    \n    if filtered_cf_result_2_data_output:\n        threat_indicator_values__threat_indicator_ip = filtered_cf_result_2_data_output[0][1]\n\n    if filtered_cf_result_3_data_output:\n        threat_indicator_values__threat_indicator_url = filtered_cf_result_3_data_output[0][1]\n\n    if filtered_cf_result_4_data_output:\n        threat_indicator_values__threat_indicator_domain = filtered_cf_result_4_data_output[0][1]\n    \n    phantom.debug(threat_indicator_values__threat_indicator_hash)\n    phantom.debug(threat_indicator_values__threat_indicator_process)\n    phantom.debug(threat_indicator_values__threat_indicator_ip)\n    phantom.debug(threat_indicator_values__threat_indicator_url)\n    phantom.debug(threat_indicator_values__threat_indicator_domain)\n    \n    \n\n",
                     "warnings": {},
                     "x": 980,
                     "y": 980
@@ -1442,7 +1442,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T06:26:57.557233+00:00",
+    "create_time": "2024-12-09T06:28:57.222166+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

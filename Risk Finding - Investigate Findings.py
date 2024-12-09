@@ -494,25 +494,25 @@ def threat_indicator_values(action=None, success=None, container=None, results=N
 
     # Write your custom code here...
     if filtered_cf_result_0_data_output:
-        code_2__threat_indicator_hash = filtered_cf_result_0_data_output[0][1]
+        threat_indicator_values__threat_indicator_hash = filtered_cf_result_0_data_output[0][1]
         
     if filtered_cf_result_1_data_output:
-        code_2__threat_indicator_process = filtered_cf_result_1_data_output[0][1]
+        threat_indicator_values__threat_indicator_process = filtered_cf_result_1_data_output[0][1]
     
     if filtered_cf_result_2_data_output:
-        code_2__threat_indicator_ip = filtered_cf_result_2_data_output[0][1]
+        threat_indicator_values__threat_indicator_ip = filtered_cf_result_2_data_output[0][1]
 
     if filtered_cf_result_3_data_output:
-        code_2__threat_indicator_url = filtered_cf_result_3_data_output[0][1]
+        threat_indicator_values__threat_indicator_url = filtered_cf_result_3_data_output[0][1]
 
     if filtered_cf_result_4_data_output:
-        code_2__threat_indicator_domain = filtered_cf_result_4_data_output[0][1]
+        threat_indicator_values__threat_indicator_domain = filtered_cf_result_4_data_output[0][1]
     
-    phantom.debug(code_2__threat_indicator_hash)
-    phantom.debug(code_2__threat_indicator_process)
-    phantom.debug(code_2__threat_indicator_ip)
-    phantom.debug(code_2__threat_indicator_url)
-    phantom.debug(code_2__threat_indicator_domain)
+    phantom.debug(threat_indicator_values__threat_indicator_hash)
+    phantom.debug(threat_indicator_values__threat_indicator_process)
+    phantom.debug(threat_indicator_values__threat_indicator_ip)
+    phantom.debug(threat_indicator_values__threat_indicator_url)
+    phantom.debug(threat_indicator_values__threat_indicator_domain)
     
     
 
