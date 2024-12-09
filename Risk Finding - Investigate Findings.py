@@ -104,10 +104,8 @@ def threat_indicator_filter(action=None, success=None, container=None, results=N
     # collect filtered artifact ids and results for 'if' condition 1
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
-        logical_operator="or",
         conditions=[
-            ["file_hash", "in", "threat_list_items:custom_function_result.data.output"],
-            ["hash", "in", "threat_list_items:custom_function_result.data.output"]
+            ["file_hash", "in", "threat_list_items:custom_function_result.data.output"]
         ],
         name="threat_indicator_filter:condition_1",
         delimiter=None)
