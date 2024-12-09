@@ -138,7 +138,7 @@
                     "targetPort": "24_in"
                 }
             ],
-            "hash": "b6180a234f9142ed2a818be5bd7fcde9a92921c1",
+            "hash": "656961bf29190a024fa152ff98c0e46113f092de",
             "nodes": {
                 "0": {
                     "data": {
@@ -1498,7 +1498,7 @@
                     "errors": {},
                     "id": "24",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    threat_list__threat_list = []\n    \n    threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]\n            \n    phantom.debug(threat_list__threat_list)\n",
+                    "userCode": "\n    # Write your custom code here...\n    threat_list__threat_list = []\n    \n    threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0[0], run_query_1_result_item_1[0])]\n            \n    phantom.debug(threat_list__threat_list)\n",
                     "warnings": {},
                     "x": 1440,
                     "y": 500
@@ -1797,7 +1797,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T02:32:24.021332+00:00",
+    "create_time": "2024-12-09T02:35:03.646960+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
