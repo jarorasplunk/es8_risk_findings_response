@@ -628,19 +628,7 @@ def threat_object(action=None, success=None, container=None, results=None, handl
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="threat_object", callback=threat_object_callback)
-
-    return
-
-
-@phantom.playbook_block()
-def threat_object_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("threat_object_callback() called")
-
-    
-    debug_6(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
-    filter_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
-
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="threat_object", callback=list_zip_7)
 
     return
 
@@ -681,6 +669,86 @@ def debug_6(action=None, success=None, container=None, results=None, handle=None
     ################################################################################
 
     phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_6")
+
+    return
+
+
+@phantom.playbook_block()
+def list_zip_7(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("list_zip_7() called")
+
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.threat_object_type","run_query_1:action_result.data.*.threat_object","run_query_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
+    run_query_1_result_item_1 = [item[1] for item in run_query_1_result_data]
+
+    parameters = []
+
+    parameters.append({
+        "zip_type": None,
+        "pad_values": None,
+        "input_1": run_query_1_result_item_0,
+        "input_2": run_query_1_result_item_1,
+        "input_3": None,
+        "input_4": None,
+        "input_5": None,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/list_zip", parameters=parameters, name="list_zip_7", callback=debug_8)
+
+    return
+
+
+@phantom.playbook_block()
+def debug_8(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("debug_8() called")
+
+    list_zip_7__result = phantom.collect2(container=container, datapath=["list_zip_7:custom_function_result.data.input_1","list_zip_7:custom_function_result.data.input_2","list_zip_7:custom_function_result.success","list_zip_7:custom_function_result.message"])
+
+    list_zip_7_data_input_1 = [item[0] for item in list_zip_7__result]
+    list_zip_7_data_input_2 = [item[1] for item in list_zip_7__result]
+    list_zip_7_success = [item[2] for item in list_zip_7__result]
+    list_zip_7_message = [item[3] for item in list_zip_7__result]
+
+    parameters = []
+
+    parameters.append({
+        "input_1": list_zip_7_data_input_1,
+        "input_2": list_zip_7_data_input_2,
+        "input_3": list_zip_7_success,
+        "input_4": list_zip_7_message,
+        "input_5": None,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+        "input_9": None,
+        "input_10": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_8")
 
     return
 
