@@ -84,13 +84,6 @@
                     "targetPort": "20_in"
                 },
                 {
-                    "id": "port_22_to_port_23",
-                    "sourceNode": "22",
-                    "sourcePort": "22_out",
-                    "targetNode": "23",
-                    "targetPort": "23_in"
-                },
-                {
                     "id": "port_4_to_port_24",
                     "sourceNode": "4",
                     "sourcePort": "4_out",
@@ -103,13 +96,6 @@
                     "sourcePort": "24_out",
                     "targetNode": "25",
                     "targetPort": "25_in"
-                },
-                {
-                    "id": "port_25_to_port_5",
-                    "sourceNode": "25",
-                    "sourcePort": "25_out",
-                    "targetNode": "5",
-                    "targetPort": "5_in"
                 },
                 {
                     "conditions": [
@@ -134,9 +120,16 @@
                     "sourcePort": "5_out",
                     "targetNode": "27",
                     "targetPort": "27_in"
+                },
+                {
+                    "id": "port_25_to_port_23",
+                    "sourceNode": "25",
+                    "sourcePort": "25_out",
+                    "targetNode": "23",
+                    "targetPort": "23_in"
                 }
             ],
-            "hash": "fa2ec2a3ebdd2dafadf9ffa040b56281a48402d4",
+            "hash": "6bcbf0e5473b122afc0ad8c4eaba2b91fdd094e5",
             "nodes": {
                 "0": {
                     "data": {
@@ -1144,173 +1137,6 @@
                     "x": 500,
                     "y": 540
                 },
-                "22": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "list_zip",
-                            "repoName": "community"
-                        },
-                        "functionId": 7,
-                        "functionName": "list_zip_7",
-                        "id": "22",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "list_zip": {
-                                "description": "This function zips two or more lists together to create a list of equal length. This can be useful when multiple upstream blocks are used for a single downstream block with multiple inputs. A maximum of 8 lists can be zipped together. The input lists are intended to be flat lists of strings, not nested lists or dictionaries.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [],
-                                        "description": "(Optional) 'longest' OR 'shortest'. Defaults to 'shortest'. Determines how to treat lists of unequal size. Longest will pad the merged list to the longest of all of the lists. Shortest will truncate the merged list to the shortest of all of the lists.",
-                                        "inputType": "item",
-                                        "label": "zip_type",
-                                        "name": "zip_type",
-                                        "placeholder": "shortest OR longest",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "(Optional) True OR False. Defaults to True. Determines if an input with a single value should be duplicated in the zipped list.",
-                                        "inputType": "item",
-                                        "label": "pad_values",
-                                        "name": "pad_values",
-                                        "placeholder": "True OR False",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_1",
-                                        "name": "input_1",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_2",
-                                        "name": "input_2",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_3",
-                                        "name": "input_3",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_4",
-                                        "name": "input_4",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_5",
-                                        "name": "input_5",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_6",
-                                        "name": "input_6",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_7",
-                                        "name": "input_7",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_8",
-                                        "name": "input_8",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "list_zip",
-                                "name": "list_zip"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "list_zip": {
-                                "input_1": [
-                                    "threat_object_type:custom_function_result.data.output"
-                                ],
-                                "input_2": [
-                                    "threat_object:custom_function_result.data.output"
-                                ],
-                                "input_3": null,
-                                "input_4": null,
-                                "input_5": null,
-                                "input_6": null,
-                                "input_7": null,
-                                "input_8": null,
-                                "pad_values": null,
-                                "zip_type": null
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "22",
-                    "type": "utility",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 1220,
-                    "y": 640
-                },
                 "23": {
                     "data": {
                         "advanced": {
@@ -1468,18 +1294,14 @@
                         "values": {
                             "debug": {
                                 "input_1": [
-                                    "list_zip_7:custom_function_result.data.input_1"
+                                    "threat_list_items:custom_function_result.data.output"
                                 ],
                                 "input_10": null,
                                 "input_2": [
-                                    "list_zip_7:custom_function_result.data.input_2"
+                                    "threat_list:custom_function:threat_list"
                                 ],
-                                "input_3": [
-                                    "list_zip_7:custom_function_result.success"
-                                ],
-                                "input_4": [
-                                    "list_zip_7:custom_function_result.message"
-                                ],
+                                "input_3": "",
+                                "input_4": "",
                                 "input_5": null,
                                 "input_6": null,
                                 "input_7": null,
@@ -1760,7 +1582,14 @@
                     "errors": {},
                     "id": "5",
                     "type": "filter",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 1040,
                     "y": 720
                 },
@@ -1874,7 +1703,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T02:53:09.396947+00:00",
+    "create_time": "2024-12-09T02:55:06.243220+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
