@@ -115,13 +115,6 @@
                     "targetPort": "27_in"
                 },
                 {
-                    "id": "port_27_to_port_28",
-                    "sourceNode": "27",
-                    "sourcePort": "27_out",
-                    "targetNode": "28",
-                    "targetPort": "28_in"
-                },
-                {
                     "conditions": [
                         {
                             "index": 1
@@ -153,9 +146,44 @@
                     "sourcePort": "28_out",
                     "targetNode": "15",
                     "targetPort": "15_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 0
+                        },
+                        {
+                            "index": 2
+                        },
+                        {
+                            "index": 3
+                        },
+                        {
+                            "index": 4
+                        }
+                    ],
+                    "id": "port_29_to_port_15",
+                    "sourceNode": "29",
+                    "sourcePort": "29_out",
+                    "targetNode": "15",
+                    "targetPort": "15_in"
+                },
+                {
+                    "id": "port_27_to_port_30",
+                    "sourceNode": "27",
+                    "sourcePort": "27_out",
+                    "targetNode": "30",
+                    "targetPort": "30_in"
+                },
+                {
+                    "id": "port_30_to_port_31",
+                    "sourceNode": "30",
+                    "sourcePort": "30_out",
+                    "targetNode": "31",
+                    "targetPort": "31_in"
                 }
             ],
-            "hash": "b17e638ce729cae1c9a492e961259cb3c40e1fb8",
+            "hash": "0649b9dbd3a047e6f3a95509926c4b71e229e04e",
             "nodes": {
                 "0": {
                     "data": {
@@ -326,8 +354,12 @@
                     "errors": {},
                     "id": "11",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 600,
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
+                    "x": 420,
                     "y": 1520
                 },
                 "13": {
@@ -365,7 +397,11 @@
                     "errors": {},
                     "id": "13",
                     "type": "playbook",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 1460,
                     "y": 1340
                 },
@@ -441,7 +477,11 @@
                     "errors": {},
                     "id": "14",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 1460,
                     "y": 1460
                 },
@@ -498,8 +538,12 @@
                     "errors": {},
                     "id": "15",
                     "type": "playbook",
-                    "warnings": {},
-                    "x": 600,
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
+                    "x": 420,
                     "y": 1380
                 },
                 "16": {
@@ -1282,9 +1326,473 @@
                     "errors": {},
                     "id": "28",
                     "type": "decision",
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 1180,
+                    "y": 1380
+                },
+                "29": {
+                    "data": {
+                        "advanced": {
+                            "customName": "route investigation playbooks",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "!=",
+                                        "param": "passthrough_7:custom_function_result.data.*.item",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "customName": "hash ",
+                                "logic": "and"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 1,
+                                        "op": "!=",
+                                        "param": "code_2:custom_function:threat_indicator_process",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 1,
+                                "customName": "process",
+                                "logic": "and"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 2,
+                                        "op": "!=",
+                                        "param": "code_2:custom_function:threat_indicator_ip",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 2,
+                                "customName": "ip",
+                                "logic": "and"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 3,
+                                        "op": "!=",
+                                        "param": "code_2:custom_function:threat_indicator_url",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 3,
+                                "customName": "url",
+                                "logic": "and"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 4,
+                                        "op": "!=",
+                                        "param": "code_2:custom_function:threat_indicator_domain",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 4,
+                                "customName": "domain",
+                                "logic": "and"
+                            }
+                        ],
+                        "functionId": 2,
+                        "functionName": "route_investigation_playbooks",
+                        "id": "29",
+                        "type": "filter"
+                    },
+                    "errors": {},
+                    "id": "29",
+                    "type": "filter",
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 700,
+                    "y": 1160
+                },
+                "30": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "passthrough",
+                            "repoName": "community"
+                        },
+                        "functionId": 7,
+                        "functionName": "passthrough_7",
+                        "id": "30",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "passthrough": {
+                                "description": "Return the inputs as outputs. This is useful for publishing pieces of data for other blocks in the playbook to use.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_1",
+                                        "name": "input_1",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_2",
+                                        "name": "input_2",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_3",
+                                        "name": "input_3",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_4",
+                                        "name": "input_4",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_5",
+                                        "name": "input_5",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_6",
+                                        "name": "input_6",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_7",
+                                        "name": "input_7",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_8",
+                                        "name": "input_8",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_9",
+                                        "name": "input_9",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_10",
+                                        "name": "input_10",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "passthrough",
+                                "name": "passthrough"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "passthrough": {
+                                "input_1": [
+                                    "code_2:custom_function:threat_indicator_hash"
+                                ],
+                                "input_10": null,
+                                "input_2": [
+                                    "code_2:custom_function:threat_indicator_ip"
+                                ],
+                                "input_3": [
+                                    "code_2:custom_function:threat_indicator_domain"
+                                ],
+                                "input_4": [
+                                    "code_2:custom_function:threat_indicator_url"
+                                ],
+                                "input_5": [
+                                    "code_2:custom_function:threat_indicator_process"
+                                ],
+                                "input_6": null,
+                                "input_7": null,
+                                "input_8": null,
+                                "input_9": null
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "30",
+                    "type": "utility",
                     "warnings": {},
-                    "x": 1060,
+                    "x": 980,
                     "y": 1120
+                },
+                "31": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "debug",
+                            "repoName": "community"
+                        },
+                        "functionId": 8,
+                        "functionName": "debug_8",
+                        "id": "31",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "debug": {
+                                "description": "Print debug messages with the type and value of 0-10 different inputs. This is useful for checking the values of input data or the outputs of other playbook blocks.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_1",
+                                        "name": "input_1",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_2",
+                                        "name": "input_2",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_3",
+                                        "name": "input_3",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_4",
+                                        "name": "input_4",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_5",
+                                        "name": "input_5",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_6",
+                                        "name": "input_6",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_7",
+                                        "name": "input_7",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_8",
+                                        "name": "input_8",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_9",
+                                        "name": "input_9",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    },
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "",
+                                        "inputType": "list",
+                                        "label": "input_10",
+                                        "name": "input_10",
+                                        "placeholder": "",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "debug",
+                                "name": "debug"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "debug": {
+                                "input_1": [
+                                    "passthrough_7:custom_function_result.data.*.item"
+                                ],
+                                "input_10": null,
+                                "input_2": null,
+                                "input_3": null,
+                                "input_4": null,
+                                "input_5": null,
+                                "input_6": null,
+                                "input_7": null,
+                                "input_8": null,
+                                "input_9": null
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "31",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 1000,
+                    "y": 1260
                 },
                 "4": {
                     "data": {
@@ -1436,7 +1944,7 @@
                     "type": "filter",
                     "warnings": {},
                     "x": 1040,
-                    "y": 720
+                    "y": 700
                 },
                 "9": {
                     "data": {
@@ -1502,7 +2010,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T03:24:55.212879+00:00",
+    "create_time": "2024-12-09T05:43:11.199613+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

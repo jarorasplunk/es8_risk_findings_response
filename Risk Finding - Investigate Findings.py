@@ -370,23 +370,33 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 
 
 @phantom.playbook_block()
+def join_playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("join_playbook_virustotal_v3_identifier_reputation_analysis_1() called")
+
+    # call connected block "playbook_virustotal_v3_identifier_reputation_analysis_1"
+    playbook_virustotal_v3_identifier_reputation_analysis_1(container=container, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
 def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_virustotal_v3_identifier_reputation_analysis_1() called")
 
-    code_2__threat_indicator_ip = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_ip")) != "" else "null")  # pylint: disable=used-before-assignment
     code_2__threat_indicator_url = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_url")) != "" else "null")  # pylint: disable=used-before-assignment
     code_2__threat_indicator_domain = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_domain")) != "" else "null")  # pylint: disable=used-before-assignment
+    code_2__threat_indicator_ip = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_ip")) != "" else "null")  # pylint: disable=used-before-assignment
     code_2__threat_indicator_hash = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_hash")) != "" else "null")  # pylint: disable=used-before-assignment
 
-    ip_combined_value = phantom.concatenate(code_2__threat_indicator_ip, dedup=True)
     url_combined_value = phantom.concatenate(code_2__threat_indicator_url, dedup=True)
     domain_combined_value = phantom.concatenate(code_2__threat_indicator_domain, dedup=True)
+    ip_combined_value = phantom.concatenate(code_2__threat_indicator_ip, dedup=True)
     file_hash_combined_value = phantom.concatenate(code_2__threat_indicator_hash, dedup=True)
 
     inputs = {
-        "ip": ip_combined_value,
         "url": url_combined_value,
         "domain": domain_combined_value,
+        "ip": ip_combined_value,
         "file_hash": file_hash_combined_value,
     }
 
@@ -712,7 +722,7 @@ def code_2(action=None, success=None, container=None, results=None, handle=None,
     phantom.save_run_data(key="code_2:threat_indicator_url", value=json.dumps(code_2__threat_indicator_url))
     phantom.save_run_data(key="code_2:threat_indicator_process", value=json.dumps(code_2__threat_indicator_process))
 
-    decision_1(container=container)
+    passthrough_7(container=container)
 
     return
 
@@ -731,7 +741,7 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle)
+        join_playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'elif' condition 2
@@ -757,7 +767,7 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 3 matched
     if found_match_3:
-        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle)
+        join_playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'elif' condition 4
@@ -770,7 +780,7 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 4 matched
     if found_match_4:
-        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle)
+        join_playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'elif' condition 5
@@ -783,8 +793,158 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 5 matched
     if found_match_5:
-        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle)
+        join_playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle)
         return
+
+    return
+
+
+@phantom.playbook_block()
+def route_investigation_playbooks(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("route_investigation_playbooks() called")
+
+    # collect filtered artifact ids and results for 'if' condition 1
+    matched_artifacts_1, matched_results_1 = phantom.condition(
+        container=container,
+        conditions=[
+            ["passthrough_7:custom_function_result.data.*.item", "!=", ""]
+        ],
+        name="route_investigation_playbooks:condition_1",
+        delimiter=None)
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_1 or matched_results_1:
+        join_playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+
+    # collect filtered artifact ids and results for 'if' condition 2
+    matched_artifacts_2, matched_results_2 = phantom.condition(
+        container=container,
+        conditions=[
+            ["code_2:custom_function:threat_indicator_process", "!=", ""]
+        ],
+        name="route_investigation_playbooks:condition_2",
+        delimiter=None)
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_2 or matched_results_2:
+        pass
+
+    # collect filtered artifact ids and results for 'if' condition 3
+    matched_artifacts_3, matched_results_3 = phantom.condition(
+        container=container,
+        conditions=[
+            ["code_2:custom_function:threat_indicator_ip", "!=", ""]
+        ],
+        name="route_investigation_playbooks:condition_3",
+        delimiter=None)
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_3 or matched_results_3:
+        join_playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_3, filtered_results=matched_results_3)
+
+    # collect filtered artifact ids and results for 'if' condition 4
+    matched_artifacts_4, matched_results_4 = phantom.condition(
+        container=container,
+        conditions=[
+            ["code_2:custom_function:threat_indicator_url", "!=", ""]
+        ],
+        name="route_investigation_playbooks:condition_4",
+        delimiter=None)
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_4 or matched_results_4:
+        join_playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_4, filtered_results=matched_results_4)
+
+    # collect filtered artifact ids and results for 'if' condition 5
+    matched_artifacts_5, matched_results_5 = phantom.condition(
+        container=container,
+        conditions=[
+            ["code_2:custom_function:threat_indicator_domain", "!=", ""]
+        ],
+        name="route_investigation_playbooks:condition_5",
+        delimiter=None)
+
+    # call connected blocks if filtered artifacts or results
+    if matched_artifacts_5 or matched_results_5:
+        join_playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_5, filtered_results=matched_results_5)
+
+    return
+
+
+@phantom.playbook_block()
+def passthrough_7(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("passthrough_7() called")
+
+    code_2__threat_indicator_hash = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_hash")) != "" else "null")  # pylint: disable=used-before-assignment
+    code_2__threat_indicator_ip = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_ip")) != "" else "null")  # pylint: disable=used-before-assignment
+    code_2__threat_indicator_domain = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_domain")) != "" else "null")  # pylint: disable=used-before-assignment
+    code_2__threat_indicator_url = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_url")) != "" else "null")  # pylint: disable=used-before-assignment
+    code_2__threat_indicator_process = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_process")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    parameters.append({
+        "input_1": code_2__threat_indicator_hash,
+        "input_2": code_2__threat_indicator_ip,
+        "input_3": code_2__threat_indicator_domain,
+        "input_4": code_2__threat_indicator_url,
+        "input_5": code_2__threat_indicator_process,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+        "input_9": None,
+        "input_10": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/passthrough", parameters=parameters, name="passthrough_7", callback=debug_8)
+
+    return
+
+
+@phantom.playbook_block()
+def debug_8(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("debug_8() called")
+
+    passthrough_7_data = phantom.collect2(container=container, datapath=["passthrough_7:custom_function_result.data.*.item"])
+
+    passthrough_7_data___item = [item[0] for item in passthrough_7_data]
+
+    parameters = []
+
+    parameters.append({
+        "input_1": passthrough_7_data___item,
+        "input_2": None,
+        "input_3": None,
+        "input_4": None,
+        "input_5": None,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+        "input_9": None,
+        "input_10": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_8")
 
     return
 
