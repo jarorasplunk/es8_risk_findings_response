@@ -92,7 +92,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["splunk"], callback=filter_1)
+    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["splunk"], callback=threat_object_type)
 
     return
 
@@ -579,6 +579,104 @@ def url_list(action=None, success=None, container=None, results=None, handle=Non
     ################################################################################
 
     phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="url_list", callback=join_playbook_virustotal_v3_identifier_reputation_analysis_1)
+
+    return
+
+
+@phantom.playbook_block()
+def threat_object_type(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("threat_object_type() called")
+
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.threat_object_type","run_query_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'threat_object_type' call
+    for run_query_1_result_item in run_query_1_result_data:
+        parameters.append({
+            "input_list": run_query_1_result_item[0],
+        })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="threat_object_type", callback=threat_object)
+
+    return
+
+
+@phantom.playbook_block()
+def threat_object(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("threat_object() called")
+
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.threat_object","run_query_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'threat_object' call
+    for run_query_1_result_item in run_query_1_result_data:
+        parameters.append({
+            "input_list": run_query_1_result_item[0],
+        })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="threat_object", callback=debug_6)
+
+    return
+
+
+@phantom.playbook_block()
+def debug_6(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("debug_6() called")
+
+    threat_object_type__result = phantom.collect2(container=container, datapath=["threat_object_type:custom_function_result.data.output"])
+    threat_object__result = phantom.collect2(container=container, datapath=["threat_object:custom_function_result.data.output"])
+
+    threat_object_type_data_output = [item[0] for item in threat_object_type__result]
+    threat_object_data_output = [item[0] for item in threat_object__result]
+
+    parameters = []
+
+    parameters.append({
+        "input_1": threat_object_type_data_output,
+        "input_2": threat_object_data_output,
+        "input_3": None,
+        "input_4": None,
+        "input_5": None,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+        "input_9": None,
+        "input_10": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_6")
 
     return
 
