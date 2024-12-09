@@ -77,51 +77,11 @@
                     "targetPort": "11_in"
                 },
                 {
-                    "id": "port_4_to_port_19",
-                    "sourceNode": "4",
-                    "sourcePort": "4_out",
-                    "targetNode": "19",
-                    "targetPort": "19_in"
-                },
-                {
                     "id": "port_19_to_port_20",
                     "sourceNode": "19",
                     "sourcePort": "19_out",
                     "targetNode": "20",
                     "targetPort": "20_in"
-                },
-                {
-                    "conditions": [
-                        {
-                            "index": 1
-                        }
-                    ],
-                    "id": "port_5_to_port_13",
-                    "sourceNode": "5",
-                    "sourcePort": "5_out",
-                    "targetNode": "13",
-                    "targetPort": "13_in"
-                },
-                {
-                    "conditions": [
-                        {
-                            "index": 0
-                        },
-                        {
-                            "index": 2
-                        },
-                        {
-                            "index": 3
-                        },
-                        {
-                            "index": 4
-                        }
-                    ],
-                    "id": "port_5_to_port_15",
-                    "sourceNode": "5",
-                    "sourcePort": "5_out",
-                    "targetNode": "15",
-                    "targetPort": "15_in"
                 },
                 {
                     "id": "port_22_to_port_23",
@@ -136,9 +96,47 @@
                     "sourcePort": "4_out",
                     "targetNode": "24",
                     "targetPort": "24_in"
+                },
+                {
+                    "id": "port_24_to_port_25",
+                    "sourceNode": "24",
+                    "sourcePort": "24_out",
+                    "targetNode": "25",
+                    "targetPort": "25_in"
+                },
+                {
+                    "id": "port_25_to_port_5",
+                    "sourceNode": "25",
+                    "sourcePort": "25_out",
+                    "targetNode": "5",
+                    "targetPort": "5_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 0
+                        },
+                        {
+                            "index": 1
+                        },
+                        {
+                            "index": 2
+                        },
+                        {
+                            "index": 3
+                        },
+                        {
+                            "index": 4
+                        }
+                    ],
+                    "id": "port_5_to_port_27",
+                    "sourceNode": "5",
+                    "sourcePort": "5_out",
+                    "targetNode": "27",
+                    "targetPort": "27_in"
                 }
             ],
-            "hash": "656961bf29190a024fa152ff98c0e46113f092de",
+            "hash": "dd21c451a0dcbe042e95951258429e0ab146764b",
             "nodes": {
                 "0": {
                     "data": {
@@ -176,7 +174,7 @@
                     "type": "end",
                     "warnings": {},
                     "x": 1000,
-                    "y": 1400
+                    "y": 1520
                 },
                 "10": {
                     "data": {
@@ -384,8 +382,8 @@
                     "id": "12",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 1120,
-                    "y": 1060
+                    "x": 1160,
+                    "y": 1260
                 },
                 "13": {
                     "data": {
@@ -425,6 +423,9 @@
                     "warnings": {
                         "config": [
                             "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
                         ]
                     },
                     "x": 1460,
@@ -563,9 +564,16 @@
                     "errors": {},
                     "id": "15",
                     "type": "playbook",
-                    "warnings": {},
-                    "x": 740,
-                    "y": 1040
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 720,
+                    "y": 940
                 },
                 "16": {
                     "data": {
@@ -700,8 +708,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 700,
-                    "y": 780
+                    "x": 540,
+                    "y": 720
                 },
                 "18": {
                     "data": {
@@ -828,9 +836,16 @@
                     "errors": {},
                     "id": "19",
                     "type": "utility",
-                    "warnings": {},
-                    "x": 980,
-                    "y": 460
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 440,
+                    "y": 340
                 },
                 "2": {
                     "data": {
@@ -934,9 +949,13 @@
                     "errors": {},
                     "id": "20",
                     "type": "utility",
-                    "warnings": {},
-                    "x": 980,
-                    "y": 540
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
+                    "x": 640,
+                    "y": 460
                 },
                 "21": {
                     "data": {
@@ -1500,8 +1519,97 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    threat_list__threat_list = []\n    \n    threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0[0], run_query_1_result_item_1[0])]\n            \n    phantom.debug(threat_list__threat_list)\n",
                     "warnings": {},
-                    "x": 1440,
+                    "x": 980,
                     "y": 500
+                },
+                "25": {
+                    "data": {
+                        "advanced": {
+                            "customName": "threat list items",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_demux",
+                            "repoName": "community"
+                        },
+                        "functionId": 9,
+                        "functionName": "threat_list_items",
+                        "id": "25",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_demux",
+                                "name": "list_demux"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_demux": {
+                                "input_list": "threat_list:custom_function:threat_list"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "25",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 600
+                },
+                "27": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionId": 2,
+                        "functionName": "code_2",
+                        "id": "27",
+                        "inputParameters": [
+                            "filtered-data:threat_indicator_filter:condition_1:threat_list_items:custom_function_result.data.output",
+                            "filtered-data:threat_indicator_filter:condition_2:threat_list_items:custom_function_result.data.output",
+                            "filtered-data:threat_indicator_filter:condition_3:threat_list_items:custom_function_result.data.output",
+                            "filtered-data:threat_indicator_filter:condition_4:threat_list_items:custom_function_result.data.output",
+                            "filtered-data:threat_indicator_filter:condition_5:threat_list_items:custom_function_result.data.output"
+                        ],
+                        "outputVariables": [
+                            "threat_indicator_value"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "27",
+                    "type": "code",
+                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(filtered_cf_result_0_data_output)\n    phantom.debug(filtered_cf_result_1_data_output)\n    phantom.debug(filtered_cf_result_3_data_output)\n    phantom.debug(filtered_cf_result_3_data_output)\n    phantom.debug(filtered_cf_result_4_data_output)\n    \n    phantom.debug(filtered_cf_result_0_data_output[1])\n    phantom.debug(filtered_cf_result_1_data_output[1])\n    phantom.debug(filtered_cf_result_3_data_output[1])\n    phantom.debug(filtered_cf_result_3_data_output[1])\n    phantom.debug(filtered_cf_result_4_data_output[1])\n\n",
+                    "warnings": {},
+                    "x": 1000,
+                    "y": 1000
                 },
                 "4": {
                     "data": {
@@ -1572,6 +1680,8 @@
                 "5": {
                     "data": {
                         "advanced": {
+                            "customName": "threat indicator filter",
+                            "customNameId": 0,
                             "join": []
                         },
                         "conditions": [
@@ -1579,34 +1689,28 @@
                                 "comparisons": [
                                     {
                                         "conditionIndex": 0,
-                                        "op": "==",
-                                        "param": "threat_object_type:custom_function_result.data.output",
-                                        "value": "file_hash"
+                                        "op": "in",
+                                        "param": "file_hash",
+                                        "value": "threat_list_items:custom_function_result.data.output"
                                     },
                                     {
                                         "conditionIndex": 0,
-                                        "op": "!=",
-                                        "param": "threat_object:custom_function_result.data.output",
-                                        "value": ""
+                                        "op": "in",
+                                        "param": "hash",
+                                        "value": "threat_list_items:custom_function_result.data.output"
                                     }
                                 ],
                                 "conditionIndex": 0,
                                 "customName": "hash reputation analysis",
-                                "logic": "and"
+                                "logic": "or"
                             },
                             {
                                 "comparisons": [
                                     {
-                                        "conditionIndex": 2,
-                                        "op": "==",
-                                        "param": "threat_object_type:custom_function_result.data.output",
-                                        "value": "process"
-                                    },
-                                    {
-                                        "conditionIndex": 2,
-                                        "op": "!=",
-                                        "param": "threat_object:custom_function_result.data.output",
-                                        "value": "run_query_1:action_result.data.*.threat_object_type"
+                                        "conditionIndex": 1,
+                                        "op": "in",
+                                        "param": "process",
+                                        "value": "threat_list_items:custom_function_result.data.output"
                                     }
                                 ],
                                 "conditionIndex": 1,
@@ -1616,16 +1720,10 @@
                             {
                                 "comparisons": [
                                     {
-                                        "conditionIndex": 3,
-                                        "op": "==",
-                                        "param": "threat_object_type:custom_function_result.data.output",
-                                        "value": "ip"
-                                    },
-                                    {
-                                        "conditionIndex": 3,
-                                        "op": "!=",
-                                        "param": "threat_object:custom_function_result.data.output",
-                                        "value": ""
+                                        "conditionIndex": 2,
+                                        "op": "in",
+                                        "param": "ip",
+                                        "value": "threat_list_items:custom_function_result.data.output"
                                     }
                                 ],
                                 "conditionIndex": 2,
@@ -1635,15 +1733,10 @@
                             {
                                 "comparisons": [
                                     {
-                                        "conditionIndex": 4,
-                                        "op": "==",
-                                        "param": "threat_object_type:custom_function_result.data.output",
-                                        "value": "url"
-                                    },
-                                    {
-                                        "op": "!=",
-                                        "param": "threat_object:custom_function_result.data.output",
-                                        "value": ""
+                                        "conditionIndex": 3,
+                                        "op": "in",
+                                        "param": "url",
+                                        "value": "threat_list_items:custom_function_result.data.output"
                                     }
                                 ],
                                 "conditionIndex": 3,
@@ -1653,14 +1746,10 @@
                             {
                                 "comparisons": [
                                     {
-                                        "op": "==",
-                                        "param": "threat_object_type:custom_function_result.data.output",
-                                        "value": "domain"
-                                    },
-                                    {
-                                        "op": "!=",
-                                        "param": "threat_object:custom_function_result.data.output",
-                                        "value": ""
+                                        "conditionIndex": 4,
+                                        "op": "in",
+                                        "param": "domain",
+                                        "value": "threat_list_items:custom_function_result.data.output"
                                     }
                                 ],
                                 "conditionIndex": 4,
@@ -1669,23 +1758,16 @@
                             }
                         ],
                         "functionId": 1,
-                        "functionName": "filter_1",
+                        "functionName": "threat_indicator_filter",
                         "id": "5",
                         "type": "filter"
                     },
                     "errors": {},
                     "id": "5",
                     "type": "filter",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 1040,
-                    "y": 680
+                    "y": 720
                 },
                 "8": {
                     "data": {
@@ -1731,7 +1813,7 @@
                         ]
                     },
                     "x": 1120,
-                    "y": 900
+                    "y": 1160
                 },
                 "9": {
                     "data": {
@@ -1797,7 +1879,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T02:35:03.646960+00:00",
+    "create_time": "2024-12-09T02:43:50.877406+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
