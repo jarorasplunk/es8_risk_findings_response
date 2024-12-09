@@ -129,7 +129,7 @@
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "6bcbf0e5473b122afc0ad8c4eaba2b91fdd094e5",
+            "hash": "0f059b4392d3cd8877257cd1be9bd202431922cf",
             "nodes": {
                 "0": {
                     "data": {
@@ -1401,7 +1401,7 @@
                     "errors": {},
                     "id": "25",
                     "type": "utility",
-                    "userCode": "\n    # Write your custom code here...\n    parameters = []\n\n    parameters.append({\n        \"input_list\": threat_list__threat_list[0],\n    })\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    parameters = []\n\n    parameters.append({\n        \"input_list\": threat_list__threat_list,\n    })\n\n",
                     "warnings": {},
                     "x": 980,
                     "y": 600
@@ -1703,7 +1703,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T02:55:06.243220+00:00",
+    "create_time": "2024-12-09T02:57:35.925564+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

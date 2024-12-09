@@ -751,7 +751,7 @@ def threat_list_items(action=None, success=None, container=None, results=None, h
     parameters = []
 
     parameters.append({
-        "input_list": threat_list__threat_list[0],
+        "input_list": threat_list__threat_list,
     })
 
     ################################################################################
