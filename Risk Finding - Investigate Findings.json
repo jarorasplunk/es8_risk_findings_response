@@ -63,13 +63,6 @@
                     "targetPort": "11_in"
                 },
                 {
-                    "id": "port_19_to_port_20",
-                    "sourceNode": "19",
-                    "sourcePort": "19_out",
-                    "targetNode": "20",
-                    "targetPort": "20_in"
-                },
-                {
                     "id": "port_4_to_port_24",
                     "sourceNode": "4",
                     "sourcePort": "4_out",
@@ -117,39 +110,6 @@
                 {
                     "conditions": [
                         {
-                            "index": 1
-                        }
-                    ],
-                    "id": "port_28_to_port_13",
-                    "sourceNode": "28",
-                    "sourcePort": "28_out",
-                    "targetNode": "13",
-                    "targetPort": "13_in"
-                },
-                {
-                    "conditions": [
-                        {
-                            "index": 0
-                        },
-                        {
-                            "index": 2
-                        },
-                        {
-                            "index": 3
-                        },
-                        {
-                            "index": 4
-                        }
-                    ],
-                    "id": "port_28_to_port_15",
-                    "sourceNode": "28",
-                    "sourcePort": "28_out",
-                    "targetNode": "15",
-                    "targetPort": "15_in"
-                },
-                {
-                    "conditions": [
-                        {
                             "index": 0
                         },
                         {
@@ -169,21 +129,89 @@
                     "targetPort": "15_in"
                 },
                 {
-                    "id": "port_27_to_port_30",
+                    "id": "port_27_to_port_38",
                     "sourceNode": "27",
                     "sourcePort": "27_out",
-                    "targetNode": "30",
-                    "targetPort": "30_in"
+                    "targetNode": "38",
+                    "targetPort": "38_in"
                 },
                 {
-                    "id": "port_30_to_port_31",
-                    "sourceNode": "30",
-                    "sourcePort": "30_out",
-                    "targetNode": "31",
-                    "targetPort": "31_in"
+                    "id": "port_27_to_port_39",
+                    "sourceNode": "27",
+                    "sourcePort": "27_out",
+                    "targetNode": "39",
+                    "targetPort": "39_in"
+                },
+                {
+                    "id": "port_27_to_port_40",
+                    "sourceNode": "27",
+                    "sourcePort": "27_out",
+                    "targetNode": "40",
+                    "targetPort": "40_in"
+                },
+                {
+                    "id": "port_27_to_port_41",
+                    "sourceNode": "27",
+                    "sourcePort": "27_out",
+                    "targetNode": "41",
+                    "targetPort": "41_in"
+                },
+                {
+                    "id": "port_27_to_port_42",
+                    "sourceNode": "27",
+                    "sourcePort": "27_out",
+                    "targetNode": "42",
+                    "targetPort": "42_in"
+                },
+                {
+                    "id": "port_38_to_port_29",
+                    "sourceNode": "38",
+                    "sourcePort": "38_out",
+                    "targetNode": "29",
+                    "targetPort": "29_in"
+                },
+                {
+                    "id": "port_39_to_port_29",
+                    "sourceNode": "39",
+                    "sourcePort": "39_out",
+                    "targetNode": "29",
+                    "targetPort": "29_in"
+                },
+                {
+                    "id": "port_40_to_port_29",
+                    "sourceNode": "40",
+                    "sourcePort": "40_out",
+                    "targetNode": "29",
+                    "targetPort": "29_in"
+                },
+                {
+                    "id": "port_41_to_port_29",
+                    "sourceNode": "41",
+                    "sourcePort": "41_out",
+                    "targetNode": "29",
+                    "targetPort": "29_in"
+                },
+                {
+                    "id": "port_42_to_port_29",
+                    "sourceNode": "42",
+                    "sourcePort": "42_out",
+                    "targetNode": "29",
+                    "targetPort": "29_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_29_to_port_13",
+                    "sourceNode": "29",
+                    "sourcePort": "29_out",
+                    "targetNode": "13",
+                    "targetPort": "13_in"
                 }
             ],
-            "hash": "8129b55edf39ce442b9bec7b6088c30d628f1941",
+            "hash": "5dd28e60c9ba6bd985593e3f212efa433a11d91d",
             "nodes": {
                 "0": {
                     "data": {
@@ -220,8 +248,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 980,
-                    "y": 1820
+                    "x": 440,
+                    "y": 1682
                 },
                 "10": {
                     "data": {
@@ -354,11 +382,7 @@
                     "errors": {},
                     "id": "11",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 420,
                     "y": 1520
                 },
@@ -477,11 +501,7 @@
                     "errors": {},
                     "id": "14",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 1460,
                     "y": 1460
                 },
@@ -516,7 +536,7 @@
                                 "datapaths": [
                                     "code_2:custom_function:threat_indicator_url"
                                 ],
-                                "deduplicate": true
+                                "deduplicate": false
                             }
                         },
                         "loop": {
@@ -545,278 +565,6 @@
                     },
                     "x": 420,
                     "y": 1380
-                },
-                "16": {
-                    "data": {
-                        "advanced": {
-                            "customName": "hash list",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "list_demux",
-                            "repoName": "community"
-                        },
-                        "functionId": 1,
-                        "functionName": "hash_list",
-                        "id": "16",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "list_demux": {
-                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "A list of objects. Nested lists are not unpacked.",
-                                        "inputType": "item",
-                                        "label": "input_list",
-                                        "name": "input_list",
-                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "list_demux",
-                                "name": "list_demux"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "list_demux": {
-                                "input_list": "filtered-data:filter_1:condition_1:run_query_1:action_result.data.*.threat_object"
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "16",
-                    "type": "utility",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 320,
-                    "y": 900
-                },
-                "17": {
-                    "data": {
-                        "advanced": {
-                            "customName": "ip and domain list",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "list_demux",
-                            "repoName": "community"
-                        },
-                        "functionId": 2,
-                        "functionName": "ip_and_domain_list",
-                        "id": "17",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "list_demux": {
-                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "A list of objects. Nested lists are not unpacked.",
-                                        "inputType": "item",
-                                        "label": "input_list",
-                                        "name": "input_list",
-                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "list_demux",
-                                "name": "list_demux"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "list_demux": {
-                                "input_list": "filtered-data:filter_1:condition_4:run_query_1:action_result.data.*.threat_object"
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "17",
-                    "type": "utility",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 540,
-                    "y": 720
-                },
-                "18": {
-                    "data": {
-                        "advanced": {
-                            "customName": "url list",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "list_demux",
-                            "repoName": "community"
-                        },
-                        "functionId": 3,
-                        "functionName": "url_list",
-                        "id": "18",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "list_demux": {
-                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "A list of objects. Nested lists are not unpacked.",
-                                        "inputType": "item",
-                                        "label": "input_list",
-                                        "name": "input_list",
-                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "list_demux",
-                                "name": "list_demux"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "list_demux": {
-                                "input_list": "filtered-data:filter_1:condition_5:run_query_1:action_result.data.*.threat_object"
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "18",
-                    "type": "utility",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 60,
-                    "y": 860
-                },
-                "19": {
-                    "data": {
-                        "advanced": {
-                            "customName": "threat object_type",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "list_demux",
-                            "repoName": "community"
-                        },
-                        "functionId": 4,
-                        "functionName": "threat_object_type",
-                        "id": "19",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "list_demux": {
-                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "A list of objects. Nested lists are not unpacked.",
-                                        "inputType": "item",
-                                        "label": "input_list",
-                                        "name": "input_list",
-                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "list_demux",
-                                "name": "list_demux"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "list_demux": {
-                                "input_list": "run_query_1:action_result.data.*.threat_object_type"
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "19",
-                    "type": "utility",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 440,
-                    "y": 340
                 },
                 "2": {
                     "data": {
@@ -862,258 +610,6 @@
                     "warnings": {},
                     "x": 980,
                     "y": 79.99999999999997
-                },
-                "20": {
-                    "data": {
-                        "advanced": {
-                            "customName": "threat object",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "list_demux",
-                            "repoName": "community"
-                        },
-                        "functionId": 5,
-                        "functionName": "threat_object",
-                        "id": "20",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "list_demux": {
-                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "A list of objects. Nested lists are not unpacked.",
-                                        "inputType": "item",
-                                        "label": "input_list",
-                                        "name": "input_list",
-                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "list_demux",
-                                "name": "list_demux"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "list_demux": {
-                                "input_list": "run_query_1:action_result.data.*.threat_object"
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "20",
-                    "type": "utility",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
-                    "x": 640,
-                    "y": 460
-                },
-                "21": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "debug",
-                            "repoName": "community"
-                        },
-                        "functionId": 6,
-                        "functionName": "debug_6",
-                        "id": "21",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "debug": {
-                                "description": "Print debug messages with the type and value of 0-10 different inputs. This is useful for checking the values of input data or the outputs of other playbook blocks.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_1",
-                                        "name": "input_1",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_2",
-                                        "name": "input_2",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_3",
-                                        "name": "input_3",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_4",
-                                        "name": "input_4",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_5",
-                                        "name": "input_5",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_6",
-                                        "name": "input_6",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_7",
-                                        "name": "input_7",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_8",
-                                        "name": "input_8",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_9",
-                                        "name": "input_9",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_10",
-                                        "name": "input_10",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "debug",
-                                "name": "debug"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "debug": {
-                                "input_1": [
-                                    "threat_object_type:custom_function_result.data.output"
-                                ],
-                                "input_10": null,
-                                "input_2": [
-                                    "threat_object:custom_function_result.data.output"
-                                ],
-                                "input_3": null,
-                                "input_4": null,
-                                "input_5": null,
-                                "input_6": null,
-                                "input_7": null,
-                                "input_8": null,
-                                "input_9": null
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "21",
-                    "type": "utility",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 500,
-                    "y": 540
                 },
                 "24": {
                     "data": {
@@ -1201,16 +697,18 @@
                     "type": "utility",
                     "userCode": "\n    # Write your custom code here...\n    parameters = []\n\n    parameters.append({\n        \"input_list\": threat_list__threat_list,\n    })\n\n",
                     "warnings": {},
-                    "x": 1200,
+                    "x": 980,
                     "y": 600
                 },
                 "27": {
                     "data": {
                         "advanced": {
+                            "customName": "threat indicator values",
+                            "customNameId": 0,
                             "join": []
                         },
                         "functionId": 2,
-                        "functionName": "code_2",
+                        "functionName": "threat_indicator_values",
                         "id": "27",
                         "inputParameters": [
                             "filtered-data:threat_indicator_filter:condition_1:threat_list_items:custom_function_result.data.output",
@@ -1234,7 +732,7 @@
                     "userCode": "\n    # Write your custom code here...\n    if filtered_cf_result_0_data_output:\n        code_2__threat_indicator_hash = filtered_cf_result_0_data_output[0][1]\n        \n    if filtered_cf_result_1_data_output:\n        code_2__threat_indicator_process = filtered_cf_result_1_data_output[0][1]\n    \n    if filtered_cf_result_2_data_output:\n        code_2__threat_indicator_ip = filtered_cf_result_2_data_output[0][1]\n\n    if filtered_cf_result_3_data_output:\n        code_2__threat_indicator_url = filtered_cf_result_3_data_output[0][1]\n\n    if filtered_cf_result_4_data_output:\n        code_2__threat_indicator_domain = filtered_cf_result_4_data_output[0][1]\n    \n    phantom.debug(code_2__threat_indicator_hash)\n    phantom.debug(code_2__threat_indicator_process)\n    phantom.debug(code_2__threat_indicator_ip)\n    phantom.debug(code_2__threat_indicator_url)\n    phantom.debug(code_2__threat_indicator_domain)\n    \n    \n\n",
                     "warnings": {},
                     "x": 980,
-                    "y": 1020
+                    "y": 980
                 },
                 "28": {
                     "data": {
@@ -1350,7 +848,7 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "!=",
-                                        "param": "passthrough_7:custom_function_result.data.*.item",
+                                        "param": "hash:custom_function_result.data.output",
                                         "value": ""
                                     }
                                 ],
@@ -1363,7 +861,7 @@
                                     {
                                         "conditionIndex": 1,
                                         "op": "!=",
-                                        "param": "code_2:custom_function:threat_indicator_process",
+                                        "param": "process:custom_function_result.data.output",
                                         "value": ""
                                     }
                                 ],
@@ -1376,7 +874,7 @@
                                     {
                                         "conditionIndex": 2,
                                         "op": "!=",
-                                        "param": "code_2:custom_function:threat_indicator_ip",
+                                        "param": "ip:custom_function_result.data.output",
                                         "value": ""
                                     }
                                 ],
@@ -1389,7 +887,7 @@
                                     {
                                         "conditionIndex": 3,
                                         "op": "!=",
-                                        "param": "code_2:custom_function:threat_indicator_url",
+                                        "param": "url:custom_function_result.data.output",
                                         "value": ""
                                     }
                                 ],
@@ -1402,7 +900,7 @@
                                     {
                                         "conditionIndex": 4,
                                         "op": "!=",
-                                        "param": "code_2:custom_function:threat_indicator_domain",
+                                        "param": "domain:custom_function_result.data.output",
                                         "value": ""
                                     }
                                 ],
@@ -1419,30 +917,25 @@
                     "errors": {},
                     "id": "29",
                     "type": "filter",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 700,
-                    "y": 1160
+                    "warnings": {},
+                    "x": 1020,
+                    "y": 1280
                 },
-                "30": {
+                "38": {
                     "data": {
                         "advanced": {
+                            "customName": "ip",
+                            "customNameId": 0,
                             "join": []
                         },
                         "customFunction": {
                             "draftMode": false,
-                            "name": "passthrough",
+                            "name": "list_demux",
                             "repoName": "community"
                         },
-                        "functionId": 7,
-                        "functionName": "passthrough_7",
-                        "id": "30",
+                        "functionId": 11,
+                        "functionName": "ip",
+                        "id": "38",
                         "loop": {
                             "enabled": false,
                             "exitAfterUnit": "m",
@@ -1455,352 +948,100 @@
                         "selectMore": false,
                         "type": "utility",
                         "utilities": {
-                            "passthrough": {
-                                "description": "Return the inputs as outputs. This is useful for publishing pieces of data for other blocks in the playbook to use.",
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
                                 "fields": [
                                     {
                                         "dataTypes": [
                                             "*"
                                         ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_1",
-                                        "name": "input_1",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_2",
-                                        "name": "input_2",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_3",
-                                        "name": "input_3",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_4",
-                                        "name": "input_4",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_5",
-                                        "name": "input_5",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_6",
-                                        "name": "input_6",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_7",
-                                        "name": "input_7",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_8",
-                                        "name": "input_8",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_9",
-                                        "name": "input_9",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_10",
-                                        "name": "input_10",
-                                        "placeholder": "",
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
                                         "renderType": "datapath",
                                         "required": false
                                     }
                                 ],
-                                "label": "passthrough",
-                                "name": "passthrough"
+                                "label": "list_demux",
+                                "name": "list_demux"
                             }
                         },
                         "utilityType": "custom_function",
                         "values": {
-                            "passthrough": {
-                                "input_1": [
-                                    "code_2:custom_function:threat_indicator_hash"
-                                ],
-                                "input_10": null,
-                                "input_2": [
-                                    "code_2:custom_function:threat_indicator_ip"
-                                ],
-                                "input_3": [
-                                    "code_2:custom_function:threat_indicator_domain"
-                                ],
-                                "input_4": [
-                                    "code_2:custom_function:threat_indicator_url"
-                                ],
-                                "input_5": [
-                                    "code_2:custom_function:threat_indicator_process"
-                                ],
-                                "input_6": null,
-                                "input_7": null,
-                                "input_8": null,
-                                "input_9": null
+                            "list_demux": {
+                                "input_list": "threat_indicator_values:custom_function:threat_indicator_ip"
                             }
                         }
                     },
                     "errors": {},
-                    "id": "30",
+                    "id": "38",
                     "type": "utility",
                     "warnings": {},
-                    "x": 980,
+                    "x": 440,
+                    "y": 1124.5
+                },
+                "39": {
+                    "data": {
+                        "advanced": {
+                            "customName": "hash",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_demux",
+                            "repoName": "community"
+                        },
+                        "functionId": 12,
+                        "functionName": "hash",
+                        "id": "39",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_demux",
+                                "name": "list_demux"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_demux": {
+                                "input_list": "threat_indicator_values:custom_function:threat_indicator_hash"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "39",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 760,
                     "y": 1120
-                },
-                "31": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "debug",
-                            "repoName": "community"
-                        },
-                        "functionId": 8,
-                        "functionName": "debug_8",
-                        "id": "31",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "debug": {
-                                "description": "Print debug messages with the type and value of 0-10 different inputs. This is useful for checking the values of input data or the outputs of other playbook blocks.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_1",
-                                        "name": "input_1",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_2",
-                                        "name": "input_2",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_3",
-                                        "name": "input_3",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_4",
-                                        "name": "input_4",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_5",
-                                        "name": "input_5",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_6",
-                                        "name": "input_6",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_7",
-                                        "name": "input_7",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_8",
-                                        "name": "input_8",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_9",
-                                        "name": "input_9",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_10",
-                                        "name": "input_10",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "debug",
-                                "name": "debug"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "debug": {
-                                "input_1": [
-                                    "passthrough_7:custom_function_result.data.*.item.threat_indicator_hash"
-                                ],
-                                "input_10": null,
-                                "input_2": [
-                                    "passthrough_7:custom_function_result.data.*.item.threat_indicator_ip"
-                                ],
-                                "input_3": [
-                                    "passthrough_7:custom_function_result.data.*.item.threat_indicator_domain"
-                                ],
-                                "input_4": [
-                                    "passthrough_7:custom_function_result.data.*.item.threat_indicator_url"
-                                ],
-                                "input_5": [
-                                    "passthrough_7:custom_function_result.data.*.item.threat_indicator_process"
-                                ],
-                                "input_6": null,
-                                "input_7": null,
-                                "input_8": null,
-                                "input_9": null
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "31",
-                    "type": "utility",
-                    "warnings": {},
-                    "x": 960,
-                    "y": 1220
                 },
                 "4": {
                     "data": {
@@ -1867,6 +1108,189 @@
                     "warnings": {},
                     "x": 980,
                     "y": 380
+                },
+                "40": {
+                    "data": {
+                        "advanced": {
+                            "customName": "domain",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_demux",
+                            "repoName": "community"
+                        },
+                        "functionId": 13,
+                        "functionName": "domain",
+                        "id": "40",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_demux",
+                                "name": "list_demux"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_demux": {
+                                "input_list": "threat_indicator_values:custom_function:threat_indicator_domain"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "40",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 1000,
+                    "y": 1120
+                },
+                "41": {
+                    "data": {
+                        "advanced": {
+                            "customName": "url",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_demux",
+                            "repoName": "community"
+                        },
+                        "functionId": 14,
+                        "functionName": "url",
+                        "id": "41",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_demux",
+                                "name": "list_demux"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_demux": {
+                                "input_list": "threat_indicator_values:custom_function:threat_indicator_url"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "41",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 1280,
+                    "y": 1120
+                },
+                "42": {
+                    "data": {
+                        "advanced": {
+                            "customName": "process",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_demux",
+                            "repoName": "community"
+                        },
+                        "functionId": 15,
+                        "functionName": "process",
+                        "id": "42",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_demux",
+                                "name": "list_demux"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_demux": {
+                                "input_list": "threat_indicator_values:custom_function:threat_indicator_process"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "42",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 1620,
+                    "y": 1120
                 },
                 "5": {
                     "data": {
@@ -2018,7 +1442,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T06:06:59.743758+00:00",
+    "create_time": "2024-12-09T06:26:57.557233+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
