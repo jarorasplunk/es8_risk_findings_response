@@ -373,20 +373,20 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_virustotal_v3_identifier_reputation_analysis_1() called")
 
+    code_2__threat_indicator_ip = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_ip")) != "" else "null")  # pylint: disable=used-before-assignment
     code_2__threat_indicator_url = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_url")) != "" else "null")  # pylint: disable=used-before-assignment
     code_2__threat_indicator_domain = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_domain")) != "" else "null")  # pylint: disable=used-before-assignment
-    code_2__threat_indicator_ip = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_ip")) != "" else "null")  # pylint: disable=used-before-assignment
     code_2__threat_indicator_hash = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_hash")) != "" else "null")  # pylint: disable=used-before-assignment
 
+    ip_combined_value = phantom.concatenate(code_2__threat_indicator_ip, dedup=True)
     url_combined_value = phantom.concatenate(code_2__threat_indicator_url, dedup=True)
     domain_combined_value = phantom.concatenate(code_2__threat_indicator_domain, dedup=True)
-    ip_combined_value = phantom.concatenate(code_2__threat_indicator_ip, dedup=True)
     file_hash_combined_value = phantom.concatenate(code_2__threat_indicator_hash, dedup=True)
 
     inputs = {
+        "ip": ip_combined_value,
         "url": url_combined_value,
         "domain": domain_combined_value,
-        "ip": ip_combined_value,
         "file_hash": file_hash_combined_value,
     }
 
