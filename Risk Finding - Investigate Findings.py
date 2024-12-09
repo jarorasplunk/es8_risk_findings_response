@@ -678,8 +678,10 @@ def list_zip_7(action=None, success=None, container=None, results=None, handle=N
     phantom.debug("list_zip_7() called")
 
     threat_object_type__result = phantom.collect2(container=container, datapath=["threat_object_type:custom_function_result.data.output"])
+    threat_object__result = phantom.collect2(container=container, datapath=["threat_object:custom_function_result.data.output"])
 
     threat_object_type_data_output = [item[0] for item in threat_object_type__result]
+    threat_object_data_output = [item[0] for item in threat_object__result]
 
     parameters = []
 
@@ -687,7 +689,7 @@ def list_zip_7(action=None, success=None, container=None, results=None, handle=N
         "zip_type": None,
         "pad_values": None,
         "input_1": threat_object_type_data_output,
-        "input_2": threat_object_type_data_output,
+        "input_2": threat_object_data_output,
         "input_3": None,
         "input_4": None,
         "input_5": None,
