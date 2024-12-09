@@ -106,74 +106,75 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
         container=container,
         logical_operator="and",
         conditions=[
-            ["hash,file_hash", "in", "run_query_1:action_result.data.*.threat_object_type"],
-            ["process", "not in", "run_query_1:action_result.data.*.threat_object_type"]
+            ["threat_object_type:custom_function_result.data.output", "==", "file_hash"],
+            ["threat_object:custom_function_result.data.output", "!=", ""]
         ],
         name="filter_1:condition_1",
         delimiter=None)
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        hash_list(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids and results for 'if' condition 2
     matched_artifacts_2, matched_results_2 = phantom.condition(
         container=container,
         logical_operator="and",
         conditions=[
-            ["run_query_1:action_result.data.*.threat_object_type", "in", "process"],
-            ["windows", "in", "run_query_1:action_result.data.*.risk_object_category"]
+            ["threat_object_type:custom_function_result.data.output", "==", "process"],
+            ["threat_object:custom_function_result.data.output", "!=", "run_query_1:action_result.data.*.threat_object_type"]
         ],
         name="filter_1:condition_2",
         delimiter=None)
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        pass
+        playbook_encoded_powershell_investigation_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     # collect filtered artifact ids and results for 'if' condition 3
     matched_artifacts_3, matched_results_3 = phantom.condition(
         container=container,
         logical_operator="and",
         conditions=[
-            ["process", "in", "run_query_1:action_result.data.*.threat_object_type"],
-            ["file_hash", "in", "run_query_1:action_result.data.*.threat_object_type"],
-            ["hash", "in", "run_query_1:action_result.data.*.threat_object_type"]
+            ["threat_object_type:custom_function_result.data.output", "==", "ip"],
+            ["threat_object:custom_function_result.data.output", "!=", ""]
         ],
         name="filter_1:condition_3",
         delimiter=None)
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_3 or matched_results_3:
-        pass
+        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_3, filtered_results=matched_results_3)
 
     # collect filtered artifact ids and results for 'if' condition 4
     matched_artifacts_4, matched_results_4 = phantom.condition(
         container=container,
-        logical_operator="or",
+        logical_operator="and",
         conditions=[
-            ["ip", "in", "run_query_1:action_result.data.*.threat_object_type"],
-            ["domain", "in", "run_query_1:action_result.data.*.threat_object_type"]
+            ["threat_object_type:custom_function_result.data.output", "==", "url"],
+            ["threat_object:custom_function_result.data.output", "!=", ""]
         ],
         name="filter_1:condition_4",
         delimiter=None)
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_4 or matched_results_4:
-        ip_and_domain_list(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_4, filtered_results=matched_results_4)
+        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_4, filtered_results=matched_results_4)
 
     # collect filtered artifact ids and results for 'if' condition 5
     matched_artifacts_5, matched_results_5 = phantom.condition(
         container=container,
+        logical_operator="and",
         conditions=[
-            ["url", "in", "run_query_1:action_result.data.*.threat_object_type"]
+            ["threat_object_type:custom_function_result.data.output", "==", "domain"],
+            ["threat_object:custom_function_result.data.output", "!=", ""]
         ],
         name="filter_1:condition_5",
         delimiter=None)
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_5 or matched_results_5:
-        url_list(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_5, filtered_results=matched_results_5)
+        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_5, filtered_results=matched_results_5)
 
     return
 
@@ -451,33 +452,24 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 
 
 @phantom.playbook_block()
-def join_playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("join_playbook_virustotal_v3_identifier_reputation_analysis_1() called")
-
-    if phantom.completed(custom_function_names=["hash_list", "ip_and_domain_list", "url_list"]):
-        # call connected block "playbook_virustotal_v3_identifier_reputation_analysis_1"
-        playbook_virustotal_v3_identifier_reputation_analysis_1(container=container, handle=handle)
-
-    return
-
-
-@phantom.playbook_block()
 def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_virustotal_v3_identifier_reputation_analysis_1() called")
 
-    url_list__result = phantom.collect2(container=container, datapath=["url_list:custom_function_result.data.output"])
-    ip_and_domain_list__result = phantom.collect2(container=container, datapath=["ip_and_domain_list:custom_function_result.data.output"])
-    hash_list__result = phantom.collect2(container=container, datapath=["hash_list:custom_function_result.data.output"])
+    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_4:threat_object:custom_function_result.data.output"])
+    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_5:threat_object:custom_function_result.data.output"])
+    filtered_cf_result_2 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_3:threat_object:custom_function_result.data.output"])
+    filtered_cf_result_3 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:threat_object:custom_function_result.data.output"])
 
-    url_list_data_output = [item[0] for item in url_list__result]
-    ip_and_domain_list_data_output = [item[0] for item in ip_and_domain_list__result]
-    hash_list_data_output = [item[0] for item in hash_list__result]
+    filtered_cf_result_0_data_output = [item[0] for item in filtered_cf_result_0]
+    filtered_cf_result_1_data_output = [item[0] for item in filtered_cf_result_1]
+    filtered_cf_result_2_data_output = [item[0] for item in filtered_cf_result_2]
+    filtered_cf_result_3_data_output = [item[0] for item in filtered_cf_result_3]
 
     inputs = {
-        "url": url_list_data_output,
-        "domain": ip_and_domain_list_data_output,
-        "ip": ip_and_domain_list_data_output,
-        "file_hash": hash_list_data_output,
+        "url": filtered_cf_result_0_data_output,
+        "domain": filtered_cf_result_1_data_output,
+        "ip": filtered_cf_result_2_data_output,
+        "file_hash": filtered_cf_result_3_data_output,
     }
 
     ################################################################################
@@ -520,7 +512,7 @@ def hash_list(action=None, success=None, container=None, results=None, handle=No
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="hash_list", callback=join_playbook_virustotal_v3_identifier_reputation_analysis_1)
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="hash_list")
 
     return
 
@@ -549,7 +541,7 @@ def ip_and_domain_list(action=None, success=None, container=None, results=None, 
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="ip_and_domain_list", callback=join_playbook_virustotal_v3_identifier_reputation_analysis_1)
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="ip_and_domain_list")
 
     return
 
@@ -578,7 +570,7 @@ def url_list(action=None, success=None, container=None, results=None, handle=Non
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="url_list", callback=join_playbook_virustotal_v3_identifier_reputation_analysis_1)
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="url_list")
 
     return
 
@@ -636,7 +628,19 @@ def threat_object(action=None, success=None, container=None, results=None, handl
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="threat_object", callback=debug_6)
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="threat_object", callback=threat_object_callback)
+
+    return
+
+
+@phantom.playbook_block()
+def threat_object_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("threat_object_callback() called")
+
+    
+    debug_6(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+    filter_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+
 
     return
 
