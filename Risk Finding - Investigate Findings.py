@@ -915,18 +915,22 @@ def passthrough_7(action=None, success=None, container=None, results=None, handl
 def debug_8(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("debug_8() called")
 
-    passthrough_7_data = phantom.collect2(container=container, datapath=["passthrough_7:custom_function_result.data.*.item"])
+    passthrough_7_data = phantom.collect2(container=container, datapath=["passthrough_7:custom_function_result.data.*.item.threat_indicator_hash","passthrough_7:custom_function_result.data.*.item.threat_indicator_ip","passthrough_7:custom_function_result.data.*.item.threat_indicator_domain","passthrough_7:custom_function_result.data.*.item.threat_indicator_url","passthrough_7:custom_function_result.data.*.item.threat_indicator_process"])
 
-    passthrough_7_data___item = [item[0] for item in passthrough_7_data]
+    passthrough_7_data___item_threat_indicator_hash = [item[0] for item in passthrough_7_data]
+    passthrough_7_data___item_threat_indicator_ip = [item[1] for item in passthrough_7_data]
+    passthrough_7_data___item_threat_indicator_domain = [item[2] for item in passthrough_7_data]
+    passthrough_7_data___item_threat_indicator_url = [item[3] for item in passthrough_7_data]
+    passthrough_7_data___item_threat_indicator_process = [item[4] for item in passthrough_7_data]
 
     parameters = []
 
     parameters.append({
-        "input_1": passthrough_7_data___item,
-        "input_2": None,
-        "input_3": None,
-        "input_4": None,
-        "input_5": None,
+        "input_1": passthrough_7_data___item_threat_indicator_hash,
+        "input_2": passthrough_7_data___item_threat_indicator_ip,
+        "input_3": passthrough_7_data___item_threat_indicator_domain,
+        "input_4": passthrough_7_data___item_threat_indicator_url,
+        "input_5": passthrough_7_data___item_threat_indicator_process,
         "input_6": None,
         "input_7": None,
         "input_8": None,

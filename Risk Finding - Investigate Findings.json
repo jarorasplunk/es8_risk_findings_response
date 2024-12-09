@@ -183,7 +183,7 @@
                     "targetPort": "31_in"
                 }
             ],
-            "hash": "0649b9dbd3a047e6f3a95509926c4b71e229e04e",
+            "hash": "8129b55edf39ce442b9bec7b6088c30d628f1941",
             "nodes": {
                 "0": {
                     "data": {
@@ -1773,13 +1773,21 @@
                         "values": {
                             "debug": {
                                 "input_1": [
-                                    "passthrough_7:custom_function_result.data.*.item"
+                                    "passthrough_7:custom_function_result.data.*.item.threat_indicator_hash"
                                 ],
                                 "input_10": null,
-                                "input_2": null,
-                                "input_3": null,
-                                "input_4": null,
-                                "input_5": null,
+                                "input_2": [
+                                    "passthrough_7:custom_function_result.data.*.item.threat_indicator_ip"
+                                ],
+                                "input_3": [
+                                    "passthrough_7:custom_function_result.data.*.item.threat_indicator_domain"
+                                ],
+                                "input_4": [
+                                    "passthrough_7:custom_function_result.data.*.item.threat_indicator_url"
+                                ],
+                                "input_5": [
+                                    "passthrough_7:custom_function_result.data.*.item.threat_indicator_process"
+                                ],
                                 "input_6": null,
                                 "input_7": null,
                                 "input_8": null,
@@ -1791,8 +1799,8 @@
                     "id": "31",
                     "type": "utility",
                     "warnings": {},
-                    "x": 1000,
-                    "y": 1260
+                    "x": 960,
+                    "y": 1220
                 },
                 "4": {
                     "data": {
@@ -2010,7 +2018,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T05:43:11.199613+00:00",
+    "create_time": "2024-12-09T06:06:59.743758+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
