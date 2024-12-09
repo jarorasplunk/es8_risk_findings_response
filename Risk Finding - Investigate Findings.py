@@ -677,18 +677,17 @@ def debug_6(action=None, success=None, container=None, results=None, handle=None
 def list_zip_7(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("list_zip_7() called")
 
-    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.threat_object_type","run_query_1:action_result.data.*.threat_object","run_query_1:action_result.parameter.context.artifact_id"], action_results=results)
+    threat_object_type__result = phantom.collect2(container=container, datapath=["threat_object_type:custom_function_result.data.output"])
 
-    run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
-    run_query_1_result_item_1 = [item[1] for item in run_query_1_result_data]
+    threat_object_type_data_output = [item[0] for item in threat_object_type__result]
 
     parameters = []
 
     parameters.append({
         "zip_type": None,
         "pad_values": None,
-        "input_1": run_query_1_result_item_0,
-        "input_2": run_query_1_result_item_1,
+        "input_1": threat_object_type_data_output,
+        "input_2": threat_object_type_data_output,
         "input_3": None,
         "input_4": None,
         "input_5": None,
