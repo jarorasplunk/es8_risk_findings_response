@@ -91,6 +91,13 @@
                     "targetPort": "24_in"
                 },
                 {
+                    "id": "port_25_to_port_23",
+                    "sourceNode": "25",
+                    "sourcePort": "25_out",
+                    "targetNode": "23",
+                    "targetPort": "23_in"
+                },
+                {
                     "id": "port_24_to_port_25",
                     "sourceNode": "24",
                     "sourcePort": "24_out",
@@ -98,21 +105,16 @@
                     "targetPort": "25_in"
                 },
                 {
+                    "id": "port_25_to_port_5",
+                    "sourceNode": "25",
+                    "sourcePort": "25_out",
+                    "targetNode": "5",
+                    "targetPort": "5_in"
+                },
+                {
                     "conditions": [
                         {
                             "index": 0
-                        },
-                        {
-                            "index": 1
-                        },
-                        {
-                            "index": 2
-                        },
-                        {
-                            "index": 3
-                        },
-                        {
-                            "index": 4
                         }
                     ],
                     "id": "port_5_to_port_27",
@@ -120,16 +122,9 @@
                     "sourcePort": "5_out",
                     "targetNode": "27",
                     "targetPort": "27_in"
-                },
-                {
-                    "id": "port_25_to_port_23",
-                    "sourceNode": "25",
-                    "sourcePort": "25_out",
-                    "targetNode": "23",
-                    "targetPort": "23_in"
                 }
             ],
-            "hash": "0f059b4392d3cd8877257cd1be9bd202431922cf",
+            "hash": "38bbe2ba0f7eb271c2e190d4fac9391d027b452d",
             "nodes": {
                 "0": {
                     "data": {
@@ -1315,7 +1310,7 @@
                     "type": "utility",
                     "warnings": {},
                     "x": 1420,
-                    "y": 744.5
+                    "y": 740
                 },
                 "24": {
                     "data": {
@@ -1403,7 +1398,7 @@
                     "type": "utility",
                     "userCode": "\n    # Write your custom code here...\n    parameters = []\n\n    parameters.append({\n        \"input_list\": threat_list__threat_list,\n    })\n\n",
                     "warnings": {},
-                    "x": 980,
+                    "x": 1200,
                     "y": 600
                 },
                 "27": {
@@ -1430,9 +1425,13 @@
                     "id": "27",
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    phantom.debug(filtered_cf_result_0_data_output[0])\n    phantom.debug(filtered_cf_result_1_data_output[0])\n    phantom.debug(filtered_cf_result_2_data_output[0])\n    phantom.debug(filtered_cf_result_3_data_output[0])\n    phantom.debug(filtered_cf_result_4_data_output[0])\n    \n    \n\n",
-                    "warnings": {},
-                    "x": 1000,
-                    "y": 1000
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
+                    "x": 980,
+                    "y": 1060
                 },
                 "4": {
                     "data": {
@@ -1582,14 +1581,7 @@
                     "errors": {},
                     "id": "5",
                     "type": "filter",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 1040,
                     "y": 720
                 },
@@ -1703,7 +1695,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T02:57:35.925564+00:00",
+    "create_time": "2024-12-09T03:03:46.914662+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
