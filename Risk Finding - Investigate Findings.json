@@ -211,7 +211,7 @@
                     "targetPort": "13_in"
                 }
             ],
-            "hash": "989293c701b6ec5bf837e9b250cb6cd7c7413872",
+            "hash": "906a33d820a16886e5484c08d795f3f0200f40da",
             "nodes": {
                 "0": {
                     "data": {
@@ -397,7 +397,7 @@
                         "inputs": {
                             "powershell_process": {
                                 "datapaths": [
-                                    "code_2:custom_function:threat_indicator_process"
+                                    "filtered-data:route_investigation_playbooks:condition_2:process:custom_function_result.data.output"
                                 ],
                                 "deduplicate": false
                             }
@@ -421,11 +421,7 @@
                     "errors": {},
                     "id": "13",
                     "type": "playbook",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 1460,
                     "y": 1340
                 },
@@ -516,25 +512,25 @@
                         "inputs": {
                             "domain": {
                                 "datapaths": [
-                                    "code_2:custom_function:threat_indicator_domain"
+                                    "filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"
                                 ],
                                 "deduplicate": true
                             },
                             "file_hash": {
                                 "datapaths": [
-                                    "code_2:custom_function:threat_indicator_hash"
+                                    "filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output"
                                 ],
                                 "deduplicate": true
                             },
                             "ip": {
                                 "datapaths": [
-                                    "code_2:custom_function:threat_indicator_ip"
+                                    "filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"
                                 ],
                                 "deduplicate": true
                             },
                             "url": {
                                 "datapaths": [
-                                    "code_2:custom_function:threat_indicator_url"
+                                    "filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"
                                 ],
                                 "deduplicate": false
                             }
@@ -558,11 +554,7 @@
                     "errors": {},
                     "id": "15",
                     "type": "playbook",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 420,
                     "y": 1380
                 },
@@ -1442,7 +1434,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T06:33:57.989992+00:00",
+    "create_time": "2024-12-09T06:39:38.349253+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

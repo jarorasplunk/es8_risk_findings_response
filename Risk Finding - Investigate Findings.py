@@ -295,10 +295,12 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
 def playbook_encoded_powershell_investigation_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_encoded_powershell_investigation_1() called")
 
-    code_2__threat_indicator_process = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_process")) != "" else "null")  # pylint: disable=used-before-assignment
+    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_2:process:custom_function_result.data.output"])
+
+    filtered_cf_result_0_data_output = [item[0] for item in filtered_cf_result_0]
 
     inputs = {
-        "powershell_process": code_2__threat_indicator_process,
+        "powershell_process": filtered_cf_result_0_data_output,
     }
 
     ################################################################################
@@ -373,17 +375,22 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_virustotal_v3_identifier_reputation_analysis_1() called")
 
-    code_2__threat_indicator_url = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_url")) != "" else "null")  # pylint: disable=used-before-assignment
-    code_2__threat_indicator_domain = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_domain")) != "" else "null")  # pylint: disable=used-before-assignment
-    code_2__threat_indicator_ip = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_ip")) != "" else "null")  # pylint: disable=used-before-assignment
-    code_2__threat_indicator_hash = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_hash")) != "" else "null")  # pylint: disable=used-before-assignment
+    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
+    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"])
+    filtered_cf_result_2 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"])
+    filtered_cf_result_3 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output"])
 
-    domain_combined_value = phantom.concatenate(code_2__threat_indicator_domain, dedup=True)
-    ip_combined_value = phantom.concatenate(code_2__threat_indicator_ip, dedup=True)
-    file_hash_combined_value = phantom.concatenate(code_2__threat_indicator_hash, dedup=True)
+    filtered_cf_result_0_data_output = [item[0] for item in filtered_cf_result_0]
+    filtered_cf_result_1_data_output = [item[0] for item in filtered_cf_result_1]
+    filtered_cf_result_2_data_output = [item[0] for item in filtered_cf_result_2]
+    filtered_cf_result_3_data_output = [item[0] for item in filtered_cf_result_3]
+
+    domain_combined_value = phantom.concatenate(filtered_cf_result_1_data_output, dedup=True)
+    ip_combined_value = phantom.concatenate(filtered_cf_result_2_data_output, dedup=True)
+    file_hash_combined_value = phantom.concatenate(filtered_cf_result_3_data_output, dedup=True)
 
     inputs = {
-        "url": code_2__threat_indicator_url,
+        "url": filtered_cf_result_0_data_output,
         "domain": domain_combined_value,
         "ip": ip_combined_value,
         "file_hash": file_hash_combined_value,
