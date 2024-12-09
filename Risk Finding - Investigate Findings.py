@@ -791,18 +791,37 @@ def code_2(action=None, success=None, container=None, results=None, handle=None,
     filtered_cf_result_3_data_output = [item[0] for item in filtered_cf_result_3]
     filtered_cf_result_4_data_output = [item[0] for item in filtered_cf_result_4]
 
-    code_2__threat_indicator_value = None
+    code_2__threat_indicator_hash = None
+    code_2__threat_indicator_ip = None
+    code_2__threat_indicator_domain = None
+    code_2__threat_indicator_url = None
+    code_2__threat_indicator_process = None
 
     ################################################################################
     ## Custom Code Start
     ################################################################################
 
     # Write your custom code here...
-    phantom.debug(filtered_cf_result_0_data_output)
-    phantom.debug(filtered_cf_result_1_data_output)
-    phantom.debug(filtered_cf_result_2_data_output)
-    phantom.debug(filtered_cf_result_3_data_output)
-    phantom.debug(filtered_cf_result_4_data_output)
+    if filtered_cf_result_0_data_output:
+        code_2__threat_indicator_hash = filtered_cf_result_0_data_output[0][1]
+        
+    if filtered_cf_result_1_data_output:
+        code_2__threat_indicator_process = filtered_cf_result_1_data_output[0][1]
+    
+    if filtered_cf_result_2_data_output:
+        code_2__threat_indicator_ip = filtered_cf_result_2_data_output[0][1]
+
+    if filtered_cf_result_3_data_output:
+        code_2__threat_indicator_url = filtered_cf_result_3_data_output[0][1]
+
+    if filtered_cf_result_4_data_output:
+        code_2__threat_indicator_domain = filtered_cf_result_4_data_output[0][1]
+    
+    phantom.debug(code_2__threat_indicator_hash)
+    phantom.debug(code_2__threat_indicator_process)
+    phantom.debug(code_2__threat_indicator_ip)
+    phantom.debug(code_2__threat_indicator_url)
+    phantom.debug(code_2__threat_indicator_domain)
     
     
 
@@ -810,7 +829,11 @@ def code_2(action=None, success=None, container=None, results=None, handle=None,
     ## Custom Code End
     ################################################################################
 
-    phantom.save_run_data(key="code_2:threat_indicator_value", value=json.dumps(code_2__threat_indicator_value))
+    phantom.save_run_data(key="code_2:threat_indicator_hash", value=json.dumps(code_2__threat_indicator_hash))
+    phantom.save_run_data(key="code_2:threat_indicator_ip", value=json.dumps(code_2__threat_indicator_ip))
+    phantom.save_run_data(key="code_2:threat_indicator_domain", value=json.dumps(code_2__threat_indicator_domain))
+    phantom.save_run_data(key="code_2:threat_indicator_url", value=json.dumps(code_2__threat_indicator_url))
+    phantom.save_run_data(key="code_2:threat_indicator_process", value=json.dumps(code_2__threat_indicator_process))
 
     return
 
