@@ -101,9 +101,47 @@
                     "sourcePort": "16_out",
                     "targetNode": "15",
                     "targetPort": "15_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 3
+                        }
+                    ],
+                    "id": "port_5_to_port_17",
+                    "sourceNode": "5",
+                    "sourcePort": "5_out",
+                    "targetNode": "17",
+                    "targetPort": "17_in"
+                },
+                {
+                    "id": "port_17_to_port_15",
+                    "sourceNode": "17",
+                    "sourcePort": "17_out",
+                    "targetNode": "15",
+                    "targetPort": "15_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 4
+                        }
+                    ],
+                    "id": "port_5_to_port_18",
+                    "sourceNode": "5",
+                    "sourcePort": "5_out",
+                    "targetNode": "18",
+                    "targetPort": "18_in"
+                },
+                {
+                    "id": "port_18_to_port_15",
+                    "sourceNode": "18",
+                    "sourcePort": "18_out",
+                    "targetNode": "15",
+                    "targetPort": "15_in"
                 }
             ],
-            "hash": "9ea9cdc1db8134ae3f92725696386369c1a71109",
+            "hash": "53805d6d58e5661ddc105bbed2334fe8cc591db5",
             "nodes": {
                 "0": {
                     "data": {
@@ -141,7 +179,7 @@
                     "type": "end",
                     "warnings": {},
                     "x": 1000,
-                    "y": 1320
+                    "y": 1400
                 },
                 "10": {
                     "data": {
@@ -485,25 +523,25 @@
                         "inputs": {
                             "domain": {
                                 "datapaths": [
-                                    "list_demux_1:custom_function_result.data.output"
+                                    "ip_and_domain_list:custom_function_result.data.output"
                                 ],
                                 "deduplicate": false
                             },
                             "file_hash": {
                                 "datapaths": [
-                                    "list_demux_1:custom_function_result.data.output"
+                                    "hash_list:custom_function_result.data.output"
                                 ],
                                 "deduplicate": false
                             },
                             "ip": {
                                 "datapaths": [
-                                    "list_demux_1:custom_function_result.data.output"
+                                    "ip_and_domain_list:custom_function_result.data.output"
                                 ],
                                 "deduplicate": false
                             },
                             "url": {
                                 "datapaths": [
-                                    "list_demux_1:custom_function_result.data.output"
+                                    "url_list:custom_function_result.data.output"
                                 ],
                                 "deduplicate": false
                             }
@@ -534,6 +572,8 @@
                 "16": {
                     "data": {
                         "advanced": {
+                            "customName": "hash list",
+                            "customNameId": 0,
                             "join": []
                         },
                         "customFunction": {
@@ -542,7 +582,7 @@
                             "repoName": "community"
                         },
                         "functionId": 1,
-                        "functionName": "list_demux_1",
+                        "functionName": "hash_list",
                         "id": "16",
                         "loop": {
                             "enabled": false,
@@ -587,8 +627,130 @@
                     "id": "16",
                     "type": "utility",
                     "warnings": {},
-                    "x": 740,
+                    "x": 320,
                     "y": 900
+                },
+                "17": {
+                    "data": {
+                        "advanced": {
+                            "customName": "ip and domain list",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_demux",
+                            "repoName": "community"
+                        },
+                        "functionId": 2,
+                        "functionName": "ip_and_domain_list",
+                        "id": "17",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_demux",
+                                "name": "list_demux"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_demux": {
+                                "input_list": "filtered-data:filter_1:condition_4:run_query_1:action_result.data.*.threat_object"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "17",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 800,
+                    "y": 880
+                },
+                "18": {
+                    "data": {
+                        "advanced": {
+                            "customName": "url list",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_demux",
+                            "repoName": "community"
+                        },
+                        "functionId": 3,
+                        "functionName": "url_list",
+                        "id": "18",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_demux",
+                                "name": "list_demux"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_demux": {
+                                "input_list": "filtered-data:filter_1:condition_5:run_query_1:action_result.data.*.threat_object"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "18",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 60,
+                    "y": 860
                 },
                 "2": {
                     "data": {
@@ -712,38 +874,19 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "in",
-                                        "param": "url",
+                                        "param": "hash,file_hash",
                                         "value": "run_query_1:action_result.data.*.threat_object_type"
                                     },
                                     {
-                                        "op": "in",
-                                        "param": "file",
-                                        "value": "run_query_1:action_result.data.*.threat_object_type"
-                                    },
-                                    {
-                                        "op": "in",
-                                        "param": "hash",
-                                        "value": "run_query_1:action_result.data.*.threat_object_type"
-                                    },
-                                    {
-                                        "op": "in",
-                                        "param": "domain",
-                                        "value": "run_query_1:action_result.data.*.threat_object_type"
-                                    },
-                                    {
-                                        "op": "in",
-                                        "param": "ip",
-                                        "value": "run_query_1:action_result.data.*.threat_object_type"
-                                    },
-                                    {
-                                        "op": "in",
-                                        "param": "file_hash",
+                                        "conditionIndex": 0,
+                                        "op": "not in",
+                                        "param": "process",
                                         "value": "run_query_1:action_result.data.*.threat_object_type"
                                     }
                                 ],
                                 "conditionIndex": 0,
-                                "customName": "identifier reputation analysis",
-                                "logic": "or"
+                                "customName": "hash reputation analysis",
+                                "logic": "and"
                             },
                             {
                                 "comparisons": [
@@ -788,6 +931,38 @@
                                 "conditionIndex": 2,
                                 "customName": "malicious powershell",
                                 "logic": "and"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 3,
+                                        "op": "in",
+                                        "param": "ip",
+                                        "value": "run_query_1:action_result.data.*.threat_object_type"
+                                    },
+                                    {
+                                        "conditionIndex": 3,
+                                        "op": "in",
+                                        "param": "domain",
+                                        "value": "run_query_1:action_result.data.*.threat_object_type"
+                                    }
+                                ],
+                                "conditionIndex": 3,
+                                "customName": "ip and domain rep analysis",
+                                "logic": "or"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 4,
+                                        "op": "in",
+                                        "param": "url",
+                                        "value": "run_query_1:action_result.data.*.threat_object_type"
+                                    }
+                                ],
+                                "conditionIndex": 4,
+                                "customName": "url list",
+                                "logic": "and"
                             }
                         ],
                         "functionId": 1,
@@ -799,8 +974,8 @@
                     "id": "5",
                     "type": "filter",
                     "warnings": {},
-                    "x": 1040,
-                    "y": 760
+                    "x": 800,
+                    "y": 660
                 },
                 "8": {
                     "data": {
@@ -912,7 +1087,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T01:20:51.899043+00:00",
+    "create_time": "2024-12-09T01:33:31.189355+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
