@@ -141,7 +141,7 @@
                     "targetPort": "15_in"
                 }
             ],
-            "hash": "d7f05fa2ae479a1dc2133c01903b2a526551001c",
+            "hash": "d7791d78ec503bcf74f5da27dccf70c6a532d3dc",
             "nodes": {
                 "0": {
                     "data": {
@@ -892,7 +892,7 @@
                                 "comparisons": [
                                     {
                                         "conditionIndex": 1,
-                                        "op": "==",
+                                        "op": "in",
                                         "param": "run_query_1:action_result.data.*.threat_object_type",
                                         "value": "process"
                                     },
@@ -1087,7 +1087,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T01:33:31.189355+00:00",
+    "create_time": "2024-12-09T01:36:49.619384+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

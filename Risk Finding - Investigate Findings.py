@@ -121,7 +121,7 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
         container=container,
         logical_operator="and",
         conditions=[
-            ["run_query_1:action_result.data.*.threat_object_type", "==", "process"],
+            ["run_query_1:action_result.data.*.threat_object_type", "in", "process"],
             ["windows", "in", "run_query_1:action_result.data.*.risk_object_category"]
         ],
         name="filter_1:condition_2",
