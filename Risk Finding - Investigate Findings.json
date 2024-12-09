@@ -77,26 +77,33 @@
                     "targetPort": "1_in"
                 },
                 {
-                    "conditions": [
-                        {
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_5_to_port_15",
-                    "sourceNode": "5",
-                    "sourcePort": "5_out",
-                    "targetNode": "15",
-                    "targetPort": "15_in"
-                },
-                {
                     "id": "port_15_to_port_11",
                     "sourceNode": "15",
                     "sourcePort": "15_out",
                     "targetNode": "11",
                     "targetPort": "11_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_5_to_port_16",
+                    "sourceNode": "5",
+                    "sourcePort": "5_out",
+                    "targetNode": "16",
+                    "targetPort": "16_in"
+                },
+                {
+                    "id": "port_16_to_port_15",
+                    "sourceNode": "16",
+                    "sourcePort": "16_out",
+                    "targetNode": "15",
+                    "targetPort": "15_in"
                 }
             ],
-            "hash": "d7f05fa2ae479a1dc2133c01903b2a526551001c",
+            "hash": "9ea9cdc1db8134ae3f92725696386369c1a71109",
             "nodes": {
                 "0": {
                     "data": {
@@ -269,7 +276,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 720,
-                    "y": 1060
+                    "y": 1180
                 },
                 "12": {
                     "data": {
@@ -478,25 +485,25 @@
                         "inputs": {
                             "domain": {
                                 "datapaths": [
-                                    "filtered-data:filter_1:condition_1:run_query_1:action_result.data.*.threat_object"
+                                    "list_demux_1:custom_function_result.data.output"
                                 ],
                                 "deduplicate": false
                             },
                             "file_hash": {
                                 "datapaths": [
-                                    "filtered-data:filter_1:condition_1:run_query_1:action_result.data.*.threat_object"
+                                    "list_demux_1:custom_function_result.data.output"
                                 ],
                                 "deduplicate": false
                             },
                             "ip": {
                                 "datapaths": [
-                                    "filtered-data:filter_1:condition_1:run_query_1:action_result.data.*.threat_object"
+                                    "list_demux_1:custom_function_result.data.output"
                                 ],
                                 "deduplicate": false
                             },
                             "url": {
                                 "datapaths": [
-                                    "filtered-data:filter_1:condition_1:run_query_1:action_result.data.*.threat_object"
+                                    "list_demux_1:custom_function_result.data.output"
                                 ],
                                 "deduplicate": false
                             }
@@ -521,7 +528,66 @@
                     "id": "15",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 720,
+                    "x": 740,
+                    "y": 1040
+                },
+                "16": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_demux",
+                            "repoName": "community"
+                        },
+                        "functionId": 1,
+                        "functionName": "list_demux_1",
+                        "id": "16",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_demux",
+                                "name": "list_demux"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_demux": {
+                                "input_list": "filtered-data:filter_1:condition_1:run_query_1:action_result.data.*.threat_object"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "16",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 740,
                     "y": 900
                 },
                 "2": {
@@ -846,7 +912,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T01:13:33.537220+00:00",
+    "create_time": "2024-12-09T01:20:51.899043+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
