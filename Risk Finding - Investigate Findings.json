@@ -211,7 +211,7 @@
                     "targetPort": "13_in"
                 }
             ],
-            "hash": "906a33d820a16886e5484c08d795f3f0200f40da",
+            "hash": "329482cea8c43ae1234a3ee27429824f10dcedb5",
             "nodes": {
                 "0": {
                     "data": {
@@ -725,107 +725,6 @@
                     "warnings": {},
                     "x": 980,
                     "y": 980
-                },
-                "28": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "conditions": [
-                            {
-                                "comparisons": [
-                                    {
-                                        "conditionIndex": 0,
-                                        "op": "!=",
-                                        "param": "code_2:custom_function:threat_indicator_hash",
-                                        "value": ""
-                                    }
-                                ],
-                                "conditionIndex": 0,
-                                "customName": "hash",
-                                "display": "If",
-                                "logic": "and",
-                                "type": "if"
-                            },
-                            {
-                                "comparisons": [
-                                    {
-                                        "conditionIndex": 1,
-                                        "op": "!=",
-                                        "param": "code_2:custom_function:threat_indicator_process",
-                                        "value": ""
-                                    }
-                                ],
-                                "conditionIndex": 1,
-                                "customName": "process",
-                                "display": "Else If",
-                                "logic": "and",
-                                "type": "elif"
-                            },
-                            {
-                                "comparisons": [
-                                    {
-                                        "conditionIndex": 2,
-                                        "op": "!=",
-                                        "param": "code_2:custom_function:threat_indicator_ip",
-                                        "value": ""
-                                    }
-                                ],
-                                "conditionIndex": 2,
-                                "customName": "ip",
-                                "display": "Else If",
-                                "logic": "and",
-                                "type": "elif"
-                            },
-                            {
-                                "comparisons": [
-                                    {
-                                        "conditionIndex": 3,
-                                        "op": "!=",
-                                        "param": "code_2:custom_function:threat_indicator_url",
-                                        "value": ""
-                                    }
-                                ],
-                                "conditionIndex": 3,
-                                "customName": "url",
-                                "display": "Else If",
-                                "logic": "and",
-                                "type": "elif"
-                            },
-                            {
-                                "comparisons": [
-                                    {
-                                        "conditionIndex": 4,
-                                        "op": "!=",
-                                        "param": "code_2:custom_function:threat_indicator_domain",
-                                        "value": ""
-                                    }
-                                ],
-                                "conditionIndex": 4,
-                                "customName": "domain",
-                                "display": "Else If",
-                                "logic": "and",
-                                "type": "elif"
-                            }
-                        ],
-                        "functionId": 1,
-                        "functionName": "decision_1",
-                        "id": "28",
-                        "type": "decision"
-                    },
-                    "errors": {},
-                    "id": "28",
-                    "type": "decision",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 1180,
-                    "y": 1380
                 },
                 "29": {
                     "data": {
@@ -1434,7 +1333,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T06:39:38.349253+00:00",
+    "create_time": "2024-12-09T06:46:24.691607+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
