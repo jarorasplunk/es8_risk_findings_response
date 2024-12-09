@@ -120,7 +120,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "d7f05fa2ae479a1dc2133c01903b2a526551001c",
+            "hash": "1ee32670ac72f5bb925458ab17c57614abe7a9b7",
             "nodes": {
                 "0": {
                     "data": {
@@ -142,7 +142,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 1000,
-                    "y": -40.00000000000004
+                    "y": -40.00000000000008
                 },
                 "1": {
                     "data": {
@@ -523,7 +523,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 980,
-                    "y": 119.99999999999994
+                    "y": 120
                 },
                 "4": {
                     "data": {
@@ -602,8 +602,28 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "in",
-                                        "param": "run_query_1:action_result.data.*.threat_object_type",
-                                        "value": "url,file,hash,domain,ip"
+                                        "param": "url",
+                                        "value": "run_query_1:action_result.data.*.threat_object_type"
+                                    },
+                                    {
+                                        "op": "in",
+                                        "param": "file",
+                                        "value": "run_query_1:action_result.data.*.threat_object_type"
+                                    },
+                                    {
+                                        "op": "in",
+                                        "param": "hash",
+                                        "value": "run_query_1:action_result.data.*.threat_object_type"
+                                    },
+                                    {
+                                        "op": "in",
+                                        "param": "domain",
+                                        "value": "run_query_1:action_result.data.*.threat_object_type"
+                                    },
+                                    {
+                                        "op": "in",
+                                        "param": "ip",
+                                        "value": "run_query_1:action_result.data.*.threat_object_type"
                                     }
                                 ],
                                 "conditionIndex": 0,
@@ -827,7 +847,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-04T04:48:33.539816+00:00",
+    "create_time": "2024-12-09T00:51:03.575328+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

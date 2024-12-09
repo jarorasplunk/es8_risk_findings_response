@@ -104,8 +104,13 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     # collect filtered artifact ids and results for 'if' condition 1
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
+        logical_operator="or",
         conditions=[
-            ["run_query_1:action_result.data.*.threat_object_type", "in", "url,file,hash,domain,ip"]
+            ["url", "in", "run_query_1:action_result.data.*.threat_object_type"],
+            ["file", "in", "run_query_1:action_result.data.*.threat_object_type"],
+            ["hash", "in", "run_query_1:action_result.data.*.threat_object_type"],
+            ["domain", "in", "run_query_1:action_result.data.*.threat_object_type"],
+            ["ip", "in", "run_query_1:action_result.data.*.threat_object_type"]
         ],
         name="filter_1:condition_1",
         delimiter=None)
@@ -156,13 +161,13 @@ def playbook_splunk_identifier_activity_analysis_1(action=None, success=None, co
 
     filtered_result_0_data___threat_object = [item[0] for item in filtered_result_0_data_filter_1]
 
-    ip_domain_file_url_combined_value = phantom.concatenate(filtered_result_0_data___threat_object, dedup=True)
+    domain_file_url_ip_combined_value = phantom.concatenate(filtered_result_0_data___threat_object, dedup=True)
 
     inputs = {
-        "url": ip_domain_file_url_combined_value,
-        "file": ip_domain_file_url_combined_value,
-        "domain": ip_domain_file_url_combined_value,
-        "ip": ip_domain_file_url_combined_value,
+        "ip": domain_file_url_ip_combined_value,
+        "url": domain_file_url_ip_combined_value,
+        "file": domain_file_url_ip_combined_value,
+        "domain": domain_file_url_ip_combined_value,
     }
 
     ################################################################################
