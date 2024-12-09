@@ -170,34 +170,6 @@ def threat_indicator_filter(action=None, success=None, container=None, results=N
 
 
 @phantom.playbook_block()
-def playbook_internal_host_winrm_investigate_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("playbook_internal_host_winrm_investigate_1() called")
-
-    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_2:run_query_1:action_result.data.*.risk_object"])
-
-    filtered_result_0_data___risk_object = [item[0] for item in filtered_result_0_data_filter_1]
-
-    inputs = {
-        "ip_or_hostname": filtered_result_0_data___risk_object,
-    }
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    # call playbook "community/internal_host_winrm_investigate", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("community/internal_host_winrm_investigate", container=container, name="playbook_internal_host_winrm_investigate_1", callback=add_task_note_2, inputs=inputs)
-
-    return
-
-
-@phantom.playbook_block()
 def get_phase_id_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("get_phase_id_1() called")
 
@@ -320,57 +292,13 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
 
 
 @phantom.playbook_block()
-def add_task_note_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("add_task_note_2() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    content_formatted_string = phantom.format(
-        container=container,
-        template="""Host investigation launched, please check the diag files returned from the host.\n""",
-        parameters=[])
-
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
-
-    parameters = []
-
-    # build parameters list for 'add_task_note_2' call
-    for finding_data_item in finding_data:
-        if finding_data_item[0] is not None and content_formatted_string is not None:
-            parameters.append({
-                "id": finding_data_item[0],
-                "title": "Windows Host investigation:",
-                "content": content_formatted_string,
-                "task_id": "",
-                "phase_id": "",
-                "response_plan_id": "",
-            })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("add task note", parameters=parameters, name="add_task_note_2", assets=["builtin_mc_connector"])
-
-    return
-
-
-@phantom.playbook_block()
 def playbook_encoded_powershell_investigation_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_encoded_powershell_investigation_1() called")
 
-    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_3:run_query_1:action_result.data.*.threat_object"])
-
-    filtered_result_0_data___threat_object = [item[0] for item in filtered_result_0_data_filter_1]
+    code_2__threat_indicator_process = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_process")) != "" else "null")  # pylint: disable=used-before-assignment
 
     inputs = {
-        "powershell_process": filtered_result_0_data___threat_object,
+        "powershell_process": code_2__threat_indicator_process,
     }
 
     ################################################################################
@@ -445,21 +373,21 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_virustotal_v3_identifier_reputation_analysis_1() called")
 
-    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_4:threat_object:custom_function_result.data.output"])
-    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_5:threat_object:custom_function_result.data.output"])
-    filtered_cf_result_2 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_3:threat_object:custom_function_result.data.output"])
-    filtered_cf_result_3 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:threat_object:custom_function_result.data.output"])
+    code_2__threat_indicator_url = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_url")) != "" else "null")  # pylint: disable=used-before-assignment
+    code_2__threat_indicator_domain = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_domain")) != "" else "null")  # pylint: disable=used-before-assignment
+    code_2__threat_indicator_ip = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_ip")) != "" else "null")  # pylint: disable=used-before-assignment
+    code_2__threat_indicator_hash = json.loads(_ if (_ := phantom.get_run_data(key="code_2:threat_indicator_hash")) != "" else "null")  # pylint: disable=used-before-assignment
 
-    filtered_cf_result_0_data_output = [item[0] for item in filtered_cf_result_0]
-    filtered_cf_result_1_data_output = [item[0] for item in filtered_cf_result_1]
-    filtered_cf_result_2_data_output = [item[0] for item in filtered_cf_result_2]
-    filtered_cf_result_3_data_output = [item[0] for item in filtered_cf_result_3]
+    url_combined_value = phantom.concatenate(code_2__threat_indicator_url, dedup=True)
+    domain_combined_value = phantom.concatenate(code_2__threat_indicator_domain, dedup=True)
+    ip_combined_value = phantom.concatenate(code_2__threat_indicator_ip, dedup=True)
+    file_hash_combined_value = phantom.concatenate(code_2__threat_indicator_hash, dedup=True)
 
     inputs = {
-        "url": filtered_cf_result_0_data_output,
-        "domain": filtered_cf_result_1_data_output,
-        "ip": filtered_cf_result_2_data_output,
-        "file_hash": filtered_cf_result_3_data_output,
+        "url": url_combined_value,
+        "domain": domain_combined_value,
+        "ip": ip_combined_value,
+        "file_hash": file_hash_combined_value,
     }
 
     ################################################################################
@@ -834,6 +762,80 @@ def code_2(action=None, success=None, container=None, results=None, handle=None,
     phantom.save_run_data(key="code_2:threat_indicator_domain", value=json.dumps(code_2__threat_indicator_domain))
     phantom.save_run_data(key="code_2:threat_indicator_url", value=json.dumps(code_2__threat_indicator_url))
     phantom.save_run_data(key="code_2:threat_indicator_process", value=json.dumps(code_2__threat_indicator_process))
+
+    decision_1(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def decision_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("decision_1() called")
+
+    # check for 'if' condition 1
+    found_match_1 = phantom.decision(
+        container=container,
+        conditions=[
+            ["code_2:custom_function:threat_indicator_hash", "!=", ""]
+        ],
+        delimiter=None)
+
+    # call connected blocks if condition 1 matched
+    if found_match_1:
+        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'elif' condition 2
+    found_match_2 = phantom.decision(
+        container=container,
+        conditions=[
+            ["code_2:custom_function:threat_indicator_process", "!=", ""]
+        ],
+        delimiter=None)
+
+    # call connected blocks if condition 2 matched
+    if found_match_2:
+        playbook_encoded_powershell_investigation_1(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'elif' condition 3
+    found_match_3 = phantom.decision(
+        container=container,
+        conditions=[
+            ["code_2:custom_function:threat_indicator_ip", "!=", ""]
+        ],
+        delimiter=None)
+
+    # call connected blocks if condition 3 matched
+    if found_match_3:
+        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'elif' condition 4
+    found_match_4 = phantom.decision(
+        container=container,
+        conditions=[
+            ["code_2:custom_function:threat_indicator_url", "!=", ""]
+        ],
+        delimiter=None)
+
+    # call connected blocks if condition 4 matched
+    if found_match_4:
+        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'elif' condition 5
+    found_match_5 = phantom.decision(
+        container=container,
+        conditions=[
+            ["code_2:custom_function:threat_indicator_domain", "!=", ""]
+        ],
+        delimiter=None)
+
+    # call connected blocks if condition 5 matched
+    if found_match_5:
+        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle)
+        return
 
     return
 
