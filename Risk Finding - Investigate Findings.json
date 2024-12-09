@@ -136,7 +136,7 @@
                     "targetPort": "27_in"
                 }
             ],
-            "hash": "2e23cb6f9576c92bf861349c450b831f05381319",
+            "hash": "2dff6e1b78069255b4a684a53674d3f946e204aa",
             "nodes": {
                 "0": {
                     "data": {
@@ -1606,7 +1606,7 @@
                     "errors": {},
                     "id": "27",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(filtered_cf_result_0_data_output)\n    phantom.debug(filtered_cf_result_1_data_output)\n    phantom.debug(filtered_cf_result_3_data_output)\n    phantom.debug(filtered_cf_result_3_data_output)\n    phantom.debug(filtered_cf_result_4_data_output)\n    \n    phantom.debug(filtered_cf_result_0_data_output[1])\n    phantom.debug(filtered_cf_result_1_data_output[1])\n    phantom.debug(filtered_cf_result_3_data_output[1])\n    phantom.debug(filtered_cf_result_3_data_output[1])\n    phantom.debug(filtered_cf_result_4_data_output[1])\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(filtered_cf_result_0_data_output[0])\n    phantom.debug(filtered_cf_result_1_data_output[0])\n    phantom.debug(filtered_cf_result_3_data_output[0])\n    phantom.debug(filtered_cf_result_3_data_output[0])\n    phantom.debug(filtered_cf_result_4_data_output[0])\n    \n    phantom.debug(filtered_cf_result_0_data_output[0][1])\n    phantom.debug(filtered_cf_result_1_data_output[0][1])\n    phantom.debug(filtered_cf_result_3_data_output[0][1])\n    phantom.debug(filtered_cf_result_3_data_output[0][1])\n    phantom.debug(filtered_cf_result_4_data_output[0][1])\n\n",
                     "warnings": {},
                     "x": 1000,
                     "y": 1000
@@ -1873,7 +1873,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T02:46:05.189402+00:00",
+    "create_time": "2024-12-09T02:47:50.320138+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
