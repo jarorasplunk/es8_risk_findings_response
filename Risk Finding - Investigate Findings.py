@@ -92,7 +92,19 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["splunk"], callback=threat_object_type)
+    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["splunk"], callback=run_query_1_callback)
+
+    return
+
+
+@phantom.playbook_block()
+def run_query_1_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("run_query_1_callback() called")
+
+    
+    threat_object_type(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+    threat_list(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+
 
     return
 
@@ -628,7 +640,7 @@ def threat_object(action=None, success=None, container=None, results=None, handl
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="threat_object", callback=list_zip_7)
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="threat_object")
 
     return
 
@@ -750,6 +762,41 @@ def debug_8(action=None, success=None, container=None, results=None, handle=None
     ################################################################################
 
     phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_8")
+
+    return
+
+
+@phantom.playbook_block()
+def threat_list(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("threat_list() called")
+
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.threat_object_type","run_query_1:action_result.data.*.threat_object"], action_results=results)
+
+    run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
+    run_query_1_result_item_1 = [item[1] for item in run_query_1_result_data]
+
+    threat_list__threat_list = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    threat_list__threat_list = []
+    
+    for i in range(len(run_query_1_result_item_0)):
+        for threat_object_type, threat_object in zip(run_query_1_result_item_0, run_query_1_result_item_1):
+            threat_list_tuple = []
+            threat_list_tuple.append(threat_object_type)
+            threat_list_tuple.append(threat_object)
+        threat_list__threat_list[i] = threat_list_tuple
+            
+    phantom.debug(threat_list__threat_list)
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_run_data(key="threat_list:threat_list", value=json.dumps(threat_list__threat_list))
 
     return
 

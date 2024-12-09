@@ -124,21 +124,21 @@
                     "targetPort": "15_in"
                 },
                 {
-                    "id": "port_20_to_port_22",
-                    "sourceNode": "20",
-                    "sourcePort": "20_out",
-                    "targetNode": "22",
-                    "targetPort": "22_in"
-                },
-                {
                     "id": "port_22_to_port_23",
                     "sourceNode": "22",
                     "sourcePort": "22_out",
                     "targetNode": "23",
                     "targetPort": "23_in"
+                },
+                {
+                    "id": "port_4_to_port_24",
+                    "sourceNode": "4",
+                    "sourcePort": "4_out",
+                    "targetNode": "24",
+                    "targetPort": "24_in"
                 }
             ],
-            "hash": "0f80b1dd600e65cc4af67a6de7bf83569314b943",
+            "hash": "d4d9d547e6a87fe1c9a75f34cedfd9d67a770b5e",
             "nodes": {
                 "0": {
                     "data": {
@@ -1281,7 +1281,14 @@
                     "errors": {},
                     "id": "22",
                     "type": "utility",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 1220,
                     "y": 640
                 },
@@ -1468,6 +1475,33 @@
                     "warnings": {},
                     "x": 1420,
                     "y": 744.5
+                },
+                "24": {
+                    "data": {
+                        "advanced": {
+                            "customName": "threat list",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "threat_list",
+                        "id": "24",
+                        "inputParameters": [
+                            "run_query_1:action_result.data.*.threat_object_type",
+                            "run_query_1:action_result.data.*.threat_object"
+                        ],
+                        "outputVariables": [
+                            "threat_list"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "24",
+                    "type": "code",
+                    "userCode": "\n    # Write your custom code here...\n    threat_list__threat_list = []\n    \n    for i in range(len(run_query_1_result_item_0)):\n        for threat_object_type, threat_object in zip(run_query_1_result_item_0, run_query_1_result_item_1):\n            threat_list_tuple = []\n            threat_list_tuple.append(threat_object_type)\n            threat_list_tuple.append(threat_object)\n        threat_list__threat_list[i] = threat_list_tuple\n            \n    phantom.debug(threat_list__threat_list)\n",
+                    "warnings": {},
+                    "x": 1440,
+                    "y": 500
                 },
                 "4": {
                     "data": {
@@ -1763,7 +1797,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T02:11:34.575894+00:00",
+    "create_time": "2024-12-09T02:20:44.260387+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
