@@ -14,18 +14,6 @@
                     "targetPort": "5_in"
                 },
                 {
-                    "conditions": [
-                        {
-                            "index": 1
-                        }
-                    ],
-                    "id": "port_5_to_port_8",
-                    "sourceNode": "5",
-                    "sourcePort": "5_out",
-                    "targetNode": "8",
-                    "targetPort": "8_in"
-                },
-                {
                     "id": "port_0_to_port_2",
                     "sourceNode": "0",
                     "sourcePort": "0_out",
@@ -59,18 +47,6 @@
                     "sourcePort": "8_out",
                     "targetNode": "12",
                     "targetPort": "12_in"
-                },
-                {
-                    "conditions": [
-                        {
-                            "index": 2
-                        }
-                    ],
-                    "id": "port_5_to_port_13",
-                    "sourceNode": "5",
-                    "sourcePort": "5_out",
-                    "targetNode": "13",
-                    "targetPort": "13_in"
                 },
                 {
                     "id": "port_13_to_port_14",
@@ -120,7 +96,7 @@
                     "targetPort": "11_in"
                 }
             ],
-            "hash": "d7f05fa2ae479a1dc2133c01903b2a526551001c",
+            "hash": "c9d8e48a1dfda45ac3d9d1f595776f9020538374",
             "nodes": {
                 "0": {
                     "data": {
@@ -400,7 +376,14 @@
                     "errors": {},
                     "id": "13",
                     "type": "playbook",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 1460,
                     "y": 900
                 },
@@ -476,7 +459,11 @@
                     "errors": {},
                     "id": "14",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 1480,
                     "y": 1040
                 },
@@ -784,7 +771,14 @@
                     "errors": {},
                     "id": "8",
                     "type": "playbook",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 1120,
                     "y": 900
                 },
@@ -852,7 +846,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T01:06:06.724970+00:00",
+    "create_time": "2024-12-09T01:13:33.537220+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
