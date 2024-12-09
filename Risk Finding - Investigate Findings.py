@@ -430,11 +430,15 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_virustotal_v3_identifier_reputation_analysis_1() called")
 
+    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:run_query_1:action_result.data.*.threat_object"])
+
+    filtered_result_0_data___threat_object = [item[0] for item in filtered_result_0_data_filter_1]
+
     inputs = {
-        "url": [],
-        "domain": [],
-        "ip": [],
-        "file_hash": [],
+        "url": filtered_result_0_data___threat_object,
+        "domain": filtered_result_0_data___threat_object,
+        "ip": filtered_result_0_data___threat_object,
+        "file_hash": filtered_result_0_data___threat_object,
     }
 
     ################################################################################

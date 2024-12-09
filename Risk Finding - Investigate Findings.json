@@ -120,7 +120,7 @@
                     "targetPort": "11_in"
                 }
             ],
-            "hash": "8a164c6f3b3614ea81880d17abdd587fb953852d",
+            "hash": "8006e25d2d2c338549d805e69f57a72f5f8fee8f",
             "nodes": {
                 "0": {
                     "data": {
@@ -490,19 +490,27 @@
                         "id": "15",
                         "inputs": {
                             "domain": {
-                                "datapaths": [],
+                                "datapaths": [
+                                    "filtered-data:filter_1:condition_1:run_query_1:action_result.data.*.threat_object"
+                                ],
                                 "deduplicate": false
                             },
                             "file_hash": {
-                                "datapaths": [],
+                                "datapaths": [
+                                    "filtered-data:filter_1:condition_1:run_query_1:action_result.data.*.threat_object"
+                                ],
                                 "deduplicate": false
                             },
                             "ip": {
-                                "datapaths": [],
+                                "datapaths": [
+                                    "filtered-data:filter_1:condition_1:run_query_1:action_result.data.*.threat_object"
+                                ],
                                 "deduplicate": false
                             },
                             "url": {
-                                "datapaths": [],
+                                "datapaths": [
+                                    "filtered-data:filter_1:condition_1:run_query_1:action_result.data.*.threat_object"
+                                ],
                                 "deduplicate": false
                             }
                         },
@@ -527,7 +535,7 @@
                     "type": "playbook",
                     "warnings": {},
                     "x": 720,
-                    "y": 904.5
+                    "y": 900
                 },
                 "2": {
                     "data": {
@@ -844,7 +852,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T01:01:41.100531+00:00",
+    "create_time": "2024-12-09T01:06:06.724970+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
