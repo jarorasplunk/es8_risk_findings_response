@@ -110,14 +110,15 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
             ["file", "in", "run_query_1:action_result.data.*.threat_object_type"],
             ["hash", "in", "run_query_1:action_result.data.*.threat_object_type"],
             ["domain", "in", "run_query_1:action_result.data.*.threat_object_type"],
-            ["ip", "in", "run_query_1:action_result.data.*.threat_object_type"]
+            ["ip", "in", "run_query_1:action_result.data.*.threat_object_type"],
+            ["file_hash", "in", "run_query_1:action_result.data.*.threat_object_type"]
         ],
         name="filter_1:condition_1",
         delimiter=None)
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        playbook_splunk_identifier_activity_analysis_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+        playbook_virustotal_v3_identifier_reputation_analysis_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids and results for 'if' condition 2
     matched_artifacts_2, matched_results_2 = phantom.condition(
@@ -149,39 +150,6 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_3 or matched_results_3:
         playbook_encoded_powershell_investigation_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_3, filtered_results=matched_results_3)
-
-    return
-
-
-@phantom.playbook_block()
-def playbook_splunk_identifier_activity_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("playbook_splunk_identifier_activity_analysis_1() called")
-
-    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_3:run_query_1:action_result.data.*.threat_object"])
-
-    filtered_result_0_data___threat_object = [item[0] for item in filtered_result_0_data_filter_1]
-
-    domain_file_url_ip_combined_value = phantom.concatenate(filtered_result_0_data___threat_object, dedup=True)
-
-    inputs = {
-        "ip": domain_file_url_ip_combined_value,
-        "url": domain_file_url_ip_combined_value,
-        "file": domain_file_url_ip_combined_value,
-        "domain": domain_file_url_ip_combined_value,
-    }
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    # call playbook "local/Splunk_Identifier_Activity_Analysis", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("local/Splunk_Identifier_Activity_Analysis", container=container, name="playbook_splunk_identifier_activity_analysis_1", callback=add_task_note_1, inputs=inputs)
 
     return
 
@@ -293,13 +261,13 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
         container=container,
         template="""{0}\n\n\n{1}\n\n""",
         parameters=[
-            "playbook_splunk_identifier_activity_analysis_1:playbook_output:observable",
-            "playbook_splunk_identifier_activity_analysis_1:playbook_output:markdown_report"
+            "playbook_virustotal_v3_identifier_reputation_analysis_1:playbook_output:observable",
+            "playbook_virustotal_v3_identifier_reputation_analysis_1:playbook_output:markdown_report"
         ])
 
     finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.id"])
-    playbook_splunk_identifier_activity_analysis_1_output_observable = phantom.collect2(container=container, datapath=["playbook_splunk_identifier_activity_analysis_1:playbook_output:observable"])
-    playbook_splunk_identifier_activity_analysis_1_output_markdown_report = phantom.collect2(container=container, datapath=["playbook_splunk_identifier_activity_analysis_1:playbook_output:markdown_report"])
+    playbook_virustotal_v3_identifier_reputation_analysis_1_output_observable = phantom.collect2(container=container, datapath=["playbook_virustotal_v3_identifier_reputation_analysis_1:playbook_output:observable"])
+    playbook_virustotal_v3_identifier_reputation_analysis_1_output_markdown_report = phantom.collect2(container=container, datapath=["playbook_virustotal_v3_identifier_reputation_analysis_1:playbook_output:markdown_report"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
 
@@ -307,8 +275,8 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
 
     # build parameters list for 'add_task_note_1' call
     for finding_data_item in finding_data:
-        for playbook_splunk_identifier_activity_analysis_1_output_observable_item in playbook_splunk_identifier_activity_analysis_1_output_observable:
-            for playbook_splunk_identifier_activity_analysis_1_output_markdown_report_item in playbook_splunk_identifier_activity_analysis_1_output_markdown_report:
+        for playbook_virustotal_v3_identifier_reputation_analysis_1_output_observable_item in playbook_virustotal_v3_identifier_reputation_analysis_1_output_observable:
+            for playbook_virustotal_v3_identifier_reputation_analysis_1_output_markdown_report_item in playbook_virustotal_v3_identifier_reputation_analysis_1_output_markdown_report:
                 for get_task_id_1_result_item in get_task_id_1_result_data:
                     for get_phase_id_1_result_item in get_phase_id_1_result_data:
                         if finding_data_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
@@ -454,6 +422,33 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
     ################################################################################
 
     phantom.act("add task note", parameters=parameters, name="add_task_note_3", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_virustotal_v3_identifier_reputation_analysis_1() called")
+
+    inputs = {
+        "url": [],
+        "domain": [],
+        "ip": [],
+        "file_hash": [],
+    }
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    # call playbook "local/VirusTotal_v3_Identifier_Reputation_Analysis", returns the playbook_run_id
+    playbook_run_id = phantom.playbook("local/VirusTotal_v3_Identifier_Reputation_Analysis", container=container, name="playbook_virustotal_v3_identifier_reputation_analysis_1", callback=add_task_note_1, inputs=inputs)
 
     return
 

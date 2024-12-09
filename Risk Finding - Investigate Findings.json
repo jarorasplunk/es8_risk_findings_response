@@ -16,18 +16,6 @@
                 {
                     "conditions": [
                         {
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_5_to_port_7",
-                    "sourceNode": "5",
-                    "sourcePort": "5_out",
-                    "targetNode": "7",
-                    "targetPort": "7_in"
-                },
-                {
-                    "conditions": [
-                        {
                             "index": 1
                         }
                     ],
@@ -64,13 +52,6 @@
                     "sourcePort": "10_out",
                     "targetNode": "4",
                     "targetPort": "4_in"
-                },
-                {
-                    "id": "port_7_to_port_11",
-                    "sourceNode": "7",
-                    "sourcePort": "7_out",
-                    "targetNode": "11",
-                    "targetPort": "11_in"
                 },
                 {
                     "id": "port_8_to_port_12",
@@ -118,9 +99,28 @@
                     "sourcePort": "14_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_5_to_port_15",
+                    "sourceNode": "5",
+                    "sourcePort": "5_out",
+                    "targetNode": "15",
+                    "targetPort": "15_in"
+                },
+                {
+                    "id": "port_15_to_port_11",
+                    "sourceNode": "15",
+                    "sourcePort": "15_out",
+                    "targetNode": "11",
+                    "targetPort": "11_in"
                 }
             ],
-            "hash": "1ee32670ac72f5bb925458ab17c57614abe7a9b7",
+            "hash": "8a164c6f3b3614ea81880d17abdd587fb953852d",
             "nodes": {
                 "0": {
                     "data": {
@@ -247,8 +247,8 @@
                             "content": {
                                 "functionId": 1,
                                 "parameters": [
-                                    "playbook_splunk_identifier_activity_analysis_1:playbook_output:observable",
-                                    "playbook_splunk_identifier_activity_analysis_1:playbook_output:markdown_report"
+                                    "playbook_virustotal_v3_identifier_reputation_analysis_1:playbook_output:observable",
+                                    "playbook_virustotal_v3_identifier_reputation_analysis_1:playbook_output:markdown_report"
                                 ],
                                 "template": "{0}\n\n\n{1}\n\n"
                             },
@@ -292,8 +292,8 @@
                     "id": "11",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 740,
-                    "y": 1080
+                    "x": 720,
+                    "y": 1060
                 },
                 "12": {
                     "data": {
@@ -480,6 +480,55 @@
                     "x": 1480,
                     "y": 1040
                 },
+                "15": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "playbook_VirusTotal_v3_Identifier_Reputation_Analysis_1",
+                        "id": "15",
+                        "inputs": {
+                            "domain": {
+                                "datapaths": [],
+                                "deduplicate": false
+                            },
+                            "file_hash": {
+                                "datapaths": [],
+                                "deduplicate": false
+                            },
+                            "ip": {
+                                "datapaths": [],
+                                "deduplicate": false
+                            },
+                            "url": {
+                                "datapaths": [],
+                                "deduplicate": false
+                            }
+                        },
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "playbookName": "VirusTotal_v3_Identifier_Reputation_Analysis",
+                        "playbookRepo": 2,
+                        "playbookRepoName": "local",
+                        "playbookType": "data",
+                        "synchronous": true,
+                        "type": "playbook"
+                    },
+                    "errors": {},
+                    "id": "15",
+                    "type": "playbook",
+                    "warnings": {},
+                    "x": 720,
+                    "y": 904.5
+                },
                 "2": {
                     "data": {
                         "action": "get finding or investigation",
@@ -624,10 +673,15 @@
                                         "op": "in",
                                         "param": "ip",
                                         "value": "run_query_1:action_result.data.*.threat_object_type"
+                                    },
+                                    {
+                                        "op": "in",
+                                        "param": "file_hash",
+                                        "value": "run_query_1:action_result.data.*.threat_object_type"
                                     }
                                 ],
                                 "conditionIndex": 0,
-                                "customName": "identifier activity analysis",
+                                "customName": "identifier reputation analysis",
                                 "logic": "or"
                             },
                             {
@@ -686,63 +740,6 @@
                     "warnings": {},
                     "x": 1040,
                     "y": 760
-                },
-                "7": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "functionId": 1,
-                        "functionName": "playbook_Splunk_Identifier_Activity_Analysis_1",
-                        "id": "7",
-                        "inputs": {
-                            "domain": {
-                                "datapaths": [
-                                    "filtered-data:filter_1:condition_3:run_query_1:action_result.data.*.threat_object"
-                                ],
-                                "deduplicate": true
-                            },
-                            "file": {
-                                "datapaths": [
-                                    "filtered-data:filter_1:condition_3:run_query_1:action_result.data.*.threat_object"
-                                ],
-                                "deduplicate": true
-                            },
-                            "ip": {
-                                "datapaths": [
-                                    "filtered-data:filter_1:condition_3:run_query_1:action_result.data.*.threat_object"
-                                ],
-                                "deduplicate": true
-                            },
-                            "url": {
-                                "datapaths": [
-                                    "filtered-data:filter_1:condition_3:run_query_1:action_result.data.*.threat_object"
-                                ],
-                                "deduplicate": true
-                            }
-                        },
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "playbookName": "Splunk_Identifier_Activity_Analysis",
-                        "playbookRepo": 2,
-                        "playbookRepoName": "local",
-                        "playbookType": "data",
-                        "synchronous": true,
-                        "type": "playbook"
-                    },
-                    "errors": {},
-                    "id": "7",
-                    "type": "playbook",
-                    "warnings": {},
-                    "x": 740,
-                    "y": 900
                 },
                 "8": {
                     "data": {
@@ -847,7 +844,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T00:51:03.575328+00:00",
+    "create_time": "2024-12-09T01:01:41.100531+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
