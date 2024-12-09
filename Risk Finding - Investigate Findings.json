@@ -115,6 +115,18 @@
                     "conditions": [
                         {
                             "index": 0
+                        },
+                        {
+                            "index": 1
+                        },
+                        {
+                            "index": 2
+                        },
+                        {
+                            "index": 3
+                        },
+                        {
+                            "index": 4
                         }
                     ],
                     "id": "port_5_to_port_27",
@@ -124,7 +136,7 @@
                     "targetPort": "27_in"
                 }
             ],
-            "hash": "a6ad3fa19d8dd3e4521d4034a91bcadf64dec25a",
+            "hash": "9d7831f55656e3c121c36993fa505f868cab708a",
             "nodes": {
                 "0": {
                     "data": {
@@ -1425,11 +1437,7 @@
                     "id": "27",
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    phantom.debug(filtered_cf_result_0_data_output)\n    phantom.debug(filtered_cf_result_1_data_output)\n    phantom.debug(filtered_cf_result_2_data_output)\n    phantom.debug(filtered_cf_result_3_data_output)\n    phantom.debug(filtered_cf_result_4_data_output)\n    \n    \n\n",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 980,
                     "y": 1060
                 },
@@ -1695,7 +1703,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T03:05:35.890974+00:00",
+    "create_time": "2024-12-09T03:07:11.224903+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

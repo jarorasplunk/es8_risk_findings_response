@@ -125,7 +125,7 @@ def threat_indicator_filter(action=None, success=None, container=None, results=N
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        pass
+        code_2(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     # collect filtered artifact ids and results for 'if' condition 3
     matched_artifacts_3, matched_results_3 = phantom.condition(
@@ -138,7 +138,7 @@ def threat_indicator_filter(action=None, success=None, container=None, results=N
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_3 or matched_results_3:
-        pass
+        code_2(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_3, filtered_results=matched_results_3)
 
     # collect filtered artifact ids and results for 'if' condition 4
     matched_artifacts_4, matched_results_4 = phantom.condition(
@@ -151,7 +151,7 @@ def threat_indicator_filter(action=None, success=None, container=None, results=N
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_4 or matched_results_4:
-        pass
+        code_2(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_4, filtered_results=matched_results_4)
 
     # collect filtered artifact ids and results for 'if' condition 5
     matched_artifacts_5, matched_results_5 = phantom.condition(
@@ -164,7 +164,7 @@ def threat_indicator_filter(action=None, success=None, container=None, results=N
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_5 or matched_results_5:
-        pass
+        code_2(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_5, filtered_results=matched_results_5)
 
     return
 
