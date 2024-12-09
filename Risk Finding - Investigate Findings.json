@@ -155,7 +155,7 @@
                     "targetPort": "15_in"
                 }
             ],
-            "hash": "8b82f0e736bdb3daad4333a86fab51cbe95f11bd",
+            "hash": "b17e638ce729cae1c9a492e961259cb3c40e1fb8",
             "nodes": {
                 "0": {
                     "data": {
@@ -1216,6 +1216,7 @@
                             {
                                 "comparisons": [
                                     {
+                                        "conditionIndex": 1,
                                         "op": "!=",
                                         "param": "code_2:custom_function:threat_indicator_process",
                                         "value": ""
@@ -1230,6 +1231,7 @@
                             {
                                 "comparisons": [
                                     {
+                                        "conditionIndex": 2,
                                         "op": "!=",
                                         "param": "code_2:custom_function:threat_indicator_ip",
                                         "value": ""
@@ -1244,6 +1246,7 @@
                             {
                                 "comparisons": [
                                     {
+                                        "conditionIndex": 3,
                                         "op": "!=",
                                         "param": "code_2:custom_function:threat_indicator_url",
                                         "value": ""
@@ -1258,6 +1261,7 @@
                             {
                                 "comparisons": [
                                     {
+                                        "conditionIndex": 4,
                                         "op": "!=",
                                         "param": "code_2:custom_function:threat_indicator_domain",
                                         "value": ""
