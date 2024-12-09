@@ -124,7 +124,7 @@
                     "targetPort": "27_in"
                 }
             ],
-            "hash": "38bbe2ba0f7eb271c2e190d4fac9391d027b452d",
+            "hash": "a6ad3fa19d8dd3e4521d4034a91bcadf64dec25a",
             "nodes": {
                 "0": {
                     "data": {
@@ -1424,7 +1424,7 @@
                     "errors": {},
                     "id": "27",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(filtered_cf_result_0_data_output[0])\n    phantom.debug(filtered_cf_result_1_data_output[0])\n    phantom.debug(filtered_cf_result_2_data_output[0])\n    phantom.debug(filtered_cf_result_3_data_output[0])\n    phantom.debug(filtered_cf_result_4_data_output[0])\n    \n    \n\n",
+                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(filtered_cf_result_0_data_output)\n    phantom.debug(filtered_cf_result_1_data_output)\n    phantom.debug(filtered_cf_result_2_data_output)\n    phantom.debug(filtered_cf_result_3_data_output)\n    phantom.debug(filtered_cf_result_4_data_output)\n    \n    \n\n",
                     "warnings": {
                         "config": [
                             "Reconfigure invalid datapath."
@@ -1695,7 +1695,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-09T03:03:46.914662+00:00",
+    "create_time": "2024-12-09T03:05:35.890974+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
