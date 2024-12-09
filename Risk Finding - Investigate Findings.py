@@ -592,45 +592,6 @@ def debug_6(action=None, success=None, container=None, results=None, handle=None
 
 
 @phantom.playbook_block()
-def debug_8(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("debug_8() called")
-
-    threat_list_items__result = phantom.collect2(container=container, datapath=["threat_list_items:custom_function_result.data.output"])
-    threat_list__threat_list = json.loads(_ if (_ := phantom.get_run_data(key="threat_list:threat_list")) != "" else "null")  # pylint: disable=used-before-assignment
-
-    threat_list_items_data_output = [item[0] for item in threat_list_items__result]
-
-    parameters = []
-
-    parameters.append({
-        "input_1": threat_list_items_data_output,
-        "input_2": threat_list__threat_list,
-        "input_3": None,
-        "input_4": None,
-        "input_5": None,
-        "input_6": None,
-        "input_7": None,
-        "input_8": None,
-        "input_9": None,
-        "input_10": None,
-    })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_8")
-
-    return
-
-
-@phantom.playbook_block()
 def threat_list(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("threat_list() called")
 
@@ -686,19 +647,7 @@ def threat_list_items(action=None, success=None, container=None, results=None, h
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="threat_list_items", callback=threat_list_items_callback)
-
-    return
-
-
-@phantom.playbook_block()
-def threat_list_items_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("threat_list_items_callback() called")
-
-    
-    debug_8(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
-    threat_indicator_filter(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
-
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="threat_list_items", callback=threat_indicator_filter)
 
     return
 
