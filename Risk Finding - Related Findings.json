@@ -73,13 +73,6 @@
                     "targetPort": "13_in"
                 },
                 {
-                    "id": "port_0_to_port_33",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "33",
-                    "targetPort": "33_in"
-                },
-                {
                     "id": "port_34_to_port_4",
                     "sourceNode": "34",
                     "sourcePort": "34_out",
@@ -196,9 +189,23 @@
                     "sourcePort": "39_out",
                     "targetNode": "41",
                     "targetPort": "41_in"
+                },
+                {
+                    "id": "port_0_to_port_48",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "48",
+                    "targetPort": "48_in"
+                },
+                {
+                    "id": "port_48_to_port_33",
+                    "sourceNode": "48",
+                    "sourcePort": "48_out",
+                    "targetNode": "33",
+                    "targetPort": "33_in"
                 }
             ],
-            "hash": "83b9c31125a5c7bbf65c17148a74a6ad860f1ced",
+            "hash": "29841c3a2593af19d5751428b3d1e9b5a2746f75",
             "nodes": {
                 "0": {
                     "data": {
@@ -220,7 +227,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 440,
-                    "y": -3.907985046680551e-14
+                    "y": -160
                 },
                 "1": {
                     "data": {
@@ -236,7 +243,7 @@
                     "type": "end",
                     "warnings": {},
                     "x": 540,
-                    "y": 3015
+                    "y": 3020
                 },
                 "13": {
                     "data": {
@@ -289,9 +296,9 @@
                         },
                         "parameters": {
                             "content": "related_findings_note:formatted_data",
-                            "id": "finding:investigation_id",
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "finding:response_plans.*.id",
+                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": "Related Findings in the Analyst Queue:"
                         },
@@ -516,9 +523,9 @@
                                 ],
                                 "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\nClosed Findings as part of this Investigation:\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | Closed |\n%%\n\n\n\nThere may be other \"Intermediate Findings\" contributing to this investigation, please review them in the Overview tab"
                             },
-                            "id": "finding:investigation_id",
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "finding:response_plans.*.id",
+                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": "Analyst decision to close related findings"
                         },
@@ -591,7 +598,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "finding:investigation_id",
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "name": "Gather related findings",
                             "order": "",
                             "status": "Ended",
@@ -613,7 +620,7 @@
                     "id": "31",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 520,
+                    "x": 500,
                     "y": 2520
                 },
                 "32": {
@@ -643,9 +650,9 @@
                         },
                         "parameters": {
                             "content": "Based on the negative response of the user prompt to close findings, all related findings have NOT been closed in the Analyst Queue.",
-                            "id": "finding:investigation_id",
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "finding:response_plans.*.id",
+                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": "Analyst decision to NOT close related findings"
                         },
@@ -712,9 +719,9 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "finding:investigation_id",
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "phase_name": "Preprocess",
-                            "response_template_name": "finding:response_plans.*.name"
+                            "response_template_name": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.name"
                         },
                         "requiredParameters": [
                             {
@@ -736,8 +743,8 @@
                     "id": "33",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 430,
-                    "y": 148.99999999999977
+                    "x": 420,
+                    "y": 140
                 },
                 "34": {
                     "data": {
@@ -765,9 +772,9 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "finding:investigation_id",
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "phase_name": "Preprocess",
-                            "response_template_name": "finding:response_plans.*.name",
+                            "response_template_name": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.name",
                             "task_name": "Gather related findings"
                         },
                         "requiredParameters": [
@@ -794,8 +801,8 @@
                     "id": "34",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 430,
-                    "y": 297.9999999999998
+                    "x": 440,
+                    "y": 300
                 },
                 "37": {
                     "data": {
@@ -845,8 +852,8 @@
                     "id": "37",
                     "type": "decision",
                     "warnings": {},
-                    "x": 510,
-                    "y": 596
+                    "x": 520,
+                    "y": 600
                 },
                 "38": {
                     "data": {
@@ -879,9 +886,9 @@
                                 "parameters": [],
                                 "template": "There are no individual findings in this investigation as it is comprised of only \"Intermediate Findings\".\n\n\nTo review the Intermediate Findings, check the \"Overview\" tab\n"
                             },
-                            "id": "finding:investigation_id",
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "finding:response_plans.*.id",
+                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": "Related Intermediate Findings in the Analyst Queue:"
                         },
@@ -983,11 +990,11 @@
                             "query": {
                                 "functionId": 1,
                                 "parameters": [
-                                    "finding:consolidated_findings.info_min_time",
-                                    "finding:consolidated_findings._indextime",
-                                    "finding:consolidated_findings.normalized_risk_object",
-                                    "finding:consolidated_findings.risk_object_type",
-                                    "finding:investigation_id"
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings._indextime",
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type",
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id"
                                 ],
                                 "template": "datamodel Risk.All_Risk \n| search [ | tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1} by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index\n| `get_mitre_annotations`\n| rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type\n| `generate_findings_summary`\n| stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)`\n| `dedup_and_compute_common_fbd_fields`, threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type), num_mitre_techniques=mvcount('annotations.mitre_attack'), annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack')\n| fillnull value=0 num_mitre_techniques, mitre_tactic_id_count, mitre_technique_id_count, total_event_count, risk_score\n| fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids\n| `drop_dm_object_name(\"All_Risk\")`\n| where normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n| where num_mitre_techniques>3 OR risk_score>100 OR total_event_count>5\n| eval all_finding_ids=mvdedup(finding_ids)\n| fields all_finding_ids\n| mvexpand all_finding_ids\n| rename all_finding_ids AS source_event_id ]\n| `add_events({4})`"
                             },
@@ -1016,7 +1023,7 @@
                     "id": "4",
                     "type": "action",
                     "warnings": {},
-                    "x": 420,
+                    "x": 400,
                     "y": 440
                 },
                 "41": {
@@ -1226,9 +1233,9 @@
                                 ],
                                 "template": "| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n"
                             },
-                            "id": "finding:investigation_id",
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "finding:response_plans.*.id",
+                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": "Previously or Already Closed Findings:"
                         },
@@ -1313,6 +1320,49 @@
                     "warnings": {},
                     "x": 180,
                     "y": 1860
+                },
+                "48": {
+                    "data": {
+                        "action": "refresh finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "refresh_finding_or_investigation_1",
+                        "id": "48",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "48",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 420,
+                    "y": -20
                 }
             },
             "notes": ""
@@ -1325,7 +1375,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T13:19:26.077042+00:00",
+    "create_time": "2024-12-10T02:45:06.868627+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
