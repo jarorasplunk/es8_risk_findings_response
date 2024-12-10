@@ -239,7 +239,7 @@
                     "targetPort": "42_in"
                 }
             ],
-            "hash": "1b712a12d682e67fcbec7ed6b8d150c94e384beb",
+            "hash": "e79109bfde8d42f79b1b1f61b7b266f4634a14aa",
             "nodes": {
                 "0": {
                     "data": {
@@ -261,7 +261,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 1020,
-                    "y": -280.0000000000001
+                    "y": -280.00000000000017
                 },
                 "1": {
                     "data": {
@@ -539,27 +539,19 @@
                         "id": "15",
                         "inputs": {
                             "domain": {
-                                "datapaths": [
-                                    "filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"
-                                ],
-                                "deduplicate": true
+                                "datapaths": [],
+                                "deduplicate": false
                             },
                             "file_hash": {
-                                "datapaths": [
-                                    "filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output"
-                                ],
-                                "deduplicate": true
+                                "datapaths": [],
+                                "deduplicate": false
                             },
                             "ip": {
-                                "datapaths": [
-                                    "filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"
-                                ],
-                                "deduplicate": true
+                                "datapaths": [],
+                                "deduplicate": false
                             },
                             "url": {
-                                "datapaths": [
-                                    "filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"
-                                ],
+                                "datapaths": [],
                                 "deduplicate": false
                             }
                         },
@@ -573,8 +565,8 @@
                             "pauseValue": 2
                         },
                         "playbookName": "VirusTotal_v3_Identifier_Reputation_Analysis",
-                        "playbookRepo": 2,
-                        "playbookRepoName": "local",
+                        "playbookRepo": 3,
+                        "playbookRepoName": "es8_risk_findings_response",
                         "playbookType": "data",
                         "synchronous": true,
                         "type": "playbook"
@@ -629,7 +621,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 1000,
-                    "y": 19.999999999999943
+                    "y": 19.999999999999915
                 },
                 "24": {
                     "data": {
@@ -1445,7 +1437,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 1010,
-                    "y": -115.50000000000009
+                    "y": -115.50000000000011
                 },
                 "48": {
                     "data": {
@@ -1651,7 +1643,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 980,
-                    "y": 179.9999999999998
+                    "y": 179.99999999999974
                 }
             },
             "notes": ""
@@ -1664,7 +1656,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T15:40:19.226334+00:00",
+    "create_time": "2024-12-10T15:54:44.872129+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
