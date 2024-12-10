@@ -434,6 +434,8 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
 
     # Iterate over the lists
     for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):
+        phantom.debug(item1)
+        phantom.debug(item2)
         if item1 is not None and item2 is not None:
             if isinstance(item1, list) and isinstance(item2, list):
                 # If both items are lists, pair their elements individually
