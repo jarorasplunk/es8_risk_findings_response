@@ -834,14 +834,12 @@ def playbook_splunk_attack_analyzer_dynamic_analysis_1(action=None, success=None
     phantom.debug("playbook_splunk_attack_analyzer_dynamic_analysis_1() called")
 
     filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
-    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output"])
 
     filtered_cf_result_0_data_output = [item[0] for item in filtered_cf_result_0]
-    filtered_cf_result_1_data_output = [item[0] for item in filtered_cf_result_1]
 
     inputs = {
         "url": filtered_cf_result_0_data_output,
-        "hash": filtered_cf_result_1_data_output,
+        "hash": [""],
         "domain": filtered_cf_result_0_data_output,
     }
 
