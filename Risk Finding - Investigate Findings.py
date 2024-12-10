@@ -445,11 +445,12 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
                 # Otherwise, pair the elements directly
                 result.append([item1, item2])
 
+    phantom.debug(result)
     # Output the result
-    for pair in result:
-        threat_list__threat_list.append(pair)
+    #for pair in result:
+    #    threat_list__threat_list.append(pair)
         
-    phantom.debug(threat_list__threat_list)
+    #phantom.debug(threat_list__threat_list)
 
     #threat_list__threat_list = []
     #threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]
