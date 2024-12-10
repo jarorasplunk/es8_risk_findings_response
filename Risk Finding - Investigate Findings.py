@@ -992,6 +992,7 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
             for domain__result_item in domain__result:
                 for url__result_item in url__result:
                     for process__result_item in process__result:
+                        process__result_item = process__result_item.replace('"','\"')
                         for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
                             parameters.append({
                                 "command": "| makeresults",
