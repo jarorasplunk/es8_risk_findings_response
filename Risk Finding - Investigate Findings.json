@@ -7,13 +7,6 @@
             "description": "",
             "edges": [
                 {
-                    "id": "port_0_to_port_2",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "2",
-                    "targetPort": "2_in"
-                },
-                {
                     "id": "port_2_to_port_9",
                     "sourceNode": "2",
                     "sourcePort": "2_out",
@@ -237,9 +230,23 @@
                     "sourcePort": "46_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
+                },
+                {
+                    "id": "port_0_to_port_47",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "47",
+                    "targetPort": "47_in"
+                },
+                {
+                    "id": "port_47_to_port_2",
+                    "sourceNode": "47",
+                    "sourcePort": "47_out",
+                    "targetNode": "2",
+                    "targetPort": "2_in"
                 }
             ],
-            "hash": "e58f48aaba463fc68580f3fad6f0a8b493960ce1",
+            "hash": "46fd4d3d529aa23cbe5781c80b075db77f6ebbb6",
             "nodes": {
                 "0": {
                     "data": {
@@ -260,8 +267,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 1000,
-                    "y": -40.000000000000206
+                    "x": 1020,
+                    "y": -280
                 },
                 "1": {
                     "data": {
@@ -305,9 +312,9 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "finding:investigation_id",
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "phase_name": "Investigate",
-                            "response_template_name": "finding:response_plans.*.name",
+                            "response_template_name": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.name",
                             "task_name": "Investigate findings"
                         },
                         "requiredParameters": [
@@ -371,9 +378,9 @@
                                 ],
                                 "template": "{0}\n\n\n{1}\n\n"
                             },
-                            "id": "finding:investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "finding:response_plans.*.id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": "Identifier Activity Analysis from Virustotal:"
                         },
@@ -480,9 +487,9 @@
                         },
                         "parameters": {
                             "content": "playbook_encoded_powershell_investigation_1:playbook_output:note_content",
-                            "id": "finding:investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "finding:response_plans.*.id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": {
                                 "functionId": 3,
@@ -613,7 +620,7 @@
                         },
                         "parameters": {
                             "finding_time": "",
-                            "id": "finding:investigation_id",
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "map_consolidated_findings": "1"
                         },
                         "requiredParameters": [
@@ -628,8 +635,8 @@
                     "id": "2",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 980,
-                    "y": 79.99999999999994
+                    "x": 1000,
+                    "y": 20
                 },
                 "24": {
                     "data": {
@@ -1296,9 +1303,9 @@
                                 ],
                                 "template": "{0}\n\n\n{1}\n"
                             },
-                            "id": "finding:investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "finding:response_plans.*.id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": "Dynamic Analysis from Splunk Attack Analyzer:"
                         },
@@ -1369,7 +1376,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "finding:investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "status": "Ended",
                             "task_id": "get_task_id_1:action_result.data.*.task_id"
                         },
@@ -1418,7 +1425,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "finding:investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "pairs": [
                                 {
                                     "name": "threat_indicator_hash",
@@ -1460,6 +1467,49 @@
                     "warnings": {},
                     "x": 820,
                     "y": 2100
+                },
+                "47": {
+                    "data": {
+                        "action": "refresh finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "refresh_finding_or_investigation_1",
+                        "id": "47",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "47",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 1010,
+                    "y": -115.50000000000003
                 },
                 "5": {
                     "data": {
@@ -1573,9 +1623,9 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "finding:investigation_id",
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "phase_name": "Investigate",
-                            "response_template_name": "finding:response_plans.*.name"
+                            "response_template_name": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.name"
                         },
                         "requiredParameters": [
                             {
@@ -1598,7 +1648,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 980,
-                    "y": 179.99999999999991
+                    "y": 179.9999999999999
                 }
             },
             "notes": ""
@@ -1611,7 +1661,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T02:19:01.755860+00:00",
+    "create_time": "2024-12-10T02:58:47.882868+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
