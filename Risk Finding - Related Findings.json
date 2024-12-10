@@ -205,7 +205,7 @@
                     "targetPort": "33_in"
                 }
             ],
-            "hash": "3a68bc3be0083e4fdf65139874d270aa236528ac",
+            "hash": "9a8ab9279695a7cd5d00a3921724a66c85121325",
             "nodes": {
                 "0": {
                     "data": {
@@ -300,7 +300,7 @@
                                 "parameters": [
                                     "related_findings_note:formatted_data"
                                 ],
-                                "template": "{0}\n\nFollow the prompt to manage these related findings in the Analyst Queue.\n\nMessage prompt name: close_findings_prompt"
+                                "template": "{0}\n\n\n\nFollow the prompt to manage these related findings in the Analyst Queue.\n\nMessage prompt name: close_findings_prompt"
                             },
                             "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -1381,7 +1381,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T12:29:10.202403+00:00",
+    "create_time": "2024-12-10T12:31:46.331837+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

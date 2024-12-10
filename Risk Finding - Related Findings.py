@@ -103,7 +103,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""{0}\n\nFollow the prompt to manage these related findings in the Analyst Queue.\n\nMessage prompt name: close_findings_prompt""",
+        template="""{0}\n\n\n\nFollow the prompt to manage these related findings in the Analyst Queue.\n\nMessage prompt name: close_findings_prompt""",
         parameters=[
             "related_findings_note:formatted_data"
         ])
