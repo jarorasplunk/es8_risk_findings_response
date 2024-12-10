@@ -434,13 +434,14 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
 
     # Iterate over the lists
     for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):
-        if isinstance(item1, list) and isinstance(item2, list):
-            # If both items are lists, pair their elements individually
-            for sub_item1, sub_item2 in zip(item1, item2):
-                result.append([sub_item1, sub_item2])
-        else:
-            # Otherwise, pair the elements directly
-            result.append([item1, item2])
+        if item1 is not None and item2 is not None:
+            if isinstance(item1, list) and isinstance(item2, list):
+                # If both items are lists, pair their elements individually
+                for sub_item1, sub_item2 in zip(item1, item2):
+                    result.append([sub_item1, sub_item2])
+            else:
+                # Otherwise, pair the elements directly
+                result.append([item1, item2])
 
     # Output the result
     for pair in result:
