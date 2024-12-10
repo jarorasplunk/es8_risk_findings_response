@@ -269,7 +269,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
                         if finding_data_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
                             parameters.append({
                                 "id": finding_data_item[0],
-                                "title": "Identifier Activity Analysis:",
+                                "title": "Identifier Activity Analysis from Virustotal:",
                                 "content": content_formatted_string,
                                 "task_id": get_task_id_1_result_item[0],
                                 "phase_id": get_phase_id_1_result_item[0],
@@ -286,7 +286,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"])
+    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=playbook_splunk_attack_analyzer_dynamic_analysis_1)
 
     return
 
@@ -366,7 +366,7 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_3", assets=["builtin_mc_connector"])
+    phantom.act("add task note", parameters=parameters, name="add_task_note_3", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
 
     return
 
@@ -375,9 +375,9 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_virustotal_v3_identifier_reputation_analysis_1() called")
 
-    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
-    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"])
-    filtered_cf_result_2 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"])
+    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"])
+    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
+    filtered_cf_result_2 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"])
     filtered_cf_result_3 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output"])
 
     filtered_cf_result_0_data_output = [item[0] for item in filtered_cf_result_0]
@@ -385,14 +385,14 @@ def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success
     filtered_cf_result_2_data_output = [item[0] for item in filtered_cf_result_2]
     filtered_cf_result_3_data_output = [item[0] for item in filtered_cf_result_3]
 
-    domain_combined_value = phantom.concatenate(filtered_cf_result_1_data_output, dedup=True)
-    ip_combined_value = phantom.concatenate(filtered_cf_result_2_data_output, dedup=True)
+    ip_combined_value = phantom.concatenate(filtered_cf_result_0_data_output, dedup=True)
+    domain_combined_value = phantom.concatenate(filtered_cf_result_2_data_output, dedup=True)
     file_hash_combined_value = phantom.concatenate(filtered_cf_result_3_data_output, dedup=True)
 
     inputs = {
-        "url": filtered_cf_result_0_data_output,
-        "domain": domain_combined_value,
         "ip": ip_combined_value,
+        "url": filtered_cf_result_1_data_output,
+        "domain": domain_combined_value,
         "file_hash": file_hash_combined_value,
     }
 
@@ -763,6 +763,193 @@ def process(action=None, success=None, container=None, results=None, handle=None
     ################################################################################
 
     phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="process", callback=join_route_investigation_playbooks)
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_splunk_attack_analyzer_dynamic_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_splunk_attack_analyzer_dynamic_analysis_1() called")
+
+    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
+    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output"])
+
+    filtered_cf_result_0_data_output = [item[0] for item in filtered_cf_result_0]
+    filtered_cf_result_1_data_output = [item[0] for item in filtered_cf_result_1]
+
+    inputs = {
+        "url": filtered_cf_result_0_data_output,
+        "hash": filtered_cf_result_1_data_output,
+        "domain": filtered_cf_result_0_data_output,
+    }
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    # call playbook "es8_risk_findings_response/Splunk_Attack_Analyzer_Dynamic_Analysis", returns the playbook_run_id
+    playbook_run_id = phantom.playbook("es8_risk_findings_response/Splunk_Attack_Analyzer_Dynamic_Analysis", container=container, name="playbook_splunk_attack_analyzer_dynamic_analysis_1", callback=add_task_note_2, inputs=inputs)
+
+    return
+
+
+@phantom.playbook_block()
+def add_task_note_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_task_note_2() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    content_formatted_string = phantom.format(
+        container=container,
+        template="""{0}\n\n\n{1}\n""",
+        parameters=[
+            "playbook_splunk_attack_analyzer_dynamic_analysis_1:playbook_output:observable",
+            "playbook_splunk_attack_analyzer_dynamic_analysis_1:playbook_output:report"
+        ])
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id","finding:response_plans.*.id"])
+    playbook_splunk_attack_analyzer_dynamic_analysis_1_output_observable = phantom.collect2(container=container, datapath=["playbook_splunk_attack_analyzer_dynamic_analysis_1:playbook_output:observable"])
+    playbook_splunk_attack_analyzer_dynamic_analysis_1_output_report = phantom.collect2(container=container, datapath=["playbook_splunk_attack_analyzer_dynamic_analysis_1:playbook_output:report"])
+    get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'add_task_note_2' call
+    for finding_data_item in finding_data:
+        for playbook_splunk_attack_analyzer_dynamic_analysis_1_output_observable_item in playbook_splunk_attack_analyzer_dynamic_analysis_1_output_observable:
+            for playbook_splunk_attack_analyzer_dynamic_analysis_1_output_report_item in playbook_splunk_attack_analyzer_dynamic_analysis_1_output_report:
+                for get_task_id_1_result_item in get_task_id_1_result_data:
+                    for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                        if finding_data_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and finding_data_item[1] is not None:
+                            parameters.append({
+                                "id": finding_data_item[0],
+                                "title": "Dynamic Analysis from Splunk Attack Analyzer:",
+                                "content": content_formatted_string,
+                                "task_id": get_task_id_1_result_item[0],
+                                "phase_id": get_phase_id_1_result_item[0],
+                                "response_plan_id": finding_data_item[1],
+                            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("add task note", parameters=parameters, name="add_task_note_2", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
+
+    return
+
+
+@phantom.playbook_block()
+def join_update_task_in_current_phase_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("join_update_task_in_current_phase_1() called")
+
+    # if the joined function has already been called, do nothing
+    if phantom.get_run_data(key="join_update_task_in_current_phase_1_called"):
+        return
+
+    # save the state that the joined function has now been called
+    phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
+
+    # call connected block "update_task_in_current_phase_1"
+    update_task_in_current_phase_1(container=container, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
+def update_task_in_current_phase_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("update_task_in_current_phase_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+    get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'update_task_in_current_phase_1' call
+    for finding_data_item in finding_data:
+        for get_task_id_1_result_item in get_task_id_1_result_data:
+            if finding_data_item[0] is not None and get_task_id_1_result_item[0] is not None:
+                parameters.append({
+                    "id": finding_data_item[0],
+                    "status": "Ended",
+                    "task_id": get_task_id_1_result_item[0],
+                })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_1", assets=["builtin_mc_connector"], callback=create_event_1)
+
+    return
+
+
+@phantom.playbook_block()
+def create_event_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("create_event_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+    hash__result = phantom.collect2(container=container, datapath=["hash:custom_function_result.data.output"])
+    ip__result = phantom.collect2(container=container, datapath=["ip:custom_function_result.data.output"])
+    domain__result = phantom.collect2(container=container, datapath=["domain:custom_function_result.data.output"])
+    url__result = phantom.collect2(container=container, datapath=["url:custom_function_result.data.output"])
+    process__result = phantom.collect2(container=container, datapath=["process:custom_function_result.data.output"])
+
+    parameters = []
+
+    # build parameters list for 'create_event_1' call
+    for finding_data_item in finding_data:
+        for hash__result_item in hash__result:
+            for ip__result_item in ip__result:
+                for domain__result_item in domain__result:
+                    for url__result_item in url__result:
+                        for process__result_item in process__result:
+                            if finding_data_item[0] is not None:
+                                parameters.append({
+                                    "id": finding_data_item[0],
+                                    "pairs": [
+                                        { "name": "threat_indicator_hash", "value": hash__result_item[0] },
+                                        { "name": "threat_indicator_ip", "value": ip__result_item[0] },
+                                        { "name": "threat_indicator_domain", "value": domain__result_item[0] },
+                                        { "name": "threat_indicator_url", "value": url__result_item[0] },
+                                        { "name": "threat_indicator_process", "value": process__result_item[0] },
+                                    ],
+                                })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("create event", parameters=parameters, name="create_event_1", assets=["builtin_mc_connector"])
 
     return
 
