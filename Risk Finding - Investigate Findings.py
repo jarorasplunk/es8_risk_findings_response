@@ -951,16 +951,16 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
             "ip:custom_function_result.data.output",
             "domain:custom_function_result.data.output",
             "url:custom_function_result.data.output",
-            "filtered-data:route_investigation_playbooks:condition_2:process:custom_function_result.data.output",
-            "process:custom_function_result.data.output"
+            "process:custom_function_result.data.output",
+            "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id"
         ])
 
     hash__result = phantom.collect2(container=container, datapath=["hash:custom_function_result.data.output"])
     ip__result = phantom.collect2(container=container, datapath=["ip:custom_function_result.data.output"])
     domain__result = phantom.collect2(container=container, datapath=["domain:custom_function_result.data.output"])
     url__result = phantom.collect2(container=container, datapath=["url:custom_function_result.data.output"])
-    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_2:process:custom_function_result.data.output"])
     process__result = phantom.collect2(container=container, datapath=["process:custom_function_result.data.output"])
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
@@ -969,8 +969,8 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
         for ip__result_item in ip__result:
             for domain__result_item in domain__result:
                 for url__result_item in url__result:
-                    for filtered_cf_result_0_item in filtered_cf_result_0:
-                        for process__result_item in process__result:
+                    for process__result_item in process__result:
+                        for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
                             if query_formatted_string is not None:
                                 parameters.append({
                                     "command": "| makeresults",
@@ -991,8 +991,8 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
         for ip__result_item in ip__result:
             for domain__result_item in domain__result:
                 for url__result_item in url__result:
-                    for filtered_cf_result_0_item in filtered_cf_result_0:
-                        for process__result_item in process__result:
+                    for process__result_item in process__result:
+                        for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
                             parameters.append({
                                 "command": "| makeresults",
                                 "search_mode": "verbose",
