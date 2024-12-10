@@ -205,7 +205,7 @@
                     "targetPort": "33_in"
                 }
             ],
-            "hash": "29841c3a2593af19d5751428b3d1e9b5a2746f75",
+            "hash": "7931b772697f27ad2c6e23ddb979eed93cf94983",
             "nodes": {
                 "0": {
                     "data": {
@@ -227,7 +227,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 440,
-                    "y": -160
+                    "y": -160.00000000000003
                 },
                 "1": {
                     "data": {
@@ -259,7 +259,7 @@
                             "run_query_1:action_result.data.*.source",
                             "run_query_1:action_result.data.*.source_event_id"
                         ],
-                        "template": "| Detection Name| Finding ID | Link |\n| --- | --- | --- |\n%%\n| {0} | {1} | [Right click and open in new tab](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) |\n%%\n\n\n\n\n\n*Follow the prompt to manage these related findings in the Analyst Queue.*",
+                        "template": "| Detection Name| Finding ID |\n| --- | --- |\n%%\n| {0} | [{1}](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) |\n%%\n\n\n\\n\\nFollow the prompt to manage these related findings in the Analyst Queue.\n\\n\nMessage prompt name: close_findings_prompt",
                         "type": "format"
                     },
                     "errors": {},
@@ -744,7 +744,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 420,
-                    "y": 140
+                    "y": 139.99999999999997
                 },
                 "34": {
                     "data": {
@@ -1362,7 +1362,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 420,
-                    "y": -20
+                    "y": -20.00000000000002
                 }
             },
             "notes": ""
@@ -1375,7 +1375,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T02:45:06.868627+00:00",
+    "create_time": "2024-12-10T12:19:49.064758+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
