@@ -428,8 +428,12 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     ################################################################################
 
     # Write your custom code here...
+    phantom.debug(run_query_1_result_item_0[0])
+    phantom.debug(run_query_1_result_item_1[0])
     threat_list__threat_list = []
     threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0[0], run_query_1_result_item_1[0])]
+    
+    phantom.debug(threat_list__threat_list)
     ################################################################################
     ## Custom Code End
     ################################################################################
