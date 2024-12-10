@@ -281,6 +281,11 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
+    content_formatted_string = phantom.format(
+        container=container,
+        template="""Follow the prompts to manage this Investigation's ownership and status.\n\nMessage prompt name: assignment_decision\n""",
+        parameters=[])
+
     refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_2_result_data = phantom.collect2(container=container, datapath=["get_task_id_2:action_result.data.*.task_id","get_task_id_2:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
@@ -291,11 +296,11 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
         for get_task_id_2_result_item in get_task_id_2_result_data:
             for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                if refresh_finding_or_investigation_1_result_item[0] is not None and get_task_id_2_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
+                if refresh_finding_or_investigation_1_result_item[0] is not None and content_formatted_string is not None and get_task_id_2_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
                     parameters.append({
                         "id": refresh_finding_or_investigation_1_result_item[0],
                         "title": "User Response Required",
-                        "content": "Follow the prompts to manage this Investigation's ownership and status.",
+                        "content": content_formatted_string,
                         "task_id": get_task_id_2_result_item[0],
                         "phase_id": get_phase_id_1_result_item[0],
                         "response_plan_id": refresh_finding_or_investigation_1_result_item[1],

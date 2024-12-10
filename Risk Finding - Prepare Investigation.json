@@ -157,7 +157,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "69db2c3f44fd7c1d2611f7373f16eac7b8dcb40b",
+            "hash": "912e2a8b06905c714b620c12a21f633aecd131b0",
             "nodes": {
                 "0": {
                     "data": {
@@ -179,7 +179,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 200,
-                    "y": -300.0000000000001
+                    "y": -300.00000000000017
                 },
                 "1": {
                     "data": {
@@ -326,7 +326,11 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "content": "Follow the prompts to manage this Investigation's ownership and status.",
+                            "content": {
+                                "functionId": 1,
+                                "parameters": [],
+                                "template": "Follow the prompts to manage this Investigation's ownership and status.\n\nMessage prompt name: assignment_decision\n"
+                            },
                             "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
                             "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
@@ -668,7 +672,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 190,
-                    "y": -135.50000000000009
+                    "y": -135.5000000000001
                 },
                 "29": {
                     "data": {
@@ -803,7 +807,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 180,
-                    "y": 119.99999999999974
+                    "y": 119.99999999999972
                 },
                 "30": {
                     "data": {
@@ -1124,7 +1128,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-08T02:32:02.282421+00:00",
+    "create_time": "2024-12-10T12:15:59.705581+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
