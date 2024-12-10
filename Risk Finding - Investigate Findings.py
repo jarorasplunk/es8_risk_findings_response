@@ -500,6 +500,7 @@ def threat_indicator_values(action=None, success=None, container=None, results=N
     ################################################################################
 
     # Write your custom code here...
+    import re
     
     threat_indicator_values__threat_indicator_hash = []
     threat_indicator_values__threat_indicator_ip = []
@@ -513,7 +514,11 @@ def threat_indicator_values(action=None, success=None, container=None, results=N
         threat_indicator_values__threat_indicator_hash.append(None)
         
     if filtered_cf_result_1_data_output:
-        threat_indicator_values__threat_indicator_process.append(filtered_cf_result_1_data_output[0][1])
+        if '"' in filtered_cf_result_1_data_output[0][1]:
+            escaped_process = re.sub(r'"', r'\"', filtered_cf_result_1_data_output[0][1])
+            threat_indicator_values__threat_indicator_process.append(escaped_process)
+        else:
+            threat_indicator_values__threat_indicator_process.append(filtered_cf_result_1_data_output[0][1])
     else:
         threat_indicator_values__threat_indicator_process.append(None)
     

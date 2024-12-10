@@ -246,7 +246,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "c196c9a08985a2ab7b2bea026587a5a5771d5aa2",
+            "hash": "757412ca1cbe402d377f2b39411e167adc11f910",
             "nodes": {
                 "0": {
                     "data": {
@@ -756,7 +756,7 @@
                     "errors": {},
                     "id": "27",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    \n    threat_indicator_values__threat_indicator_hash = []\n    threat_indicator_values__threat_indicator_ip = []\n    threat_indicator_values__threat_indicator_domain = []\n    threat_indicator_values__threat_indicator_url = []\n    threat_indicator_values__threat_indicator_process = []\n    \n    if filtered_cf_result_0_data_output:\n        threat_indicator_values__threat_indicator_hash.append(filtered_cf_result_0_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_hash.append(None)\n        \n    if filtered_cf_result_1_data_output:\n        threat_indicator_values__threat_indicator_process.append(filtered_cf_result_1_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_process.append(None)\n    \n    if filtered_cf_result_2_data_output:\n        threat_indicator_values__threat_indicator_ip.append(filtered_cf_result_2_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_ip.append(None)\n\n    if filtered_cf_result_3_data_output:\n        threat_indicator_values__threat_indicator_url.append(filtered_cf_result_3_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_url.append(None)\n\n    if filtered_cf_result_4_data_output:\n        threat_indicator_values__threat_indicator_domain.append(filtered_cf_result_4_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_domain.append(None)\n    \n    phantom.debug(threat_indicator_values__threat_indicator_hash)\n    phantom.debug(threat_indicator_values__threat_indicator_process)\n    phantom.debug(threat_indicator_values__threat_indicator_ip)\n    phantom.debug(threat_indicator_values__threat_indicator_url)\n    phantom.debug(threat_indicator_values__threat_indicator_domain)\n    \n    \n\n",
+                    "userCode": "\n    # Write your custom code here...\n    import re\n    \n    threat_indicator_values__threat_indicator_hash = []\n    threat_indicator_values__threat_indicator_ip = []\n    threat_indicator_values__threat_indicator_domain = []\n    threat_indicator_values__threat_indicator_url = []\n    threat_indicator_values__threat_indicator_process = []\n    \n    if filtered_cf_result_0_data_output:\n        threat_indicator_values__threat_indicator_hash.append(filtered_cf_result_0_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_hash.append(None)\n        \n    if filtered_cf_result_1_data_output:\n        if '\"' in filtered_cf_result_1_data_output[0][1]:\n            escaped_process = re.sub(r'\"', r'\\\"', filtered_cf_result_1_data_output[0][1])\n            threat_indicator_values__threat_indicator_process.append(escaped_process)\n        else:\n            threat_indicator_values__threat_indicator_process.append(filtered_cf_result_1_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_process.append(None)\n    \n    if filtered_cf_result_2_data_output:\n        threat_indicator_values__threat_indicator_ip.append(filtered_cf_result_2_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_ip.append(None)\n\n    if filtered_cf_result_3_data_output:\n        threat_indicator_values__threat_indicator_url.append(filtered_cf_result_3_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_url.append(None)\n\n    if filtered_cf_result_4_data_output:\n        threat_indicator_values__threat_indicator_domain.append(filtered_cf_result_4_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_domain.append(None)\n    \n    phantom.debug(threat_indicator_values__threat_indicator_hash)\n    phantom.debug(threat_indicator_values__threat_indicator_process)\n    phantom.debug(threat_indicator_values__threat_indicator_ip)\n    phantom.debug(threat_indicator_values__threat_indicator_url)\n    phantom.debug(threat_indicator_values__threat_indicator_domain)\n    \n    \n\n",
                     "warnings": {},
                     "x": 980,
                     "y": 980
@@ -1659,7 +1659,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T06:03:23.523774+00:00",
+    "create_time": "2024-12-10T06:11:34.864496+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
