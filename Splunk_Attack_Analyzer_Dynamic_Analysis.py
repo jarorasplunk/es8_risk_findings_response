@@ -42,7 +42,7 @@ def saa_input_filter(action=None, success=None, container=None, results=None, ha
     matched_artifacts_2, matched_results_2 = phantom.condition(
         container=container,
         conditions=[
-            ["playbook_input:vault_id", "!=", ""]
+            ["playbook_input:hash", "!=", ""]
         ],
         name="saa_input_filter:condition_2",
         delimiter=",")
@@ -443,15 +443,16 @@ def file_detonation(action=None, success=None, container=None, results=None, han
     # Queries SAA for information about the provided vault_id(s)
     ################################################################################
 
-    filtered_input_0_vault_id = phantom.collect2(container=container, datapath=["filtered-data:saa_input_filter:condition_2:playbook_input:vault_id"])
+    filtered_input_0_hash = phantom.collect2(container=container, datapath=["filtered-data:saa_input_filter:condition_2:playbook_input:hash"])
 
     parameters = []
 
     # build parameters list for 'file_detonation' call
-    for filtered_input_0_vault_id_item in filtered_input_0_vault_id:
-        if filtered_input_0_vault_id_item[0] is not None:
+    for filtered_input_0_hash_item in filtered_input_0_hash:
+        if filtered_input_0_hash_item[0] is not None:
             parameters.append({
-                "file": filtered_input_0_vault_id_item[0],
+                "user_agent": "Default",
+                "file": filtered_input_0_hash_item[0],
             })
 
     ################################################################################
@@ -464,7 +465,7 @@ def file_detonation(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("detonate file", parameters=parameters, name="file_detonation", assets=["splunk_attack_analyzer"], callback=detonation_status_filter)
+    phantom.act("detonate file", parameters=parameters, name="file_detonation", assets=["saa-cba"], callback=detonation_status_filter)
 
     return
 

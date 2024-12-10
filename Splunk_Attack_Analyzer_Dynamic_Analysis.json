@@ -178,7 +178,7 @@
                 }
             ],
             "globalCustomCode": null,
-            "hash": "b4c47b9b3f066d030716db5aa17252069d7bc6ae",
+            "hash": "3cea388cf43e1da196e20b49ee19cc4c1fffdcdb",
             "nodes": {
                 "0": {
                     "data": {
@@ -193,8 +193,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 190,
-                    "y": -1.0622613899613498e-12
+                    "x": 200,
+                    "y": 0
                 },
                 "1": {
                     "data": {
@@ -210,8 +210,8 @@
                     "type": "end",
                     "userCode": "\n    # Write your custom code here...\n    #phantom.debug(output)\n",
                     "warnings": {},
-                    "x": 190,
-                    "y": 1994
+                    "x": 200,
+                    "y": 2000
                 },
                 "10": {
                     "data": {
@@ -290,7 +290,7 @@
                         },
                         "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
                         "connectorConfigs": [
-                            "splunk_attack_analyzer"
+                            "saa-cba"
                         ],
                         "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
                         "connectorVersion": "v1",
@@ -307,12 +307,18 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "file": "filtered-data:saa_input_filter:condition_2:playbook_input:vault_id"
+                            "file": "filtered-data:saa_input_filter:condition_2:playbook_input:hash",
+                            "user_agent": "Default"
                         },
                         "requiredParameters": [
                             {
                                 "data_type": "string",
                                 "field": "file"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "Default",
+                                "field": "user_agent"
                             }
                         ],
                         "type": "action"
@@ -322,7 +328,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 340,
-                    "y": 328
+                    "y": 320
                 },
                 "15": {
                     "data": {
@@ -388,7 +394,7 @@
                     "userCode": "\n    # Write your custom code here...\n    #parameters = []\n    #for job_ids in file_jobid_detonation_output__jobid:\n    #    for job in job_ids:\n    #        if job is not None:\n    #            parameters.append({\n    #                \"job_id\": job,\n    #                \"timeout\": 5,\n    #            })\n    #phantom.debug(parameters)\n",
                     "warnings": {},
                     "x": 340,
-                    "y": 686
+                    "y": 680
                 },
                 "17": {
                     "data": {
@@ -526,12 +532,24 @@
                                     {
                                         "conditionIndex": 1,
                                         "op": "!=",
-                                        "param": "playbook_input:vault_id",
+                                        "param": "playbook_input:hash",
                                         "value": ""
                                     }
                                 ],
                                 "conditionIndex": 1,
-                                "customName": "saa_vault_id_input",
+                                "customName": "saa_hash_input",
+                                "logic": "and"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "op": "==",
+                                        "param": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 2,
+                                "customName": "saa_domain_input",
                                 "logic": "and"
                             }
                         ],
@@ -787,7 +805,7 @@
                     "type": "filter",
                     "warnings": {},
                     "x": 400,
-                    "y": 506
+                    "y": 500
                 },
                 "6": {
                     "data": {
@@ -937,18 +955,19 @@
         },
         "input_spec": [
             {
-                "contains": [
-                    "url"
-                ],
+                "contains": [],
                 "description": "A URL provided for reputation analysis - Splunk Attack Analyzer",
                 "name": "url"
             },
             {
-                "contains": [
-                    "vault id"
-                ],
+                "contains": [],
                 "description": "A vault_id provided for reputation analysis - Splunk Attack Analyzer",
-                "name": "vault_id"
+                "name": "hash"
+            },
+            {
+                "contains": [],
+                "description": "",
+                "name": "domain"
             }
         ],
         "output_spec": [
@@ -981,7 +1000,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T02:08:35.874761+00:00",
+    "create_time": "2024-12-10T02:11:59.753215+00:00",
     "draft_mode": false,
     "labels": [
         "*"
