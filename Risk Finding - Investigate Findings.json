@@ -218,20 +218,6 @@
                     "targetPort": "45_in"
                 },
                 {
-                    "id": "port_45_to_port_46",
-                    "sourceNode": "45",
-                    "sourcePort": "45_out",
-                    "targetNode": "46",
-                    "targetPort": "46_in"
-                },
-                {
-                    "id": "port_46_to_port_1",
-                    "sourceNode": "46",
-                    "sourcePort": "46_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "id": "port_0_to_port_47",
                     "sourceNode": "0",
                     "sourcePort": "0_out",
@@ -244,9 +230,23 @@
                     "sourcePort": "47_out",
                     "targetNode": "2",
                     "targetPort": "2_in"
+                },
+                {
+                    "id": "port_45_to_port_48",
+                    "sourceNode": "45",
+                    "sourcePort": "45_out",
+                    "targetNode": "48",
+                    "targetPort": "48_in"
+                },
+                {
+                    "id": "port_48_to_port_1",
+                    "sourceNode": "48",
+                    "sourcePort": "48_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "46fd4d3d529aa23cbe5781c80b075db77f6ebbb6",
+            "hash": "c6a6a892558acb2659365439c0ee9b2719e71522",
             "nodes": {
                 "0": {
                     "data": {
@@ -1399,75 +1399,6 @@
                     "x": 820,
                     "y": 1960
                 },
-                "46": {
-                    "data": {
-                        "action": "create event",
-                        "actionType": "post",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "create_event_1",
-                        "id": "46",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
-                            "pairs": [
-                                {
-                                    "name": "threat_indicator_hash",
-                                    "value": "hash:custom_function_result.data.output"
-                                },
-                                {
-                                    "name": "threat_indicator_ip",
-                                    "value": "ip:custom_function_result.data.output"
-                                },
-                                {
-                                    "name": "threat_indicator_domain",
-                                    "value": "domain:custom_function_result.data.output"
-                                },
-                                {
-                                    "name": "threat_indicator_url",
-                                    "value": "url:custom_function_result.data.output"
-                                },
-                                {
-                                    "name": "threat_indicator_process",
-                                    "value": "process:custom_function_result.data.output"
-                                }
-                            ]
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            },
-                            {
-                                "data_type": "array",
-                                "field": "pairs"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "46",
-                    "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 820,
-                    "y": 2100
-                },
                 "47": {
                     "data": {
                         "action": "refresh finding or investigation",
@@ -1510,6 +1441,71 @@
                     "warnings": {},
                     "x": 1010,
                     "y": -115.50000000000003
+                },
+                "48": {
+                    "data": {
+                        "action": "run query",
+                        "actionType": "investigate",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Splunk",
+                        "connectorConfigs": [
+                            "splunk"
+                        ],
+                        "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "run_query_2",
+                        "id": "48",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "command": "| makeresults",
+                            "query": {
+                                "parameters": [
+                                    "filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output",
+                                    "filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output",
+                                    "filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output",
+                                    "filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output",
+                                    "filtered-data:route_investigation_playbooks:condition_2:process:custom_function_result.data.output",
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id"
+                                ],
+                                "template": "| eval threat_indicator_hash = \"{0}\"\n| eval threat_indicator_ip = \"{1}\"\n| eval threat_indicator_domain = \"{2}\"\n| eval threat_indicator_url = \"{3}\"\n| eval threat_indicator_process = \"{4}\"\n| fields threat_indicator_hash threat_indicator_ip threat_indicator_domain threat_indicator_url threat_indicator_process\n| `add_events({5})`\n"
+                            },
+                            "search_mode": "verbose"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "query"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "search",
+                                "field": "command"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "smart",
+                                "field": "search_mode"
+                            }
+                        ],
+                        "type": "action"
+                    },
+                    "errors": {},
+                    "id": "48",
+                    "type": "action",
+                    "warnings": {},
+                    "x": 800,
+                    "y": 2080
                 },
                 "5": {
                     "data": {
@@ -1661,7 +1657,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T02:58:47.882868+00:00",
+    "create_time": "2024-12-10T05:32:30.464008+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

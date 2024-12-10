@@ -900,56 +900,7 @@ def update_task_in_current_phase_1(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_1", assets=["builtin_mc_connector"], callback=create_event_1)
-
-    return
-
-
-@phantom.playbook_block()
-def create_event_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("create_event_1() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
-    hash__result = phantom.collect2(container=container, datapath=["hash:custom_function_result.data.output"])
-    ip__result = phantom.collect2(container=container, datapath=["ip:custom_function_result.data.output"])
-    domain__result = phantom.collect2(container=container, datapath=["domain:custom_function_result.data.output"])
-    url__result = phantom.collect2(container=container, datapath=["url:custom_function_result.data.output"])
-    process__result = phantom.collect2(container=container, datapath=["process:custom_function_result.data.output"])
-
-    parameters = []
-
-    # build parameters list for 'create_event_1' call
-    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
-        for hash__result_item in hash__result:
-            for ip__result_item in ip__result:
-                for domain__result_item in domain__result:
-                    for url__result_item in url__result:
-                        for process__result_item in process__result:
-                            if get_finding_or_investigation_1_result_item[0] is not None:
-                                parameters.append({
-                                    "id": get_finding_or_investigation_1_result_item[0],
-                                    "pairs": [
-                                        { "name": "threat_indicator_hash", "value": hash__result_item[0] },
-                                        { "name": "threat_indicator_ip", "value": ip__result_item[0] },
-                                        { "name": "threat_indicator_domain", "value": domain__result_item[0] },
-                                        { "name": "threat_indicator_url", "value": url__result_item[0] },
-                                        { "name": "threat_indicator_process", "value": process__result_item[0] },
-                                    ],
-                                })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("create event", parameters=parameters, name="create_event_1", assets=["builtin_mc_connector"])
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_1", assets=["builtin_mc_connector"], callback=run_query_2)
 
     return
 
@@ -982,6 +933,62 @@ def refresh_finding_or_investigation_1(action=None, success=None, container=None
     ################################################################################
 
     phantom.act("refresh finding or investigation", parameters=parameters, name="refresh_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=get_finding_or_investigation_1)
+
+    return
+
+
+@phantom.playbook_block()
+def run_query_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("run_query_2() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    query_formatted_string = phantom.format(
+        container=container,
+        template="""| eval threat_indicator_hash = \"{0}\"\n| eval threat_indicator_ip = \"{1}\"\n| eval threat_indicator_domain = \"{2}\"\n| eval threat_indicator_url = \"{3}\"\n| eval threat_indicator_process = \"{4}\"\n| fields threat_indicator_hash threat_indicator_ip threat_indicator_domain threat_indicator_url threat_indicator_process\n| `add_events({5})`\n""",
+        parameters=[
+            "filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output",
+            "filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output",
+            "filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output",
+            "filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output",
+            "filtered-data:route_investigation_playbooks:condition_2:process:custom_function_result.data.output",
+            "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id"
+        ])
+
+    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output"])
+    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"])
+    filtered_cf_result_2 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"])
+    filtered_cf_result_3 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
+    filtered_cf_result_4 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_2:process:custom_function_result.data.output"])
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'run_query_2' call
+    for filtered_cf_result_0_item in filtered_cf_result_0:
+        for filtered_cf_result_1_item in filtered_cf_result_1:
+            for filtered_cf_result_2_item in filtered_cf_result_2:
+                for filtered_cf_result_3_item in filtered_cf_result_3:
+                    for filtered_cf_result_4_item in filtered_cf_result_4:
+                        for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+                            if query_formatted_string is not None:
+                                parameters.append({
+                                    "command": "| makeresults",
+                                    "search_mode": "verbose",
+                                    "query": query_formatted_string,
+                                })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("run query", parameters=parameters, name="run_query_2", assets=["splunk"])
 
     return
 
