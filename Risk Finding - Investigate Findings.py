@@ -428,18 +428,38 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     ################################################################################
 
     # Write your custom code here...
-    phantom.debug(run_query_1_result_item_0)
-    phantom.debug(run_query_1_result_item_1)
-    threat_list__threat_list = []
-    threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]
-    
+
+    # Result list
+    result = []
+
+    # Iterate over the lists
+    for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):
+        if isinstance(item1, list) and isinstance(item2, list):
+            # If both items are lists, pair their elements individually
+            for sub_item1, sub_item2 in zip(item1, item2):
+                result.append([sub_item1, sub_item2])
+        else:
+            # Otherwise, pair the elements directly
+            result.append([item1, item2])
+
+    # Output the result
+    for pair in result:
+        threat_list__threat_list.append(pair)
+        
     phantom.debug(threat_list__threat_list)
-    for item in threat_list__threat_list:
-        for nested_item in item:
-            phantom.debug(nested_item)
-            phantom.debug(type(nested_item))
-            if isinstance(nested_item, list):
-                phantom.debug(len(nested_item))
+
+    #threat_list__threat_list = []
+    #threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]
+    
+    #phantom.debug(threat_list)
+    #for item in threat_list:
+    #    for i in range(len(item)):
+    #        phantom.debug()
+    #    for nested_item in item:
+    #        phantom.debug(nested_item)
+    #        phantom.debug(type(nested_item))
+    #        if isinstance(nested_item, list):
+    #            nested_threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]
     ################################################################################
     ## Custom Code End
     ################################################################################

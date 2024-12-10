@@ -246,7 +246,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "35cff2b22245d40c37364c374b876a3e2836bca6",
+            "hash": "4536acea8b3b9d11873cd0b4e661ef78f9cd6873",
             "nodes": {
                 "0": {
                     "data": {
@@ -660,7 +660,7 @@
                     "errors": {},
                     "id": "24",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    threat_list__threat_list = []\n    threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]\n    \n    phantom.debug(threat_list__threat_list)\n    for item in threat_list__threat_list:\n        for nested_item in item:\n            phantom.debug(nested_item)\n            phantom.debug(type(nested_item))\n            if isinstance(nested_item, list):\n                phantom.debug(len(nested_item))\n",
+                    "userCode": "\n    # Write your custom code here...\n\n    # Result list\n    result = []\n\n    # Iterate over the lists\n    for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):\n        if isinstance(item1, list) and isinstance(item2, list):\n            # If both items are lists, pair their elements individually\n            for sub_item1, sub_item2 in zip(item1, item2):\n                result.append([sub_item1, sub_item2])\n        else:\n            # Otherwise, pair the elements directly\n            result.append([item1, item2])\n\n    # Output the result\n    for pair in result:\n        threat_list__threat_list.append(pair)\n        \n    phantom.debug(threat_list__threat_list)\n\n    #threat_list__threat_list = []\n    #threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]\n    \n    #phantom.debug(threat_list)\n    #for item in threat_list:\n    #    for i in range(len(item)):\n    #        phantom.debug()\n    #    for nested_item in item:\n    #        phantom.debug(nested_item)\n    #        phantom.debug(type(nested_item))\n    #        if isinstance(nested_item, list):\n    #            nested_threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]\n",
                     "warnings": {},
                     "x": 980,
                     "y": 500
@@ -1659,7 +1659,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T14:20:16.461386+00:00",
+    "create_time": "2024-12-10T14:45:39.487390+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
