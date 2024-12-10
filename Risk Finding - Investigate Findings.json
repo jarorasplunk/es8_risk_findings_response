@@ -239,7 +239,7 @@
                     "targetPort": "42_in"
                 }
             ],
-            "hash": "e79109bfde8d42f79b1b1f61b7b266f4634a14aa",
+            "hash": "911f73dff36c6670a29ef324fd8b6de83aecc45e",
             "nodes": {
                 "0": {
                     "data": {
@@ -539,19 +539,27 @@
                         "id": "15",
                         "inputs": {
                             "domain": {
-                                "datapaths": [],
+                                "datapaths": [
+                                    "filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"
+                                ],
                                 "deduplicate": false
                             },
                             "file_hash": {
-                                "datapaths": [],
+                                "datapaths": [
+                                    "filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output"
+                                ],
                                 "deduplicate": false
                             },
                             "ip": {
-                                "datapaths": [],
+                                "datapaths": [
+                                    "filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"
+                                ],
                                 "deduplicate": false
                             },
                             "url": {
-                                "datapaths": [],
+                                "datapaths": [
+                                    "filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"
+                                ],
                                 "deduplicate": false
                             }
                         },
@@ -1656,7 +1664,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T15:54:44.872129+00:00",
+    "create_time": "2024-12-10T15:55:22.354251+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
