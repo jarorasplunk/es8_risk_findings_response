@@ -246,7 +246,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "e58f48aaba463fc68580f3fad6f0a8b493960ce1",
+            "hash": "37f39e3cdd532901b61f30a4a7aa5bfe8a3df63e",
             "nodes": {
                 "0": {
                     "data": {
@@ -1472,12 +1472,12 @@
                             "query": {
                                 "functionId": 2,
                                 "parameters": [
-                                    "filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output",
-                                    "filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output",
-                                    "filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output",
-                                    "filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output",
+                                    "hash:custom_function_result.data.output",
+                                    "ip:custom_function_result.data.output",
+                                    "domain:custom_function_result.data.output",
+                                    "url:custom_function_result.data.output",
                                     "filtered-data:route_investigation_playbooks:condition_2:process:custom_function_result.data.output",
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id"
+                                    "process:custom_function_result.data.output"
                                 ],
                                 "template": "| eval threat_indicator_hash = \"{0}\"\n| eval threat_indicator_ip = \"{1}\"\n| eval threat_indicator_domain = \"{2}\"\n| eval threat_indicator_url = \"{3}\"\n| eval threat_indicator_process = \"{4}\"\n| fields threat_indicator_hash threat_indicator_ip threat_indicator_domain threat_indicator_url threat_indicator_process\n| `add_events({5})`\n"
                             },
@@ -1504,7 +1504,7 @@
                     "errors": {},
                     "id": "48",
                     "type": "action",
-                    "userCode": "\n    # Write your custom code here...\n\n    parameters = []\n\n    # build parameters list for 'run_query_2' call\n    for filtered_cf_result_0_item in filtered_cf_result_0:\n        for filtered_cf_result_1_item in filtered_cf_result_1:\n            for filtered_cf_result_2_item in filtered_cf_result_2:\n                for filtered_cf_result_3_item in filtered_cf_result_3:\n                    for filtered_cf_result_4_item in filtered_cf_result_4:\n                        for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:\n                            parameters.append({\n                                \"command\": \"| makeresults\",\n                                \"search_mode\": \"verbose\",\n                                \"query\": query_formatted_string,\n                            })\n\n\n",
+                    "userCode": "\n    # Write your custom code here...\n\n    parameters = []\n\n    # build parameters list for 'run_query_2' call\n    for hash__result_item in hash__result:\n        for ip__result_item in ip__result:\n            for domain__result_item in domain__result:\n                for url__result_item in url__result:\n                    for filtered_cf_result_0_item in filtered_cf_result_0:\n                        for process__result_item in process__result:\n                            parameters.append({\n                                \"command\": \"| makeresults\",\n                                \"search_mode\": \"verbose\",\n                                \"query\": query_formatted_string,\n                            })\n\n\n",
                     "warnings": {},
                     "x": 800,
                     "y": 2080
@@ -1659,7 +1659,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T05:39:15.411553+00:00",
+    "create_time": "2024-12-10T05:44:46.604176+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
