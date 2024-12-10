@@ -155,7 +155,7 @@
                     "targetPort": "16_in"
                 }
             ],
-            "hash": "f0a466e45f73eb47084b141a2bbbb6b4eff18100",
+            "hash": "3b15fad25dec08154a466f498a00bfc7ac363ea9",
             "nodes": {
                 "0": {
                     "data": {
@@ -177,7 +177,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 380,
-                    "y": -440
+                    "y": -440.00000000000006
                 },
                 "1": {
                     "data": {
@@ -295,7 +295,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 360,
-                    "y": -140
+                    "y": -140.00000000000003
                 },
                 "17": {
                     "data": {
@@ -353,7 +353,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 360,
-                    "y": -20
+                    "y": -20.000000000000025
                 },
                 "18": {
                     "data": {
@@ -558,7 +558,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 680,
-                    "y": 160
+                    "y": 159.99999999999997
                 },
                 "20": {
                     "data": {
@@ -628,7 +628,7 @@
                         "parameters": [
                             "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object"
                         ],
-                        "template": "Review the user: {0} details in Assets and Identities database:\n\nhttps://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/identity_center?form.username={0}&form.priority=*&form.bunit=*&form.category=*&form.watchlist=*\n\nGather intelligence about the user {0} in Asset and Risk Intelligence:\n\nhttps://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkAssetRiskIntelligence/ari_user_search?form.time.earliest=-30d%40d&form.time.latest=now&form.profile=ip&form.series={0}\n",
+                        "template": "Review the user: {0} details:\n[Assets and Identities database](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/identity_center?form.username={0}&form.priority=*&form.bunit=*&form.category=*&form.watchlist=*)\n\n\nGather intelligence about the user: {0} in ARI:\n\n[Asset and Risk Intelligence](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkAssetRiskIntelligence/ari_user_search?form.time.earliest=-30d%40d&form.time.latest=now&form.profile=ip&form.series={0})\n",
                         "type": "format"
                     },
                     "errors": {},
@@ -651,7 +651,7 @@
                         "parameters": [
                             "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object"
                         ],
-                        "template": "Review the asset: {0} details in Assets and Identities database:\n\nhttps://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/asset_center?form.pci_domain=*&form.asset={0}&form.priority=*&form.bunit=*&form.category=*&form.owner=*\n\nGather intelligence about the user {0} in Asset and Risk Intelligence:\n\nhttps://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkAssetRiskIntelligence/ari_network_search?form.time.earliest=-7d%40h&form.time.latest=now&form.profile=ip&form.series={0}",
+                        "template": "Review the asset: {0} details:\n[Assets and Identities database](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/asset_center?form.pci_domain=*&form.asset={0}&form.priority=*&form.bunit=*&form.category=*&form.owner=*)\n\n\nGather intelligence about the asset: {0} in ARI:\n[Asset and Risk Intelligence](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkAssetRiskIntelligence/ari_network_search?form.time.earliest=-7d%40h&form.time.latest=now&form.profile=ip&form.series={0})",
                         "type": "format"
                     },
                     "errors": {},
@@ -1020,7 +1020,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T02:53:20.352468+00:00",
+    "create_time": "2024-12-10T13:44:28.080444+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
