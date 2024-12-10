@@ -431,7 +431,7 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     phantom.debug(run_query_1_result_item_0)
     phantom.debug(run_query_1_result_item_1)
     threat_list__threat_list = []
-    #threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]
+    threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]
     
     phantom.debug(threat_list__threat_list)
     for item in threat_list__threat_list:
