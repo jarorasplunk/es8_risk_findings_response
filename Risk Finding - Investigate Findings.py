@@ -984,6 +984,22 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
 
     # Write your custom code here...
 
+    parameters = []
+
+    # build parameters list for 'run_query_2' call
+    for filtered_cf_result_0_item in filtered_cf_result_0:
+        for filtered_cf_result_1_item in filtered_cf_result_1:
+            for filtered_cf_result_2_item in filtered_cf_result_2:
+                for filtered_cf_result_3_item in filtered_cf_result_3:
+                    for filtered_cf_result_4_item in filtered_cf_result_4:
+                        for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+                            parameters.append({
+                                "command": "| makeresults",
+                                "search_mode": "verbose",
+                                "query": query_formatted_string,
+                            })
+
+
     ################################################################################
     ## Custom Code End
     ################################################################################
