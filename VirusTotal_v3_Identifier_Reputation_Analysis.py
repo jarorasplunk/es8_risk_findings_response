@@ -56,7 +56,7 @@ def url_reputation(action=None, success=None, container=None, results=None, hand
     ## Custom Code End
     ################################################################################
 
-    phantom.act("url reputation", parameters=parameters, name="url_reputation", assets=["virustotal_v3"], callback=url_result_filter)
+    phantom.act("url reputation", parameters=parameters, name="url_reputation", assets=["virustotal_cba"], callback=url_result_filter)
 
     return
 
@@ -280,7 +280,7 @@ def domain_reputation(action=None, success=None, container=None, results=None, h
     ## Custom Code End
     ################################################################################
 
-    phantom.act("domain reputation", parameters=parameters, name="domain_reputation", assets=["virustotal_v3"], callback=domain_result_filter)
+    phantom.act("domain reputation", parameters=parameters, name="domain_reputation", assets=["virustotal_cba"], callback=domain_result_filter)
 
     return
 
@@ -316,7 +316,7 @@ def ip_reputation(action=None, success=None, container=None, results=None, handl
     ## Custom Code End
     ################################################################################
 
-    phantom.act("ip reputation", parameters=parameters, name="ip_reputation", assets=["virustotal_v3"], callback=ip_result_filter)
+    phantom.act("ip reputation", parameters=parameters, name="ip_reputation", assets=["virustotal_cba"], callback=ip_result_filter)
 
     return
 
