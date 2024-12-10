@@ -70,7 +70,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 def related_findings_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("related_findings_note() called")
 
-    template = """| Detection Name| Finding ID |\n| --- | --- |\n%%\n| {0} | [{1}](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) |\n%%\n\n\n\\n\\nFollow the prompt to manage these related findings in the Analyst Queue.\n\\n\nMessage prompt name: close_findings_prompt"""
+    template = """| Detection Name| Finding ID |\n| --- | --- |\n%%\n| {0} | [{1}](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) |\n%%\n"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -101,6 +101,13 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
+    content_formatted_string = phantom.format(
+        container=container,
+        template="""{0}\n\n\\nFollow the prompt to manage these related findings in the Analyst Queue.\n\\n\nMessage prompt name: close_findings_prompt""",
+        parameters=[
+            "related_findings_note:formatted_data"
+        ])
+
     refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
@@ -112,11 +119,11 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
         for get_task_id_1_result_item in get_task_id_1_result_data:
             for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                if refresh_finding_or_investigation_1_result_item[0] is not None and related_findings_note is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
+                if refresh_finding_or_investigation_1_result_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
                     parameters.append({
                         "id": refresh_finding_or_investigation_1_result_item[0],
                         "title": "Related Findings in the Analyst Queue:",
-                        "content": related_findings_note,
+                        "content": content_formatted_string,
                         "task_id": get_task_id_1_result_item[0],
                         "phase_id": get_phase_id_1_result_item[0],
                         "response_plan_id": refresh_finding_or_investigation_1_result_item[1],

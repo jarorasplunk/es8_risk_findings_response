@@ -205,7 +205,7 @@
                     "targetPort": "33_in"
                 }
             ],
-            "hash": "7931b772697f27ad2c6e23ddb979eed93cf94983",
+            "hash": "9fedbb8f5cf3738ed40c640ecb380f17b36472bb",
             "nodes": {
                 "0": {
                     "data": {
@@ -259,7 +259,7 @@
                             "run_query_1:action_result.data.*.source",
                             "run_query_1:action_result.data.*.source_event_id"
                         ],
-                        "template": "| Detection Name| Finding ID |\n| --- | --- |\n%%\n| {0} | [{1}](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) |\n%%\n\n\n\\n\\nFollow the prompt to manage these related findings in the Analyst Queue.\n\\n\nMessage prompt name: close_findings_prompt",
+                        "template": "| Detection Name| Finding ID |\n| --- | --- |\n%%\n| {0} | [{1}](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) |\n%%\n",
                         "type": "format"
                     },
                     "errors": {},
@@ -295,7 +295,13 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "content": "related_findings_note:formatted_data",
+                            "content": {
+                                "functionId": 1,
+                                "parameters": [
+                                    "related_findings_note:formatted_data"
+                                ],
+                                "template": "{0}\n\n\\nFollow the prompt to manage these related findings in the Analyst Queue.\n\\n\nMessage prompt name: close_findings_prompt"
+                            },
                             "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
                             "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
@@ -1375,7 +1381,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T12:19:49.064758+00:00",
+    "create_time": "2024-12-10T12:23:54.748445+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
