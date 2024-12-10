@@ -101,41 +101,6 @@
                     "targetPort": "15_in"
                 },
                 {
-                    "id": "port_27_to_port_38",
-                    "sourceNode": "27",
-                    "sourcePort": "27_out",
-                    "targetNode": "38",
-                    "targetPort": "38_in"
-                },
-                {
-                    "id": "port_27_to_port_39",
-                    "sourceNode": "27",
-                    "sourcePort": "27_out",
-                    "targetNode": "39",
-                    "targetPort": "39_in"
-                },
-                {
-                    "id": "port_27_to_port_40",
-                    "sourceNode": "27",
-                    "sourcePort": "27_out",
-                    "targetNode": "40",
-                    "targetPort": "40_in"
-                },
-                {
-                    "id": "port_27_to_port_41",
-                    "sourceNode": "27",
-                    "sourcePort": "27_out",
-                    "targetNode": "41",
-                    "targetPort": "41_in"
-                },
-                {
-                    "id": "port_27_to_port_42",
-                    "sourceNode": "27",
-                    "sourcePort": "27_out",
-                    "targetNode": "42",
-                    "targetPort": "42_in"
-                },
-                {
                     "id": "port_38_to_port_29",
                     "sourceNode": "38",
                     "sourcePort": "38_out",
@@ -244,9 +209,37 @@
                     "sourcePort": "24_out",
                     "targetNode": "40",
                     "targetPort": "40_in"
+                },
+                {
+                    "id": "port_24_to_port_38",
+                    "sourceNode": "24",
+                    "sourcePort": "24_out",
+                    "targetNode": "38",
+                    "targetPort": "38_in"
+                },
+                {
+                    "id": "port_24_to_port_39",
+                    "sourceNode": "24",
+                    "sourcePort": "24_out",
+                    "targetNode": "39",
+                    "targetPort": "39_in"
+                },
+                {
+                    "id": "port_24_to_port_41",
+                    "sourceNode": "24",
+                    "sourcePort": "24_out",
+                    "targetNode": "41",
+                    "targetPort": "41_in"
+                },
+                {
+                    "id": "port_24_to_port_42",
+                    "sourceNode": "24",
+                    "sourcePort": "24_out",
+                    "targetNode": "42",
+                    "targetPort": "42_in"
                 }
             ],
-            "hash": "0d37ba821defa142103e36f9180b93d6a39033e1",
+            "hash": "1b712a12d682e67fcbec7ed6b8d150c94e384beb",
             "nodes": {
                 "0": {
                     "data": {
@@ -916,11 +909,7 @@
                     "errors": {},
                     "id": "38",
                     "type": "utility",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 440,
                     "y": 1120
                 },
@@ -981,13 +970,9 @@
                     "errors": {},
                     "id": "39",
                     "type": "utility",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
-                    "x": 760,
-                    "y": 1120
+                    "warnings": {},
+                    "x": 720,
+                    "y": 1140
                 },
                 "4": {
                     "data": {
@@ -1173,11 +1158,7 @@
                     "errors": {},
                     "id": "41",
                     "type": "utility",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 1280,
                     "y": 1120
                 },
@@ -1238,11 +1219,7 @@
                     "errors": {},
                     "id": "42",
                     "type": "utility",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 1620,
                     "y": 1120
                 },
@@ -1687,7 +1664,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T15:33:32.183216+00:00",
+    "create_time": "2024-12-10T15:40:19.226334+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

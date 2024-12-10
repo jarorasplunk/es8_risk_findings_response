@@ -489,7 +489,11 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     phantom.save_run_data(key="threat_list:domain", value=json.dumps(threat_list__domain))
     phantom.save_run_data(key="threat_list:process", value=json.dumps(threat_list__process))
 
-    join_domain(container=container)
+    domain(container=container)
+    ip(container=container)
+    hash(container=container)
+    url(container=container)
+    process(container=container)
 
     return
 
@@ -607,12 +611,6 @@ def threat_indicator_values(action=None, success=None, container=None, results=N
     phantom.save_run_data(key="threat_indicator_values:threat_indicator_domain", value=json.dumps(threat_indicator_values__threat_indicator_domain))
     phantom.save_run_data(key="threat_indicator_values:threat_indicator_url", value=json.dumps(threat_indicator_values__threat_indicator_url))
     phantom.save_run_data(key="threat_indicator_values:threat_indicator_process", value=json.dumps(threat_indicator_values__threat_indicator_process))
-
-    ip(container=container)
-    hash(container=container)
-    join_domain(container=container)
-    url(container=container)
-    process(container=container)
 
     return
 
@@ -750,17 +748,6 @@ def hash(action=None, success=None, container=None, results=None, handle=None, f
     ################################################################################
 
     phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="hash", callback=join_route_investigation_playbooks)
-
-    return
-
-
-@phantom.playbook_block()
-def join_domain(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("join_domain() called")
-
-    if phantom.completed(action_names=["run_query_1"], custom_function_names=["threat_list_items"]):
-        # call connected block "domain"
-        domain(container=container, handle=handle)
 
     return
 
