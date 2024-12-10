@@ -509,18 +509,28 @@ def threat_indicator_values(action=None, success=None, container=None, results=N
     
     if filtered_cf_result_0_data_output:
         threat_indicator_values__threat_indicator_hash.append(filtered_cf_result_0_data_output[0][1])
+    else:
+        threat_indicator_values__threat_indicator_hash.append(None)
         
     if filtered_cf_result_1_data_output:
         threat_indicator_values__threat_indicator_process.append(filtered_cf_result_1_data_output[0][1])
+    else:
+        threat_indicator_values__threat_indicator_process.append(None)
     
     if filtered_cf_result_2_data_output:
         threat_indicator_values__threat_indicator_ip.append(filtered_cf_result_2_data_output[0][1])
+    else:
+        threat_indicator_values__threat_indicator_ip.append(None)
 
     if filtered_cf_result_3_data_output:
         threat_indicator_values__threat_indicator_url.append(filtered_cf_result_3_data_output[0][1])
+    else:
+        threat_indicator_values__threat_indicator_url.append(None)
 
     if filtered_cf_result_4_data_output:
         threat_indicator_values__threat_indicator_domain.append(filtered_cf_result_4_data_output[0][1])
+    else:
+        threat_indicator_values__threat_indicator_domain.append(None)
     
     phantom.debug(threat_indicator_values__threat_indicator_hash)
     phantom.debug(threat_indicator_values__threat_indicator_process)
@@ -568,7 +578,7 @@ def route_investigation_playbooks(action=None, success=None, container=None, res
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
         conditions=[
-            ["hash:custom_function_result.data.output", "!=", ""]
+            ["hash:custom_function_result.data.output", "!=", None]
         ],
         name="route_investigation_playbooks:condition_1",
         delimiter=None)
@@ -581,7 +591,7 @@ def route_investigation_playbooks(action=None, success=None, container=None, res
     matched_artifacts_2, matched_results_2 = phantom.condition(
         container=container,
         conditions=[
-            ["process:custom_function_result.data.output", "!=", ""]
+            ["process:custom_function_result.data.output", "!=", None]
         ],
         name="route_investigation_playbooks:condition_2",
         delimiter=None)
@@ -594,7 +604,7 @@ def route_investigation_playbooks(action=None, success=None, container=None, res
     matched_artifacts_3, matched_results_3 = phantom.condition(
         container=container,
         conditions=[
-            ["ip:custom_function_result.data.output", "!=", ""]
+            ["ip:custom_function_result.data.output", "!=", None]
         ],
         name="route_investigation_playbooks:condition_3",
         delimiter=None)
@@ -607,7 +617,7 @@ def route_investigation_playbooks(action=None, success=None, container=None, res
     matched_artifacts_4, matched_results_4 = phantom.condition(
         container=container,
         conditions=[
-            ["url:custom_function_result.data.output", "!=", ""]
+            ["url:custom_function_result.data.output", "!=", None]
         ],
         name="route_investigation_playbooks:condition_4",
         delimiter=None)
@@ -620,7 +630,7 @@ def route_investigation_playbooks(action=None, success=None, container=None, res
     matched_artifacts_5, matched_results_5 = phantom.condition(
         container=container,
         conditions=[
-            ["domain:custom_function_result.data.output", "!=", ""]
+            ["domain:custom_function_result.data.output", "!=", None]
         ],
         name="route_investigation_playbooks:condition_5",
         delimiter=None)
@@ -973,9 +983,9 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
                         for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
                             if query_formatted_string is not None:
                                 parameters.append({
+                                    "query": query_formatted_string,
                                     "command": "| makeresults",
                                     "search_mode": "verbose",
-                                    "query": query_formatted_string,
                                 })
 
     ################################################################################
@@ -983,23 +993,6 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
     ################################################################################
 
     # Write your custom code here...
-
-    parameters = []
-
-    # build parameters list for 'run_query_2' call
-    for hash__result_item in hash__result:
-        for ip__result_item in ip__result:
-            for domain__result_item in domain__result:
-                for url__result_item in url__result:
-                    for process__result_item in process__result:
-                        process__result_item = process__result_item.replace('"','\"')
-                        for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
-                            parameters.append({
-                                "command": "| makeresults",
-                                "search_mode": "verbose",
-                                "query": query_formatted_string,
-                            })
-
 
     ################################################################################
     ## Custom Code End

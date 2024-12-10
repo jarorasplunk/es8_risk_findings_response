@@ -246,7 +246,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "c196c9a08985a2ab7b2bea026587a5a5771d5aa2",
+            "hash": "214db0c7e32217d66e4a5353916ebfd19fec7913",
             "nodes": {
                 "0": {
                     "data": {
@@ -268,7 +268,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 1020,
-                    "y": -280
+                    "y": -280.00000000000006
                 },
                 "1": {
                     "data": {
@@ -636,7 +636,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 1000,
-                    "y": 20
+                    "y": 19.99999999999997
                 },
                 "24": {
                     "data": {
@@ -756,7 +756,7 @@
                     "errors": {},
                     "id": "27",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    \n    threat_indicator_values__threat_indicator_hash = []\n    threat_indicator_values__threat_indicator_ip = []\n    threat_indicator_values__threat_indicator_domain = []\n    threat_indicator_values__threat_indicator_url = []\n    threat_indicator_values__threat_indicator_process = []\n    \n    if filtered_cf_result_0_data_output:\n        threat_indicator_values__threat_indicator_hash.append(filtered_cf_result_0_data_output[0][1])\n        \n    if filtered_cf_result_1_data_output:\n        threat_indicator_values__threat_indicator_process.append(filtered_cf_result_1_data_output[0][1])\n    \n    if filtered_cf_result_2_data_output:\n        threat_indicator_values__threat_indicator_ip.append(filtered_cf_result_2_data_output[0][1])\n\n    if filtered_cf_result_3_data_output:\n        threat_indicator_values__threat_indicator_url.append(filtered_cf_result_3_data_output[0][1])\n\n    if filtered_cf_result_4_data_output:\n        threat_indicator_values__threat_indicator_domain.append(filtered_cf_result_4_data_output[0][1])\n    \n    phantom.debug(threat_indicator_values__threat_indicator_hash)\n    phantom.debug(threat_indicator_values__threat_indicator_process)\n    phantom.debug(threat_indicator_values__threat_indicator_ip)\n    phantom.debug(threat_indicator_values__threat_indicator_url)\n    phantom.debug(threat_indicator_values__threat_indicator_domain)\n    \n    \n\n",
+                    "userCode": "\n    # Write your custom code here...\n    \n    threat_indicator_values__threat_indicator_hash = []\n    threat_indicator_values__threat_indicator_ip = []\n    threat_indicator_values__threat_indicator_domain = []\n    threat_indicator_values__threat_indicator_url = []\n    threat_indicator_values__threat_indicator_process = []\n    \n    if filtered_cf_result_0_data_output:\n        threat_indicator_values__threat_indicator_hash.append(filtered_cf_result_0_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_hash.append(None)\n        \n    if filtered_cf_result_1_data_output:\n        threat_indicator_values__threat_indicator_process.append(filtered_cf_result_1_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_process.append(None)\n    \n    if filtered_cf_result_2_data_output:\n        threat_indicator_values__threat_indicator_ip.append(filtered_cf_result_2_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_ip.append(None)\n\n    if filtered_cf_result_3_data_output:\n        threat_indicator_values__threat_indicator_url.append(filtered_cf_result_3_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_url.append(None)\n\n    if filtered_cf_result_4_data_output:\n        threat_indicator_values__threat_indicator_domain.append(filtered_cf_result_4_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_domain.append(None)\n    \n    phantom.debug(threat_indicator_values__threat_indicator_hash)\n    phantom.debug(threat_indicator_values__threat_indicator_process)\n    phantom.debug(threat_indicator_values__threat_indicator_ip)\n    phantom.debug(threat_indicator_values__threat_indicator_url)\n    phantom.debug(threat_indicator_values__threat_indicator_domain)\n    \n    \n\n",
                     "warnings": {},
                     "x": 980,
                     "y": 980
@@ -775,7 +775,7 @@
                                         "conditionIndex": 0,
                                         "op": "!=",
                                         "param": "hash:custom_function_result.data.output",
-                                        "value": ""
+                                        "value": "None"
                                     }
                                 ],
                                 "conditionIndex": 0,
@@ -788,7 +788,7 @@
                                         "conditionIndex": 1,
                                         "op": "!=",
                                         "param": "process:custom_function_result.data.output",
-                                        "value": ""
+                                        "value": "None"
                                     }
                                 ],
                                 "conditionIndex": 1,
@@ -801,7 +801,7 @@
                                         "conditionIndex": 2,
                                         "op": "!=",
                                         "param": "ip:custom_function_result.data.output",
-                                        "value": ""
+                                        "value": "None"
                                     }
                                 ],
                                 "conditionIndex": 2,
@@ -814,7 +814,7 @@
                                         "conditionIndex": 3,
                                         "op": "!=",
                                         "param": "url:custom_function_result.data.output",
-                                        "value": ""
+                                        "value": "None"
                                     }
                                 ],
                                 "conditionIndex": 3,
@@ -827,7 +827,7 @@
                                         "conditionIndex": 4,
                                         "op": "!=",
                                         "param": "domain:custom_function_result.data.output",
-                                        "value": ""
+                                        "value": "None"
                                     }
                                 ],
                                 "conditionIndex": 4,
@@ -1440,7 +1440,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 1010,
-                    "y": -115.50000000000003
+                    "y": -115.50000000000006
                 },
                 "48": {
                     "data": {
@@ -1504,7 +1504,7 @@
                     "errors": {},
                     "id": "48",
                     "type": "action",
-                    "userCode": "\n    # Write your custom code here...\n\n    parameters = []\n\n    # build parameters list for 'run_query_2' call\n    for hash__result_item in hash__result:\n        for ip__result_item in ip__result:\n            for domain__result_item in domain__result:\n                for url__result_item in url__result:\n                    for process__result_item in process__result:\n                        process__result_item = process__result_item.replace('\"','\\\"')\n                        for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:\n                            parameters.append({\n                                \"command\": \"| makeresults\",\n                                \"search_mode\": \"verbose\",\n                                \"query\": query_formatted_string,\n                            })\n\n\n",
+                    "userCode": "\n    # Write your custom code here...\n\n",
                     "warnings": {},
                     "x": 800,
                     "y": 2080
@@ -1646,7 +1646,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 980,
-                    "y": 179.9999999999999
+                    "y": 179.99999999999986
                 }
             },
             "notes": ""
@@ -1659,7 +1659,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T05:57:20.285750+00:00",
+    "create_time": "2024-12-10T06:03:23.523774+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
