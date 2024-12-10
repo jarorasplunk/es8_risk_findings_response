@@ -431,7 +431,7 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
 
     # Result list
     result = []
-
+    threat_list__threat_list = []
     # Iterate over the lists
     for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):
         phantom.debug(item1)
@@ -446,24 +446,9 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
                 result.append([item1, item2])
 
     phantom.debug(result)
-    # Output the result
-    #for pair in result:
-    #    threat_list__threat_list.append(pair)
-        
-    #phantom.debug(threat_list__threat_list)
-
-    #threat_list__threat_list = []
-    #threat_list__threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]
     
-    #phantom.debug(threat_list)
-    #for item in threat_list:
-    #    for i in range(len(item)):
-    #        phantom.debug()
-    #    for nested_item in item:
-    #        phantom.debug(nested_item)
-    #        phantom.debug(type(nested_item))
-    #        if isinstance(nested_item, list):
-    #            nested_threat_list = [list(pair) for pair in zip(run_query_1_result_item_0, run_query_1_result_item_1)]
+    threat_list__threat_list = result
+    
     ################################################################################
     ## Custom Code End
     ################################################################################
