@@ -435,7 +435,9 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     
     phantom.debug(threat_list__threat_list)
     for item in threat_list__threat_list:
-        phantom.debug(len(item))
+        for nested_item in item:
+            if isinstance(nested_item, list):
+                phantom.debug(len(nested_item))
     ################################################################################
     ## Custom Code End
     ################################################################################
