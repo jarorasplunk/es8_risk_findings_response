@@ -246,7 +246,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "92b47912914274b072353a22189a7d6e78bb9db8",
+            "hash": "1e13ac83566f774d803f7ebbab5369dfd7c388dd",
             "nodes": {
                 "0": {
                     "data": {
@@ -653,14 +653,19 @@
                             "run_query_1:action_result.data.*.threat_object"
                         ],
                         "outputVariables": [
-                            "threat_list"
+                            "threat_list",
+                            "file_hash",
+                            "ip",
+                            "url",
+                            "domain",
+                            "process"
                         ],
                         "type": "code"
                     },
                     "errors": {},
                     "id": "24",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n\n    # Result list\n    result = []\n    threat_list__threat_list = []\n    # Iterate over the lists\n    for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):\n        phantom.debug(item1)\n        phantom.debug(item2)\n        if item1 is not None and item2 is not None:\n            if isinstance(item1, list) and isinstance(item2, list):\n                # If both items are lists, pair their elements individually\n                for sub_item1, sub_item2 in zip(item1, item2):\n                    result.append([sub_item1, sub_item2])\n            else:\n                # Otherwise, pair the elements directly\n                result.append([item1, item2])\n\n    phantom.debug(result)\n    \n    threat_list__threat_list = result\n    \n",
+                    "userCode": "\n    # Write your custom code here...\n    \n\n    threat_list__file_hash = []\n    threat_list__ip = []\n    threat_list__url = []\n    threat_list__domain = []\n    threat_list__process = []\n    \n    # Result list\n    result = []\n    threat_list__threat_list = []\n    # Iterate over the lists\n    for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):\n        phantom.debug(item1)\n        phantom.debug(item2)\n        if item1 is not None and item2 is not None:\n            if isinstance(item1, list) and isinstance(item2, list):\n                # If both items are lists, pair their elements individually\n                for sub_item1, sub_item2 in zip(item1, item2):\n                    result.append([sub_item1, sub_item2])\n            else:\n                # Otherwise, pair the elements directly\n                result.append([item1, item2])\n\n    phantom.debug(result)\n    \n    threat_list__threat_list = result\n    \n    for item in threat_list__threat_list:\n        if 'file_hash' in item:\n            threat_list__file_hash.append(item[1])\n        if 'ip' in item:\n            threat_list__ip.append(item[1])\n        if 'domain' in item:\n            threat_list__domain.append(item[1])\n        if 'url' in item:\n            threat_list__url.append(item[1])\n        if 'process' in item:\n            threat_list__process.append(item[1])\n\n    phantom.debug(threat_list__file_hash)\n    phantom.debug(threat_list__ip)\n    phantom.debug(threat_list__url)\n    phantom.debug(threat_list__domain)\n    phantom.debug(threat_list__process)\n",
                     "warnings": {},
                     "x": 980,
                     "y": 500
@@ -906,7 +911,7 @@
                     "type": "utility",
                     "warnings": {},
                     "x": 440,
-                    "y": 1124.5
+                    "y": 1120
                 },
                 "39": {
                     "data": {
@@ -1659,7 +1664,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T15:04:19.604251+00:00",
+    "create_time": "2024-12-10T15:23:43.742773+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

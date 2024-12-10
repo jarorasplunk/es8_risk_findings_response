@@ -422,13 +422,25 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     run_query_1_result_item_1 = [item[1] for item in run_query_1_result_data]
 
     threat_list__threat_list = None
+    threat_list__file_hash = None
+    threat_list__ip = None
+    threat_list__url = None
+    threat_list__domain = None
+    threat_list__process = None
 
     ################################################################################
     ## Custom Code Start
     ################################################################################
 
     # Write your custom code here...
+    
 
+    threat_list__file_hash = []
+    threat_list__ip = []
+    threat_list__url = []
+    threat_list__domain = []
+    threat_list__process = []
+    
     # Result list
     result = []
     threat_list__threat_list = []
@@ -449,11 +461,33 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     
     threat_list__threat_list = result
     
+    for item in threat_list__threat_list:
+        if 'file_hash' in item:
+            threat_list__file_hash.append(item[1])
+        if 'ip' in item:
+            threat_list__ip.append(item[1])
+        if 'domain' in item:
+            threat_list__domain.append(item[1])
+        if 'url' in item:
+            threat_list__url.append(item[1])
+        if 'process' in item:
+            threat_list__process.append(item[1])
+
+    phantom.debug(threat_list__file_hash)
+    phantom.debug(threat_list__ip)
+    phantom.debug(threat_list__url)
+    phantom.debug(threat_list__domain)
+    phantom.debug(threat_list__process)
     ################################################################################
     ## Custom Code End
     ################################################################################
 
     phantom.save_run_data(key="threat_list:threat_list", value=json.dumps(threat_list__threat_list))
+    phantom.save_run_data(key="threat_list:file_hash", value=json.dumps(threat_list__file_hash))
+    phantom.save_run_data(key="threat_list:ip", value=json.dumps(threat_list__ip))
+    phantom.save_run_data(key="threat_list:url", value=json.dumps(threat_list__url))
+    phantom.save_run_data(key="threat_list:domain", value=json.dumps(threat_list__domain))
+    phantom.save_run_data(key="threat_list:process", value=json.dumps(threat_list__process))
 
     threat_list_items(container=container)
 
