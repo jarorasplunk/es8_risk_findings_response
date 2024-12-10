@@ -49,13 +49,6 @@
                     "targetPort": "24_in"
                 },
                 {
-                    "id": "port_24_to_port_25",
-                    "sourceNode": "24",
-                    "sourcePort": "24_out",
-                    "targetNode": "25",
-                    "targetPort": "25_in"
-                },
-                {
                     "id": "port_25_to_port_5",
                     "sourceNode": "25",
                     "sourcePort": "25_out",
@@ -244,9 +237,16 @@
                     "sourcePort": "48_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
+                },
+                {
+                    "id": "port_24_to_port_40",
+                    "sourceNode": "24",
+                    "sourcePort": "24_out",
+                    "targetNode": "40",
+                    "targetPort": "40_in"
                 }
             ],
-            "hash": "1e13ac83566f774d803f7ebbab5369dfd7c388dd",
+            "hash": "0d37ba821defa142103e36f9180b93d6a39033e1",
             "nodes": {
                 "0": {
                     "data": {
@@ -728,9 +728,16 @@
                     "id": "25",
                     "type": "utility",
                     "userCode": "\n    # Write your custom code here...\n    parameters = []\n\n    parameters.append({\n        \"input_list\": threat_list__threat_list,\n    })\n\n",
-                    "warnings": {},
-                    "x": 980,
-                    "y": 600
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 540,
+                    "y": 620
                 },
                 "27": {
                     "data": {
@@ -763,8 +770,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    import re\n    \n    threat_indicator_values__threat_indicator_hash = []\n    threat_indicator_values__threat_indicator_ip = []\n    threat_indicator_values__threat_indicator_domain = []\n    threat_indicator_values__threat_indicator_url = []\n    threat_indicator_values__threat_indicator_process = []\n    \n    if filtered_cf_result_0_data_output:\n        threat_indicator_values__threat_indicator_hash.append(filtered_cf_result_0_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_hash.append(None)\n        \n    if filtered_cf_result_1_data_output:\n        if '\"' in filtered_cf_result_1_data_output[0][1]:\n            escaped_process = re.sub(r'\"', r'\\\"', filtered_cf_result_1_data_output[0][1])\n            threat_indicator_values__threat_indicator_process.append(escaped_process)\n        else:\n            threat_indicator_values__threat_indicator_process.append(filtered_cf_result_1_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_process.append(None)\n    \n    if filtered_cf_result_2_data_output:\n        threat_indicator_values__threat_indicator_ip.append(filtered_cf_result_2_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_ip.append(None)\n\n    if filtered_cf_result_3_data_output:\n        threat_indicator_values__threat_indicator_url.append(filtered_cf_result_3_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_url.append(None)\n\n    if filtered_cf_result_4_data_output:\n        threat_indicator_values__threat_indicator_domain.append(filtered_cf_result_4_data_output[0][1])\n    else:\n        threat_indicator_values__threat_indicator_domain.append(None)\n    \n    phantom.debug(threat_indicator_values__threat_indicator_hash)\n    phantom.debug(threat_indicator_values__threat_indicator_process)\n    phantom.debug(threat_indicator_values__threat_indicator_ip)\n    phantom.debug(threat_indicator_values__threat_indicator_url)\n    phantom.debug(threat_indicator_values__threat_indicator_domain)\n    \n    \n\n",
                     "warnings": {},
-                    "x": 980,
-                    "y": 980
+                    "x": 540,
+                    "y": 920
                 },
                 "29": {
                     "data": {
@@ -902,14 +909,18 @@
                         "utilityType": "custom_function",
                         "values": {
                             "list_demux": {
-                                "input_list": "threat_indicator_values:custom_function:threat_indicator_ip"
+                                "input_list": "threat_list:custom_function:ip"
                             }
                         }
                     },
                     "errors": {},
                     "id": "38",
                     "type": "utility",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 440,
                     "y": 1120
                 },
@@ -963,14 +974,18 @@
                         "utilityType": "custom_function",
                         "values": {
                             "list_demux": {
-                                "input_list": "threat_indicator_values:custom_function:threat_indicator_hash"
+                                "input_list": "threat_list:custom_function:file_hash"
                             }
                         }
                     },
                     "errors": {},
                     "id": "39",
                     "type": "utility",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 760,
                     "y": 1120
                 },
@@ -1090,7 +1105,7 @@
                         "utilityType": "custom_function",
                         "values": {
                             "list_demux": {
-                                "input_list": "threat_indicator_values:custom_function:threat_indicator_domain"
+                                "input_list": "threat_list:custom_function:domain"
                             }
                         }
                     },
@@ -1151,14 +1166,18 @@
                         "utilityType": "custom_function",
                         "values": {
                             "list_demux": {
-                                "input_list": "threat_indicator_values:custom_function:threat_indicator_url"
+                                "input_list": "threat_list:custom_function:url"
                             }
                         }
                     },
                     "errors": {},
                     "id": "41",
                     "type": "utility",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 1280,
                     "y": 1120
                 },
@@ -1212,14 +1231,18 @@
                         "utilityType": "custom_function",
                         "values": {
                             "list_demux": {
-                                "input_list": "threat_indicator_values:custom_function:threat_indicator_process"
+                                "input_list": "threat_list:custom_function:process"
                             }
                         }
                     },
                     "errors": {},
                     "id": "42",
                     "type": "utility",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 1620,
                     "y": 1120
                 },
@@ -1597,8 +1620,8 @@
                     "id": "5",
                     "type": "filter",
                     "warnings": {},
-                    "x": 1040,
-                    "y": 700
+                    "x": 600,
+                    "y": 720
                 },
                 "9": {
                     "data": {
@@ -1664,7 +1687,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T15:23:43.742773+00:00",
+    "create_time": "2024-12-10T15:33:32.183216+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

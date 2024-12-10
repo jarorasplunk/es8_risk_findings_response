@@ -489,7 +489,7 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     phantom.save_run_data(key="threat_list:domain", value=json.dumps(threat_list__domain))
     phantom.save_run_data(key="threat_list:process", value=json.dumps(threat_list__process))
 
-    threat_list_items(container=container)
+    join_domain(container=container)
 
     return
 
@@ -610,7 +610,7 @@ def threat_indicator_values(action=None, success=None, container=None, results=N
 
     ip(container=container)
     hash(container=container)
-    domain(container=container)
+    join_domain(container=container)
     url(container=container)
     process(container=container)
 
@@ -704,12 +704,12 @@ def route_investigation_playbooks(action=None, success=None, container=None, res
 def ip(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("ip() called")
 
-    threat_indicator_values__threat_indicator_ip = json.loads(_ if (_ := phantom.get_run_data(key="threat_indicator_values:threat_indicator_ip")) != "" else "null")  # pylint: disable=used-before-assignment
+    threat_list__ip = json.loads(_ if (_ := phantom.get_run_data(key="threat_list:ip")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     parameters.append({
-        "input_list": threat_indicator_values__threat_indicator_ip,
+        "input_list": threat_list__ip,
     })
 
     ################################################################################
@@ -731,12 +731,12 @@ def ip(action=None, success=None, container=None, results=None, handle=None, fil
 def hash(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("hash() called")
 
-    threat_indicator_values__threat_indicator_hash = json.loads(_ if (_ := phantom.get_run_data(key="threat_indicator_values:threat_indicator_hash")) != "" else "null")  # pylint: disable=used-before-assignment
+    threat_list__file_hash = json.loads(_ if (_ := phantom.get_run_data(key="threat_list:file_hash")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     parameters.append({
-        "input_list": threat_indicator_values__threat_indicator_hash,
+        "input_list": threat_list__file_hash,
     })
 
     ################################################################################
@@ -755,15 +755,26 @@ def hash(action=None, success=None, container=None, results=None, handle=None, f
 
 
 @phantom.playbook_block()
+def join_domain(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("join_domain() called")
+
+    if phantom.completed(action_names=["run_query_1"], custom_function_names=["threat_list_items"]):
+        # call connected block "domain"
+        domain(container=container, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
 def domain(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("domain() called")
 
-    threat_indicator_values__threat_indicator_domain = json.loads(_ if (_ := phantom.get_run_data(key="threat_indicator_values:threat_indicator_domain")) != "" else "null")  # pylint: disable=used-before-assignment
+    threat_list__domain = json.loads(_ if (_ := phantom.get_run_data(key="threat_list:domain")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     parameters.append({
-        "input_list": threat_indicator_values__threat_indicator_domain,
+        "input_list": threat_list__domain,
     })
 
     ################################################################################
@@ -785,12 +796,12 @@ def domain(action=None, success=None, container=None, results=None, handle=None,
 def url(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("url() called")
 
-    threat_indicator_values__threat_indicator_url = json.loads(_ if (_ := phantom.get_run_data(key="threat_indicator_values:threat_indicator_url")) != "" else "null")  # pylint: disable=used-before-assignment
+    threat_list__url = json.loads(_ if (_ := phantom.get_run_data(key="threat_list:url")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     parameters.append({
-        "input_list": threat_indicator_values__threat_indicator_url,
+        "input_list": threat_list__url,
     })
 
     ################################################################################
@@ -812,12 +823,12 @@ def url(action=None, success=None, container=None, results=None, handle=None, fi
 def process(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("process() called")
 
-    threat_indicator_values__threat_indicator_process = json.loads(_ if (_ := phantom.get_run_data(key="threat_indicator_values:threat_indicator_process")) != "" else "null")  # pylint: disable=used-before-assignment
+    threat_list__process = json.loads(_ if (_ := phantom.get_run_data(key="threat_list:process")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     parameters.append({
-        "input_list": threat_indicator_values__threat_indicator_process,
+        "input_list": threat_list__process,
     })
 
     ################################################################################
