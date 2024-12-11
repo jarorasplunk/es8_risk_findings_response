@@ -176,9 +176,9 @@ def mitre_format_findings(action=None, success=None, container=None, results=Non
     
 
     if final_format:
-    	mitre_format__output = final_format
+    	mitre_format_findings__output = final_format
     else:
-        mitre_format__output = "No Tactics / Techniques available in contributing risk events."
+        mitre_format_findings__output = "No Tactics / Techniques available in contributing risk events."
 	
 
     ################################################################################
