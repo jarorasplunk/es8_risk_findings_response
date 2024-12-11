@@ -191,7 +191,7 @@
                     "targetPort": "32_in"
                 }
             ],
-            "hash": "047f61ea4af721b9a1682ae26407467c69e0c7e8",
+            "hash": "ac36d36632f554474790dde5ff18499e485c1b95",
             "nodes": {
                 "0": {
                     "data": {
@@ -1099,6 +1099,7 @@
                     "errors": {},
                     "id": "32",
                     "type": "code",
+                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(refresh_finding_or_investigation_1_result_item_0)\n    phantom.debug(refresh_finding_or_investigation_1_result_item_1)\n    phantom.debug(refresh_finding_or_investigation_1_result_item_2)\n",
                     "warnings": {},
                     "x": 660,
                     "y": 60
@@ -1185,7 +1186,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T02:53:17.187326+00:00",
+    "create_time": "2024-12-11T02:54:15.218563+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

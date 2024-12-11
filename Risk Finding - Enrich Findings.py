@@ -789,7 +789,9 @@ def format_query_input_data(action=None, success=None, container=None, results=N
     ################################################################################
 
     # Write your custom code here...
-
+    phantom.debug(refresh_finding_or_investigation_1_result_item_0)
+    phantom.debug(refresh_finding_or_investigation_1_result_item_1)
+    phantom.debug(refresh_finding_or_investigation_1_result_item_2)
     ################################################################################
     ## Custom Code End
     ################################################################################
