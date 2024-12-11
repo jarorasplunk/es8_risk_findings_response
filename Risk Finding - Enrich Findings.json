@@ -269,7 +269,7 @@
                     "targetPort": "38_in"
                 }
             ],
-            "hash": "daa6e00f80f9f0f23ae27ecd477263c066d5eb30",
+            "hash": "e116862c020f70346567cbc87ccfaae09e3b5696",
             "nodes": {
                 "0": {
                     "data": {
@@ -291,7 +291,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 630,
-                    "y": 0
+                    "y": -4.263256414560601e-14
                 },
                 "1": {
                     "data": {
@@ -409,7 +409,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 610,
-                    "y": 312
+                    "y": 311.99999999999994
                 },
                 "17": {
                     "data": {
@@ -467,7 +467,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 610,
-                    "y": 462
+                    "y": 461.99999999999994
                 },
                 "18": {
                     "data": {
@@ -749,7 +749,7 @@
                     "id": "22",
                     "type": "format",
                     "warnings": {},
-                    "x": 0,
+                    "x": -1.4210854715202004e-14,
                     "y": 1764
                 },
                 "23": {
@@ -912,7 +912,7 @@
                     "id": "25",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 0,
+                    "x": -1.4210854715202004e-14,
                     "y": 1914
                 },
                 "27": {
@@ -1051,7 +1051,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 610,
-                    "y": 150
+                    "y": 149.99999999999994
                 },
                 "30": {
                     "data": {
@@ -1535,7 +1535,7 @@
                     "errors": {},
                     "id": "42",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    \n    phantom.debug(len(run_query_2_result_item_0))\n    phantom.debug(len(run_query_2_result_item_1))\n    \n    # Result lists\n    int_findings_threat_objects__threat_object = []\n    int_findings_threat_objects__threat_object_type = []\n\n    # Iterate through both lists and remove None values and duplicates\n    seen = set()\n    for item1, item2 in zip(run_query_2_result_item_0, run_query_2_result_item_1):\n        if item1 is not None and item2 is not None:\n            pair = (item1, item2)\n            if pair not in seen:\n                int_findings_threat_objects__threat_object.append(item1)\n                int_findings_threat_objects__threat_object_type.append(item2)\n                seen.add(pair)\n    \n    phantom.debug(int_findings_threat_objects__threat_object)\n    phantom.debug(int_findings_threat_objects__threat_object_type)\n",
+                    "userCode": "\n    # Write your custom code here...\n    \n    phantom.debug(len(run_query_2_result_item_0))\n    phantom.debug(len(run_query_2_result_item_1))\n    def is_domain_format(value):\n        # Check if it contains '.' but is not in IP address format\n        parts = value.split('.')\n        return len(parts) > 1 and not all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)\n    \n    # Result lists\n    int_findings_threat_objects__threat_object = []\n    int_findings_threat_objects__threat_object_type = []\n\n    # Iterate through both lists and remove None values and duplicates\n    seen = set()\n    for item1, item2 in zip(run_query_2_result_item_0, run_query_2_result_item_1):\n        if item1 is not None and item2 is not None:\n            is_url = item1.startswith(\"http://\") or item1.startswith(\"https://\")\n            is_domain = not is_url and is_domain_format(item1)\n            if item2 == \"other\":\n                if is_url:\n                    item2 = \"url\"\n                elif is_domain:\n                    item2 = \"domain\"\n            pair = (item1, item2)\n            if pair not in seen:\n                int_findings_threat_objects__threat_object.append(item1)\n                int_findings_threat_objects__threat_object_type.append(item2)\n                seen.add(pair)\n    \n    phantom.debug(int_findings_threat_objects__threat_object)\n    phantom.debug(int_findings_threat_objects__threat_object_type)\n",
                     "warnings": {},
                     "x": 780,
                     "y": 1580
@@ -1586,7 +1586,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T04:45:33.679111+00:00",
+    "create_time": "2024-12-11T05:20:59.637955+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

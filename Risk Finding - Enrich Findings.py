@@ -762,9 +762,9 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
     for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
         if query_formatted_string is not None:
             parameters.append({
+                "query": query_formatted_string,
                 "command": "| from ",
                 "search_mode": "smart",
-                "query": query_formatted_string,
             })
 
     ################################################################################
@@ -1073,6 +1073,10 @@ def int_findings_threat_objects(action=None, success=None, container=None, resul
     
     phantom.debug(len(run_query_2_result_item_0))
     phantom.debug(len(run_query_2_result_item_1))
+    def is_domain_format(value):
+        # Check if it contains '.' but is not in IP address format
+        parts = value.split('.')
+        return len(parts) > 1 and not all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)
     
     # Result lists
     int_findings_threat_objects__threat_object = []
@@ -1082,6 +1086,13 @@ def int_findings_threat_objects(action=None, success=None, container=None, resul
     seen = set()
     for item1, item2 in zip(run_query_2_result_item_0, run_query_2_result_item_1):
         if item1 is not None and item2 is not None:
+            is_url = item1.startswith("http://") or item1.startswith("https://")
+            is_domain = not is_url and is_domain_format(item1)
+            if item2 == "other":
+                if is_url:
+                    item2 = "url"
+                elif is_domain:
+                    item2 = "domain"
             pair = (item1, item2)
             if pair not in seen:
                 int_findings_threat_objects__threat_object.append(item1)
