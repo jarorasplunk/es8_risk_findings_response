@@ -25,7 +25,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""datamodel Risk.All_Risk \n| search [ | tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1} by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index\n| `get_mitre_annotations`\n| rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type\n| `generate_findings_summary`\n| stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)`\n| `dedup_and_compute_common_fbd_fields`, threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type), num_mitre_techniques=mvcount('annotations.mitre_attack'), annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack')\n| fillnull value=0 num_mitre_techniques, mitre_tactic_id_count, mitre_technique_id_count, total_event_count, risk_score\n| fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids\n| `drop_dm_object_name(\"All_Risk\")`\n| where normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n| where num_mitre_techniques>3 OR risk_score>100 OR total_event_count>5\n| eval all_finding_ids=mvdedup(finding_ids)\n| fields all_finding_ids\n| mvexpand all_finding_ids\n| rename all_finding_ids AS source_event_id ]\n| rename annotations.mitre_attack.mitre_tactic as mitre_tactic, annotations.mitre_attack.mitre_technique as mitre_technique, annotations.mitre_attack.mitre_technique_id as mitre_technique_id\n| fields mitre_tactic, mitre_technique, mitre_technique_id, risk_message, threat_object, threat_object_type""",
+        template="""datamodel Risk.All_Risk \n| search [ | tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1} by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index\n| `get_mitre_annotations`\n| rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type\n| `generate_findings_summary`\n| stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)`\n| `dedup_and_compute_common_fbd_fields`, threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type), num_mitre_techniques=mvcount('annotations.mitre_attack'), annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack')\n| fillnull value=0 num_mitre_techniques, mitre_tactic_id_count, mitre_technique_id_count, total_event_count, risk_score\n| fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids\n| `drop_dm_object_name(\"All_Risk\")`\n| where normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n| where num_mitre_techniques>3 OR risk_score>100 OR total_event_count>5\n| eval all_finding_ids=mvdedup(finding_ids)\n| fields all_finding_ids\n| mvexpand all_finding_ids\n| rename all_finding_ids AS source_event_id ]\n| rename annotations.mitre_attack.mitre_tactic as mitre_tactic, annotations.mitre_attack.mitre_technique as mitre_technique, annotations.mitre_attack.mitre_technique_id as mitre_technique_id\n| fields mitre_tactic, mitre_technique, mitre_technique_id, risk_message, threat_object, threat_object_type, threat_match_value, threat_match_field""",
         parameters=[
             "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
             "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
@@ -75,6 +75,7 @@ def run_query_decision(action=None, success=None, container=None, results=None, 
     # call connected blocks if condition 1 matched
     if found_match_1:
         asset_get_attributes_1(action=action, success=success, container=container, results=results, handle=handle)
+        format_query_output(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     return
@@ -711,6 +712,60 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
 
     # check for 'else' condition 2
     join_update_task_in_current_phase_1(action=action, success=success, container=container, results=results, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
+def format_query_output(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("format_query_output() called")
+
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.mitre_tactic","run_query_1:action_result.data.*.mitre_technique","run_query_1:action_result.data.*.mitre_technique_id","run_query_1:action_result.data.*.risk_message","run_query_1:action_result.data.*.threat_object_type","run_query_1:action_result.data.*.threat_object","run_query_1:action_result.data.*.threat_match_value","run_query_1:action_result.data.*.threat_match_field"], action_results=results)
+
+    run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
+    run_query_1_result_item_1 = [item[1] for item in run_query_1_result_data]
+    run_query_1_result_item_2 = [item[2] for item in run_query_1_result_data]
+    run_query_1_result_item_3 = [item[3] for item in run_query_1_result_data]
+    run_query_1_result_item_4 = [item[4] for item in run_query_1_result_data]
+    run_query_1_result_item_5 = [item[5] for item in run_query_1_result_data]
+    run_query_1_result_item_6 = [item[6] for item in run_query_1_result_data]
+    run_query_1_result_item_7 = [item[7] for item in run_query_1_result_data]
+
+    format_query_output__mitre_tactic = None
+    format_query_output__mitre_technique = None
+    format_query_output__mitre_technique_id = None
+    format_query_output__risk_message = None
+    format_query_output__threat_object_type = None
+    format_query_output__threat_object = None
+    format_query_output__threat_match_value = None
+    format_query_output__threat_match_field = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    phantom.debug(run_query_1_result_item_0)
+    phantom.debug(run_query_1_result_item_1)
+    phantom.debug(run_query_1_result_item_2)
+    phantom.debug(run_query_1_result_item_3)
+    phantom.debug(run_query_1_result_item_4)
+    phantom.debug(run_query_1_result_item_5)
+    phantom.debug(run_query_1_result_item_6)
+    phantom.debug(run_query_1_result_item_7)
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_run_data(key="format_query_output:mitre_tactic", value=json.dumps(format_query_output__mitre_tactic))
+    phantom.save_run_data(key="format_query_output:mitre_technique", value=json.dumps(format_query_output__mitre_technique))
+    phantom.save_run_data(key="format_query_output:mitre_technique_id", value=json.dumps(format_query_output__mitre_technique_id))
+    phantom.save_run_data(key="format_query_output:risk_message", value=json.dumps(format_query_output__risk_message))
+    phantom.save_run_data(key="format_query_output:threat_object_type", value=json.dumps(format_query_output__threat_object_type))
+    phantom.save_run_data(key="format_query_output:threat_object", value=json.dumps(format_query_output__threat_object))
+    phantom.save_run_data(key="format_query_output:threat_match_value", value=json.dumps(format_query_output__threat_match_value))
+    phantom.save_run_data(key="format_query_output:threat_match_field", value=json.dumps(format_query_output__threat_match_field))
 
     return
 
