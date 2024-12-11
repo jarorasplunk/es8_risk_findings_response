@@ -492,6 +492,8 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     threat_list__threat_list = []
     # Iterate over the lists
     for item1, item2 in zip(finding_threat_objects__threat_object, finding_threat_objects__threat_object_type):
+        phantom.debug(item1)
+        phantom.debug(item2)
         if 'file_hash' in item1:
             threat_list__file_hash.append(item2)
         if 'ip' in item1:
