@@ -1141,12 +1141,31 @@ def finding_threat_objects(action=None, success=None, container=None, results=No
         return len(parts) > 1 and not all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)
     
     # Result lists
+    threat_object = []
+    threat_object_type = []
     finding_threat_objects__threat_object = []
     finding_threat_objects__threat_object_type = []
 
+    result = []
+    threat_list__threat_list = []
+    # Iterate over the lists
+    for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):
+        phantom.debug(item1)
+        phantom.debug(item2)
+        if item1 is not None and item2 is not None:
+            if isinstance(item1, list) and isinstance(item2, list):
+                # If both items are lists, pair their elements individually
+                for sub_item1, sub_item2 in zip(item1, item2):
+                    threat_object.append(sub_item1)
+                    threat_object_type.append(sub_item2)
+            else:
+                # Otherwise, pair the elements directly
+                threat_object.append(item1)
+                threat_object_type.append(item2)
+                
     # Iterate through both lists and remove None values and duplicates
     seen = set()
-    for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):
+    for item1, item2 in zip(threat_object, threat_object_type):
         if item1 is not None and item2 is not None:
             phantom.debug(item1)
             is_url = item1.startswith("http://") or item1.startswith("https://")

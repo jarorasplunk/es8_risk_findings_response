@@ -276,7 +276,7 @@
                     "targetPort": "30_in"
                 }
             ],
-            "hash": "4d5a63015a8bb12930460bcccdc346e12aa02261",
+            "hash": "207856a32dc8e6fde0862e41c5b1b030ebf0af6f",
             "nodes": {
                 "0": {
                     "data": {
@@ -298,7 +298,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 630,
-                    "y": -4.973799150320701e-14
+                    "y": -8.881784197001252e-14
                 },
                 "1": {
                     "data": {
@@ -1058,7 +1058,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 610,
-                    "y": 149.99999999999994
+                    "y": 149.99999999999991
                 },
                 "30": {
                     "data": {
@@ -1568,7 +1568,7 @@
                     "errors": {},
                     "id": "43",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    \n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    \n    \n    def is_domain_format(value):\n        # Check if it contains '.' but is not in IP address format\n        parts = value.split('.')\n        return len(parts) > 1 and not all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)\n    \n    # Result lists\n    finding_threat_objects__threat_object = []\n    finding_threat_objects__threat_object_type = []\n\n    # Iterate through both lists and remove None values and duplicates\n    seen = set()\n    for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):\n        if item1 is not None and item2 is not None:\n            phantom.debug(item1)\n            is_url = item1.startswith(\"http://\") or item1.startswith(\"https://\")\n            is_domain = not is_url and is_domain_format(item1)\n            if item2 == \"other\":\n                if is_url:\n                    item2 = \"url\"\n                elif is_domain:\n                    item2 = \"domain\"\n            pair = (item1, item2)\n            if pair not in seen:\n                finding_threat_objects__threat_object.append(item1)\n                finding_threat_objects__threat_object_type.append(item2)\n                seen.add(pair)\n    \n    phantom.debug(finding_threat_objects__threat_object)\n    phantom.debug(finding_threat_objects__threat_object_type)\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    \n    phantom.debug(run_query_1_result_item_0)\n    phantom.debug(run_query_1_result_item_1)\n    \n    \n    def is_domain_format(value):\n        # Check if it contains '.' but is not in IP address format\n        parts = value.split('.')\n        return len(parts) > 1 and not all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)\n    \n    # Result lists\n    threat_object = []\n    threat_object_type = []\n    finding_threat_objects__threat_object = []\n    finding_threat_objects__threat_object_type = []\n\n    result = []\n    threat_list__threat_list = []\n    # Iterate over the lists\n    for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):\n        phantom.debug(item1)\n        phantom.debug(item2)\n        if item1 is not None and item2 is not None:\n            if isinstance(item1, list) and isinstance(item2, list):\n                # If both items are lists, pair their elements individually\n                for sub_item1, sub_item2 in zip(item1, item2):\n                    threat_object.append(sub_item1)\n                    threat_object_type.append(sub_item2)\n            else:\n                # Otherwise, pair the elements directly\n                threat_object.append(item1)\n                threat_object_type.append(item2)\n                \n    # Iterate through both lists and remove None values and duplicates\n    seen = set()\n    for item1, item2 in zip(threat_object, threat_object_type):\n        if item1 is not None and item2 is not None:\n            phantom.debug(item1)\n            is_url = item1.startswith(\"http://\") or item1.startswith(\"https://\")\n            is_domain = not is_url and is_domain_format(item1)\n            if item2 == \"other\":\n                if is_url:\n                    item2 = \"url\"\n                elif is_domain:\n                    item2 = \"domain\"\n            pair = (item1, item2)\n            if pair not in seen:\n                finding_threat_objects__threat_object.append(item1)\n                finding_threat_objects__threat_object_type.append(item2)\n                seen.add(pair)\n    \n    phantom.debug(finding_threat_objects__threat_object)\n    phantom.debug(finding_threat_objects__threat_object_type)\n\n",
                     "warnings": {},
                     "x": 1140,
                     "y": 1560
@@ -1619,7 +1619,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T05:45:52.223187+00:00",
+    "create_time": "2024-12-11T05:52:47.001764+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
