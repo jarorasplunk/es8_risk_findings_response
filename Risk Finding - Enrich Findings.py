@@ -1130,6 +1130,11 @@ def finding_threat_objects(action=None, success=None, container=None, results=No
     ################################################################################
 
     # Write your custom code here...
+    
+    phantom.debug(len(run_query_1_result_item_0))
+    phantom.debug(len(run_query_1_result_item_1))
+    
+    
     def is_domain_format(value):
         # Check if it contains '.' but is not in IP address format
         parts = value.split('.')
