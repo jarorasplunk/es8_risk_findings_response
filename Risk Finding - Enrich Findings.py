@@ -75,7 +75,7 @@ def run_query_decision(action=None, success=None, container=None, results=None, 
     # call connected blocks if condition 1 matched
     if found_match_1:
         asset_get_attributes_1(action=action, success=success, container=container, results=results, handle=handle)
-        format_query_output(action=action, success=success, container=container, results=results, handle=handle)
+        format_query_output_data(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     return
@@ -300,8 +300,8 @@ def get_task_id_1_callback(action=None, success=None, container=None, results=No
     phantom.debug("get_task_id_1_callback() called")
 
     
-    run_query_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
     decision_3(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+    format_query_input_data(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
 
 
     return
@@ -717,8 +717,8 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
 
 
 @phantom.playbook_block()
-def format_query_output(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("format_query_output() called")
+def format_query_output_data(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("format_query_output_data() called")
 
     run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.mitre_tactic","run_query_1:action_result.data.*.mitre_technique","run_query_1:action_result.data.*.mitre_technique_id","run_query_1:action_result.data.*.risk_message","run_query_1:action_result.data.*.threat_object_type","run_query_1:action_result.data.*.threat_object","run_query_1:action_result.data.*.threat_match_value","run_query_1:action_result.data.*.threat_match_field"], action_results=results)
 
@@ -731,14 +731,14 @@ def format_query_output(action=None, success=None, container=None, results=None,
     run_query_1_result_item_6 = [item[6] for item in run_query_1_result_data]
     run_query_1_result_item_7 = [item[7] for item in run_query_1_result_data]
 
-    format_query_output__mitre_tactic = None
-    format_query_output__mitre_technique = None
-    format_query_output__mitre_technique_id = None
-    format_query_output__risk_message = None
-    format_query_output__threat_object_type = None
-    format_query_output__threat_object = None
-    format_query_output__threat_match_value = None
-    format_query_output__threat_match_field = None
+    format_query_output_data__mitre_tactic = None
+    format_query_output_data__mitre_technique = None
+    format_query_output_data__mitre_technique_id = None
+    format_query_output_data__risk_message = None
+    format_query_output_data__threat_object_type = None
+    format_query_output_data__threat_object = None
+    format_query_output_data__threat_match_value = None
+    format_query_output_data__threat_match_field = None
 
     ################################################################################
     ## Custom Code Start
@@ -758,14 +758,47 @@ def format_query_output(action=None, success=None, container=None, results=None,
     ## Custom Code End
     ################################################################################
 
-    phantom.save_run_data(key="format_query_output:mitre_tactic", value=json.dumps(format_query_output__mitre_tactic))
-    phantom.save_run_data(key="format_query_output:mitre_technique", value=json.dumps(format_query_output__mitre_technique))
-    phantom.save_run_data(key="format_query_output:mitre_technique_id", value=json.dumps(format_query_output__mitre_technique_id))
-    phantom.save_run_data(key="format_query_output:risk_message", value=json.dumps(format_query_output__risk_message))
-    phantom.save_run_data(key="format_query_output:threat_object_type", value=json.dumps(format_query_output__threat_object_type))
-    phantom.save_run_data(key="format_query_output:threat_object", value=json.dumps(format_query_output__threat_object))
-    phantom.save_run_data(key="format_query_output:threat_match_value", value=json.dumps(format_query_output__threat_match_value))
-    phantom.save_run_data(key="format_query_output:threat_match_field", value=json.dumps(format_query_output__threat_match_field))
+    phantom.save_run_data(key="format_query_output_data:mitre_tactic", value=json.dumps(format_query_output_data__mitre_tactic))
+    phantom.save_run_data(key="format_query_output_data:mitre_technique", value=json.dumps(format_query_output_data__mitre_technique))
+    phantom.save_run_data(key="format_query_output_data:mitre_technique_id", value=json.dumps(format_query_output_data__mitre_technique_id))
+    phantom.save_run_data(key="format_query_output_data:risk_message", value=json.dumps(format_query_output_data__risk_message))
+    phantom.save_run_data(key="format_query_output_data:threat_object_type", value=json.dumps(format_query_output_data__threat_object_type))
+    phantom.save_run_data(key="format_query_output_data:threat_object", value=json.dumps(format_query_output_data__threat_object))
+    phantom.save_run_data(key="format_query_output_data:threat_match_value", value=json.dumps(format_query_output_data__threat_match_value))
+    phantom.save_run_data(key="format_query_output_data:threat_match_field", value=json.dumps(format_query_output_data__threat_match_field))
+
+    return
+
+
+@phantom.playbook_block()
+def format_query_input_data(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("format_query_input_data() called")
+
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type"], action_results=results)
+
+    refresh_finding_or_investigation_1_result_item_0 = [item[0] for item in refresh_finding_or_investigation_1_result_data]
+    refresh_finding_or_investigation_1_result_item_1 = [item[1] for item in refresh_finding_or_investigation_1_result_data]
+    refresh_finding_or_investigation_1_result_item_2 = [item[2] for item in refresh_finding_or_investigation_1_result_data]
+
+    format_query_input_data__normalized_risk_object = None
+    format_query_input_data__risk_object = None
+    format_query_input_data__risk_object_type = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_run_data(key="format_query_input_data:normalized_risk_object", value=json.dumps(format_query_input_data__normalized_risk_object))
+    phantom.save_run_data(key="format_query_input_data:risk_object", value=json.dumps(format_query_input_data__risk_object))
+    phantom.save_run_data(key="format_query_input_data:risk_object_type", value=json.dumps(format_query_input_data__risk_object_type))
+
+    run_query_1(container=container)
 
     return
 

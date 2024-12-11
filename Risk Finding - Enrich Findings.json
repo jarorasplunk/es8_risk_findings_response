@@ -54,13 +54,6 @@
                     "targetPort": "1_in"
                 },
                 {
-                    "id": "port_17_to_port_2",
-                    "sourceNode": "17",
-                    "sourcePort": "17_out",
-                    "targetNode": "2",
-                    "targetPort": "2_in"
-                },
-                {
                     "id": "port_17_to_port_12",
                     "sourceNode": "17",
                     "sourcePort": "17_out",
@@ -189,9 +182,23 @@
                     "sourcePort": "4_out",
                     "targetNode": "31",
                     "targetPort": "31_in"
+                },
+                {
+                    "id": "port_17_to_port_32",
+                    "sourceNode": "17",
+                    "sourcePort": "17_out",
+                    "targetNode": "32",
+                    "targetPort": "32_in"
+                },
+                {
+                    "id": "port_32_to_port_2",
+                    "sourceNode": "32",
+                    "sourcePort": "32_out",
+                    "targetNode": "2",
+                    "targetPort": "2_in"
                 }
             ],
-            "hash": "9409219dae508140cf344a1c7a804a3c9e56d3d7",
+            "hash": "23003eeb392bb306d4db3e1cb09110410b45602f",
             "nodes": {
                 "0": {
                     "data": {
@@ -1025,12 +1032,12 @@
                 "31": {
                     "data": {
                         "advanced": {
-                            "customName": "format query output",
+                            "customName": "format query output data",
                             "customNameId": 0,
                             "join": []
                         },
                         "functionId": 2,
-                        "functionName": "format_query_output",
+                        "functionName": "format_query_output_data",
                         "id": "31",
                         "inputParameters": [
                             "run_query_1:action_result.data.*.mitre_tactic",
@@ -1061,6 +1068,35 @@
                     "warnings": {},
                     "x": 1220,
                     "y": 180
+                },
+                "32": {
+                    "data": {
+                        "advanced": {
+                            "customName": "format query input data",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 3,
+                        "functionName": "format_query_input_data",
+                        "id": "32",
+                        "inputParameters": [
+                            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
+                            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object",
+                            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type"
+                        ],
+                        "outputVariables": [
+                            "normalized_risk_object",
+                            "risk_object",
+                            "risk_object_type"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "32",
+                    "type": "code",
+                    "warnings": {},
+                    "x": 660,
+                    "y": 60
                 },
                 "4": {
                     "data": {
@@ -1144,7 +1180,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T02:26:06.348802+00:00",
+    "create_time": "2024-12-11T02:53:05.918193+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
