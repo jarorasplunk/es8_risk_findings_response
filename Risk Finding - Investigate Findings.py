@@ -503,16 +503,16 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
         phantom.debug(item1)
         phantom.debug("item2 in final list")
         phantom.debug(item2)
-        if 'file_hash' in item1:
-            threat_list__file_hash.append(item2)
-        if 'ip' in item1:
-            threat_list__ip.append(item2)
-        if 'domain' in item1:
-            threat_list__domain.append(item2)
-        if 'url' in item1:
-            threat_list__url.append(item2)
-        if 'process' in item1:
-            threat_list__process.append(item2)
+        if 'file_hash' in item2 or 'hash' in item2:
+            threat_list__file_hash.append(item1)
+        if 'ip' in item2:
+            threat_list__ip.append(item1)
+        if 'domain' in item2:
+            threat_list__domain.append(item1)
+        if 'url' in item2:
+            threat_list__url.append(item1)
+        if 'process' in item2:
+            threat_list__process.append(item1)
 
     phantom.debug(threat_list__file_hash)
     phantom.debug(threat_list__ip)
