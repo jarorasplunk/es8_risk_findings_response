@@ -239,7 +239,7 @@
                     "targetPort": "42_in"
                 }
             ],
-            "hash": "2b1b5d18c7d0947e9755db1754f70a0a835362d4",
+            "hash": "e1fb77a60a03033e56a000dc0f729c0f0a762485",
             "nodes": {
                 "0": {
                     "data": {
@@ -369,7 +369,7 @@
                                     "playbook_virustotal_v3_identifier_reputation_analysis_1:playbook_output:observable",
                                     "playbook_virustotal_v3_identifier_reputation_analysis_1:playbook_output:markdown_report"
                                 ],
-                                "template": "{0}\n\n\n{1}\n\n"
+                                "template": "## Observable JSON:\n\n{0}\n\n\n\n\n{1}\n\n"
                             },
                             "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -1306,7 +1306,7 @@
                                     "playbook_splunk_attack_analyzer_dynamic_analysis_1:playbook_output:observable",
                                     "playbook_splunk_attack_analyzer_dynamic_analysis_1:playbook_output:report"
                                 ],
-                                "template": "{0}\n\n\n{1}\n"
+                                "template": "## Observable JSON:\n\n{0}\n\n\n\n\n{1}\n\n"
                             },
                             "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -1664,7 +1664,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T12:44:55.307541+00:00",
+    "create_time": "2024-12-11T12:50:52.105522+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

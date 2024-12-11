@@ -246,7 +246,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""{0}\n\n\n{1}\n\n""",
+        template="""## Observable JSON:\n\n{0}\n\n\n\n\n{1}\n\n""",
         parameters=[
             "playbook_virustotal_v3_identifier_reputation_analysis_1:playbook_output:observable",
             "playbook_virustotal_v3_identifier_reputation_analysis_1:playbook_output:markdown_report"
@@ -912,7 +912,7 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""{0}\n\n\n{1}\n""",
+        template="""## Observable JSON:\n\n{0}\n\n\n\n\n{1}\n\n""",
         parameters=[
             "playbook_splunk_attack_analyzer_dynamic_analysis_1:playbook_output:observable",
             "playbook_splunk_attack_analyzer_dynamic_analysis_1:playbook_output:report"
