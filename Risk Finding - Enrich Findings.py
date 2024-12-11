@@ -590,15 +590,28 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 
 
 @phantom.playbook_block()
+def join_threat_objects_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("join_threat_objects_note() called")
+
+    if phantom.completed(action_names=["add_task_note_1", "add_task_note_5"]):
+        # call connected block "threat_objects_note"
+        threat_objects_note(container=container, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
 def threat_objects_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("threat_objects_note() called")
 
-    template = """Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n%%\n| {0} | {1} |\n%%\n\n\n\n"""
+    template = """Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n%%\n| {0}{2} | {1}{3} |\n%%\n\n\n\n"""
 
     # parameter list for template variable replacement
     parameters = [
         "run_query_1:action_result.data.*.threat_object_type",
-        "run_query_1:action_result.data.*.threat_object"
+        "run_query_1:action_result.data.*.threat_object",
+        "run_query_2:action_result.data.*.threat_object_type",
+        "run_query_2:action_result.data.*.threat_object"
     ]
 
     ################################################################################
@@ -706,7 +719,7 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        threat_objects_note(action=action, success=success, container=container, results=results, handle=handle)
+        join_threat_objects_note(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'else' condition 2
@@ -954,7 +967,30 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_5", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_5", assets=["builtin_mc_connector"], callback=decision_5)
+
+    return
+
+
+@phantom.playbook_block()
+def decision_5(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("decision_5() called")
+
+    # check for 'if' condition 1
+    found_match_1 = phantom.decision(
+        container=container,
+        conditions=[
+            ["run_query_2:action_result.data.*.threat_object", "!=", ""]
+        ],
+        delimiter=None)
+
+    # call connected blocks if condition 1 matched
+    if found_match_1:
+        join_threat_objects_note(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'else' condition 2
+    join_update_task_in_current_phase_1(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 
