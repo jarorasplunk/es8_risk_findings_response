@@ -1131,8 +1131,8 @@ def finding_threat_objects(action=None, success=None, container=None, results=No
 
     # Write your custom code here...
     
-    phantom.debug(len(run_query_1_result_item_0))
-    phantom.debug(len(run_query_1_result_item_1))
+    phantom.debug(run_query_1_result_item_0)
+    phantom.debug(run_query_1_result_item_1)
     
     
     def is_domain_format(value):
@@ -1148,6 +1148,7 @@ def finding_threat_objects(action=None, success=None, container=None, results=No
     seen = set()
     for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):
         if item1 is not None and item2 is not None:
+            phantom.debug(item1)
             is_url = item1.startswith("http://") or item1.startswith("https://")
             is_domain = not is_url and is_domain_format(item1)
             if item2 == "other":
