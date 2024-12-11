@@ -364,7 +364,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=decision_2)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=finding_threat_objects)
 
     return
 
@@ -1109,6 +1109,64 @@ def int_findings_threat_objects(action=None, success=None, container=None, resul
     phantom.save_run_data(key="int_findings_threat_objects:threat_object_type", value=json.dumps(int_findings_threat_objects__threat_object_type))
 
     decision_5(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def finding_threat_objects(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("finding_threat_objects() called")
+
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.threat_object","run_query_1:action_result.data.*.threat_object_type"], action_results=results)
+
+    run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
+    run_query_1_result_item_1 = [item[1] for item in run_query_1_result_data]
+
+    finding_threat_objects__threat_object = None
+    finding_threat_objects__threat_object_type = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    def is_domain_format(value):
+        # Check if it contains '.' but is not in IP address format
+        parts = value.split('.')
+        return len(parts) > 1 and not all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)
+    
+    # Result lists
+    finding_threat_objects__threat_object = []
+    finding_threat_objects__threat_object_type = []
+
+    # Iterate through both lists and remove None values and duplicates
+    seen = set()
+    for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):
+        if item1 is not None and item2 is not None:
+            is_url = item1.startswith("http://") or item1.startswith("https://")
+            is_domain = not is_url and is_domain_format(item1)
+            if item2 == "other":
+                if is_url:
+                    item2 = "url"
+                elif is_domain:
+                    item2 = "domain"
+            pair = (item1, item2)
+            if pair not in seen:
+                finding_threat_objects__threat_object.append(item1)
+                finding_threat_objects__threat_object_type.append(item2)
+                seen.add(pair)
+    
+    phantom.debug(finding_threat_objects__threat_object)
+    phantom.debug(finding_threat_objects__threat_object_type)
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_run_data(key="finding_threat_objects:threat_object", value=json.dumps(finding_threat_objects__threat_object))
+    phantom.save_run_data(key="finding_threat_objects:threat_object_type", value=json.dumps(finding_threat_objects__threat_object_type))
+
+    decision_2(container=container)
 
     return
 

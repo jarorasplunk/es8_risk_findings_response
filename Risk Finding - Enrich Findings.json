@@ -122,13 +122,6 @@
                     "targetPort": "16_in"
                 },
                 {
-                    "id": "port_18_to_port_30",
-                    "sourceNode": "18",
-                    "sourcePort": "18_out",
-                    "targetNode": "30",
-                    "targetPort": "30_in"
-                },
-                {
                     "conditions": [
                         {
                             "index": 0
@@ -267,9 +260,23 @@
                     "sourcePort": "42_out",
                     "targetNode": "38",
                     "targetPort": "38_in"
+                },
+                {
+                    "id": "port_18_to_port_43",
+                    "sourceNode": "18",
+                    "sourcePort": "18_out",
+                    "targetNode": "43",
+                    "targetPort": "43_in"
+                },
+                {
+                    "id": "port_43_to_port_30",
+                    "sourceNode": "43",
+                    "sourcePort": "43_out",
+                    "targetNode": "30",
+                    "targetPort": "30_in"
                 }
             ],
-            "hash": "b95a0062b6674dcedfa33032bc610d91748650df",
+            "hash": "d7aec610974af696de8cff986d79b243c50433f6",
             "nodes": {
                 "0": {
                     "data": {
@@ -1539,6 +1546,34 @@
                     "x": 780,
                     "y": 1580
                 },
+                "43": {
+                    "data": {
+                        "advanced": {
+                            "customName": "finding threat objects",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 2,
+                        "functionName": "finding_threat_objects",
+                        "id": "43",
+                        "inputParameters": [
+                            "run_query_1:action_result.data.*.threat_object",
+                            "run_query_1:action_result.data.*.threat_object_type"
+                        ],
+                        "outputVariables": [
+                            "threat_object",
+                            "threat_object_type"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "43",
+                    "type": "code",
+                    "userCode": "\n    # Write your custom code here...\n    def is_domain_format(value):\n        # Check if it contains '.' but is not in IP address format\n        parts = value.split('.')\n        return len(parts) > 1 and not all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)\n    \n    # Result lists\n    finding_threat_objects__threat_object = []\n    finding_threat_objects__threat_object_type = []\n\n    # Iterate through both lists and remove None values and duplicates\n    seen = set()\n    for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):\n        if item1 is not None and item2 is not None:\n            is_url = item1.startswith(\"http://\") or item1.startswith(\"https://\")\n            is_domain = not is_url and is_domain_format(item1)\n            if item2 == \"other\":\n                if is_url:\n                    item2 = \"url\"\n                elif is_domain:\n                    item2 = \"domain\"\n            pair = (item1, item2)\n            if pair not in seen:\n                finding_threat_objects__threat_object.append(item1)\n                finding_threat_objects__threat_object_type.append(item2)\n                seen.add(pair)\n    \n    phantom.debug(finding_threat_objects__threat_object)\n    phantom.debug(finding_threat_objects__threat_object_type)\n\n",
+                    "warnings": {},
+                    "x": 1140,
+                    "y": 1560
+                },
                 "5": {
                     "data": {
                         "advanced": {
@@ -1585,7 +1620,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T05:32:07.180122+00:00",
+    "create_time": "2024-12-11T05:34:31.207883+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
