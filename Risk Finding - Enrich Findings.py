@@ -1071,10 +1071,25 @@ def int_findings_threat_objects(action=None, success=None, container=None, resul
 
     # Write your custom code here...
     
-    phantom.debug(run_query_2_result_item_0)
-    phantom.debug(run_query_2_result_item_1)
+    phantom.debug(len(run_query_2_result_item_0))
+    phantom.debug(len(run_query_2_result_item_1))
     
+    # Result lists
+    int_findings_threat_objects__threat_object = []
+    int_findings_threat_objects__threat_object_type = []
 
+    # Iterate through both lists and remove None values and duplicates
+    seen = set()
+    for item1, item2 in zip(run_query_2_result_item_0, run_query_2_result_item_1):
+        if item1 is not None and item2 is not None:
+            pair = (item1, item2)
+            if pair not in seen:
+                int_findings_threat_objects__threat_object.append(item1)
+                int_findings_threat_objects__threat_object_type.append(item2)
+                seen.add(pair)
+    
+    phantom.debug(int_findings_threat_objects__threat_object)
+    phantom.debug(int_findings_threat_objects__threat_object_type)
     ################################################################################
     ## Custom Code End
     ################################################################################

@@ -269,7 +269,7 @@
                     "targetPort": "38_in"
                 }
             ],
-            "hash": "12d4b5af9f0c0efd37a2c2222e8b2e8aef809ee9",
+            "hash": "daa6e00f80f9f0f23ae27ecd477263c066d5eb30",
             "nodes": {
                 "0": {
                     "data": {
@@ -1535,7 +1535,7 @@
                     "errors": {},
                     "id": "42",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    \n    phantom.debug(run_query_2_result_item_0)\n    phantom.debug(run_query_2_result_item_1)\n    \n\n",
+                    "userCode": "\n    # Write your custom code here...\n    \n    phantom.debug(len(run_query_2_result_item_0))\n    phantom.debug(len(run_query_2_result_item_1))\n    \n    # Result lists\n    int_findings_threat_objects__threat_object = []\n    int_findings_threat_objects__threat_object_type = []\n\n    # Iterate through both lists and remove None values and duplicates\n    seen = set()\n    for item1, item2 in zip(run_query_2_result_item_0, run_query_2_result_item_1):\n        if item1 is not None and item2 is not None:\n            pair = (item1, item2)\n            if pair not in seen:\n                int_findings_threat_objects__threat_object.append(item1)\n                int_findings_threat_objects__threat_object_type.append(item2)\n                seen.add(pair)\n    \n    phantom.debug(int_findings_threat_objects__threat_object)\n    phantom.debug(int_findings_threat_objects__threat_object_type)\n",
                     "warnings": {},
                     "x": 780,
                     "y": 1580
@@ -1586,7 +1586,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T04:27:53.643113+00:00",
+    "create_time": "2024-12-11T04:45:33.679111+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
