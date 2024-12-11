@@ -447,8 +447,6 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     threat_list__threat_list = []
     # Iterate over the lists
     for item1, item2 in zip(run_query_1_result_item_1, run_query_1_result_item_0):
-        phantom.debug(item1)
-        phantom.debug(item2)
         if item1 is not None and item2 is not None:
             if isinstance(item1, list) and isinstance(item2, list):
                 # If both items are lists, pair their elements individually
@@ -459,7 +457,12 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
                 # Otherwise, pair the elements directly
                 threat_object.append(item1)
                 threat_object_type.append(item2)
-                
+    phantom.debug("First iteration of items")
+    phantom.debug("threat_object")
+    phantom.debug(threat_object)
+    phantom.debug("threat_object_type")
+    phantom.debug(threat_object_type)
+    
     # Iterate through both lists and remove None values and duplicates
     seen = set()
     for item1, item2 in zip(threat_object, threat_object_type):
@@ -477,7 +480,11 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
                 finding_threat_objects__threat_object.append(item1)
                 finding_threat_objects__threat_object_type.append(item2)
                 seen.add(pair)
-    
+    phantom.debug("Second iteration and normalisation")
+    phantom.debug("finding_threat_objects__threat_object")
+    phantom.debug(finding_threat_objects__threat_object)
+    phantom.debug("finding_threat_objects__threat_object_type")
+    phantom.debug(finding_threat_objects__threat_object_type)
     
     
 
@@ -492,7 +499,9 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     threat_list__threat_list = []
     # Iterate over the lists
     for item1, item2 in zip(finding_threat_objects__threat_object, finding_threat_objects__threat_object_type):
+        phantom.debug("item1 in final list")
         phantom.debug(item1)
+        phantom.debug("item2 in final list")
         phantom.debug(item2)
         if 'file_hash' in item1:
             threat_list__file_hash.append(item2)
