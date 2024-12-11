@@ -593,9 +593,15 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 def join_threat_objects_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("join_threat_objects_note() called")
 
-    if phantom.completed(action_names=["add_task_note_1", "add_task_note_5"]):
-        # call connected block "threat_objects_note"
-        threat_objects_note(container=container, handle=handle)
+    # if the joined function has already been called, do nothing
+    if phantom.get_run_data(key="join_threat_objects_note_called"):
+        return
+
+    # save the state that the joined function has now been called
+    phantom.save_run_data(key="join_threat_objects_note_called", value="threat_objects_note")
+
+    # call connected block "threat_objects_note"
+    threat_objects_note(container=container, handle=handle)
 
     return
 

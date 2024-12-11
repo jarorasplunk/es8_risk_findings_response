@@ -248,7 +248,7 @@
                     "targetPort": "27_in"
                 }
             ],
-            "hash": "c5a6572affcf2b58cd1326e97aed8fc41bd2a337",
+            "hash": "8c394d60ab4a456e3f2c4e84db489826a73573b5",
             "nodes": {
                 "0": {
                     "data": {
@@ -899,7 +899,11 @@
                         "advanced": {
                             "customName": "threat objects note",
                             "customNameId": 0,
-                            "join": []
+                            "join": [],
+                            "notRequiredJoins": [
+                                "add_task_note_1",
+                                "add_task_note_5"
+                            ]
                         },
                         "functionId": 4,
                         "functionName": "threat_objects_note",
@@ -1443,7 +1447,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T03:41:49.643395+00:00",
+    "create_time": "2024-12-11T03:44:05.424654+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
