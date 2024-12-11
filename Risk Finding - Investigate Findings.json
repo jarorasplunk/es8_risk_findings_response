@@ -239,7 +239,7 @@
                     "targetPort": "42_in"
                 }
             ],
-            "hash": "3016e48d844e63d27b3b65c194262cdd7cc8eda6",
+            "hash": "48cfd0040804e7643b60bfcf3884d7fc43be7e3c",
             "nodes": {
                 "0": {
                     "data": {
@@ -546,7 +546,7 @@
                             },
                             "file_hash": {
                                 "datapaths": [
-                                    "filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output"
+                                    "filtered-data:route_investigation_playbooks:condition_1:file_hash:custom_function_result.data.output"
                                 ],
                                 "deduplicate": false
                             },
@@ -1664,7 +1664,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T12:32:57.523943+00:00",
+    "create_time": "2024-12-11T12:33:38.513495+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

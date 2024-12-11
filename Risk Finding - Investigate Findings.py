@@ -375,10 +375,10 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_virustotal_v3_identifier_reputation_analysis_1() called")
 
-    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"])
-    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
-    filtered_cf_result_2 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"])
-    filtered_cf_result_3 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output"])
+    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
+    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"])
+    filtered_cf_result_2 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"])
+    filtered_cf_result_3 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_1:file_hash:custom_function_result.data.output"])
 
     filtered_cf_result_0_data_output = [item[0] for item in filtered_cf_result_0]
     filtered_cf_result_1_data_output = [item[0] for item in filtered_cf_result_1]
@@ -386,9 +386,9 @@ def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success
     filtered_cf_result_3_data_output = [item[0] for item in filtered_cf_result_3]
 
     inputs = {
-        "ip": filtered_cf_result_0_data_output,
-        "url": filtered_cf_result_1_data_output,
-        "domain": filtered_cf_result_2_data_output,
+        "url": filtered_cf_result_0_data_output,
+        "domain": filtered_cf_result_1_data_output,
+        "ip": filtered_cf_result_2_data_output,
         "file_hash": filtered_cf_result_3_data_output,
     }
 
