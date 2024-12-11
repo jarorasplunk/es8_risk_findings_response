@@ -364,7 +364,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=threat_objects_note)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=decision_2)
 
     return
 
@@ -402,11 +402,12 @@ def join_update_task_in_current_phase_1(action=None, success=None, container=Non
     if phantom.get_run_data(key="join_update_task_in_current_phase_1_called"):
         return
 
-    # save the state that the joined function has now been called
-    phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
+    if phantom.completed(action_names=["add_task_note_1"]):
+        # save the state that the joined function has now been called
+        phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
 
-    # call connected block "update_task_in_current_phase_1"
-    update_task_in_current_phase_1(container=container, handle=handle)
+        # call connected block "update_task_in_current_phase_1"
+        update_task_in_current_phase_1(container=container, handle=handle)
 
     return
 
@@ -687,6 +688,29 @@ def refresh_finding_or_investigation_1(action=None, success=None, container=None
     ################################################################################
 
     phantom.act("refresh finding or investigation", parameters=parameters, name="refresh_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=get_phase_id_1)
+
+    return
+
+
+@phantom.playbook_block()
+def decision_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("decision_2() called")
+
+    # check for 'if' condition 1
+    found_match_1 = phantom.decision(
+        container=container,
+        conditions=[
+            ["run_query_1:action_result.data.*.threat_object", "!=", ""]
+        ],
+        delimiter=None)
+
+    # call connected blocks if condition 1 matched
+    if found_match_1:
+        threat_objects_note(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'else' condition 2
+    join_update_task_in_current_phase_1(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 

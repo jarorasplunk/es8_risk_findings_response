@@ -120,13 +120,6 @@
                     "targetPort": "20_in"
                 },
                 {
-                    "id": "port_18_to_port_27",
-                    "sourceNode": "18",
-                    "sourcePort": "18_out",
-                    "targetNode": "27",
-                    "targetPort": "27_in"
-                },
-                {
                     "id": "port_27_to_port_28",
                     "sourceNode": "27",
                     "sourcePort": "27_out",
@@ -153,9 +146,40 @@
                     "sourcePort": "29_out",
                     "targetNode": "16",
                     "targetPort": "16_in"
+                },
+                {
+                    "id": "port_18_to_port_30",
+                    "sourceNode": "18",
+                    "sourcePort": "18_out",
+                    "targetNode": "30",
+                    "targetPort": "30_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_30_to_port_27",
+                    "sourceNode": "30",
+                    "sourcePort": "30_out",
+                    "targetNode": "27",
+                    "targetPort": "27_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_30_to_port_20",
+                    "sourceNode": "30",
+                    "sourcePort": "30_out",
+                    "targetNode": "20",
+                    "targetPort": "20_in"
                 }
             ],
-            "hash": "3b15fad25dec08154a466f498a00bfc7ac363ea9",
+            "hash": "de81b795ccaac9f9712c4352a3563a35ba980ddf",
             "nodes": {
                 "0": {
                     "data": {
@@ -177,7 +201,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 380,
-                    "y": -440.00000000000006
+                    "y": -440.0000000000001
                 },
                 "1": {
                     "data": {
@@ -295,7 +319,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 360,
-                    "y": -140.00000000000003
+                    "y": -140.00000000000006
                 },
                 "17": {
                     "data": {
@@ -353,7 +377,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 360,
-                    "y": -20.000000000000025
+                    "y": -20.00000000000005
                 },
                 "18": {
                     "data": {
@@ -558,7 +582,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 680,
-                    "y": 159.99999999999997
+                    "y": 159.99999999999994
                 },
                 "20": {
                     "data": {
@@ -823,7 +847,7 @@
                     "type": "format",
                     "warnings": {},
                     "x": 680,
-                    "y": 780
+                    "y": 900
                 },
                 "28": {
                     "data": {
@@ -893,7 +917,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 680,
-                    "y": 900
+                    "y": 1020
                 },
                 "29": {
                     "data": {
@@ -937,6 +961,54 @@
                     "warnings": {},
                     "x": 370,
                     "y": -295.5
+                },
+                "30": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "!=",
+                                        "param": "run_query_1:action_result.data.*.threat_object",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "customName": "threat objects",
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "op": "==",
+                                        "param": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 1,
+                                "customName": "no threat objects",
+                                "display": "Else",
+                                "logic": "and",
+                                "type": "else"
+                            }
+                        ],
+                        "functionId": 2,
+                        "functionName": "decision_2",
+                        "id": "30",
+                        "type": "decision"
+                    },
+                    "errors": {},
+                    "id": "30",
+                    "type": "decision",
+                    "warnings": {},
+                    "x": 760,
+                    "y": 740
                 },
                 "4": {
                     "data": {
@@ -1020,7 +1092,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T13:44:28.080444+00:00",
+    "create_time": "2024-12-11T01:48:53.063866+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
