@@ -276,7 +276,7 @@
                     "targetPort": "30_in"
                 }
             ],
-            "hash": "d7aec610974af696de8cff986d79b243c50433f6",
+            "hash": "4e615108d1f5eb555812de7f0bed2f844b367016",
             "nodes": {
                 "0": {
                     "data": {
@@ -934,10 +934,10 @@
                         "functionName": "threat_objects_note",
                         "id": "27",
                         "parameters": [
-                            "run_query_1:action_result.data.*.threat_object_type",
-                            "run_query_1:action_result.data.*.threat_object"
+                            "finding_threat_objects:custom_function:threat_object_type",
+                            "finding_threat_objects:custom_function:threat_object"
                         ],
-                        "template": "Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n%%\n| {0} | {1} |\n%%\n\n\n\n",
+                        "template": "Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n",
                         "type": "format"
                     },
                     "errors": {},
@@ -1015,7 +1015,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 940,
-                    "y": 2456
+                    "y": 2460
                 },
                 "29": {
                     "data": {
@@ -1070,9 +1070,8 @@
                                 "comparisons": [
                                     {
                                         "conditionIndex": 0,
-                                        "op": "!=",
-                                        "param": "run_query_1:action_result.data.*.threat_object",
-                                        "value": ""
+                                        "op": "is not empty",
+                                        "param": "finding_threat_objects:custom_function:threat_object"
                                     }
                                 ],
                                 "conditionIndex": 0,
@@ -1620,7 +1619,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T05:34:31.207883+00:00",
+    "create_time": "2024-12-11T05:35:55.221195+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

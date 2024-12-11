@@ -593,12 +593,12 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 def threat_objects_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("threat_objects_note() called")
 
-    template = """Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n%%\n| {0} | {1} |\n%%\n\n\n\n"""
+    template = """Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n"""
 
     # parameter list for template variable replacement
     parameters = [
-        "run_query_1:action_result.data.*.threat_object_type",
-        "run_query_1:action_result.data.*.threat_object"
+        "finding_threat_objects:custom_function:threat_object_type",
+        "finding_threat_objects:custom_function:threat_object"
     ]
 
     ################################################################################
@@ -700,7 +700,7 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
     found_match_1 = phantom.decision(
         container=container,
         conditions=[
-            ["run_query_1:action_result.data.*.threat_object", "!=", ""]
+            ["finding_threat_objects:custom_function:threat_object", "is not empty"]
         ],
         delimiter=None)
 
