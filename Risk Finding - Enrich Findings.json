@@ -269,7 +269,7 @@
                     "targetPort": "38_in"
                 }
             ],
-            "hash": "4ae18089816a884331ec4b576b57c7e96c06b548",
+            "hash": "d96b022a5aa2ebdd48be2ba499293a064d706bce",
             "nodes": {
                 "0": {
                     "data": {
@@ -1395,7 +1395,7 @@
                             "int_findings_threat_objects:custom_function:threat_object_type",
                             "int_findings_threat_objects:custom_function:threat_object"
                         ],
-                        "template": "Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n%%\n| {0}{2} | {1}{3} |\n%%\n\n\n\n",
+                        "template": "Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n%%\n| {0} | {1} |\n%%\n\n\n\n",
                         "type": "format"
                     },
                     "errors": {},
@@ -1585,7 +1585,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T05:25:59.260977+00:00",
+    "create_time": "2024-12-11T05:27:13.981651+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

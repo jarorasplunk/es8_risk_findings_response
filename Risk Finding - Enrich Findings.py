@@ -986,7 +986,7 @@ def decision_5(action=None, success=None, container=None, results=None, handle=N
 def threat_objects_note_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("threat_objects_note_1() called")
 
-    template = """Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n%%\n| {0}{2} | {1}{3} |\n%%\n\n\n\n"""
+    template = """Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n%%\n| {0} | {1} |\n%%\n\n\n\n"""
 
     # parameter list for template variable replacement
     parameters = [
