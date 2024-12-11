@@ -208,9 +208,23 @@
                     "sourcePort": "35_out",
                     "targetNode": "36",
                     "targetPort": "36_in"
+                },
+                {
+                    "id": "port_36_to_port_37",
+                    "sourceNode": "36",
+                    "sourcePort": "36_out",
+                    "targetNode": "37",
+                    "targetPort": "37_in"
+                },
+                {
+                    "id": "port_37_to_port_20",
+                    "sourceNode": "37",
+                    "sourcePort": "37_out",
+                    "targetNode": "20",
+                    "targetPort": "20_in"
                 }
             ],
-            "hash": "6663046afaa2b188d48fa07e8ecc4ff55cc9f43f",
+            "hash": "645ca85ceb316692820f870d561a48444eaf6982",
             "nodes": {
                 "0": {
                     "data": {
@@ -495,7 +509,7 @@
                     "id": "18",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 1580,
+                    "x": 1560,
                     "y": 880
                 },
                 "19": {
@@ -1017,6 +1031,7 @@
                             {
                                 "comparisons": [
                                     {
+                                        "conditionIndex": 1,
                                         "op": "==",
                                         "param": "",
                                         "value": ""
@@ -1038,8 +1053,8 @@
                     "id": "30",
                     "type": "decision",
                     "warnings": {},
-                    "x": 1660,
-                    "y": 980
+                    "x": 1160,
+                    "y": 1000
                 },
                 "34": {
                     "data": {
@@ -1182,6 +1197,94 @@
                     "x": 560,
                     "y": 700
                 },
+                "37": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": 191,
+                        "connectorVersion": "v1",
+                        "functionId": 5,
+                        "functionName": "add_task_note_5",
+                        "id": "37",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": {
+                                "functionId": 5,
+                                "parameters": [
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type",
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_score",
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
+                                    "mitre_format_int_findings:custom_function:output",
+                                    "asset_get_attributes_1:custom_function_result.data.configuration.device"
+                                ],
+                                "template": "### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](https://{6}/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1}) \n\n\n\n# MITRE ATT&CK\u00ae\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}"
+                            },
+                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
+                            "task_id": "get_task_id_1:action_result.data.*.task_id",
+                            "title": {
+                                "functionId": 5,
+                                "parameters": [
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object"
+                                ],
+                                "template": "SOAR Analysis for: {0}\n"
+                            }
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "37",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 540,
+                    "y": 820
+                },
                 "4": {
                     "data": {
                         "advanced": {
@@ -1264,7 +1367,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T03:33:31.395927+00:00",
+    "create_time": "2024-12-11T03:37:01.031840+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

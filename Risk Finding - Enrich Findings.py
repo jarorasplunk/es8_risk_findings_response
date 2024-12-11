@@ -402,7 +402,7 @@ def join_update_task_in_current_phase_1(action=None, success=None, container=Non
     if phantom.get_run_data(key="join_update_task_in_current_phase_1_called"):
         return
 
-    if phantom.completed(action_names=["add_task_note_1"]):
+    if phantom.completed(action_names=["add_task_note_1", "add_task_note_5"]):
         # save the state that the joined function has now been called
         phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
 
@@ -890,6 +890,71 @@ def mitre_format_int_findings(action=None, success=None, container=None, results
     ################################################################################
 
     phantom.save_run_data(key="mitre_format_int_findings:output", value=json.dumps(mitre_format_int_findings__output))
+
+    add_task_note_5(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def add_task_note_5(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_task_note_5() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    title_formatted_string = phantom.format(
+        container=container,
+        template="""SOAR Analysis for: {0}\n""",
+        parameters=[
+            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object"
+        ])
+    content_formatted_string = phantom.format(
+        container=container,
+        template="""### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](https://{6}/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1}) \n\n\n\n# MITRE ATT&CK®\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}""",
+        parameters=[
+            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type",
+            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
+            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_score",
+            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
+            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
+            "mitre_format_int_findings:custom_function:output",
+            "asset_get_attributes_1:custom_function_result.data.configuration.device"
+        ])
+
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_score","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    asset_get_attributes_1__result = phantom.collect2(container=container, datapath=["asset_get_attributes_1:custom_function_result.data.configuration.device"])
+    get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    mitre_format_int_findings__output = json.loads(_ if (_ := phantom.get_run_data(key="mitre_format_int_findings:output")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    # build parameters list for 'add_task_note_5' call
+    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+        for asset_get_attributes_1__result_item in asset_get_attributes_1__result:
+            for get_task_id_1_result_item in get_task_id_1_result_data:
+                for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                    if refresh_finding_or_investigation_1_result_item[0] is not None and title_formatted_string is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[6] is not None:
+                        parameters.append({
+                            "id": refresh_finding_or_investigation_1_result_item[0],
+                            "title": title_formatted_string,
+                            "content": content_formatted_string,
+                            "task_id": get_task_id_1_result_item[0],
+                            "phase_id": get_phase_id_1_result_item[0],
+                            "response_plan_id": refresh_finding_or_investigation_1_result_item[6],
+                        })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("add task note", parameters=parameters, name="add_task_note_5", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
 
     return
 
