@@ -74,15 +74,15 @@ def run_query_decision(action=None, success=None, container=None, results=None, 
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        join_asset_get_attributes_1(action=action, success=success, container=container, results=results, handle=handle)
+        mitre_format_findings(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     return
 
 
 @phantom.playbook_block()
-def mitre_format(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("mitre_format() called")
+def mitre_format_findings(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("mitre_format_findings() called")
 
     run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.mitre_tactic","run_query_1:action_result.data.*.mitre_technique","run_query_1:action_result.data.*.mitre_technique_id","run_query_1:action_result.data.*.risk_message"], action_results=results)
 
@@ -91,7 +91,7 @@ def mitre_format(action=None, success=None, container=None, results=None, handle
     run_query_1_result_item_2 = [item[2] for item in run_query_1_result_data]
     run_query_1_result_item_3 = [item[3] for item in run_query_1_result_data]
 
-    mitre_format__output = None
+    mitre_format_findings__output = None
 
     ################################################################################
     ## Custom Code Start
@@ -185,7 +185,7 @@ def mitre_format(action=None, success=None, container=None, results=None, handle
     ## Custom Code End
     ################################################################################
 
-    phantom.save_run_data(key="mitre_format:output", value=json.dumps(mitre_format__output))
+    phantom.save_run_data(key="mitre_format_findings:output", value=json.dumps(mitre_format_findings__output))
 
     add_task_note_1(container=container)
 
@@ -300,7 +300,7 @@ def get_task_id_1_callback(action=None, success=None, container=None, results=No
 
     
     decision_3(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
-    decision_4(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+    asset_get_attributes_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
 
 
     return
@@ -327,7 +327,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
             "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_score",
             "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
             "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
-            "mitre_format:custom_function:output",
+            "mitre_format_findings:custom_function:output",
             "asset_get_attributes_1:custom_function_result.data.configuration.device"
         ])
 
@@ -335,7 +335,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     asset_get_attributes_1__result = phantom.collect2(container=container, datapath=["asset_get_attributes_1:custom_function_result.data.configuration.device"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
-    mitre_format__output = json.loads(_ if (_ := phantom.get_run_data(key="mitre_format:output")) != "" else "null")  # pylint: disable=used-before-assignment
+    mitre_format_findings__output = json.loads(_ if (_ := phantom.get_run_data(key="mitre_format_findings:output")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
@@ -370,17 +370,6 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
 
 
 @phantom.playbook_block()
-def join_asset_get_attributes_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("join_asset_get_attributes_1() called")
-
-    if phantom.completed(action_names=["run_query_1", "run_query_2"]):
-        # call connected block "asset_get_attributes_1"
-        asset_get_attributes_1(container=container, handle=handle)
-
-    return
-
-
-@phantom.playbook_block()
 def asset_get_attributes_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("asset_get_attributes_1() called")
 
@@ -400,7 +389,7 @@ def asset_get_attributes_1(action=None, success=None, container=None, results=No
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/asset_get_attributes", parameters=parameters, name="asset_get_attributes_1", callback=mitre_format)
+    phantom.custom_function(custom_function="community/asset_get_attributes", parameters=parameters, name="asset_get_attributes_1", callback=decision_4)
 
     return
 
@@ -788,7 +777,119 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_2", assets=["splunk"], callback=join_asset_get_attributes_1)
+    phantom.act("run query", parameters=parameters, name="run_query_2", assets=["splunk"], callback=mitre_format_int_findings)
+
+    return
+
+
+@phantom.playbook_block()
+def mitre_format_int_findings(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("mitre_format_int_findings() called")
+
+    run_query_2_result_data = phantom.collect2(container=container, datapath=["run_query_2:action_result.data.*.mitre_tactic","run_query_2:action_result.data.*.mitre_technique","run_query_2:action_result.data.*.mitre_technique_id","run_query_2:action_result.data.*.risk_message"], action_results=results)
+
+    run_query_2_result_item_0 = [item[0] for item in run_query_2_result_data]
+    run_query_2_result_item_1 = [item[1] for item in run_query_2_result_data]
+    run_query_2_result_item_2 = [item[2] for item in run_query_2_result_data]
+    run_query_2_result_item_3 = [item[3] for item in run_query_2_result_data]
+
+    mitre_format_int_findings__output = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    
+    from collections import OrderedDict 
+    from operator import getitem 
+    
+    def mitre_sorter(item):
+        tactic_list = [
+            'reconnaissance', 'resource-development', 'initial-access', 'execution', 
+            'persistence', 'privilege-escalation', 'defense-evasion', 'credential-access', 
+            'discovery', 'lateral-movement', 'collection', 'command-and-control', 
+            'exfiltration', 'impact'
+        ]
+        index_map = {v: i for i, v in enumerate(tactic_list)}
+        if ',' in item[0]:
+            first_item = item[0].split(', ')[1]
+            return index_map[first_item]
+        else:
+            return index_map[item[0]]
+
+    
+    def replace_all(text):
+        char_list = ['[', ']', '"', "'"]
+        for char in char_list:
+            text = text.replace(char, '')
+        return text
+
+    mitre_dictionary = {}
+    for mitre_tactic, mitre_technique, mitre_technique_id, risk_message in zip(run_query_2_result_item_0, run_query_2_result_item_1, run_query_2_result_item_2, run_query_2_result_item_3):
+        
+        mitre_tactic = replace_all(json.dumps(mitre_tactic)) if mitre_tactic else None
+        mitre_technique = replace_all(json.dumps(mitre_technique)) if mitre_technique else None
+        mitre_technique_id = replace_all(json.dumps(mitre_technique_id)) if mitre_technique_id else None
+        
+        if mitre_tactic and mitre_tactic not in mitre_dictionary.keys():
+            mitre_dictionary[mitre_tactic] = {mitre_technique: {'id': mitre_technique_id, 'risk_message': [risk_message]}}
+        elif mitre_tactic and mitre_tactic in mitre_dictionary.keys():
+            if mitre_technique and mitre_technique not in mitre_dictionary[mitre_tactic].keys():
+                mitre_dictionary[mitre_tactic][mitre_technique] = {'id': mitre_technique_id, 'risk_message': [risk_message]}
+            elif mitre_technique and mitre_technique in mitre_dictionary[mitre_tactic].keys():
+                if risk_message not in mitre_dictionary[mitre_tactic][mitre_technique]['risk_message']:
+                    mitre_dictionary[mitre_tactic][mitre_technique]['risk_message'].append(risk_message)
+    
+    mitre_copy = mitre_dictionary.copy()
+    for k,v in mitre_copy.items():
+        sorted_techniques = OrderedDict(sorted(v.items(),
+                                               key = lambda x: getitem(x[1], 'id')
+                                              )
+                                       ) 
+        for a,b in sorted_techniques.items():
+            sorted_techniques[a] = b['risk_message']
+        mitre_copy[k] = sorted_techniques
+
+    final_dictionary = sorted(mitre_copy.items(), key=mitre_sorter)
+    final_format = ""
+    for tactics in final_dictionary:
+        if ',' in tactics[0]:
+            tactic_list = tactics[0].split(', ')
+            final_format += "\n ## "
+            for tactic in tactic_list[:-1]:
+                split_tactic = tactic.split('-')
+                for item in split_tactic[:-1]:
+                    final_format += "{} ".format(item.capitalize())
+                final_format += "{}, ".format(split_tactic[-1].capitalize())
+            split_tactic = tactic_list[-1].split('-')
+            for item in split_tactic[:-1]:
+                final_format += "{} ".format(item.capitalize())
+            final_format += "{}".format(split_tactic[-1].capitalize())
+        else:
+            tactic_list = tactics[0].split('-')
+            final_format += "\n ## "
+            for tactic in tactic_list[:-1]:
+                final_format += "{} ".format(tactic.capitalize())
+            final_format += "{}".format(tactic_list[-1].capitalize())
+        for k,v in tactics[1].items():
+            final_format += "\n - #### {}: {}".format(k, mitre_dictionary[tactics[0]][k]['id'])
+            for risk_message in v:
+                final_format += "\n   - ```{}```".format(risk_message)
+        final_format += "\n"
+    
+
+    if final_format:
+    	mitre_format_int_findings__output = final_format
+    else:
+        mitre_format_int_findings__output = "No Tactics / Techniques available in contributing risk events."
+
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_run_data(key="mitre_format_int_findings:output", value=json.dumps(mitre_format_int_findings__output))
 
     return
 
