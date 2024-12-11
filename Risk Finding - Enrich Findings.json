@@ -172,14 +172,45 @@
                     "targetPort": "20_in"
                 },
                 {
-                    "id": "port_17_to_port_2",
+                    "id": "port_17_to_port_34",
                     "sourceNode": "17",
                     "sourcePort": "17_out",
+                    "targetNode": "34",
+                    "targetPort": "34_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_34_to_port_2",
+                    "sourceNode": "34",
+                    "sourcePort": "34_out",
                     "targetNode": "2",
                     "targetPort": "2_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_34_to_port_35",
+                    "sourceNode": "34",
+                    "sourcePort": "34_out",
+                    "targetNode": "35",
+                    "targetPort": "35_in"
+                },
+                {
+                    "id": "port_35_to_port_19",
+                    "sourceNode": "35",
+                    "sourcePort": "35_out",
+                    "targetNode": "19",
+                    "targetPort": "19_in"
                 }
             ],
-            "hash": "f91c1fd6091ecb8d1d4d25f274fd317293f15863",
+            "hash": "22d114f1a581aa7fd623bf2379ed124659296e70",
             "nodes": {
                 "0": {
                     "data": {
@@ -581,8 +612,8 @@
                     "id": "2",
                     "type": "action",
                     "warnings": {},
-                    "x": 680,
-                    "y": 160
+                    "x": 920,
+                    "y": 300
                 },
                 "20": {
                     "data": {
@@ -1010,6 +1041,118 @@
                     "x": 1660,
                     "y": 980
                 },
+                "34": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "!=",
+                                        "param": "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.count_findings",
+                                        "value": "0"
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "customName": "findings",
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "op": "==",
+                                        "param": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 1,
+                                "customName": "intermediate findings",
+                                "display": "Else",
+                                "logic": "and",
+                                "type": "else"
+                            }
+                        ],
+                        "functionId": 4,
+                        "functionName": "decision_4",
+                        "id": "34",
+                        "type": "decision"
+                    },
+                    "errors": {},
+                    "id": "34",
+                    "type": "decision",
+                    "warnings": {},
+                    "x": 720,
+                    "y": 160
+                },
+                "35": {
+                    "data": {
+                        "action": "run query",
+                        "actionType": "investigate",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Splunk",
+                        "connectorConfigs": [
+                            "splunk"
+                        ],
+                        "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "run_query_2",
+                        "id": "35",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "command": "| from ",
+                            "query": {
+                                "functionId": 2,
+                                "parameters": [
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
+                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type"
+                                ],
+                                "template": "datamodel Risk.All_Risk  \n| search _time>={0} AND _time<={1}\n| search normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n    \n| rename annotations.mitre_attack.mitre_tactic as mitre_tactic, annotations.mitre_attack.mitre_technique as mitre_technique, annotations.mitre_attack.mitre_technique_id as mitre_technique_id \n| fields mitre_tactic, mitre_technique, mitre_technique_id, risk_message, threat_object, threat_object_type, threat_match_value, threat_match_field"
+                            },
+                            "search_mode": "smart"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "query"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "search",
+                                "field": "command"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "smart",
+                                "field": "search_mode"
+                            }
+                        ],
+                        "type": "action"
+                    },
+                    "errors": {},
+                    "id": "35",
+                    "type": "action",
+                    "warnings": {},
+                    "x": 560,
+                    "y": 300
+                },
                 "4": {
                     "data": {
                         "advanced": {
@@ -1043,8 +1186,8 @@
                     "id": "4",
                     "type": "decision",
                     "warnings": {},
-                    "x": 760,
-                    "y": 260
+                    "x": 1000,
+                    "y": 460
                 },
                 "5": {
                     "data": {
@@ -1092,7 +1235,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T02:58:06.623286+00:00",
+    "create_time": "2024-12-11T03:27:42.454082+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

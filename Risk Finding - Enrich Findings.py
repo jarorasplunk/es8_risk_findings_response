@@ -74,7 +74,7 @@ def run_query_decision(action=None, success=None, container=None, results=None, 
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        asset_get_attributes_1(action=action, success=success, container=container, results=results, handle=handle)
+        join_asset_get_attributes_1(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     return
@@ -300,7 +300,7 @@ def get_task_id_1_callback(action=None, success=None, container=None, results=No
 
     
     decision_3(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
-    run_query_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
+    decision_4(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=filtered_artifacts, filtered_results=filtered_results)
 
 
     return
@@ -365,6 +365,17 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     ################################################################################
 
     phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=decision_2)
+
+    return
+
+
+@phantom.playbook_block()
+def join_asset_get_attributes_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("join_asset_get_attributes_1() called")
+
+    if phantom.completed(action_names=["run_query_1", "run_query_2"]):
+        # call connected block "asset_get_attributes_1"
+        asset_get_attributes_1(container=container, handle=handle)
 
     return
 
@@ -711,6 +722,73 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
 
     # check for 'else' condition 2
     join_update_task_in_current_phase_1(action=action, success=success, container=container, results=results, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
+def decision_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("decision_4() called")
+
+    # check for 'if' condition 1
+    found_match_1 = phantom.decision(
+        container=container,
+        conditions=[
+            ["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.count_findings", "!=", 0]
+        ],
+        delimiter=None)
+
+    # call connected blocks if condition 1 matched
+    if found_match_1:
+        run_query_1(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'else' condition 2
+    run_query_2(action=action, success=success, container=container, results=results, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
+def run_query_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("run_query_2() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    query_formatted_string = phantom.format(
+        container=container,
+        template="""datamodel Risk.All_Risk  \n| search _time>={0} AND _time<={1}\n| search normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n    \n| rename annotations.mitre_attack.mitre_tactic as mitre_tactic, annotations.mitre_attack.mitre_technique as mitre_technique, annotations.mitre_attack.mitre_technique_id as mitre_technique_id \n| fields mitre_tactic, mitre_technique, mitre_technique_id, risk_message, threat_object, threat_object_type, threat_match_value, threat_match_field""",
+        parameters=[
+            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
+            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
+            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
+            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type"
+        ])
+
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'run_query_2' call
+    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+        if query_formatted_string is not None:
+            parameters.append({
+                "command": "| from ",
+                "search_mode": "smart",
+                "query": query_formatted_string,
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("run query", parameters=parameters, name="run_query_2", assets=["splunk"], callback=join_asset_get_attributes_1)
 
     return
 
