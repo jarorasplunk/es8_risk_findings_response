@@ -269,7 +269,7 @@
                     "targetPort": "38_in"
                 }
             ],
-            "hash": "daa6e00f80f9f0f23ae27ecd477263c066d5eb30",
+            "hash": "4ae18089816a884331ec4b576b57c7e96c06b548",
             "nodes": {
                 "0": {
                     "data": {
@@ -1343,9 +1343,8 @@
                                 "comparisons": [
                                     {
                                         "conditionIndex": 0,
-                                        "op": "!=",
-                                        "param": "int_findings_threat_objects:custom_function:threat_object",
-                                        "value": ""
+                                        "op": "is not empty",
+                                        "param": "int_findings_threat_objects:custom_function:threat_object"
                                     }
                                 ],
                                 "conditionIndex": 0,
@@ -1510,7 +1509,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 580,
-                    "y": 2456
+                    "y": 2460
                 },
                 "42": {
                     "data": {
@@ -1586,7 +1585,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T05:24:00.213758+00:00",
+    "create_time": "2024-12-11T05:25:59.260977+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

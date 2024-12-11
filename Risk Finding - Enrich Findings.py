@@ -967,7 +967,7 @@ def decision_5(action=None, success=None, container=None, results=None, handle=N
     found_match_1 = phantom.decision(
         container=container,
         conditions=[
-            ["int_findings_threat_objects:custom_function:threat_object", "!=", ""]
+            ["int_findings_threat_objects:custom_function:threat_object", "is not empty"]
         ],
         delimiter=None)
 
