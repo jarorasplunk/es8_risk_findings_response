@@ -954,7 +954,7 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_5", assets=["builtin_mc_connector"], callback=decision_5)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_5", assets=["builtin_mc_connector"], callback=int_findings_threat_objects)
 
     return
 
@@ -1049,6 +1049,40 @@ def add_task_note_6(action=None, success=None, container=None, results=None, han
     ################################################################################
 
     phantom.act("add task note", parameters=parameters, name="add_task_note_6", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
+
+    return
+
+
+@phantom.playbook_block()
+def int_findings_threat_objects(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("int_findings_threat_objects() called")
+
+    run_query_2_result_data = phantom.collect2(container=container, datapath=["run_query_2:action_result.data.*.threat_object","run_query_2:action_result.data.*.threat_object_type"], action_results=results)
+
+    run_query_2_result_item_0 = [item[0] for item in run_query_2_result_data]
+    run_query_2_result_item_1 = [item[1] for item in run_query_2_result_data]
+
+    int_findings_threat_objects__threat_object = None
+    int_findings_threat_objects__threat_object_type = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    
+    phantom.debug(run_query_2_result_item_0)
+    phantom.debug(run_query_2_result_item_1)
+    
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_run_data(key="int_findings_threat_objects:threat_object", value=json.dumps(int_findings_threat_objects__threat_object))
+    phantom.save_run_data(key="int_findings_threat_objects:threat_object_type", value=json.dumps(int_findings_threat_objects__threat_object_type))
+
+    decision_5(container=container)
 
     return
 

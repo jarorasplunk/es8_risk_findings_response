@@ -184,13 +184,6 @@
                     "targetPort": "19_in"
                 },
                 {
-                    "id": "port_19_to_port_34",
-                    "sourceNode": "19",
-                    "sourcePort": "19_out",
-                    "targetNode": "34",
-                    "targetPort": "34_in"
-                },
-                {
                     "conditions": [
                         {
                             "index": 0
@@ -217,13 +210,6 @@
                     "targetPort": "37_in"
                 },
                 {
-                    "id": "port_37_to_port_38",
-                    "sourceNode": "37",
-                    "sourcePort": "37_out",
-                    "targetNode": "38",
-                    "targetPort": "38_in"
-                },
-                {
                     "conditions": [
                         {
                             "index": 1
@@ -234,18 +220,6 @@
                     "sourcePort": "38_out",
                     "targetNode": "20",
                     "targetPort": "20_in"
-                },
-                {
-                    "conditions": [
-                        {
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_38_to_port_39",
-                    "sourceNode": "38",
-                    "sourcePort": "38_out",
-                    "targetNode": "39",
-                    "targetPort": "39_in"
                 },
                 {
                     "id": "port_39_to_port_40",
@@ -260,9 +234,42 @@
                     "sourcePort": "40_out",
                     "targetNode": "20",
                     "targetPort": "20_in"
+                },
+                {
+                    "id": "port_19_to_port_34",
+                    "sourceNode": "19",
+                    "sourcePort": "19_out",
+                    "targetNode": "34",
+                    "targetPort": "34_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_38_to_port_39",
+                    "sourceNode": "38",
+                    "sourcePort": "38_out",
+                    "targetNode": "39",
+                    "targetPort": "39_in"
+                },
+                {
+                    "id": "port_37_to_port_42",
+                    "sourceNode": "37",
+                    "sourcePort": "37_out",
+                    "targetNode": "42",
+                    "targetPort": "42_in"
+                },
+                {
+                    "id": "port_42_to_port_38",
+                    "sourceNode": "42",
+                    "sourcePort": "42_out",
+                    "targetNode": "38",
+                    "targetPort": "38_in"
                 }
             ],
-            "hash": "d730b8f1daa12445fde600cc102b55bd39333c9d",
+            "hash": "12d4b5af9f0c0efd37a2c2222e8b2e8aef809ee9",
             "nodes": {
                 "0": {
                     "data": {
@@ -283,8 +290,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 380,
-                    "y": -440.0000000000001
+                    "x": 630,
+                    "y": 0
                 },
                 "1": {
                     "data": {
@@ -299,8 +306,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 740,
-                    "y": 1680
+                    "x": 700,
+                    "y": 2756
                 },
                 "12": {
                     "data": {
@@ -348,8 +355,8 @@
                     "id": "12",
                     "type": "decision",
                     "warnings": {},
-                    "x": 160,
-                    "y": 160
+                    "x": 250,
+                    "y": 1584
                 },
                 "16": {
                     "data": {
@@ -401,8 +408,8 @@
                     "id": "16",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 360,
-                    "y": -140.00000000000006
+                    "x": 610,
+                    "y": 312
                 },
                 "17": {
                     "data": {
@@ -459,8 +466,8 @@
                     "id": "17",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 360,
-                    "y": -20.00000000000005
+                    "x": 610,
+                    "y": 462
                 },
                 "18": {
                     "data": {
@@ -547,8 +554,8 @@
                     "id": "18",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 1560,
-                    "y": 880
+                    "x": 1130,
+                    "y": 1434
                 },
                 "19": {
                     "data": {
@@ -606,8 +613,8 @@
                     "id": "19",
                     "type": "utility",
                     "warnings": {},
-                    "x": 840,
-                    "y": 20
+                    "x": 950,
+                    "y": 612
                 },
                 "2": {
                     "data": {
@@ -664,8 +671,8 @@
                     "id": "2",
                     "type": "action",
                     "warnings": {},
-                    "x": 920,
-                    "y": 300
+                    "x": 1130,
+                    "y": 942
                 },
                 "20": {
                     "data": {
@@ -719,8 +726,8 @@
                     "id": "20",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 620,
-                    "y": 1500
+                    "x": 680,
+                    "y": 2596
                 },
                 "22": {
                     "data": {
@@ -742,8 +749,8 @@
                     "id": "22",
                     "type": "format",
                     "warnings": {},
-                    "x": 340,
-                    "y": 460
+                    "x": 0,
+                    "y": 1764
                 },
                 "23": {
                     "data": {
@@ -765,8 +772,8 @@
                     "id": "23",
                     "type": "format",
                     "warnings": {},
-                    "x": -260,
-                    "y": 460
+                    "x": 340,
+                    "y": 1764
                 },
                 "24": {
                     "data": {
@@ -835,8 +842,8 @@
                     "id": "24",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": -260,
-                    "y": 600
+                    "x": 340,
+                    "y": 1914
                 },
                 "25": {
                     "data": {
@@ -905,8 +912,8 @@
                     "id": "25",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 340,
-                    "y": 600
+                    "x": 0,
+                    "y": 1914
                 },
                 "27": {
                     "data": {
@@ -930,8 +937,8 @@
                     "id": "27",
                     "type": "format",
                     "warnings": {},
-                    "x": 1100,
-                    "y": 1140
+                    "x": 940,
+                    "y": 2300
                 },
                 "28": {
                     "data": {
@@ -1000,8 +1007,8 @@
                     "id": "28",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 1060,
-                    "y": 1240
+                    "x": 940,
+                    "y": 2456
                 },
                 "29": {
                     "data": {
@@ -1043,8 +1050,8 @@
                     "id": "29",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 370,
-                    "y": -295.5
+                    "x": 610,
+                    "y": 150
                 },
                 "30": {
                     "data": {
@@ -1092,8 +1099,8 @@
                     "id": "30",
                     "type": "decision",
                     "warnings": {},
-                    "x": 1420,
-                    "y": 980
+                    "x": 1200,
+                    "y": 1780
                 },
                 "34": {
                     "data": {
@@ -1140,8 +1147,8 @@
                     "id": "34",
                     "type": "decision",
                     "warnings": {},
-                    "x": 720,
-                    "y": 160
+                    "x": 1030,
+                    "y": 762
                 },
                 "35": {
                     "data": {
@@ -1204,8 +1211,8 @@
                     "id": "35",
                     "type": "action",
                     "warnings": {},
-                    "x": 560,
-                    "y": 300
+                    "x": 770,
+                    "y": 1107
                 },
                 "36": {
                     "data": {
@@ -1233,8 +1240,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    \n    from collections import OrderedDict \n    from operator import getitem \n    \n    def mitre_sorter(item):\n        tactic_list = [\n            'reconnaissance', 'resource-development', 'initial-access', 'execution', \n            'persistence', 'privilege-escalation', 'defense-evasion', 'credential-access', \n            'discovery', 'lateral-movement', 'collection', 'command-and-control', \n            'exfiltration', 'impact'\n        ]\n        index_map = {v: i for i, v in enumerate(tactic_list)}\n        if ',' in item[0]:\n            first_item = item[0].split(', ')[1]\n            return index_map[first_item]\n        else:\n            return index_map[item[0]]\n\n    \n    def replace_all(text):\n        char_list = ['[', ']', '\"', \"'\"]\n        for char in char_list:\n            text = text.replace(char, '')\n        return text\n\n    mitre_dictionary = {}\n    for mitre_tactic, mitre_technique, mitre_technique_id, risk_message in zip(run_query_2_result_item_0, run_query_2_result_item_1, run_query_2_result_item_2, run_query_2_result_item_3):\n        \n        mitre_tactic = replace_all(json.dumps(mitre_tactic)) if mitre_tactic else None\n        mitre_technique = replace_all(json.dumps(mitre_technique)) if mitre_technique else None\n        mitre_technique_id = replace_all(json.dumps(mitre_technique_id)) if mitre_technique_id else None\n        \n        if mitre_tactic and mitre_tactic not in mitre_dictionary.keys():\n            mitre_dictionary[mitre_tactic] = {mitre_technique: {'id': mitre_technique_id, 'risk_message': [risk_message]}}\n        elif mitre_tactic and mitre_tactic in mitre_dictionary.keys():\n            if mitre_technique and mitre_technique not in mitre_dictionary[mitre_tactic].keys():\n                mitre_dictionary[mitre_tactic][mitre_technique] = {'id': mitre_technique_id, 'risk_message': [risk_message]}\n            elif mitre_technique and mitre_technique in mitre_dictionary[mitre_tactic].keys():\n                if risk_message not in mitre_dictionary[mitre_tactic][mitre_technique]['risk_message']:\n                    mitre_dictionary[mitre_tactic][mitre_technique]['risk_message'].append(risk_message)\n    \n    mitre_copy = mitre_dictionary.copy()\n    for k,v in mitre_copy.items():\n        sorted_techniques = OrderedDict(sorted(v.items(),\n                                               key = lambda x: getitem(x[1], 'id')\n                                              )\n                                       ) \n        for a,b in sorted_techniques.items():\n            sorted_techniques[a] = b['risk_message']\n        mitre_copy[k] = sorted_techniques\n\n    final_dictionary = sorted(mitre_copy.items(), key=mitre_sorter)\n    final_format = \"\"\n    for tactics in final_dictionary:\n        if ',' in tactics[0]:\n            tactic_list = tactics[0].split(', ')\n            final_format += \"\\n ## \"\n            for tactic in tactic_list[:-1]:\n                split_tactic = tactic.split('-')\n                for item in split_tactic[:-1]:\n                    final_format += \"{} \".format(item.capitalize())\n                final_format += \"{}, \".format(split_tactic[-1].capitalize())\n            split_tactic = tactic_list[-1].split('-')\n            for item in split_tactic[:-1]:\n                final_format += \"{} \".format(item.capitalize())\n            final_format += \"{}\".format(split_tactic[-1].capitalize())\n        else:\n            tactic_list = tactics[0].split('-')\n            final_format += \"\\n ## \"\n            for tactic in tactic_list[:-1]:\n                final_format += \"{} \".format(tactic.capitalize())\n            final_format += \"{}\".format(tactic_list[-1].capitalize())\n        for k,v in tactics[1].items():\n            final_format += \"\\n - #### {}: {}\".format(k, mitre_dictionary[tactics[0]][k]['id'])\n            for risk_message in v:\n                final_format += \"\\n   - ```{}```\".format(risk_message)\n        final_format += \"\\n\"\n    \n\n    if final_format:\n    \tmitre_format_int_findings__output = final_format\n    else:\n        mitre_format_int_findings__output = \"No Tactics / Techniques available in contributing risk events.\"\n\n\n",
                     "warnings": {},
-                    "x": 560,
-                    "y": 700
+                    "x": 770,
+                    "y": 1272
                 },
                 "37": {
                     "data": {
@@ -1321,8 +1328,8 @@
                     "id": "37",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 540,
-                    "y": 820
+                    "x": 770,
+                    "y": 1434
                 },
                 "38": {
                     "data": {
@@ -1350,6 +1357,7 @@
                             {
                                 "comparisons": [
                                     {
+                                        "conditionIndex": 1,
                                         "op": "==",
                                         "param": "",
                                         "value": ""
@@ -1371,8 +1379,8 @@
                     "id": "38",
                     "type": "decision",
                     "warnings": {},
-                    "x": 620,
-                    "y": 980
+                    "x": 860,
+                    "y": 1780
                 },
                 "39": {
                     "data": {
@@ -1395,8 +1403,8 @@
                     "id": "39",
                     "type": "format",
                     "warnings": {},
-                    "x": 740,
-                    "y": 1140
+                    "x": 500,
+                    "y": 2120
                 },
                 "4": {
                     "data": {
@@ -1431,8 +1439,8 @@
                     "id": "4",
                     "type": "decision",
                     "warnings": {},
-                    "x": 1000,
-                    "y": 460
+                    "x": 1210,
+                    "y": 1092
                 },
                 "40": {
                     "data": {
@@ -1501,8 +1509,36 @@
                     "id": "40",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 760,
-                    "y": 1260
+                    "x": 580,
+                    "y": 2456
+                },
+                "42": {
+                    "data": {
+                        "advanced": {
+                            "customName": "int findings threat objects",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 5,
+                        "functionName": "int_findings_threat_objects",
+                        "id": "42",
+                        "inputParameters": [
+                            "run_query_2:action_result.data.*.threat_object",
+                            "run_query_2:action_result.data.*.threat_object_type"
+                        ],
+                        "outputVariables": [
+                            "threat_object",
+                            "threat_object_type"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "42",
+                    "type": "code",
+                    "userCode": "\n    # Write your custom code here...\n    \n    phantom.debug(run_query_2_result_item_0)\n    phantom.debug(run_query_2_result_item_1)\n    \n\n",
+                    "warnings": {},
+                    "x": 780,
+                    "y": 1580
                 },
                 "5": {
                     "data": {
@@ -1530,8 +1566,8 @@
                     "type": "code",
                     "userCode": "\n    from collections import OrderedDict \n    from operator import getitem \n    \n    def mitre_sorter(item):\n        tactic_list = [\n            'reconnaissance', 'resource-development', 'initial-access', 'execution', \n            'persistence', 'privilege-escalation', 'defense-evasion', 'credential-access', \n            'discovery', 'lateral-movement', 'collection', 'command-and-control', \n            'exfiltration', 'impact'\n        ]\n        index_map = {v: i for i, v in enumerate(tactic_list)}\n        if ',' in item[0]:\n            first_item = item[0].split(', ')[1]\n            return index_map[first_item]\n        else:\n            return index_map[item[0]]\n\n    \n    def replace_all(text):\n        char_list = ['[', ']', '\"', \"'\"]\n        for char in char_list:\n            text = text.replace(char, '')\n        return text\n\n    mitre_dictionary = {}\n    for mitre_tactic, mitre_technique, mitre_technique_id, risk_message in zip(run_query_1_result_item_0, run_query_1_result_item_1, run_query_1_result_item_2, run_query_1_result_item_3):\n        \n        mitre_tactic = replace_all(json.dumps(mitre_tactic)) if mitre_tactic else None\n        mitre_technique = replace_all(json.dumps(mitre_technique)) if mitre_technique else None\n        mitre_technique_id = replace_all(json.dumps(mitre_technique_id)) if mitre_technique_id else None\n        \n        if mitre_tactic and mitre_tactic not in mitre_dictionary.keys():\n            mitre_dictionary[mitre_tactic] = {mitre_technique: {'id': mitre_technique_id, 'risk_message': [risk_message]}}\n        elif mitre_tactic and mitre_tactic in mitre_dictionary.keys():\n            if mitre_technique and mitre_technique not in mitre_dictionary[mitre_tactic].keys():\n                mitre_dictionary[mitre_tactic][mitre_technique] = {'id': mitre_technique_id, 'risk_message': [risk_message]}\n            elif mitre_technique and mitre_technique in mitre_dictionary[mitre_tactic].keys():\n                if risk_message not in mitre_dictionary[mitre_tactic][mitre_technique]['risk_message']:\n                    mitre_dictionary[mitre_tactic][mitre_technique]['risk_message'].append(risk_message)\n    \n    mitre_copy = mitre_dictionary.copy()\n    for k,v in mitre_copy.items():\n        sorted_techniques = OrderedDict(sorted(v.items(),\n                                               key = lambda x: getitem(x[1], 'id')\n                                              )\n                                       ) \n        for a,b in sorted_techniques.items():\n            sorted_techniques[a] = b['risk_message']\n        mitre_copy[k] = sorted_techniques\n\n    final_dictionary = sorted(mitre_copy.items(), key=mitre_sorter)\n    final_format = \"\"\n    for tactics in final_dictionary:\n        if ',' in tactics[0]:\n            tactic_list = tactics[0].split(', ')\n            final_format += \"\\n ## \"\n            for tactic in tactic_list[:-1]:\n                split_tactic = tactic.split('-')\n                for item in split_tactic[:-1]:\n                    final_format += \"{} \".format(item.capitalize())\n                final_format += \"{}, \".format(split_tactic[-1].capitalize())\n            split_tactic = tactic_list[-1].split('-')\n            for item in split_tactic[:-1]:\n                final_format += \"{} \".format(item.capitalize())\n            final_format += \"{}\".format(split_tactic[-1].capitalize())\n        else:\n            tactic_list = tactics[0].split('-')\n            final_format += \"\\n ## \"\n            for tactic in tactic_list[:-1]:\n                final_format += \"{} \".format(tactic.capitalize())\n            final_format += \"{}\".format(tactic_list[-1].capitalize())\n        for k,v in tactics[1].items():\n            final_format += \"\\n - #### {}: {}\".format(k, mitre_dictionary[tactics[0]][k]['id'])\n            for risk_message in v:\n                final_format += \"\\n   - ```{}```\".format(risk_message)\n        final_format += \"\\n\"\n    \n\n    if final_format:\n    \tmitre_format_findings__output = final_format\n    else:\n        mitre_format_findings__output = \"No Tactics / Techniques available in contributing risk events.\"\n\t\n\n",
                     "warnings": {},
-                    "x": 1580,
-                    "y": 760
+                    "x": 1130,
+                    "y": 1278
                 }
             },
             "notes": "",
@@ -1550,7 +1586,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T03:48:56.619607+00:00",
+    "create_time": "2024-12-11T04:27:53.643113+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
