@@ -967,7 +967,7 @@ def decision_5(action=None, success=None, container=None, results=None, handle=N
     found_match_1 = phantom.decision(
         container=container,
         conditions=[
-            ["run_query_2:action_result.data.*.threat_object", "!=", ""]
+            ["int_findings_threat_objects:custom_function:threat_object", "!=", ""]
         ],
         delimiter=None)
 
@@ -990,8 +990,8 @@ def threat_objects_note_1(action=None, success=None, container=None, results=Non
 
     # parameter list for template variable replacement
     parameters = [
-        "run_query_2:action_result.data.*.threat_object_type",
-        "run_query_2:action_result.data.*.threat_object"
+        "int_findings_threat_objects:custom_function:threat_object_type",
+        "int_findings_threat_objects:custom_function:threat_object"
     ]
 
     ################################################################################

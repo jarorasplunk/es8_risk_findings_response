@@ -269,7 +269,7 @@
                     "targetPort": "38_in"
                 }
             ],
-            "hash": "daa6e00f80f9f0f23ae27ecd477263c066d5eb30",
+            "hash": "908303dc33bfc06d82e9ffca90fb71dd8c1b8da6",
             "nodes": {
                 "0": {
                     "data": {
@@ -291,7 +291,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 630,
-                    "y": -4.263256414560601e-14
+                    "y": -4.973799150320701e-14
                 },
                 "1": {
                     "data": {
@@ -409,7 +409,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 610,
-                    "y": 311.99999999999994
+                    "y": 311.9999999999999
                 },
                 "17": {
                     "data": {
@@ -467,7 +467,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 610,
-                    "y": 461.99999999999994
+                    "y": 461.9999999999999
                 },
                 "18": {
                     "data": {
@@ -749,7 +749,7 @@
                     "id": "22",
                     "type": "format",
                     "warnings": {},
-                    "x": -1.4210854715202004e-14,
+                    "x": 0,
                     "y": 1764
                 },
                 "23": {
@@ -912,7 +912,7 @@
                     "id": "25",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": -1.4210854715202004e-14,
+                    "x": 0,
                     "y": 1914
                 },
                 "27": {
@@ -1344,7 +1344,7 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "!=",
-                                        "param": "run_query_2:action_result.data.*.threat_object",
+                                        "param": "int_findings_threat_objects:custom_function:threat_object",
                                         "value": ""
                                     }
                                 ],
@@ -1393,8 +1393,8 @@
                         "functionName": "threat_objects_note_1",
                         "id": "39",
                         "parameters": [
-                            "run_query_2:action_result.data.*.threat_object_type",
-                            "run_query_2:action_result.data.*.threat_object"
+                            "int_findings_threat_objects:custom_function:threat_object_type",
+                            "int_findings_threat_objects:custom_function:threat_object"
                         ],
                         "template": "Below threat objects have been identified as part of this investigation:\n\n| Threat Indicator Type | Indicator Value |\n%%\n| {0}{2} | {1}{3} |\n%%\n\n\n\n",
                         "type": "format"
@@ -1586,7 +1586,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T05:20:59.637955+00:00",
+    "create_time": "2024-12-11T05:24:00.213758+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
