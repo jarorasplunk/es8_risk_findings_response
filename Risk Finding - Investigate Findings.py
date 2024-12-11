@@ -375,9 +375,9 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_virustotal_v3_identifier_reputation_analysis_1() called")
 
-    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
-    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"])
-    filtered_cf_result_2 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"])
+    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"])
+    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
+    filtered_cf_result_2 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"])
     filtered_cf_result_3 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_1:hash:custom_function_result.data.output"])
 
     filtered_cf_result_0_data_output = [item[0] for item in filtered_cf_result_0]
@@ -386,9 +386,9 @@ def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success
     filtered_cf_result_3_data_output = [item[0] for item in filtered_cf_result_3]
 
     inputs = {
-        "url": filtered_cf_result_0_data_output,
-        "domain": filtered_cf_result_1_data_output,
-        "ip": filtered_cf_result_2_data_output,
+        "ip": filtered_cf_result_0_data_output,
+        "url": filtered_cf_result_1_data_output,
+        "domain": filtered_cf_result_2_data_output,
         "file_hash": filtered_cf_result_3_data_output,
     }
 
@@ -431,6 +431,56 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     # Write your custom code here...
     
 
+    def is_domain_format(value):
+        # Check if it contains '.' but is not in IP address format
+        parts = value.split('.')
+        return len(parts) > 1 and not all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)
+    
+    # Result lists
+    threat_object = []
+    threat_object_type = []
+    
+    finding_threat_objects__threat_object = []
+    finding_threat_objects__threat_object_type = []
+
+    result = []
+    threat_list__threat_list = []
+    # Iterate over the lists
+    for item1, item2 in zip(run_query_1_result_item_1, run_query_1_result_item_0):
+        phantom.debug(item1)
+        phantom.debug(item2)
+        if item1 is not None and item2 is not None:
+            if isinstance(item1, list) and isinstance(item2, list):
+                # If both items are lists, pair their elements individually
+                for sub_item1, sub_item2 in zip(item1, item2):
+                    threat_object.append(sub_item1)
+                    threat_object_type.append(sub_item2)
+            else:
+                # Otherwise, pair the elements directly
+                threat_object.append(item1)
+                threat_object_type.append(item2)
+                
+    # Iterate through both lists and remove None values and duplicates
+    seen = set()
+    for item1, item2 in zip(threat_object, threat_object_type):
+        if item1 is not None and item2 is not None:
+            phantom.debug(item1)
+            is_url = item1.startswith("http://") or item1.startswith("https://")
+            is_domain = not is_url and is_domain_format(item1)
+            if item2 == "other":
+                if is_url:
+                    item2 = "url"
+                elif is_domain:
+                    item2 = "domain"
+            pair = (item1, item2)
+            if pair not in seen:
+                finding_threat_objects__threat_object.append(item1)
+                finding_threat_objects__threat_object_type.append(item2)
+                seen.add(pair)
+    
+    
+    
+
     threat_list__file_hash = []
     threat_list__ip = []
     threat_list__url = []
@@ -441,33 +491,17 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
     result = []
     threat_list__threat_list = []
     # Iterate over the lists
-    for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):
-        phantom.debug(item1)
-        phantom.debug(item2)
-        if item1 is not None and item2 is not None:
-            if isinstance(item1, list) and isinstance(item2, list):
-                # If both items are lists, pair their elements individually
-                for sub_item1, sub_item2 in zip(item1, item2):
-                    result.append([sub_item1, sub_item2])
-            else:
-                # Otherwise, pair the elements directly
-                result.append([item1, item2])
-
-    phantom.debug(result)
-    
-    threat_list__threat_list = result
-    
-    for item in threat_list__threat_list:
-        if 'file_hash' in item:
-            threat_list__file_hash.append(item[1])
-        if 'ip' in item:
-            threat_list__ip.append(item[1])
-        if 'domain' in item:
-            threat_list__domain.append(item[1])
-        if 'url' in item:
-            threat_list__url.append(item[1])
-        if 'process' in item:
-            threat_list__process.append(item[1])
+    for item1, item2 in zip(finding_threat_objects__threat_object, finding_threat_objects__threat_object_type):
+        if 'file_hash' in item1:
+            threat_list__file_hash.append(item2)
+        if 'ip' in item1:
+            threat_list__ip.append(item2)
+        if 'domain' in item1:
+            threat_list__domain.append(item2)
+        if 'url' in item1:
+            threat_list__url.append(item2)
+        if 'process' in item1:
+            threat_list__process.append(item2)
 
     phantom.debug(threat_list__file_hash)
     phantom.debug(threat_list__ip)
@@ -487,7 +521,7 @@ def threat_list(action=None, success=None, container=None, results=None, handle=
 
     domain(container=container)
     ip(container=container)
-    hash(container=container)
+    file_hash(container=container)
     url(container=container)
     process(container=container)
 
@@ -615,7 +649,7 @@ def threat_indicator_values(action=None, success=None, container=None, results=N
 def join_route_investigation_playbooks(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("join_route_investigation_playbooks() called")
 
-    if phantom.completed(custom_function_names=["ip", "hash", "domain", "url", "process"]):
+    if phantom.completed(custom_function_names=["ip", "file_hash", "domain", "url", "process"]):
         # call connected block "route_investigation_playbooks"
         route_investigation_playbooks(container=container, handle=handle)
 
@@ -630,7 +664,7 @@ def route_investigation_playbooks(action=None, success=None, container=None, res
     matched_artifacts_1, matched_results_1 = phantom.condition(
         container=container,
         conditions=[
-            ["hash:custom_function_result.data.output", "!=", None]
+            ["file_hash:custom_function_result.data.output", "!=", None]
         ],
         name="route_investigation_playbooks:condition_1",
         delimiter=None)
@@ -722,8 +756,8 @@ def ip(action=None, success=None, container=None, results=None, handle=None, fil
 
 
 @phantom.playbook_block()
-def hash(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("hash() called")
+def file_hash(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("file_hash() called")
 
     threat_list__file_hash = json.loads(_ if (_ := phantom.get_run_data(key="threat_list:file_hash")) != "" else "null")  # pylint: disable=used-before-assignment
 
@@ -743,7 +777,7 @@ def hash(action=None, success=None, container=None, results=None, handle=None, f
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="hash", callback=join_route_investigation_playbooks)
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="file_hash", callback=join_route_investigation_playbooks)
 
     return
 
@@ -1007,7 +1041,7 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
         container=container,
         template="""| eval threat_indicator_hash = \"{0}\"\n| eval threat_indicator_ip = \"{1}\"\n| eval threat_indicator_domain = \"{2}\"\n| eval threat_indicator_url = \"{3}\"\n| eval threat_indicator_process = \"{4}\"\n| fields threat_indicator_hash threat_indicator_ip threat_indicator_domain threat_indicator_url threat_indicator_process\n| `add_events({5})`\n""",
         parameters=[
-            "hash:custom_function_result.data.output",
+            "file_hash:custom_function_result.data.output",
             "ip:custom_function_result.data.output",
             "domain:custom_function_result.data.output",
             "url:custom_function_result.data.output",
@@ -1015,7 +1049,7 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
             "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id"
         ])
 
-    hash__result = phantom.collect2(container=container, datapath=["hash:custom_function_result.data.output"])
+    file_hash__result = phantom.collect2(container=container, datapath=["file_hash:custom_function_result.data.output"])
     ip__result = phantom.collect2(container=container, datapath=["ip:custom_function_result.data.output"])
     domain__result = phantom.collect2(container=container, datapath=["domain:custom_function_result.data.output"])
     url__result = phantom.collect2(container=container, datapath=["url:custom_function_result.data.output"])
@@ -1025,7 +1059,7 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
     parameters = []
 
     # build parameters list for 'run_query_2' call
-    for hash__result_item in hash__result:
+    for file_hash__result_item in file_hash__result:
         for ip__result_item in ip__result:
             for domain__result_item in domain__result:
                 for url__result_item in url__result:

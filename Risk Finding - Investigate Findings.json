@@ -239,7 +239,7 @@
                     "targetPort": "42_in"
                 }
             ],
-            "hash": "1b712a12d682e67fcbec7ed6b8d150c94e384beb",
+            "hash": "3016e48d844e63d27b3b65c194262cdd7cc8eda6",
             "nodes": {
                 "0": {
                     "data": {
@@ -261,7 +261,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 1020,
-                    "y": -280.00000000000017
+                    "y": -280.0000000000002
                 },
                 "1": {
                     "data": {
@@ -629,7 +629,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 1000,
-                    "y": 19.999999999999915
+                    "y": 19.999999999999886
                 },
                 "24": {
                     "data": {
@@ -658,7 +658,7 @@
                     "errors": {},
                     "id": "24",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    \n\n    threat_list__file_hash = []\n    threat_list__ip = []\n    threat_list__url = []\n    threat_list__domain = []\n    threat_list__process = []\n    \n    # Result list\n    result = []\n    threat_list__threat_list = []\n    # Iterate over the lists\n    for item1, item2 in zip(run_query_1_result_item_0, run_query_1_result_item_1):\n        phantom.debug(item1)\n        phantom.debug(item2)\n        if item1 is not None and item2 is not None:\n            if isinstance(item1, list) and isinstance(item2, list):\n                # If both items are lists, pair their elements individually\n                for sub_item1, sub_item2 in zip(item1, item2):\n                    result.append([sub_item1, sub_item2])\n            else:\n                # Otherwise, pair the elements directly\n                result.append([item1, item2])\n\n    phantom.debug(result)\n    \n    threat_list__threat_list = result\n    \n    for item in threat_list__threat_list:\n        if 'file_hash' in item:\n            threat_list__file_hash.append(item[1])\n        if 'ip' in item:\n            threat_list__ip.append(item[1])\n        if 'domain' in item:\n            threat_list__domain.append(item[1])\n        if 'url' in item:\n            threat_list__url.append(item[1])\n        if 'process' in item:\n            threat_list__process.append(item[1])\n\n    phantom.debug(threat_list__file_hash)\n    phantom.debug(threat_list__ip)\n    phantom.debug(threat_list__url)\n    phantom.debug(threat_list__domain)\n    phantom.debug(threat_list__process)\n",
+                    "userCode": "\n    # Write your custom code here...\n    \n\n    def is_domain_format(value):\n        # Check if it contains '.' but is not in IP address format\n        parts = value.split('.')\n        return len(parts) > 1 and not all(part.isdigit() and 0 <= int(part) <= 255 for part in parts)\n    \n    # Result lists\n    threat_object = []\n    threat_object_type = []\n    \n    finding_threat_objects__threat_object = []\n    finding_threat_objects__threat_object_type = []\n\n    result = []\n    threat_list__threat_list = []\n    # Iterate over the lists\n    for item1, item2 in zip(run_query_1_result_item_1, run_query_1_result_item_0):\n        phantom.debug(item1)\n        phantom.debug(item2)\n        if item1 is not None and item2 is not None:\n            if isinstance(item1, list) and isinstance(item2, list):\n                # If both items are lists, pair their elements individually\n                for sub_item1, sub_item2 in zip(item1, item2):\n                    threat_object.append(sub_item1)\n                    threat_object_type.append(sub_item2)\n            else:\n                # Otherwise, pair the elements directly\n                threat_object.append(item1)\n                threat_object_type.append(item2)\n                \n    # Iterate through both lists and remove None values and duplicates\n    seen = set()\n    for item1, item2 in zip(threat_object, threat_object_type):\n        if item1 is not None and item2 is not None:\n            phantom.debug(item1)\n            is_url = item1.startswith(\"http://\") or item1.startswith(\"https://\")\n            is_domain = not is_url and is_domain_format(item1)\n            if item2 == \"other\":\n                if is_url:\n                    item2 = \"url\"\n                elif is_domain:\n                    item2 = \"domain\"\n            pair = (item1, item2)\n            if pair not in seen:\n                finding_threat_objects__threat_object.append(item1)\n                finding_threat_objects__threat_object_type.append(item2)\n                seen.add(pair)\n    \n    \n    \n\n    threat_list__file_hash = []\n    threat_list__ip = []\n    threat_list__url = []\n    threat_list__domain = []\n    threat_list__process = []\n    \n    # Result list\n    result = []\n    threat_list__threat_list = []\n    # Iterate over the lists\n    for item1, item2 in zip(finding_threat_objects__threat_object, finding_threat_objects__threat_object_type):\n        if 'file_hash' in item1:\n            threat_list__file_hash.append(item2)\n        if 'ip' in item1:\n            threat_list__ip.append(item2)\n        if 'domain' in item1:\n            threat_list__domain.append(item2)\n        if 'url' in item1:\n            threat_list__url.append(item2)\n        if 'process' in item1:\n            threat_list__process.append(item2)\n\n    phantom.debug(threat_list__file_hash)\n    phantom.debug(threat_list__ip)\n    phantom.debug(threat_list__url)\n    phantom.debug(threat_list__domain)\n    phantom.debug(threat_list__process)\n",
                     "warnings": {},
                     "x": 980,
                     "y": 500
@@ -779,7 +779,7 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "!=",
-                                        "param": "hash:custom_function_result.data.output",
+                                        "param": "file_hash:custom_function_result.data.output",
                                         "value": "None"
                                     }
                                 ],
@@ -916,7 +916,7 @@
                 "39": {
                     "data": {
                         "advanced": {
-                            "customName": "hash",
+                            "customName": "file_hash",
                             "customNameId": 0,
                             "join": []
                         },
@@ -926,7 +926,7 @@
                             "repoName": "community"
                         },
                         "functionId": 12,
-                        "functionName": "hash",
+                        "functionName": "file_hash",
                         "id": "39",
                         "loop": {
                             "enabled": false,
@@ -1445,7 +1445,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 1010,
-                    "y": -115.50000000000011
+                    "y": -115.50000000000014
                 },
                 "48": {
                     "data": {
@@ -1477,7 +1477,7 @@
                             "query": {
                                 "functionId": 2,
                                 "parameters": [
-                                    "hash:custom_function_result.data.output",
+                                    "file_hash:custom_function_result.data.output",
                                     "ip:custom_function_result.data.output",
                                     "domain:custom_function_result.data.output",
                                     "url:custom_function_result.data.output",
@@ -1651,7 +1651,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 980,
-                    "y": 179.99999999999974
+                    "y": 179.9999999999997
                 }
             },
             "notes": ""
@@ -1664,7 +1664,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T15:55:37.823293+00:00",
+    "create_time": "2024-12-11T12:32:57.523943+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
