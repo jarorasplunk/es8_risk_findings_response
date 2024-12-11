@@ -798,8 +798,6 @@ def format_query_input_data(action=None, success=None, container=None, results=N
     phantom.save_run_data(key="format_query_input_data:risk_object", value=json.dumps(format_query_input_data__risk_object))
     phantom.save_run_data(key="format_query_input_data:risk_object_type", value=json.dumps(format_query_input_data__risk_object_type))
 
-    run_query_1(container=container)
-
     return
 
 

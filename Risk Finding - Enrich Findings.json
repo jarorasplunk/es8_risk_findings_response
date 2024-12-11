@@ -189,16 +189,9 @@
                     "sourcePort": "17_out",
                     "targetNode": "32",
                     "targetPort": "32_in"
-                },
-                {
-                    "id": "port_32_to_port_2",
-                    "sourceNode": "32",
-                    "sourcePort": "32_out",
-                    "targetNode": "2",
-                    "targetPort": "2_in"
                 }
             ],
-            "hash": "23003eeb392bb306d4db3e1cb09110410b45602f",
+            "hash": "047f61ea4af721b9a1682ae26407467c69e0c7e8",
             "nodes": {
                 "0": {
                     "data": {
@@ -482,7 +475,11 @@
                     "errors": {},
                     "id": "18",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 1580,
                     "y": 880
                 },
@@ -599,7 +596,11 @@
                     "errors": {},
                     "id": "2",
                     "type": "action",
-                    "warnings": {},
+                    "warnings": {
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 680,
                     "y": 160
                 },
@@ -934,7 +935,11 @@
                     "errors": {},
                     "id": "28",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 1580,
                     "y": 1260
                 },
@@ -1180,7 +1185,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-11T02:53:05.918193+00:00",
+    "create_time": "2024-12-11T02:53:17.187326+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
