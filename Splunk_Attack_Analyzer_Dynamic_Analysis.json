@@ -181,7 +181,7 @@
                 }
             ],
             "globalCustomCode": null,
-            "hash": "b4c47b9b3f066d030716db5aa17252069d7bc6ae",
+            "hash": "63fbf1783a8bc1fda41bdded1ff74bdadfb47b6c",
             "nodes": {
                 "0": {
                     "data": {
@@ -197,7 +197,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 200,
-                    "y": 0
+                    "y": -4.263256414560601e-14
                 },
                 "1": {
                     "data": {
@@ -293,7 +293,7 @@
                         },
                         "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
                         "connectorConfigs": [
-                            "saa-cba"
+                            "splunk_attack_analyzer"
                         ],
                         "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
                         "connectorVersion": "v1",
@@ -769,7 +769,7 @@
                     "type": "action",
                     "userCode": "\n    # Write your custom code here...\n\n",
                     "warnings": {},
-                    "x": 1.4210854715202004e-14,
+                    "x": 0,
                     "y": 320
                 },
                 "4": {
@@ -874,8 +874,8 @@
                     "type": "action",
                     "userCode": "\n    # Write your custom code here...\n    #parameters = []\n    #for job_ids in url_jobid_detonation_output__jobid:\n    #    for job in job_ids:\n    #        if job is not None:\n    #            parameters.append({\n    #                \"job_id\": job,\n    #                \"timeout\": 5,\n    #            })\n    #phantom.debug(parameters)\n",
                     "warnings": {},
-                    "x": 1.4210854715202004e-14,
-                    "y": 686
+                    "x": 0,
+                    "y": 680
                 },
                 "7": {
                     "data": {
@@ -1003,7 +1003,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-10T02:11:59.753215+00:00",
+    "create_time": "2024-12-12T00:06:45.674391+00:00",
     "draft_mode": false,
     "labels": [
         "*"

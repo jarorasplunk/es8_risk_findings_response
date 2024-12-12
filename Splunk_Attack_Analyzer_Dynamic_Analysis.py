@@ -451,8 +451,8 @@ def file_detonation(action=None, success=None, container=None, results=None, han
     for filtered_input_0_hash_item in filtered_input_0_hash:
         if filtered_input_0_hash_item[0] is not None:
             parameters.append({
-                "user_agent": "Default",
                 "file": filtered_input_0_hash_item[0],
+                "user_agent": "Default",
             })
 
     ################################################################################
@@ -465,7 +465,7 @@ def file_detonation(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("detonate file", parameters=parameters, name="file_detonation", assets=["saa-cba"], callback=detonation_status_filter)
+    phantom.act("detonate file", parameters=parameters, name="file_detonation", assets=["splunk_attack_analyzer"], callback=detonation_status_filter)
 
     return
 
