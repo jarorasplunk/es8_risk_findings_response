@@ -73,6 +73,7 @@ def url_detonation(action=None, success=None, container=None, results=None, hand
         if filtered_input_0_url_item[0] is not None:
             parameters.append({
                 "url": filtered_input_0_url_item[0],
+                "user_agent": "Default",
             })
 
     ################################################################################
@@ -85,7 +86,7 @@ def url_detonation(action=None, success=None, container=None, results=None, hand
     ## Custom Code End
     ################################################################################
 
-    phantom.act("detonate url", parameters=parameters, name="url_detonation", assets=["splunk_attack_analyzer"], callback=url_status_filter)
+    phantom.act("detonate url", parameters=parameters, name="url_detonation", assets=["saa-cba"], callback=url_status_filter)
 
     return
 
@@ -155,7 +156,7 @@ def get_url_summary_output(action=None, success=None, container=None, results=No
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job summary", parameters=parameters, name="get_url_summary_output", assets=["splunk_attack_analyzer"], callback=url_summary_filter)
+    phantom.act("get job summary", parameters=parameters, name="get_url_summary_output", assets=["saa-cba"], callback=url_summary_filter)
 
     return
 
@@ -465,7 +466,7 @@ def file_detonation(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("detonate file", parameters=parameters, name="file_detonation", assets=["splunk_attack_analyzer"], callback=detonation_status_filter)
+    phantom.act("detonate file", parameters=parameters, name="file_detonation", assets=["saa-cba"], callback=detonation_status_filter)
 
     return
 
@@ -511,7 +512,7 @@ def get_file_summary_output(action=None, success=None, container=None, results=N
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job summary", parameters=parameters, name="get_file_summary_output", assets=["splunk_attack_analyzer"], callback=file_summary_filter)
+    phantom.act("get job summary", parameters=parameters, name="get_file_summary_output", assets=["saa-cba"], callback=file_summary_filter)
 
     return
 
@@ -907,7 +908,7 @@ def get_file_job_screenshots(action=None, success=None, container=None, results=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get job screenshots", parameters=parameters, name="get_file_job_screenshots", assets=["splunk_attack_analyzer"], callback=get_file_job_screenshots_callback)
+    phantom.act("get job screenshots", parameters=parameters, name="get_file_job_screenshots", assets=["saa-cba"], callback=get_file_job_screenshots_callback)
 
     return
 

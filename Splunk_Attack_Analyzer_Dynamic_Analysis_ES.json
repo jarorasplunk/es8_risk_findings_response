@@ -181,7 +181,7 @@
                 }
             ],
             "globalCustomCode": null,
-            "hash": "63fbf1783a8bc1fda41bdded1ff74bdadfb47b6c",
+            "hash": "2ffd3674f37f624215f697b2ee73e9fb016da4ec",
             "nodes": {
                 "0": {
                     "data": {
@@ -197,7 +197,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 200,
-                    "y": -4.263256414560601e-14
+                    "y": -8.526512829121202e-14
                 },
                 "1": {
                     "data": {
@@ -293,7 +293,7 @@
                         },
                         "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
                         "connectorConfigs": [
-                            "splunk_attack_analyzer"
+                            "saa-cba"
                         ],
                         "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
                         "connectorVersion": "v1",
@@ -347,7 +347,7 @@
                         },
                         "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
                         "connectorConfigs": [
-                            "splunk_attack_analyzer"
+                            "saa-cba"
                         ],
                         "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
                         "connectorVersion": "v1",
@@ -657,7 +657,7 @@
                         },
                         "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
                         "connectorConfigs": [
-                            "splunk_attack_analyzer"
+                            "saa-cba"
                         ],
                         "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
                         "connectorVersion": "v1",
@@ -737,7 +737,7 @@
                         },
                         "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
                         "connectorConfigs": [
-                            "splunk_attack_analyzer"
+                            "saa-cba"
                         ],
                         "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
                         "connectorVersion": "v1",
@@ -754,12 +754,18 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "url": "filtered-data:saa_input_filter:condition_1:playbook_input:url"
+                            "url": "filtered-data:saa_input_filter:condition_1:playbook_input:url",
+                            "user_agent": "Default"
                         },
                         "requiredParameters": [
                             {
                                 "data_type": "string",
                                 "field": "url"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "Default",
+                                "field": "user_agent"
                             }
                         ],
                         "type": "action"
@@ -769,7 +775,7 @@
                     "type": "action",
                     "userCode": "\n    # Write your custom code here...\n\n",
                     "warnings": {},
-                    "x": 0,
+                    "x": 1.4210854715202004e-14,
                     "y": 320
                 },
                 "4": {
@@ -825,7 +831,7 @@
                         },
                         "connector": "Splunk Attack Analyzer Connector for Splunk SOAR",
                         "connectorConfigs": [
-                            "splunk_attack_analyzer"
+                            "saa-cba"
                         ],
                         "connectorId": "de681fee-c552-45bf-9212-827b1c7529f8",
                         "connectorVersion": "v1",
@@ -1009,7 +1015,7 @@
         "schema": "5.0.15",
         "version": "6.3.1.176"
     },
-    "create_time": "2024-12-12T00:10:24.219142+00:00",
+    "create_time": "2024-12-12T00:11:00.819136+00:00",
     "draft_mode": false,
     "labels": [
         "*"
