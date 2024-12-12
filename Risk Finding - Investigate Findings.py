@@ -286,7 +286,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=playbook_splunk_attack_analyzer_dynamic_analysis_1)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=splunk_attack_analyzer_dynamic_analysis)
 
     return
 
@@ -375,9 +375,9 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_virustotal_v3_identifier_reputation_analysis_1() called")
 
-    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
-    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"])
-    filtered_cf_result_2 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"])
+    filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_3:ip:custom_function_result.data.output"])
+    filtered_cf_result_1 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
+    filtered_cf_result_2 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_5:domain:custom_function_result.data.output"])
     filtered_cf_result_3 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_1:file_hash:custom_function_result.data.output"])
 
     filtered_cf_result_0_data_output = [item[0] for item in filtered_cf_result_0]
@@ -386,9 +386,9 @@ def playbook_virustotal_v3_identifier_reputation_analysis_1(action=None, success
     filtered_cf_result_3_data_output = [item[0] for item in filtered_cf_result_3]
 
     inputs = {
-        "url": filtered_cf_result_0_data_output,
-        "domain": filtered_cf_result_1_data_output,
-        "ip": filtered_cf_result_2_data_output,
+        "ip": filtered_cf_result_0_data_output,
+        "url": filtered_cf_result_1_data_output,
+        "domain": filtered_cf_result_2_data_output,
         "file_hash": filtered_cf_result_3_data_output,
     }
 
@@ -875,8 +875,8 @@ def process(action=None, success=None, container=None, results=None, handle=None
 
 
 @phantom.playbook_block()
-def playbook_splunk_attack_analyzer_dynamic_analysis_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("playbook_splunk_attack_analyzer_dynamic_analysis_1() called")
+def splunk_attack_analyzer_dynamic_analysis(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("splunk_attack_analyzer_dynamic_analysis() called")
 
     filtered_cf_result_0 = phantom.collect2(container=container, datapath=["filtered-data:route_investigation_playbooks:condition_4:url:custom_function_result.data.output"])
 
@@ -884,7 +884,7 @@ def playbook_splunk_attack_analyzer_dynamic_analysis_1(action=None, success=None
 
     inputs = {
         "url": filtered_cf_result_0_data_output,
-        "hash": [""],
+        "hash": [],
         "domain": filtered_cf_result_0_data_output,
     }
 
@@ -898,8 +898,8 @@ def playbook_splunk_attack_analyzer_dynamic_analysis_1(action=None, success=None
     ## Custom Code End
     ################################################################################
 
-    # call playbook "es8_risk_findings_response/Splunk_Attack_Analyzer_Dynamic_Analysis", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("es8_risk_findings_response/Splunk_Attack_Analyzer_Dynamic_Analysis", container=container, name="playbook_splunk_attack_analyzer_dynamic_analysis_1", callback=add_task_note_2, inputs=inputs)
+    # call playbook "es8_risk_findings_response/Splunk_Attack_Analyzer_Dynamic_Analysis_ES", returns the playbook_run_id
+    playbook_run_id = phantom.playbook("es8_risk_findings_response/Splunk_Attack_Analyzer_Dynamic_Analysis_ES", container=container, name="splunk_attack_analyzer_dynamic_analysis", callback=add_task_note_2, inputs=inputs)
 
     return
 
