@@ -28,7 +28,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "1e638af48fbed617d52cbca2960be2f22b39906d",
+            "hash": "8a4b1a57cdefeb0185dd29a8a0a9a585dfcd09e0",
             "nodes": {
                 "0": {
                     "data": {
@@ -44,7 +44,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 1000,
-                    "y": 419.9999999999997
+                    "y": 419.9999999999996
                 },
                 "1": {
                     "data": {
@@ -137,11 +137,11 @@
         "output_spec": null,
         "playbook_trigger": "artifact_created",
         "playbook_type": "es",
-        "python_version": "3",
-        "schema": "5.0.15",
-        "version": "6.3.1.176"
+        "python_version": "3.9",
+        "schema": "5.0.20",
+        "version": "6.4.1.357"
     },
-    "create_time": "2024-12-08T02:13:03.369042+00:00",
+    "create_time": "2025-06-06T02:56:32.304896+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

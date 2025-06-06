@@ -214,7 +214,7 @@ def create_response_plan_json(action=None, success=None, container=None, results
     ## Custom Code End
     ################################################################################
 
-    phantom.save_run_data(key="create_response_plan_json:risk_findings_response_json_body", value=json.dumps(create_response_plan_json__risk_findings_response_json_body))
+    phantom.save_block_result(key="create_response_plan_json:risk_findings_response_json_body", value=json.dumps(create_response_plan_json__risk_findings_response_json_body))
 
     post_data_1(container=container)
 
