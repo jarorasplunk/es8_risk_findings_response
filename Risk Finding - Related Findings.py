@@ -225,6 +225,10 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
         conditions=[
             ["close_findings_prompt:action_result.summary.responses.0", "==", "Yes"]
         ],
+        conditions_dps=[
+            ["close_findings_prompt:action_result.summary.responses.0", "==", "Yes"]
+        ],
+        name="decision_1:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
@@ -292,15 +296,9 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
 def join_update_task_in_current_phase_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("join_update_task_in_current_phase_1() called")
 
-    # if the joined function has already been called, do nothing
-    if phantom.get_run_data(key="join_update_task_in_current_phase_1_called"):
-        return
-
-    # save the state that the joined function has now been called
-    phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
-
-    # call connected block "update_task_in_current_phase_1"
-    update_task_in_current_phase_1(container=container, handle=handle)
+    if phantom.completed(action_names=["add_task_note_2", "add_task_note_3", "add_task_note_4", "add_task_note_5"]):
+        # call connected block "update_task_in_current_phase_1"
+        update_task_in_current_phase_1(container=container, handle=handle)
 
     return
 
@@ -463,6 +461,10 @@ def findings_exist(action=None, success=None, container=None, results=None, hand
         conditions=[
             ["run_query_1:action_result.summary.total_events", "!=", 0]
         ],
+        conditions_dps=[
+            ["run_query_1:action_result.summary.total_events", "!=", 0]
+        ],
+        name="findings_exist:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
@@ -564,8 +566,11 @@ def related_findings_list(action=None, success=None, container=None, results=Non
     ## Custom Code End
     ################################################################################
 
-    phantom.save_run_data(key="related_findings_list:related_findings_id", value=json.dumps(related_findings_list__related_findings_id))
-    phantom.save_run_data(key="related_findings_list:related_findings_time", value=json.dumps(related_findings_list__related_findings_time))
+    phantom.save_block_result(key="related_findings_list__inputs:0:run_query_1:action_result.data.*.source_event_id", value=json.dumps(run_query_1_result_item_0))
+    phantom.save_block_result(key="related_findings_list__inputs:1:run_query_1:action_result.data.*._time", value=json.dumps(run_query_1_result_item_1))
+
+    phantom.save_block_result(key="related_findings_list:related_findings_id", value=json.dumps(related_findings_list__related_findings_id))
+    phantom.save_block_result(key="related_findings_list:related_findings_time", value=json.dumps(related_findings_list__related_findings_time))
 
     id_list(container=container)
 
@@ -638,6 +643,10 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
             ["get_finding_or_investigation_1:action_result.data.*.status_name", "!=", "Closed"],
             ["get_finding_or_investigation_1:action_result.data.*.finding_id", "!=", ""]
         ],
+        conditions_dps=[
+            ["get_finding_or_investigation_1:action_result.data.*.status_name", "!=", "Closed"],
+            ["get_finding_or_investigation_1:action_result.data.*.finding_id", "!=", ""]
+        ],
         name="filter_1:condition_1",
         delimiter=None)
 
@@ -649,6 +658,9 @@ def filter_1(action=None, success=None, container=None, results=None, handle=Non
     matched_artifacts_2, matched_results_2 = phantom.condition(
         container=container,
         conditions=[
+            ["get_finding_or_investigation_1:action_result.data.*.status_name", "==", "Closed"]
+        ],
+        conditions_dps=[
             ["get_finding_or_investigation_1:action_result.data.*.status_name", "==", "Closed"]
         ],
         name="filter_1:condition_2",

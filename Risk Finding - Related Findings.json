@@ -30,6 +30,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_2",
                             "index": 1
                         }
                     ],
@@ -63,6 +64,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_3",
                             "index": 0
                         }
                     ],
@@ -89,6 +91,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_4",
                             "index": 1
                         }
                     ],
@@ -108,6 +111,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_1",
                             "index": 0
                         }
                     ],
@@ -134,6 +138,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_5",
                             "index": 0
                         }
                     ],
@@ -146,6 +151,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_6",
                             "index": 1
                         }
                     ],
@@ -191,21 +197,21 @@
                     "targetPort": "41_in"
                 },
                 {
-                    "id": "port_0_to_port_48",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "48",
-                    "targetPort": "48_in"
-                },
-                {
                     "id": "port_48_to_port_33",
                     "sourceNode": "48",
                     "sourcePort": "48_out",
                     "targetNode": "33",
                     "targetPort": "33_in"
+                },
+                {
+                    "id": "port_0_to_port_48",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "48",
+                    "targetPort": "48_in"
                 }
             ],
-            "hash": "9a8ab9279695a7cd5d00a3921724a66c85121325",
+            "hash": "5486c2d0c38363629608520ac1242b11e0d0efcf",
             "nodes": {
                 "0": {
                     "data": {
@@ -227,7 +233,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 440,
-                    "y": -160.00000000000003
+                    "y": -160.00000000000009
                 },
                 "1": {
                     "data": {
@@ -341,7 +347,11 @@
                     "errors": {},
                     "id": "20",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 260,
                     "y": 920
                 },
@@ -463,6 +473,7 @@
                                     }
                                 ],
                                 "conditionIndex": 0,
+                                "conditionKey": "condition_key_1",
                                 "customName": "Close Yes",
                                 "display": "If",
                                 "logic": "and",
@@ -478,6 +489,7 @@
                                     }
                                 ],
                                 "conditionIndex": 1,
+                                "conditionKey": "condition_key_2",
                                 "customName": "Close No",
                                 "display": "Else",
                                 "logic": "and",
@@ -568,7 +580,11 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 300,
                     "y": 2280
                 },
@@ -625,7 +641,11 @@
                     "errors": {},
                     "id": "31",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 500,
                     "y": 2520
                 },
@@ -695,7 +715,11 @@
                     "errors": {},
                     "id": "32",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 520,
                     "y": 2380
                 },
@@ -748,7 +772,11 @@
                     "errors": {},
                     "id": "33",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 420,
                     "y": 139.99999999999997
                 },
@@ -806,7 +834,11 @@
                     "errors": {},
                     "id": "34",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 440,
                     "y": 300
                 },
@@ -828,6 +860,7 @@
                                     }
                                 ],
                                 "conditionIndex": 0,
+                                "conditionKey": "condition_key_3",
                                 "customName": "findings exists",
                                 "display": "If",
                                 "logic": "and",
@@ -843,6 +876,7 @@
                                     }
                                 ],
                                 "conditionIndex": 1,
+                                "conditionKey": "condition_key_4",
                                 "customName": "findings dont exist",
                                 "display": "Else",
                                 "logic": "and",
@@ -931,7 +965,11 @@
                     "errors": {},
                     "id": "38",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 840,
                     "y": 2380
                 },
@@ -1176,6 +1214,7 @@
                                     }
                                 ],
                                 "conditionIndex": 0,
+                                "conditionKey": "condition_key_5",
                                 "customName": "not closed",
                                 "logic": "and"
                             },
@@ -1189,6 +1228,7 @@
                                     }
                                 ],
                                 "conditionIndex": 1,
+                                "conditionKey": "condition_key_6",
                                 "customName": "closed",
                                 "logic": "and"
                             }
@@ -1201,7 +1241,11 @@
                     "errors": {},
                     "id": "44",
                     "type": "filter",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 240,
                     "y": 2020
                 },
@@ -1278,7 +1322,11 @@
                     "errors": {},
                     "id": "46",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": -240,
                     "y": 2160
                 },
@@ -1368,7 +1416,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 420,
-                    "y": -20.00000000000002
+                    "y": -20
                 }
             },
             "notes": ""
@@ -1377,11 +1425,11 @@
         "output_spec": null,
         "playbook_trigger": "artifact_created",
         "playbook_type": "es",
-        "python_version": "3",
-        "schema": "5.0.15",
-        "version": "6.3.1.176"
+        "python_version": "3.9",
+        "schema": "5.0.17",
+        "version": "6.4.1.342"
     },
-    "create_time": "2024-12-10T12:31:46.331837+00:00",
+    "create_time": "2025-06-19T01:44:52.923238+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
