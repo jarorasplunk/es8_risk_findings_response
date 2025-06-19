@@ -894,16 +894,12 @@ def included_findings(action=None, success=None, container=None, results=None, h
                 if key in ["finding_ids", "intermediate_finding_ids"]:
                     final_result[key].append(value)
 
-    phantom.debug(json.dumps(final_result, indent=2))
-
-    finding_id = final_result["finding_ids"]
-    for id in finding_id:
-        included_findings__finding_id.append(id)
-        
-    intermediate_finding_id = final_result["intermediate_finding_ids"]
-    for id in intermediate_finding_id:
-        included_findings__intermediate_finding_id.append(id)
-
+    included_findings__finding_id = final_result["finding_ids"]
+    included_findings__intermediate_finding_id = final_result["intermediate_finding_ids"]
+    
+    phantom.debug(included_findings__finding_id)
+    phantom.debug(included_findings__intermediate_finding_id)
+    
     ################################################################################
     ## Custom Code End
     ################################################################################
@@ -912,8 +908,6 @@ def included_findings(action=None, success=None, container=None, results=None, h
 
     phantom.save_block_result(key="included_findings:finding_id", value=json.dumps(included_findings__finding_id))
     phantom.save_block_result(key="included_findings:intermediate_finding_id", value=json.dumps(included_findings__intermediate_finding_id))
-
-    included_findings_values(container=container)
 
     return
 
@@ -940,7 +934,33 @@ def included_findings_values(action=None, success=None, container=None, results=
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="included_findings_values", callback=run_query_1)
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="included_findings_values", callback=format_findings_query)
+
+    return
+
+
+@phantom.playbook_block()
+def format_findings_query(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("format_findings_query() called")
+
+    template = """`notable` | where event_id IN (\"{0}\")\n"""
+
+    # parameter list for template variable replacement
+    parameters = [
+        "included_findings_values:custom_function_result.data.output"
+    ]
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.format(container=container, template=template, parameters=parameters, name="format_findings_query")
 
     return
 
