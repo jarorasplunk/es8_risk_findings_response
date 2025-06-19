@@ -884,7 +884,7 @@ def included_findings(action=None, success=None, container=None, results=None, h
     #phantom.debug(get_finding_or_investigation_1_result_item_0)
     #phantom.debug(type(get_finding_or_investigation_1_result_item_0))
     
-    for item in get_finding_or_investigation_1_result_item_0:
+    for item in get_finding_or_investigation_1_result_item_0[0]:
         phantom.debug(item)
 
     ################################################################################
