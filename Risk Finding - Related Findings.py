@@ -831,7 +831,7 @@ def included_findings(action=None, success=None, container=None, results=None, h
     phantom.save_block_result(key="included_findings:intermediate_finding_id", value=json.dumps(included_findings__intermediate_finding_id))
     phantom.save_block_result(key="included_findings:findings_list", value=json.dumps(included_findings__findings_list))
 
-    playbook_close_related_findings_1(container=container)
+    update_event_1(container=container)
 
     return
 
@@ -938,6 +938,40 @@ def playbook_close_related_findings_1_callback(action=None, success=None, contai
     # Downstream End block cannot be called directly, since execution will call on_finish automatically.
     # Using placeholder callback function so child playbook is run synchronously.
 
+
+    return
+
+
+@phantom.playbook_block()
+def update_event_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("update_event_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    if included_findings__finding_id is not None:
+        parameters.append({
+            "event_ids": included_findings__finding_id,
+            "status": "Closed",
+            "disposition": "",
+            "integer_disposition": 7,
+            "wait_for_confirmation": True,
+        })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("update event", parameters=parameters, name="update_event_1", assets=["splunk"])
 
     return
 

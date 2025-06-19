@@ -125,14 +125,14 @@
                     "targetPort": "48_in"
                 },
                 {
-                    "id": "port_53_to_port_60",
+                    "id": "port_53_to_port_61",
                     "sourceNode": "53",
                     "sourcePort": "53_out",
-                    "targetNode": "60",
-                    "targetPort": "60_in"
+                    "targetNode": "61",
+                    "targetPort": "61_in"
                 }
             ],
-            "hash": "630bfb2abfeb04e941784743e9965e1ba8bd0444",
+            "hash": "559c4c81f975730081d567dd5e41ba236587f56e",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -1515,9 +1515,63 @@
                     "errors": {},
                     "id": "60",
                     "type": "playbook",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 920,
                     "y": 624.5
+                },
+                "61": {
+                    "data": {
+                        "action": "update event",
+                        "actionType": "generic",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Splunk",
+                        "connectorConfigs": [
+                            "splunk"
+                        ],
+                        "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "update_event_1",
+                        "id": "61",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "disposition": "",
+                            "event_ids": "included_findings:custom_function:finding_id",
+                            "integer_disposition": "7",
+                            "status": "Closed",
+                            "wait_for_confirmation": true
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "event_ids"
+                            }
+                        ],
+                        "type": "action"
+                    },
+                    "errors": {},
+                    "id": "61",
+                    "type": "action",
+                    "warnings": {},
+                    "x": 810,
+                    "y": 264.5
                 }
             },
             "notes": ""
@@ -1530,7 +1584,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T09:02:59.137475+00:00",
+    "create_time": "2025-06-19T23:13:24.648015+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
