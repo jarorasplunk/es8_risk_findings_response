@@ -192,7 +192,7 @@
                     "targetPort": "4_in"
                 }
             ],
-            "hash": "42ada16eaf04fd8e0878d979c890c90eea383ef0",
+            "hash": "27cce59d7501a39019cdc9f27d17b2ebe32c86e9",
             "nodes": {
                 "0": {
                     "data": {
@@ -1048,7 +1048,7 @@
                                 "parameters": [
                                     "included_findings_values:custom_function_result.data.output"
                                 ],
-                                "template": " | where event_id IN ({0})"
+                                "template": " | where event_id IN (\"{0}\")"
                             },
                             "search_mode": "verbose",
                             "start_time": ""
@@ -1622,7 +1622,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T03:47:22.824708+00:00",
+    "create_time": "2025-06-19T03:48:20.872070+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
