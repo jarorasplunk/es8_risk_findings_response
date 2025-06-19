@@ -125,14 +125,14 @@
                     "targetPort": "48_in"
                 },
                 {
-                    "id": "port_53_to_port_59",
+                    "id": "port_53_to_port_60",
                     "sourceNode": "53",
                     "sourcePort": "53_out",
-                    "targetNode": "59",
-                    "targetPort": "59_in"
+                    "targetNode": "60",
+                    "targetPort": "60_in"
                 }
             ],
-            "hash": "9d091db62c64bade39c1dd41507d14814e909c62",
+            "hash": "630bfb2abfeb04e941784743e9965e1ba8bd0444",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -1469,9 +1469,55 @@
                     "id": "59",
                     "type": "enterpriseSecurity",
                     "userCode": "\n    # Write your custom code here...\n    parameters = []\n    phantom.debug(included_findings__findings_list)\n    \n    for item in included_findings__findings_list:\n        phantom.debug(item)\n        parameters.append({\n            \"id\": item,\n            \"status\": \"Closed\",\n            \"disposition\": \"disposition:7\",\n        })\n\n",
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 1000,
+                    "y": 1820
+                },
+                "60": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "playbook_close_related_findings_1",
+                        "id": "60",
+                        "inputs": {
+                            "findings_list": {
+                                "datapaths": [
+                                    "included_findings:custom_function:findings_list"
+                                ],
+                                "deduplicate": false
+                            }
+                        },
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "playbookName": "close_related_findings",
+                        "playbookRepo": 3,
+                        "playbookRepoName": "es8_risk_findings_response",
+                        "playbookType": "data",
+                        "synchronous": true,
+                        "type": "playbook"
+                    },
+                    "errors": {},
+                    "id": "60",
+                    "type": "playbook",
                     "warnings": {},
-                    "x": 800,
-                    "y": 340
+                    "x": 920,
+                    "y": 624.5
                 }
             },
             "notes": ""
@@ -1484,7 +1530,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T08:56:25.380849+00:00",
+    "create_time": "2025-06-19T09:02:59.137475+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

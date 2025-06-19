@@ -831,7 +831,7 @@ def included_findings(action=None, success=None, container=None, results=None, h
     phantom.save_block_result(key="included_findings:intermediate_finding_id", value=json.dumps(included_findings__intermediate_finding_id))
     phantom.save_block_result(key="included_findings:findings_list", value=json.dumps(included_findings__findings_list))
 
-    update_finding_or_investigation_2(container=container)
+    playbook_close_related_findings_1(container=container)
 
     return
 
@@ -900,6 +900,44 @@ def update_finding_or_investigation_2(action=None, success=None, container=None,
     ################################################################################
 
     phantom.act("update finding or investigation", parameters=parameters, name="update_finding_or_investigation_2", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_close_related_findings_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_close_related_findings_1() called")
+
+    included_findings__findings_list = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:findings_list")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    inputs = {
+        "findings_list": included_findings__findings_list,
+    }
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    # call playbook "es8_risk_findings_response/close_related_findings", returns the playbook_run_id
+    playbook_run_id = phantom.playbook("es8_risk_findings_response/close_related_findings", container=container, name="playbook_close_related_findings_1", callback=playbook_close_related_findings_1_callback, inputs=inputs)
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_close_related_findings_1_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_close_related_findings_1_callback() called")
+
+    
+    # Downstream End block cannot be called directly, since execution will call on_finish automatically.
+    # Using placeholder callback function so child playbook is run synchronously.
+
 
     return
 
