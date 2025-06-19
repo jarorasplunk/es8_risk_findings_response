@@ -25,27 +25,25 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""`notable` | where event_id IN (\"{0}\")""",
+        template="""`notable` | where event_id IN ({0})""",
         parameters=[
-            "included_findings_values:custom_function_result.data.output"
+            "included_findings:custom_function:finding_id"
         ])
 
-    included_findings_values__result = phantom.collect2(container=container, datapath=["included_findings_values:custom_function_result.data.output"])
+    included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
-    # build parameters list for 'run_query_1' call
-    for included_findings_values__result_item in included_findings_values__result:
-        if query_formatted_string is not None:
-            parameters.append({
-                "query": query_formatted_string,
-                "command": "",
-                "display": "",
-                "end_time": "",
-                "start_time": "",
-                "search_mode": "verbose",
-                "attach_result": False,
-            })
+    if query_formatted_string is not None:
+        parameters.append({
+            "query": query_formatted_string,
+            "command": "",
+            "display": "",
+            "end_time": "",
+            "start_time": "",
+            "search_mode": "verbose",
+            "attach_result": False,
+        })
 
     ################################################################################
     ## Custom Code Start
@@ -911,6 +909,8 @@ def included_findings(action=None, success=None, container=None, results=None, h
 
     phantom.save_block_result(key="included_findings:finding_id", value=json.dumps(included_findings__finding_id))
     phantom.save_block_result(key="included_findings:intermediate_finding_id", value=json.dumps(included_findings__intermediate_finding_id))
+
+    run_query_1(container=container)
 
     return
 

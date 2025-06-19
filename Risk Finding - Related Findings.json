@@ -176,9 +176,16 @@
                     "sourcePort": "49_out",
                     "targetNode": "53",
                     "targetPort": "53_in"
+                },
+                {
+                    "id": "port_53_to_port_4",
+                    "sourceNode": "53",
+                    "sourcePort": "53_out",
+                    "targetNode": "4",
+                    "targetPort": "4_in"
                 }
             ],
-            "hash": "07e47b23fd557d34f03b98be43c67f05505ad1a4",
+            "hash": "fc89778cfc85435600d2b3373b1955e3c1f62538",
             "nodes": {
                 "0": {
                     "data": {
@@ -1032,9 +1039,9 @@
                             "query": {
                                 "functionId": 1,
                                 "parameters": [
-                                    "included_findings_values:custom_function_result.data.output"
+                                    "included_findings:custom_function:finding_id"
                                 ],
-                                "template": "`notable` | where event_id IN (\"{0}\")"
+                                "template": "`notable` | where event_id IN ({0})"
                             },
                             "search_mode": "verbose",
                             "start_time": ""
@@ -1060,13 +1067,9 @@
                     "errors": {},
                     "id": "4",
                     "type": "action",
-                    "warnings": {
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 1040,
-                    "y": 420
+                    "warnings": {},
+                    "x": 420,
+                    "y": 120
                 },
                 "41": {
                     "data": {
@@ -1581,7 +1584,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T04:34:58.138849+00:00",
+    "create_time": "2025-06-19T04:35:48.597795+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
