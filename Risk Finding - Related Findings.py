@@ -87,6 +87,8 @@ def related_findings_note(action=None, success=None, container=None, results=Non
 
     phantom.format(container=container, template=template, parameters=parameters, name="related_findings_note")
 
+    get_phase_id_1(container=container)
+
     return
 
 
@@ -134,7 +136,7 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"], callback=close_findings_prompt)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"])
 
     return
 
@@ -147,7 +149,7 @@ def close_findings_prompt(action=None, success=None, container=None, results=Non
 
     user = phantom.collect2(container=container, datapath=["playbook:launching_user.name"])[0][0]
     role = None
-    message = """This Risk Finding under investigation is composed of many related findings and intermediate findings.\n\nYou can browse all these related findings on a risk timeline in the Overview Tab.\n\nPlease select a response below to manage these findings in the Analyst Queue while you continue to work on the investigation.\n\n{0}"""
+    message = """This Investigation is composed of many related findings and intermediate findings.\n\nYou can browse all these related findings on a risk timeline in the Overview Tab.\n\nPlease select a response below to manage these findings in the Analyst Queue while you continue to work on the investigation.\n\n{0}"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -228,11 +230,7 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        related_findings_list(action=action, success=success, container=container, results=results, handle=handle)
         return
-
-    # check for 'else' condition 2
-    add_task_note_3(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 
@@ -291,7 +289,7 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
 def join_update_task_in_current_phase_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("join_update_task_in_current_phase_1() called")
 
-    if phantom.completed(action_names=["add_task_note_2", "add_task_note_3", "add_task_note_4", "add_task_note_5"]):
+    if phantom.completed(action_names=["add_task_note_2", "add_task_note_3", "add_task_note_5"]):
         # call connected block "update_task_in_current_phase_1"
         update_task_in_current_phase_1(container=container, handle=handle)
 
@@ -481,27 +479,30 @@ def add_task_note_4(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""There are no individual findings in this investigation as it is comprised of only \"Intermediate Findings\".\n\n\nTo review the Intermediate Findings, check the \"Overview\" tab\n""",
-        parameters=[])
+        template="""Below is the summary of included Findings in this Investigation (Intermediate Findings, check the \"Overview\" tab)\n\n{0}\n\n\n\nFollow the \"Prompt\" to manage these related Findings in the Analyst Queue.\n\n\nMessage prompt name: close_findings_prompt""",
+        parameters=[
+            "related_findings_note:formatted_data"
+        ])
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    related_findings_note = phantom.get_format_data(name="related_findings_note")
 
     parameters = []
 
     # build parameters list for 'add_task_note_4' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for get_task_id_1_result_item in get_task_id_1_result_data:
             for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                if refresh_finding_or_investigation_1_result_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
+                if get_finding_or_investigation_1_result_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
                     parameters.append({
-                        "id": refresh_finding_or_investigation_1_result_item[0],
-                        "title": "Related Intermediate Findings in the Analyst Queue:",
+                        "id": get_finding_or_investigation_1_result_item[0],
+                        "title": "Related Findings in the Analyst Queue:",
                         "content": content_formatted_string,
                         "task_id": get_task_id_1_result_item[0],
                         "phase_id": get_phase_id_1_result_item[0],
-                        "response_plan_id": refresh_finding_or_investigation_1_result_item[1],
+                        "response_plan_id": get_finding_or_investigation_1_result_item[1],
                     })
 
     ################################################################################
@@ -514,7 +515,7 @@ def add_task_note_4(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_4", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_4", assets=["builtin_mc_connector"], callback=close_findings_prompt)
 
     return
 
@@ -858,7 +859,7 @@ def update_task_in_current_phase_2(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"])
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"], callback=add_task_note_4)
 
     return
 
