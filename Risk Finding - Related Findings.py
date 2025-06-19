@@ -892,8 +892,14 @@ def included_findings(action=None, success=None, container=None, results=None, h
                     final_result[key].append(value)
 
     phantom.debug(json.dumps(final_result, indent=2))
-    included_findings__finding_id = final_result["finding_ids"]
-    included_findings__intermediate_finding_id = final_result["intermediate_finding_ids"]
+
+    finding_id = final_result["finding_ids"]
+    for id in finding_id:
+        included_findings__finding_id.append(id)
+        
+    intermediate_finding_id = final_result["intermediate_finding_ids"]
+    for id in intermediate_finding_id:
+        included_findings__intermediate_finding_id.append(id)
 
     ################################################################################
     ## Custom Code End

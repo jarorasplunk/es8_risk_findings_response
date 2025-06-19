@@ -192,7 +192,7 @@
                     "targetPort": "37_in"
                 }
             ],
-            "hash": "9a8ab9279695a7cd5d00a3921724a66c85121325",
+            "hash": "77510caa18557475b8a64efd197891a21318fe11",
             "nodes": {
                 "0": {
                     "data": {
@@ -1541,7 +1541,7 @@
                     "errors": {},
                     "id": "53",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n\n    included_findings__consolidated_findings = {}\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        for long_key_string in item.keys():\n            matches = re.findall(r'(\\w+)=\"(.*?)\"', long_key_string)\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    phantom.debug(json.dumps(final_result, indent=2))\n    included_findings__finding_id = final_result[\"finding_ids\"]\n    included_findings__intermediate_finding_id = final_result[\"intermediate_finding_ids\"]\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n\n    included_findings__consolidated_findings = {}\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        for long_key_string in item.keys():\n            matches = re.findall(r'(\\w+)=\"(.*?)\"', long_key_string)\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    phantom.debug(json.dumps(final_result, indent=2))\n\n    finding_id = final_result[\"finding_ids\"]\n    for id in finding_id:\n        included_findings__finding_id.append(id)\n        \n    intermediate_finding_id = final_result[\"intermediate_finding_ids\"]\n    for id in intermediate_finding_id:\n        included_findings__intermediate_finding_id.append(id)\n\n",
                     "warnings": {},
                     "x": 420,
                     "y": 0
@@ -1600,7 +1600,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T03:30:45.935134+00:00",
+    "create_time": "2025-06-19T03:35:24.495420+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
