@@ -216,16 +216,9 @@
                     "sourcePort": "34_out",
                     "targetNode": "50",
                     "targetPort": "50_in"
-                },
-                {
-                    "id": "port_50_to_port_4",
-                    "sourceNode": "50",
-                    "sourcePort": "50_out",
-                    "targetNode": "4",
-                    "targetPort": "4_in"
                 }
             ],
-            "hash": "9a8ab9279695a7cd5d00a3921724a66c85121325",
+            "hash": "a51098bff65e4cb985a2fdf541f89a46b411542f",
             "nodes": {
                 "0": {
                     "data": {
@@ -361,7 +354,11 @@
                     "errors": {},
                     "id": "20",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 260,
                     "y": 920
                 },
@@ -590,7 +587,11 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 300,
                     "y": 2280
                 },
@@ -647,7 +648,11 @@
                     "errors": {},
                     "id": "31",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 500,
                     "y": 2520
                 },
@@ -717,7 +722,11 @@
                     "errors": {},
                     "id": "32",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 520,
                     "y": 2380
                 },
@@ -955,7 +964,11 @@
                     "errors": {},
                     "id": "38",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 840,
                     "y": 2380
                 },
@@ -1052,7 +1065,11 @@
                     "errors": {},
                     "id": "4",
                     "type": "action",
-                    "warnings": {},
+                    "warnings": {
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 420,
                     "y": 480
                 },
@@ -1304,7 +1321,11 @@
                     "errors": {},
                     "id": "46",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": -240,
                     "y": 2160
                 },
@@ -1502,7 +1523,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T01:49:37.345742+00:00",
+    "create_time": "2025-06-19T01:55:08.557707+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
