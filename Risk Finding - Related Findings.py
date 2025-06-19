@@ -25,7 +25,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""`notable` | where event_id IN ({0})""",
+        template="""`notable` | where event_id IN ({0})\n| fields rule_name, status_label, owner""",
         parameters=[
             "included_findings:custom_function:finding_id"
         ])
@@ -38,7 +38,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
         parameters.append({
             "query": query_formatted_string,
             "command": "",
-            "display": "",
+            "display": "rule_name, status_label, owner",
             "end_time": "",
             "start_time": "",
             "search_mode": "verbose",
@@ -55,7 +55,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["splunk"])
+    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["splunk"], callback=findings_exist)
 
     return
 
@@ -64,12 +64,15 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 def related_findings_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("related_findings_note() called")
 
-    template = """| Detection Name| Finding ID |\n| --- | --- |\n%%\n| {0} | [{1}](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) |\n%%\n"""
+    template = """| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) | {2} | {3} |\n%%\n{4}\n"""
 
     # parameter list for template variable replacement
     parameters = [
         "run_query_1:action_result.data.*.source",
-        "run_query_1:action_result.data.*.source_event_id"
+        "run_query_1:action_result.data.*.source_event_id",
+        "run_query_1:action_result.data.*.status_label",
+        "run_query_1:action_result.data.*.owner",
+        ""
     ]
 
     ################################################################################
@@ -450,17 +453,21 @@ def findings_exist(action=None, success=None, container=None, results=None, hand
     # check for 'if' condition 1
     found_match_1 = phantom.decision(
         container=container,
+        logical_operator="or",
         conditions=[
-            ["get_finding_or_investigation_5:action_result.data.*.finding_id", "!=", 0]
+            ["run_query_1:action_result.data.*.status_label", "!=", "Resolved"],
+            ["run_query_1:action_result.data.*.status_label", "==", "Closed"]
         ],
         conditions_dps=[
-            ["get_finding_or_investigation_5:action_result.data.*.finding_id", "!=", 0]
+            ["run_query_1:action_result.data.*.status_label", "!=", "Resolved"],
+            ["run_query_1:action_result.data.*.status_label", "==", "Closed"]
         ],
         name="findings_exist:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
     if found_match_1:
+        related_findings_note(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     return

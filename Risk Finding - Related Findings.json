@@ -183,9 +183,29 @@
                     "sourcePort": "53_out",
                     "targetNode": "4",
                     "targetPort": "4_in"
+                },
+                {
+                    "id": "port_4_to_port_37",
+                    "sourceNode": "4",
+                    "sourcePort": "4_out",
+                    "targetNode": "37",
+                    "targetPort": "37_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_3",
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_37_to_port_13",
+                    "sourceNode": "37",
+                    "sourcePort": "37_out",
+                    "targetNode": "13",
+                    "targetPort": "13_in"
                 }
             ],
-            "hash": "9eb1a94ec541e79afe0998400073831c6d2ac772",
+            "hash": "4d61fd9a528f8d9520ec3cddcd190382596da751",
             "nodes": {
                 "0": {
                     "data": {
@@ -237,22 +257,18 @@
                         "id": "13",
                         "parameters": [
                             "run_query_1:action_result.data.*.source",
-                            "run_query_1:action_result.data.*.source_event_id"
+                            "run_query_1:action_result.data.*.source_event_id",
+                            "run_query_1:action_result.data.*.status_label",
+                            "run_query_1:action_result.data.*.owner",
+                            ""
                         ],
-                        "template": "| Detection Name| Finding ID |\n| --- | --- |\n%%\n| {0} | [{1}](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) |\n%%\n",
+                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) | {2} | {3} |\n%%\n{4}\n",
                         "type": "format"
                     },
                     "errors": {},
                     "id": "13",
                     "type": "format",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 420,
                     "y": 480
                 },
@@ -846,15 +862,20 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "!=",
-                                        "param": "get_finding_or_investigation_5:action_result.data.*.finding_id",
-                                        "value": "0"
+                                        "param": "run_query_1:action_result.data.*.status_label",
+                                        "value": "Resolved"
+                                    },
+                                    {
+                                        "op": "==",
+                                        "param": "run_query_1:action_result.data.*.status_label",
+                                        "value": "Closed"
                                     }
                                 ],
                                 "conditionIndex": 0,
                                 "conditionKey": "condition_key_3",
-                                "customName": "findings exists",
+                                "customName": "open findings exists",
                                 "display": "If",
-                                "logic": "and",
+                                "logic": "or",
                                 "type": "if"
                             },
                             {
@@ -882,16 +903,9 @@
                     "errors": {},
                     "id": "37",
                     "type": "decision",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 500,
-                    "y": 340
+                    "y": 260
                 },
                 "38": {
                     "data": {
@@ -971,8 +985,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 1420,
-                    "y": 660
+                    "x": 420,
+                    "y": 620
                 },
                 "39": {
                     "data": {
@@ -1034,14 +1048,14 @@
                         "parameters": {
                             "attach_result": false,
                             "command": "",
-                            "display": "",
+                            "display": "rule_name, status_label, owner",
                             "end_time": "",
                             "query": {
                                 "functionId": 1,
                                 "parameters": [
                                     "included_findings:custom_function:finding_id"
                                 ],
-                                "template": "`notable` | where event_id IN ({0})"
+                                "template": "`notable` | where event_id IN ({0})\n| fields rule_name, status_label, owner"
                             },
                             "search_mode": "verbose",
                             "start_time": ""
@@ -1570,8 +1584,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 500,
-                    "y": 240
+                    "x": 1120,
+                    "y": 280
                 }
             },
             "notes": ""
@@ -1584,7 +1598,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T04:39:35.413652+00:00",
+    "create_time": "2025-06-19T05:31:07.064763+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
