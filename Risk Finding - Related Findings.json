@@ -138,14 +138,14 @@
                             "index": 0
                         }
                     ],
-                    "id": "port_26_to_port_23",
+                    "id": "port_26_to_port_59",
                     "sourceNode": "26",
                     "sourcePort": "26_out",
-                    "targetNode": "23",
-                    "targetPort": "23_in"
+                    "targetNode": "59",
+                    "targetPort": "59_in"
                 }
             ],
-            "hash": "4d6c6f41224aee259cf665f58bde0feb3958ce51",
+            "hash": "0bfd5693f0161ef6f13aee1f5076bbd63556473b",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -393,7 +393,14 @@
                     "id": "23",
                     "type": "enterpriseSecurity",
                     "userCode": "\n    # Write your custom code here...\n    parameters = []\n\n    if included_findings__findings_list is not None:\n        for item in included_findings__findings_list:\n            parameters.append({\n                \"id\": item,\n                \"status\": \"Closed\",\n                \"disposition\": \"Closed - As part of investigation\",\n                \"finding_time\": \"\",\n            })\n    phantom.debug(parameters)\n\n",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 1000,
                     "y": 2020
                 },
@@ -520,7 +527,11 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 1060,
                     "y": 2280
                 },
@@ -577,7 +588,11 @@
                     "errors": {},
                     "id": "31",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 740,
                     "y": 2640
                 },
@@ -1404,6 +1419,57 @@
                     },
                     "x": 1120,
                     "y": 280
+                },
+                "59": {
+                    "data": {
+                        "action": "update finding or investigation",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "update_finding_or_investigation_2",
+                        "id": "59",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "disposition": "disposition:7",
+                            "id": {
+                                "functionId": 2,
+                                "parameters": [
+                                    "included_findings:custom_function:findings_list"
+                                ],
+                                "template": "%%\n{0}\n%%"
+                            },
+                            "status": "Closed"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "59",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 900,
+                    "y": 1484.5
                 }
             },
             "notes": ""
@@ -1416,7 +1482,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T08:33:39.469454+00:00",
+    "create_time": "2025-06-19T08:51:14.441615+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

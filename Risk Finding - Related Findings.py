@@ -235,7 +235,7 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        update_finding_or_investigation_1(action=action, success=success, container=container, results=results, handle=handle)
+        update_finding_or_investigation_2(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     return
@@ -859,6 +859,45 @@ def format_findings_query(action=None, success=None, container=None, results=Non
     ################################################################################
 
     phantom.format(container=container, template=template, parameters=parameters, name="format_findings_query")
+
+    return
+
+
+@phantom.playbook_block()
+def update_finding_or_investigation_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("update_finding_or_investigation_2() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    id_formatted_string = phantom.format(
+        container=container,
+        template="""%%\n{0}\n%%""",
+        parameters=[
+            "included_findings:custom_function:findings_list"
+        ])
+
+    included_findings__findings_list = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:findings_list")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    if id_formatted_string is not None:
+        parameters.append({
+            "id": id_formatted_string,
+            "status": "Closed",
+            "disposition": "disposition:7",
+        })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("update finding or investigation", parameters=parameters, name="update_finding_or_investigation_2", assets=["builtin_mc_connector"])
 
     return
 
