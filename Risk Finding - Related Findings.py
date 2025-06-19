@@ -911,7 +911,7 @@ def included_findings(action=None, success=None, container=None, results=None, h
     phantom.save_block_result(key="included_findings:finding_id", value=json.dumps(included_findings__finding_id))
     phantom.save_block_result(key="included_findings:intermediate_finding_id", value=json.dumps(included_findings__intermediate_finding_id))
 
-    get_finding_or_investigation_5(container=container)
+    included_findings_values(container=container)
 
     return
 
@@ -922,14 +922,16 @@ def get_finding_or_investigation_5(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
+    included_findings_values__result = phantom.collect2(container=container, datapath=["included_findings_values:custom_function_result.data.output"])
 
     parameters = []
 
-    if included_findings__finding_id is not None:
-        parameters.append({
-            "id": included_findings__finding_id,
-        })
+    # build parameters list for 'get_finding_or_investigation_5' call
+    for included_findings_values__result_item in included_findings_values__result:
+        if included_findings_values__result_item[0] is not None:
+            parameters.append({
+                "id": included_findings_values__result_item[0],
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -942,6 +944,33 @@ def get_finding_or_investigation_5(action=None, success=None, container=None, re
     ################################################################################
 
     phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_5", assets=["builtin_mc_connector"], callback=findings_exist)
+
+    return
+
+
+@phantom.playbook_block()
+def included_findings_values(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("included_findings_values() called")
+
+    included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    parameters.append({
+        "input_list": included_findings__finding_id,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="included_findings_values", callback=get_finding_or_investigation_5)
 
     return
 

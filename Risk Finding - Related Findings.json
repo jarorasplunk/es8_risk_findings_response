@@ -178,21 +178,28 @@
                     "targetPort": "53_in"
                 },
                 {
-                    "id": "port_53_to_port_55",
-                    "sourceNode": "53",
-                    "sourcePort": "53_out",
-                    "targetNode": "55",
-                    "targetPort": "55_in"
-                },
-                {
                     "id": "port_55_to_port_37",
                     "sourceNode": "55",
                     "sourcePort": "55_out",
                     "targetNode": "37",
                     "targetPort": "37_in"
+                },
+                {
+                    "id": "port_53_to_port_56",
+                    "sourceNode": "53",
+                    "sourcePort": "53_out",
+                    "targetNode": "56",
+                    "targetPort": "56_in"
+                },
+                {
+                    "id": "port_56_to_port_55",
+                    "sourceNode": "56",
+                    "sourcePort": "56_out",
+                    "targetNode": "55",
+                    "targetPort": "55_in"
                 }
             ],
-            "hash": "b40825821ad88d9c1f7898b9a5fe4802129880d0",
+            "hash": "4c8ed2999faad1aa53e5edc166e1ea370a82362f",
             "nodes": {
                 "0": {
                     "data": {
@@ -891,7 +898,7 @@
                     "type": "decision",
                     "warnings": {},
                     "x": 500,
-                    "y": 280
+                    "y": 340
                 },
                 "38": {
                     "data": {
@@ -1572,7 +1579,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "included_findings:custom_function:finding_id"
+                            "id": "included_findings_values:custom_function_result.data.output"
                         },
                         "requiredParameters": [
                             {
@@ -1587,7 +1594,68 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 420,
-                    "y": 124.5
+                    "y": 220
+                },
+                "56": {
+                    "data": {
+                        "advanced": {
+                            "customName": "included_findings_values",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_demux",
+                            "repoName": "community"
+                        },
+                        "functionId": 5,
+                        "functionName": "included_findings_values",
+                        "id": "56",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_demux",
+                                "name": "list_demux"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_demux": {
+                                "input_list": "included_findings:custom_function:finding_id"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "56",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 420,
+                    "y": 100
                 }
             },
             "notes": ""
@@ -1600,7 +1668,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T03:36:41.391024+00:00",
+    "create_time": "2025-06-19T03:39:19.362495+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
