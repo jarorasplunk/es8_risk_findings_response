@@ -124,25 +124,11 @@
                     "targetPort": "29_in"
                 },
                 {
-                    "id": "port_29_to_port_1",
-                    "sourceNode": "29",
-                    "sourcePort": "29_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "id": "port_30_to_port_32",
                     "sourceNode": "30",
                     "sourcePort": "30_out",
                     "targetNode": "32",
                     "targetPort": "32_in"
-                },
-                {
-                    "id": "port_32_to_port_1",
-                    "sourceNode": "32",
-                    "sourcePort": "32_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
                 },
                 {
                     "id": "port_28_to_port_34",
@@ -171,6 +157,20 @@
                     "sourcePort": "35_out",
                     "targetNode": "14",
                     "targetPort": "14_in"
+                },
+                {
+                    "id": "port_32_to_port_1",
+                    "sourceNode": "32",
+                    "sourcePort": "32_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                },
+                {
+                    "id": "port_29_to_port_1",
+                    "sourceNode": "29",
+                    "sourcePort": "29_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
             "hash": "912e2a8b06905c714b620c12a21f633aecd131b0",
