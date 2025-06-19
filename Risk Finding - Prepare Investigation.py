@@ -139,7 +139,6 @@ def es_users_list(action=None, success=None, container=None, results=None, handl
     phantom.format(container=container, template=template, parameters=parameters, name="es_users_list")
 
     get_phase_id_1(container=container)
-    debug_1(container=container)
 
     return
 
