@@ -11,10 +11,7 @@ from datetime import datetime, timedelta
 @phantom.playbook_block()
 def on_start(container):
     phantom.debug('on_start() called')
-
     # call 'refresh_finding_or_investigation_1' block
-    refresh_finding_or_investigation_1(container=container)
-
     return
 
 @phantom.playbook_block()

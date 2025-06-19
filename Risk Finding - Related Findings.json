@@ -56,13 +56,6 @@
                     "targetPort": "41_in"
                 },
                 {
-                    "id": "port_0_to_port_48",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "48",
-                    "targetPort": "48_in"
-                },
-                {
                     "id": "port_48_to_port_49",
                     "sourceNode": "48",
                     "sourcePort": "48_out",
@@ -143,11 +136,19 @@
                     "sourcePort": "26_out",
                     "targetNode": "23",
                     "targetPort": "23_in"
+                },
+                {
+                    "id": "port_0_to_port_48",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "48",
+                    "targetPort": "48_in"
                 }
             ],
-            "hash": "70de63a986cf43087340e7772a639cb81d88de54",
+            "hash": "b2283836de90428d54f752afc1289a1b7f16f559",
             "nodes": {
                 "0": {
+                    "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    return",
                     "data": {
                         "advanced": {
                             "join": []
@@ -166,8 +167,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 440,
-                    "y": -360
+                    "x": 460,
+                    "y": -520
                 },
                 "1": {
                     "data": {
@@ -1418,7 +1419,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T06:06:04.536248+00:00",
+    "create_time": "2025-06-19T06:09:31.489535+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
