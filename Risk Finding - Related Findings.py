@@ -898,7 +898,8 @@ def included_findings(action=None, success=None, container=None, results=None, h
             phantom.debug(long_key_string)
             # Use regex to extract all key="value" pairs from the long string
             matches = re.findall(r'(\w+)=\\"(.*?)\\"', long_key_string)
-
+            phantom.debug("matches:")
+            phantom.debug(matches)
             for key, value in matches:
                 if key in ["finding_ids", "intermediate_finding_ids"]:
                     final_result[key].append(value)
