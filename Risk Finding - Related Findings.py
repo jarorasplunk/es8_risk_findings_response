@@ -863,7 +863,46 @@ def update_task_in_current_phase_2(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"], callback=run_query_1)
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"], callback=debug_1)
+
+    return
+
+
+@phantom.playbook_block()
+def debug_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("debug_1() called")
+
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.finding_ids","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.intermediate_finding_ids","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    get_finding_or_investigation_1_result_item_0 = [item[0] for item in get_finding_or_investigation_1_result_data]
+    get_finding_or_investigation_1_result_item_1 = [item[1] for item in get_finding_or_investigation_1_result_data]
+
+    parameters = []
+
+    parameters.append({
+        "input_1": get_finding_or_investigation_1_result_item_0,
+        "input_2": get_finding_or_investigation_1_result_item_1,
+        "input_3": None,
+        "input_4": None,
+        "input_5": None,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+        "input_9": None,
+        "input_10": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_1")
 
     return
 
