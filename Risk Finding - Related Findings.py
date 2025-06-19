@@ -812,7 +812,7 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
         if refresh_finding_or_investigation_1_result_item[0] is not None:
             parameters.append({
                 "id": refresh_finding_or_investigation_1_result_item[0],
-                "map_consolidated_findings": True,
+                "map_consolidated_findings": 1,
                 "finding_time": refresh_finding_or_investigation_1_result_item[1],
             })
 
