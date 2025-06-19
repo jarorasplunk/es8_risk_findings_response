@@ -173,7 +173,7 @@
                     "targetPort": "3_in"
                 }
             ],
-            "hash": "1db909d2d1c4de1cf830806c2b868bc0ab4592a1",
+            "hash": "b897c566e3438b31a5f3a941527e5994c29fd331",
             "nodes": {
                 "0": {
                     "data": {
@@ -297,7 +297,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "owner": "current_user:action_result.data.*.userName",
                             "status": "In Progress"
                         },
@@ -416,7 +416,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "owner": "select_owner:action_result.summary.responses.0",
                             "status": "In Progress"
                         },
@@ -573,7 +573,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "name": "Prepare the investigation",
                             "status": "Ended",
                             "task_id": "get_task_id_2:action_result.data.*.task_id"
@@ -623,7 +623,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "name": "Prepare the investigation",
                             "status": "Ended",
                             "task_id": "get_task_id_2:action_result.data.*.task_id"
@@ -726,7 +726,7 @@
                             },
                             "id": "refresh_finding_or_investigation_3:action_result.data.*.data.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
                             "task_id": "get_task_id_2:action_result.data.*.task_id",
                             "title": "Investigation assignment:"
                         },
@@ -851,7 +851,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id"
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id"
                         },
                         "requiredParameters": [
                             {
@@ -894,7 +894,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id"
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id"
                         },
                         "requiredParameters": [
                             {
@@ -908,7 +908,7 @@
                     "id": "31",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": -60,
+                    "x": -80,
                     "y": 1700
                 },
                 "32": {
@@ -946,7 +946,7 @@
                             },
                             "id": "refresh_finding_or_investigation_2:action_result.data.*.data.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
                             "task_id": "get_task_id_2:action_result.data.*.task_id",
                             "title": "Investigation assignment:"
                         },
@@ -1369,7 +1369,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T01:26:15.518087+00:00",
+    "create_time": "2025-06-19T01:28:58.235741+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
