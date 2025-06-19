@@ -886,6 +886,9 @@ def update_finding_or_investigation_2(action=None, success=None, container=None,
     # Write your custom code here...
     parameters = []
     phantom.debug(included_findings__findings_list)
+    
+    for item in included_findings__findings_list:
+        phantom.debug(item)
 
     ################################################################################
     ## Custom Code End
