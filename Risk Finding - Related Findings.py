@@ -885,7 +885,7 @@ def included_findings(action=None, success=None, container=None, results=None, h
     #phantom.debug(type(get_finding_or_investigation_1_result_item_0))
     import json
     import re
-
+    phantom.debug(get_finding_or_investigation_1_result_item_0)
     final_result = {
         "finding_ids": [],
         "intermediate_finding_ids": []
@@ -893,7 +893,9 @@ def included_findings(action=None, success=None, container=None, results=None, h
 
     # Loop through each dictionary in the list
     for item in get_finding_or_investigation_1_result_item_0:
+        phantom.debug(item)
         for long_key_string in item.keys():
+            phantom.debug(long_key_string)
             # Use regex to extract all key="value" pairs from the long string
             matches = re.findall(r'(\w+)=\\"(.*?)\\"', long_key_string)
 
