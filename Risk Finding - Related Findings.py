@@ -876,6 +876,8 @@ def included_findings(action=None, success=None, container=None, results=None, h
 
     get_finding_or_investigation_1_result_item_0 = [item[0] for item in get_finding_or_investigation_1_result_data]
 
+    included_findings__consolidated_findings = None
+
     ################################################################################
     ## Custom Code Start
     ################################################################################
@@ -886,8 +888,6 @@ def included_findings(action=None, success=None, container=None, results=None, h
     import json
     import re
     
-    phantom.debug(get_finding_or_investigation_1_result_item_0)
-
     final_result = {
         "finding_ids": [],
         "intermediate_finding_ids": []
@@ -895,22 +895,15 @@ def included_findings(action=None, success=None, container=None, results=None, h
 
     # Loop through each dictionary in the list
     for item in get_finding_or_investigation_1_result_item_0:
-        phantom.debug(item)
         for long_key_string in item.keys():
-            phantom.debug(long_key_string)
-        
-            # FIXED REGEX: No escaping needed, quotes are not escaped in actual string
             matches = re.findall(r'(\w+)="(.*?)"', long_key_string)
-
-            phantom.debug("matches:")
-            phantom.debug(matches)
-
             for key, value in matches:
                 if key in ["finding_ids", "intermediate_finding_ids"]:
                     final_result[key].append(value)
 
     phantom.debug(json.dumps(final_result, indent=2))
-
+    
+    included_findings__consolidated_findings = json.dumps(final_result, indent=2)
 
 
     ################################################################################
@@ -918,6 +911,8 @@ def included_findings(action=None, success=None, container=None, results=None, h
     ################################################################################
 
     phantom.save_block_result(key="included_findings__inputs:0:get_finding_or_investigation_1:action_result.data.*.consolidated_findings_map._raw", value=json.dumps(get_finding_or_investigation_1_result_item_0))
+
+    phantom.save_block_result(key="included_findings:consolidated_findings", value=json.dumps(included_findings__consolidated_findings))
 
     return
 
