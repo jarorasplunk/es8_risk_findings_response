@@ -883,9 +883,25 @@ def included_findings(action=None, success=None, container=None, results=None, h
     # Write your custom code here...
     #phantom.debug(get_finding_or_investigation_1_result_item_0)
     #phantom.debug(type(get_finding_or_investigation_1_result_item_0))
+    import json
     
-    for item in get_finding_or_investigation_1_result_item_0[0]:
-        phantom.debug(item)
+    for item in get_finding_or_investigation_1_result_item_0:
+        result = {}
+        for data in item:
+            if isinstance(data, str) and "=" in data:
+                key, value = data.split("=", 1)
+                value = value.strip('"')
+
+            # Handle repeated keys as lists
+                if key in result:
+                    if not isinstance(result[key], list):
+                        result[key] = [result[key]]
+                    result[key].append(value)
+                else:
+                    result[key] = value
+
+    # Print as JSON
+    phantom.debug(json.dumps(result, indent=2))
 
     ################################################################################
     ## Custom Code End
