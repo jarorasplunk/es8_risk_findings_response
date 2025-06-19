@@ -125,6 +125,13 @@
                     "targetPort": "22_in"
                 },
                 {
+                    "id": "port_0_to_port_48",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "48",
+                    "targetPort": "48_in"
+                },
+                {
                     "conditions": [
                         {
                             "conditionKey": "condition_key_1",
@@ -136,16 +143,9 @@
                     "sourcePort": "26_out",
                     "targetNode": "23",
                     "targetPort": "23_in"
-                },
-                {
-                    "id": "port_0_to_port_48",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "48",
-                    "targetPort": "48_in"
                 }
             ],
-            "hash": "50d0ffc3b2f01a20d5876845225010f1a42854d6",
+            "hash": "ad28cd12cccad56c225923dd7e5a2c4d14792e29",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -1408,6 +1408,36 @@
                     },
                     "x": 1120,
                     "y": 280
+                },
+                "58": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "action_1",
+                        "id": "58",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "58",
+                    "type": "enterpriseSecurity",
+                    "warnings": {
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 900,
+                    "y": 1304.5
                 }
             },
             "notes": ""
@@ -1420,7 +1450,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T06:24:30.995119+00:00",
+    "create_time": "2025-06-19T07:28:44.975761+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
