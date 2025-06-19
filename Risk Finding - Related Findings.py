@@ -927,13 +927,14 @@ def included_findings(action=None, success=None, container=None, results=None, h
 def debug_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("debug_4() called")
 
-    included_findings__consolidated_findings_finding_ids_ = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:consolidated_findings['finding_ids']")) != "" else "null")  # pylint: disable=used-before-assignment
+    included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
+    included_findings__intermediate_finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:intermediate_finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     parameters.append({
-        "input_1": included_findings__consolidated_findings_finding_ids_,
-        "input_2": None,
+        "input_1": included_findings__finding_id,
+        "input_2": included_findings__intermediate_finding_id,
         "input_3": None,
         "input_4": None,
         "input_5": None,
