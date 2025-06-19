@@ -803,7 +803,7 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings._time","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
@@ -812,6 +812,8 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
         if refresh_finding_or_investigation_1_result_item[0] is not None:
             parameters.append({
                 "id": refresh_finding_or_investigation_1_result_item[0],
+                "map_consolidated_findings": True,
+                "finding_time": refresh_finding_or_investigation_1_result_item[1],
             })
 
     ################################################################################
