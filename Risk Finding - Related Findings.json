@@ -186,7 +186,7 @@
                     "targetPort": "22_in"
                 }
             ],
-            "hash": "6b0872c17807c3d1c7be302efdd0947d3b2e72b8",
+            "hash": "7fb74dafd88d6fb77725bcf0af6b7f1f387ce6cb",
             "nodes": {
                 "0": {
                     "data": {
@@ -238,12 +238,11 @@
                         "id": "13",
                         "parameters": [
                             "run_query_1:action_result.data.*.source",
-                            "run_query_1:action_result.data.*.source_event_id",
+                            "run_query_1:action_result.data.*.event_id",
                             "run_query_1:action_result.data.*.status_label",
-                            "run_query_1:action_result.data.*.owner",
-                            ""
+                            "run_query_1:action_result.data.*.owner"
                         ],
-                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--30d%40h&latest=now&search={1}) | {2} | {3} |\n%%\n{4}\n",
+                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--30d%40h&latest=now&search={1}) | {2} | {3} |\n%%\n",
                         "type": "format"
                     },
                     "errors": {},
@@ -1022,7 +1021,7 @@
                                 "parameters": [
                                     "included_findings:custom_function:finding_id"
                                 ],
-                                "template": "`notable` | where event_id IN ({0})\n| fields rule_name, status_label, owner"
+                                "template": "`notable` | where event_id IN ({0})\n| fields rule_name, event_id, status_label, owner"
                             },
                             "search_mode": "verbose",
                             "start_time": ""
@@ -1561,7 +1560,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T05:44:44.264896+00:00",
+    "create_time": "2025-06-19T05:48:03.386862+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
