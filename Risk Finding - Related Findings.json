@@ -145,7 +145,7 @@
                     "targetPort": "48_in"
                 }
             ],
-            "hash": "80b3e876d47aedc10675eb012a5cb69885b0dbb4",
+            "hash": "bd36e980f9c192c668347bfaaf4172e35d6b9b18",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -202,7 +202,7 @@
                             "run_query_1:action_result.data.*.status_label",
                             "run_query_1:action_result.data.*.owner"
                         ],
-                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--30d&latest=now&search={1}) | {2} | {3} |\n%%\n",
+                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n",
                         "type": "format"
                     },
                     "errors": {},
@@ -392,7 +392,7 @@
                     "errors": {},
                     "id": "23",
                     "type": "enterpriseSecurity",
-                    "userCode": "\n    # Write your custom code here...\n    \n\n",
+                    "userCode": "\n    # Write your custom code here...\n    parameters = []\n\n    if included_findings__finding_id is not None:\n        for item in included_findings__finding_id:\n            parameters.append({\n                \"id\": item,\n                \"status\": \"Closed\",\n                \"disposition\": \"Closed - As part of investigation\",\n                \"finding_time\": \"\",\n            })\n    \n\n",
                     "warnings": {},
                     "x": 1000,
                     "y": 2020
@@ -581,11 +581,7 @@
                     "errors": {},
                     "id": "31",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 740,
                     "y": 2640
                 },
@@ -715,13 +711,9 @@
                     "errors": {},
                     "id": "33",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 20,
-                    "y": 2.4868995751603507e-14
+                    "y": 2.842170943040401e-14
                 },
                 "34": {
                     "data": {
@@ -777,11 +769,7 @@
                     "errors": {},
                     "id": "34",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 20,
                     "y": 100
                 },
@@ -915,11 +903,7 @@
                     "errors": {},
                     "id": "38",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": -60,
                     "y": 660
                 },
@@ -1363,11 +1347,7 @@
                     "errors": {},
                     "id": "50",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 20,
                     "y": 200
                 },
@@ -1439,7 +1419,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T06:10:27.380385+00:00",
+    "create_time": "2025-06-19T06:19:12.631522+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

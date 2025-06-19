@@ -62,7 +62,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 def related_findings_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("related_findings_note() called")
 
-    template = """| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--30d&latest=now&search={1}) | {2} | {3} |\n%%\n"""
+    template = """| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -196,6 +196,16 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
     ################################################################################
 
     # Write your custom code here...
+    parameters = []
+
+    if included_findings__finding_id is not None:
+        for item in included_findings__finding_id:
+            parameters.append({
+                "id": item,
+                "status": "Closed",
+                "disposition": "Closed - As part of investigation",
+                "finding_time": "",
+            })
     
 
     ################################################################################
