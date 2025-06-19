@@ -64,11 +64,11 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 def related_findings_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("related_findings_note() called")
 
-    template = """| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--30d%40h&latest=now&search={1}) | {2} | {3} |\n%%\n"""
+    template = """| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--30d&latest=now&search={1}) | {2} | {3} |\n%%\n"""
 
     # parameter list for template variable replacement
     parameters = [
-        "run_query_1:action_result.data.*.source",
+        "run_query_1:action_result.data.*.rule_name",
         "run_query_1:action_result.data.*.event_id",
         "run_query_1:action_result.data.*.status_label",
         "run_query_1:action_result.data.*.owner"

@@ -145,7 +145,7 @@
                     "targetPort": "23_in"
                 }
             ],
-            "hash": "61ac513e8afb1ac8412dabc3fa23655044645854",
+            "hash": "70de63a986cf43087340e7772a639cb81d88de54",
             "nodes": {
                 "0": {
                     "data": {
@@ -196,19 +196,19 @@
                         "functionName": "related_findings_note",
                         "id": "13",
                         "parameters": [
-                            "run_query_1:action_result.data.*.source",
+                            "run_query_1:action_result.data.*.rule_name",
                             "run_query_1:action_result.data.*.event_id",
                             "run_query_1:action_result.data.*.status_label",
                             "run_query_1:action_result.data.*.owner"
                         ],
-                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--30d%40h&latest=now&search={1}) | {2} | {3} |\n%%\n",
+                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--30d&latest=now&search={1}) | {2} | {3} |\n%%\n",
                         "type": "format"
                     },
                     "errors": {},
                     "id": "13",
                     "type": "format",
                     "warnings": {},
-                    "x": 420,
+                    "x": 400,
                     "y": 480
                 },
                 "20": {
@@ -1418,7 +1418,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T05:59:32.500774+00:00",
+    "create_time": "2025-06-19T06:04:53.741368+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
