@@ -897,8 +897,8 @@ def included_findings(action=None, success=None, container=None, results=None, h
     included_findings__finding_id = final_result["finding_ids"]
     included_findings__intermediate_finding_id = final_result["intermediate_finding_ids"]
     
-    included_findings__finding_id = str(included_findings__finding_id)
-    included_findings__intermediate_finding_id = str(included_findings__intermediate_finding_id)
+    included_findings__finding_id = str(included_findings__finding_id).replace("[","").replace("]","")
+    included_findings__intermediate_finding_id = str(included_findings__intermediate_finding_id).replace("[","").replace("]","")
     
     phantom.debug(included_findings__finding_id)
     phantom.debug(included_findings__intermediate_finding_id)

@@ -178,7 +178,7 @@
                     "targetPort": "53_in"
                 }
             ],
-            "hash": "776bcb549c385d79386b08f1330c281a637005a8",
+            "hash": "07e47b23fd557d34f03b98be43c67f05505ad1a4",
             "nodes": {
                 "0": {
                     "data": {
@@ -1535,7 +1535,7 @@
                     "errors": {},
                     "id": "53",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n\n    included_findings__finding_id = []\n    included_findings__intermediate_finding_id = []\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        for long_key_string in item.keys():\n            matches = re.findall(r'(\\w+)=\"(.*?)\"', long_key_string)\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    included_findings__finding_id = final_result[\"finding_ids\"]\n    included_findings__intermediate_finding_id = final_result[\"intermediate_finding_ids\"]\n    \n    included_findings__finding_id = str(included_findings__finding_id)\n    included_findings__intermediate_finding_id = str(included_findings__intermediate_finding_id)\n    \n    phantom.debug(included_findings__finding_id)\n    phantom.debug(included_findings__intermediate_finding_id)\n    \n",
+                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n\n    included_findings__finding_id = []\n    included_findings__intermediate_finding_id = []\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        for long_key_string in item.keys():\n            matches = re.findall(r'(\\w+)=\"(.*?)\"', long_key_string)\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    included_findings__finding_id = final_result[\"finding_ids\"]\n    included_findings__intermediate_finding_id = final_result[\"intermediate_finding_ids\"]\n    \n    included_findings__finding_id = str(included_findings__finding_id).replace(\"[\",\"\").replace(\"]\",\"\")\n    included_findings__intermediate_finding_id = str(included_findings__intermediate_finding_id).replace(\"[\",\"\").replace(\"]\",\"\")\n    \n    phantom.debug(included_findings__finding_id)\n    phantom.debug(included_findings__intermediate_finding_id)\n    \n",
                     "warnings": {},
                     "x": 420,
                     "y": 0
@@ -1581,7 +1581,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T04:33:31.756673+00:00",
+    "create_time": "2025-06-19T04:34:58.138849+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
