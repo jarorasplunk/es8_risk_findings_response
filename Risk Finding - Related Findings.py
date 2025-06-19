@@ -146,7 +146,7 @@ def close_findings_prompt(action=None, success=None, container=None, results=Non
 
     # set approver and message variables for phantom.prompt call
 
-    user = phantom.collect2(container=container, datapath=["playbook:launching_user.name"])[0][0]
+    user = phantom.collect2(container=container, datapath=["finding:owner"])[0][0]
     role = None
     message = """This Investigation is composed of many related findings and intermediate findings.\n\nYou can browse all these related findings on a risk timeline in the Overview Tab.\n\nPlease select a response below to manage these findings in the Analyst Queue while you continue to work on the investigation.\n\n{0}"""
 
@@ -181,19 +181,17 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:get_finding_or_investigation_2:action_result.data.*.finding_id"])
+    included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
-    # build parameters list for 'update_finding_or_investigation_1' call
-    for filtered_result_0_item_filter_1 in filtered_result_0_data_filter_1:
-        if filtered_result_0_item_filter_1[0] is not None:
-            parameters.append({
-                "id": filtered_result_0_item_filter_1[0],
-                "status": "Closed",
-                "disposition": "Closed - As part of investigation",
-                "finding_time": "",
-            })
+    if included_findings__finding_id is not None:
+        parameters.append({
+            "id": included_findings__finding_id,
+            "status": "Closed",
+            "disposition": "Closed - As part of investigation",
+            "finding_time": "",
+        })
 
     ################################################################################
     ## Custom Code Start
@@ -229,6 +227,7 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
+        update_finding_or_investigation_1(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     return
@@ -247,7 +246,7 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
             "filtered-data:filter_1:condition_1:get_finding_or_investigation_2:action_result.data.*.finding_id"
         ])
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:get_finding_or_investigation_2:action_result.data.*.finding_id"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
@@ -255,18 +254,18 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
     parameters = []
 
     # build parameters list for 'add_task_note_2' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for filtered_result_0_item_filter_1 in filtered_result_0_data_filter_1:
             for get_task_id_1_result_item in get_task_id_1_result_data:
                 for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                    if refresh_finding_or_investigation_1_result_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
+                    if get_finding_or_investigation_1_result_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
                         parameters.append({
-                            "id": refresh_finding_or_investigation_1_result_item[0],
+                            "id": get_finding_or_investigation_1_result_item[0],
                             "title": "Analyst decision to close related findings",
                             "content": content_formatted_string,
                             "task_id": get_task_id_1_result_item[0],
                             "phase_id": get_phase_id_1_result_item[0],
-                            "response_plan_id": refresh_finding_or_investigation_1_result_item[1],
+                            "response_plan_id": get_finding_or_investigation_1_result_item[1],
                         })
 
     ################################################################################
@@ -279,18 +278,7 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_2", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
-
-    return
-
-
-@phantom.playbook_block()
-def join_update_task_in_current_phase_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("join_update_task_in_current_phase_1() called")
-
-    if phantom.completed(action_names=["add_task_note_2", "add_task_note_3", "add_task_note_5"]):
-        # call connected block "update_task_in_current_phase_1"
-        update_task_in_current_phase_1(container=container, handle=handle)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_2", assets=["builtin_mc_connector"], callback=update_task_in_current_phase_1)
 
     return
 
@@ -301,17 +289,17 @@ def update_task_in_current_phase_1(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'update_task_in_current_phase_1' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for get_task_id_1_result_item in get_task_id_1_result_data:
-            if refresh_finding_or_investigation_1_result_item[0] is not None and get_task_id_1_result_item[0] is not None:
+            if get_finding_or_investigation_1_result_item[0] is not None and get_task_id_1_result_item[0] is not None:
                 parameters.append({
-                    "id": refresh_finding_or_investigation_1_result_item[0],
+                    "id": get_finding_or_investigation_1_result_item[0],
                     "name": "Gather related findings",
                     "order": "",
                     "status": "Ended",
@@ -369,7 +357,7 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_3", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_3", assets=["builtin_mc_connector"])
 
     return
 
@@ -621,49 +609,7 @@ def time_list(action=None, success=None, container=None, results=None, handle=No
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="time_list", callback=get_finding_or_investigation_2)
-
-    return
-
-
-@phantom.playbook_block()
-def filter_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("filter_1() called")
-
-    # collect filtered artifact ids and results for 'if' condition 1
-    matched_artifacts_1, matched_results_1 = phantom.condition(
-        container=container,
-        logical_operator="and",
-        conditions=[
-            ["get_finding_or_investigation_2:action_result.data.*.status_name", "!=", "Closed"],
-            ["get_finding_or_investigation_2:action_result.data.*.finding_id", "!=", ""]
-        ],
-        conditions_dps=[
-            ["get_finding_or_investigation_2:action_result.data.*.status_name", "!=", "Closed"],
-            ["get_finding_or_investigation_2:action_result.data.*.finding_id", "!=", ""]
-        ],
-        name="filter_1:condition_1",
-        delimiter=None)
-
-    # call connected blocks if filtered artifacts or results
-    if matched_artifacts_1 or matched_results_1:
-        update_finding_or_investigation_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
-
-    # collect filtered artifact ids and results for 'if' condition 2
-    matched_artifacts_2, matched_results_2 = phantom.condition(
-        container=container,
-        conditions=[
-            ["get_finding_or_investigation_2:action_result.data.*.status_name", "==", "Closed"]
-        ],
-        conditions_dps=[
-            ["get_finding_or_investigation_2:action_result.data.*.status_name", "==", "Closed"]
-        ],
-        name="filter_1:condition_2",
-        delimiter=None)
-
-    # call connected blocks if filtered artifacts or results
-    if matched_artifacts_2 or matched_results_2:
-        add_task_note_5(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="time_list")
 
     return
 
@@ -714,48 +660,7 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_5", assets=["builtin_mc_connector"], callback=join_update_task_in_current_phase_1)
-
-    return
-
-
-@phantom.playbook_block()
-def get_finding_or_investigation_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("get_finding_or_investigation_2() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    id_list__result = phantom.collect2(container=container, datapath=["id_list:custom_function_result.data.output"])
-
-    parameters = []
-
-    # build parameters list for 'get_finding_or_investigation_2' call
-    for id_list__result_item in id_list__result:
-        if id_list__result_item[0] is not None:
-            parameters.append({
-                "id": id_list__result_item[0],
-                "finding_time": "",
-            })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-    #phantom.debug(related_findings_list__related_findings_id)
-    #phantom.debug(related_findings_list__related_findings_time)
-    #parameters = []
-    #for i in range(len(related_findings_list__related_findings_id)):
-    #    parameters.append({
-    #        "id": related_findings_list__related_findings_id[i],
-    #        "finding_time": related_findings_list__related_findings_time[i],
-    #    })
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_2", assets=["builtin_mc_connector"], callback=filter_1)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_5", assets=["builtin_mc_connector"])
 
     return
 
