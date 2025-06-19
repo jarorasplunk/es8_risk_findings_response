@@ -876,7 +876,8 @@ def included_findings(action=None, success=None, container=None, results=None, h
 
     get_finding_or_investigation_1_result_item_0 = [item[0] for item in get_finding_or_investigation_1_result_data]
 
-    included_findings__consolidated_findings = None
+    included_findings__finding_id = None
+    included_findings__intermediate_finding_id = None
 
     ################################################################################
     ## Custom Code Start
@@ -887,7 +888,8 @@ def included_findings(action=None, success=None, container=None, results=None, h
     #phantom.debug(type(get_finding_or_investigation_1_result_item_0))
     import json
     import re
-    
+
+    included_findings__consolidated_findings = {}
     final_result = {
         "finding_ids": [],
         "intermediate_finding_ids": []
@@ -904,7 +906,8 @@ def included_findings(action=None, success=None, container=None, results=None, h
     phantom.debug(json.dumps(final_result, indent=2))
     
     included_findings__consolidated_findings = json.dumps(final_result, indent=2)
-
+    included_findings__finding_id = json.loads(included_findings__consolidated_findings['finding_ids'])
+    included_findings__intermediate_finding_id = json.loads(included_findings__consolidated_findings['intermediate_finding_ids'])
 
     ################################################################################
     ## Custom Code End
@@ -912,7 +915,8 @@ def included_findings(action=None, success=None, container=None, results=None, h
 
     phantom.save_block_result(key="included_findings__inputs:0:get_finding_or_investigation_1:action_result.data.*.consolidated_findings_map._raw", value=json.dumps(get_finding_or_investigation_1_result_item_0))
 
-    phantom.save_block_result(key="included_findings:consolidated_findings", value=json.dumps(included_findings__consolidated_findings))
+    phantom.save_block_result(key="included_findings:finding_id", value=json.dumps(included_findings__finding_id))
+    phantom.save_block_result(key="included_findings:intermediate_finding_id", value=json.dumps(included_findings__intermediate_finding_id))
 
     debug_4(container=container)
 
