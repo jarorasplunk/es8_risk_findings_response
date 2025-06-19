@@ -218,7 +218,7 @@
                     "targetPort": "52_in"
                 }
             ],
-            "hash": "589fb0f78415772bd78d33b7f2947a796b08bc98",
+            "hash": "a05fd6be3cfe5455c881a18f356e2023824c4c9d",
             "nodes": {
                 "0": {
                     "data": {
@@ -1686,7 +1686,7 @@
                         "values": {
                             "debug": {
                                 "input_1": [
-                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.finding_ids"
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.*.finding_ids"
                                 ],
                                 "input_10": null,
                                 "input_2": [
@@ -1707,7 +1707,7 @@
                     "type": "utility",
                     "warnings": {},
                     "x": 580,
-                    "y": 424.5
+                    "y": 420
                 }
             },
             "notes": ""
@@ -1720,7 +1720,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T02:23:59.860270+00:00",
+    "create_time": "2025-06-19T02:27:07.863723+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

@@ -872,7 +872,7 @@ def update_task_in_current_phase_2(action=None, success=None, container=None, re
 def debug_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("debug_1() called")
 
-    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.finding_ids","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.intermediate_finding_ids","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.*.finding_ids","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.intermediate_finding_ids","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     get_finding_or_investigation_1_result_item_0 = [item[0] for item in get_finding_or_investigation_1_result_data]
     get_finding_or_investigation_1_result_item_1 = [item[1] for item in get_finding_or_investigation_1_result_data]
