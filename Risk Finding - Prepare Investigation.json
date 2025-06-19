@@ -75,13 +75,6 @@
                     "targetPort": "24_in"
                 },
                 {
-                    "id": "port_24_to_port_14",
-                    "sourceNode": "24",
-                    "sourcePort": "24_out",
-                    "targetNode": "14",
-                    "targetPort": "14_in"
-                },
-                {
                     "id": "port_14_to_port_8",
                     "sourceNode": "14",
                     "sourcePort": "14_out",
@@ -164,9 +157,23 @@
                     "sourcePort": "34_out",
                     "targetNode": "3",
                     "targetPort": "3_in"
+                },
+                {
+                    "id": "port_24_to_port_35",
+                    "sourceNode": "24",
+                    "sourcePort": "24_out",
+                    "targetNode": "35",
+                    "targetPort": "35_in"
+                },
+                {
+                    "id": "port_35_to_port_14",
+                    "sourceNode": "35",
+                    "sourcePort": "35_out",
+                    "targetNode": "14",
+                    "targetPort": "14_in"
                 }
             ],
-            "hash": "912e2a8b06905c714b620c12a21f633aecd131b0",
+            "hash": "131419da1957ae9ee160a8155fcd6f721c568ea0",
             "nodes": {
                 "0": {
                     "data": {
@@ -381,7 +388,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 180,
-                    "y": 760
+                    "y": 860
                 },
                 "2": {
                     "data": {
@@ -1212,6 +1219,56 @@
                     "x": 200,
                     "y": -155.5
                 },
+                "35": {
+                    "data": {
+                        "action": "update task in current phase",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 3,
+                        "functionName": "update_task_in_current_phase_3",
+                        "id": "35",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
+                            "name": "Prepare the investigation",
+                            "status": "Started",
+                            "task_id": "get_task_id_2:action_result.data.*.task_id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "35",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 460,
+                    "y": 780
+                },
                 "4": {
                     "data": {
                         "advanced": {
@@ -1307,7 +1364,7 @@
                     "type": "prompt",
                     "warnings": {},
                     "x": 180,
-                    "y": 900
+                    "y": 960
                 },
                 "9": {
                     "data": {
@@ -1371,7 +1428,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T01:30:44.499935+00:00",
+    "create_time": "2025-06-19T01:38:24.723133+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

@@ -393,7 +393,7 @@ def get_task_id_2(action=None, success=None, container=None, results=None, handl
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get task id", parameters=parameters, name="get_task_id_2", assets=["builtin_mc_connector"], callback=add_task_note_1)
+    phantom.act("get task id", parameters=parameters, name="get_task_id_2", assets=["builtin_mc_connector"], callback=update_task_in_current_phase_3)
 
     return
 
@@ -735,6 +735,43 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
     ################################################################################
 
     phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=all_users)
+
+    return
+
+
+@phantom.playbook_block()
+def update_task_in_current_phase_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("update_task_in_current_phase_3() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_task_id_2_result_data = phantom.collect2(container=container, datapath=["get_task_id_2:action_result.data.*.task_id","get_task_id_2:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'update_task_in_current_phase_3' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        for get_task_id_2_result_item in get_task_id_2_result_data:
+            if get_finding_or_investigation_1_result_item[0] is not None and get_task_id_2_result_item[0] is not None:
+                parameters.append({
+                    "id": get_finding_or_investigation_1_result_item[0],
+                    "name": "Prepare the investigation",
+                    "status": "Started",
+                    "task_id": get_task_id_2_result_item[0],
+                })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_3", assets=["builtin_mc_connector"], callback=add_task_note_1)
 
     return
 
