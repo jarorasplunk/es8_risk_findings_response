@@ -178,13 +178,6 @@
                     "targetPort": "53_in"
                 },
                 {
-                    "id": "port_55_to_port_37",
-                    "sourceNode": "55",
-                    "sourcePort": "55_out",
-                    "targetNode": "37",
-                    "targetPort": "37_in"
-                },
-                {
                     "id": "port_53_to_port_56",
                     "sourceNode": "53",
                     "sourcePort": "53_out",
@@ -192,14 +185,14 @@
                     "targetPort": "56_in"
                 },
                 {
-                    "id": "port_56_to_port_55",
+                    "id": "port_56_to_port_4",
                     "sourceNode": "56",
                     "sourcePort": "56_out",
-                    "targetNode": "55",
-                    "targetPort": "55_in"
+                    "targetNode": "4",
+                    "targetPort": "4_in"
                 }
             ],
-            "hash": "4c8ed2999faad1aa53e5edc166e1ea370a82362f",
+            "hash": "19ea5f58acb03db4575a12bec1de9e6ccad94aa2",
             "nodes": {
                 "0": {
                     "data": {
@@ -896,7 +889,14 @@
                     "errors": {},
                     "id": "37",
                     "type": "decision",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 500,
                     "y": 340
                 },
@@ -1044,8 +1044,9 @@
                             "display": "",
                             "end_time": "",
                             "query": {
+                                "functionId": 1,
                                 "parameters": [
-                                    "included_findings:custom_function:finding_id"
+                                    "included_findings_values:custom_function_result.data.output"
                                 ],
                                 "template": "`notable` | where event_id=\"{0}\""
                             },
@@ -1073,13 +1074,9 @@
                     "errors": {},
                     "id": "4",
                     "type": "action",
-                    "warnings": {
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 1540,
-                    "y": 260
+                    "warnings": {},
+                    "x": 520,
+                    "y": 240
                 },
                 "41": {
                     "data": {
@@ -1553,49 +1550,6 @@
                     "x": 420,
                     "y": 0
                 },
-                "55": {
-                    "data": {
-                        "action": "get finding or investigation",
-                        "actionType": "get",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
-                        "connectorVersion": "v1",
-                        "functionId": 5,
-                        "functionName": "get_finding_or_investigation_5",
-                        "id": "55",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "id": "included_findings_values:custom_function_result.data.output"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "55",
-                    "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 420,
-                    "y": 220
-                },
                 "56": {
                     "data": {
                         "advanced": {
@@ -1668,7 +1622,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T03:39:19.362495+00:00",
+    "create_time": "2025-06-19T03:43:17.631322+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

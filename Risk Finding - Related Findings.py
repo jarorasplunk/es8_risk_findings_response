@@ -27,23 +27,25 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
         container=container,
         template="""`notable` | where event_id=\"{0}\"""",
         parameters=[
-            "included_findings:custom_function:finding_id"
+            "included_findings_values:custom_function_result.data.output"
         ])
 
-    included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
+    included_findings_values__result = phantom.collect2(container=container, datapath=["included_findings_values:custom_function_result.data.output"])
 
     parameters = []
 
-    if query_formatted_string is not None:
-        parameters.append({
-            "query": query_formatted_string,
-            "command": "",
-            "display": "",
-            "end_time": "",
-            "start_time": "",
-            "search_mode": "verbose",
-            "attach_result": False,
-        })
+    # build parameters list for 'run_query_1' call
+    for included_findings_values__result_item in included_findings_values__result:
+        if query_formatted_string is not None:
+            parameters.append({
+                "query": query_formatted_string,
+                "command": "",
+                "display": "",
+                "end_time": "",
+                "start_time": "",
+                "search_mode": "verbose",
+                "attach_result": False,
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -917,38 +919,6 @@ def included_findings(action=None, success=None, container=None, results=None, h
 
 
 @phantom.playbook_block()
-def get_finding_or_investigation_5(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("get_finding_or_investigation_5() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    included_findings_values__result = phantom.collect2(container=container, datapath=["included_findings_values:custom_function_result.data.output"])
-
-    parameters = []
-
-    # build parameters list for 'get_finding_or_investigation_5' call
-    for included_findings_values__result_item in included_findings_values__result:
-        if included_findings_values__result_item[0] is not None:
-            parameters.append({
-                "id": included_findings_values__result_item[0],
-            })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_5", assets=["builtin_mc_connector"], callback=findings_exist)
-
-    return
-
-
-@phantom.playbook_block()
 def included_findings_values(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("included_findings_values() called")
 
@@ -970,7 +940,7 @@ def included_findings_values(action=None, success=None, container=None, results=
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="included_findings_values", callback=get_finding_or_investigation_5)
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="included_findings_values", callback=run_query_1)
 
     return
 
