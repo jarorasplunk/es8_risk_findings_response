@@ -826,7 +826,7 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=get_phase_id_1)
+    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=included_findings)
 
     return
 
@@ -863,7 +863,7 @@ def update_task_in_current_phase_2(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"], callback=included_findings)
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"])
 
     return
 
@@ -884,28 +884,25 @@ def included_findings(action=None, success=None, container=None, results=None, h
     #phantom.debug(get_finding_or_investigation_1_result_item_0)
     #phantom.debug(type(get_finding_or_investigation_1_result_item_0))
     import json
+    import re
 
-    final_result = {}
-    phantom.debug(get_finding_or_investigation_1_result_item_0)
-    phantom.debug(get_finding_or_investigation_1_result_item_0[0])
-    for item in get_finding_or_investigation_1_result_item_0[0]:
-        result = {
-            "finding_ids": [],
-            "intermediate_finding_ids": []
-        }
+    final_result = {
+        "finding_ids": [],
+        "intermediate_finding_ids": []
+    }
 
-        for data in item:
-            if isinstance(data, str) and "=" in data:
-                key, value = data.split("=", 1)
-                value = value.strip('"')
+    # Loop through each dictionary in the list
+    for item in get_finding_or_investigation_1_result_item_0:
+        for long_key_string in item.keys():
+            # Use regex to extract all key="value" pairs from the long string
+            matches = re.findall(r'(\w+)=\\"(.*?)\\"', long_key_string)
 
+            for key, value in matches:
                 if key in ["finding_ids", "intermediate_finding_ids"]:
-                    result[key].append(value)
-
-        # Add the filtered result (can also append to a list if looping over multiple items)
-        final_result = result
+                    final_result[key].append(value)
 
     phantom.debug(json.dumps(final_result, indent=2))
+
 
     ################################################################################
     ## Custom Code End

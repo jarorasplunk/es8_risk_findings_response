@@ -197,13 +197,6 @@
                     "targetPort": "49_in"
                 },
                 {
-                    "id": "port_49_to_port_33",
-                    "sourceNode": "49",
-                    "sourcePort": "49_out",
-                    "targetNode": "33",
-                    "targetPort": "33_in"
-                },
-                {
                     "id": "port_34_to_port_50",
                     "sourceNode": "34",
                     "sourcePort": "34_out",
@@ -211,14 +204,14 @@
                     "targetPort": "50_in"
                 },
                 {
-                    "id": "port_50_to_port_53",
-                    "sourceNode": "50",
-                    "sourcePort": "50_out",
+                    "id": "port_49_to_port_53",
+                    "sourceNode": "49",
+                    "sourcePort": "49_out",
                     "targetNode": "53",
                     "targetPort": "53_in"
                 }
             ],
-            "hash": "7e6f86156de8ae697ddf296bd9c86fed5edac8fe",
+            "hash": "2321a0381c5f1a34f4c8b6d51675a81a45d3a3aa",
             "nodes": {
                 "0": {
                     "data": {
@@ -783,9 +776,16 @@
                     "errors": {},
                     "id": "33",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 420,
-                    "y": 0
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 20,
+                    "y": 3.552713678800501e-15
                 },
                 "34": {
                     "data": {
@@ -841,9 +841,13 @@
                     "errors": {},
                     "id": "34",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 420,
-                    "y": 120
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
+                    "x": 20,
+                    "y": 100
                 },
                 "37": {
                     "data": {
@@ -1525,9 +1529,13 @@
                     "errors": {},
                     "id": "50",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 420,
-                    "y": 240
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
+                    "x": 20,
+                    "y": 200
                 },
                 "53": {
                     "data": {
@@ -1548,10 +1556,10 @@
                     "errors": {},
                     "id": "53",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n\n    final_result = {}\n    phantom.debug(get_finding_or_investigation_1_result_item_0)\n    phantom.debug(get_finding_or_investigation_1_result_item_0[0])\n    for item in get_finding_or_investigation_1_result_item_0[0]:\n        result = {\n            \"finding_ids\": [],\n            \"intermediate_finding_ids\": []\n        }\n\n        for data in item:\n            if isinstance(data, str) and \"=\" in data:\n                key, value = data.split(\"=\", 1)\n                value = value.strip('\"')\n\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    result[key].append(value)\n\n        # Add the filtered result (can also append to a list if looping over multiple items)\n        final_result = result\n\n    phantom.debug(json.dumps(final_result, indent=2))\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        for long_key_string in item.keys():\n            # Use regex to extract all key=\"value\" pairs from the long string\n            matches = re.findall(r'(\\w+)=\\\\\"(.*?)\\\\\"', long_key_string)\n\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    phantom.debug(json.dumps(final_result, indent=2))\n\n\n",
                     "warnings": {},
                     "x": 420,
-                    "y": 404.5
+                    "y": 0
                 }
             },
             "notes": ""
@@ -1564,7 +1572,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T02:49:57.393842+00:00",
+    "create_time": "2025-06-19T02:54:14.304840+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
