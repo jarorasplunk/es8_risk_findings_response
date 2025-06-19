@@ -46,9 +46,9 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
     phantom.debug(playbook_input_findings_list)
     
     for item in playbook_input_findings_list:
-        phantom.debug(item)
+        phantom.debug(item[0])
         parameters.append({
-            "id": item,
+            "id": item[0],
             "status": "Closed",
             "disposition": "disposition:7",
         })

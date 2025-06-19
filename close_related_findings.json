@@ -21,7 +21,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "a05cf7629376af16f224f500699e86b2af70b633",
+            "hash": "48eeec017d50dca4e29b84e757b76e287c73bb22",
             "nodes": {
                 "0": {
                     "data": {
@@ -96,7 +96,7 @@
                     "errors": {},
                     "id": "2",
                     "type": "enterpriseSecurity",
-                    "userCode": "\n    # Write your custom code here...\n    \n    parameters = []\n    phantom.debug(playbook_input_findings_list)\n    \n    for item in playbook_input_findings_list:\n        phantom.debug(item)\n        parameters.append({\n            \"id\": item,\n            \"status\": \"Closed\",\n            \"disposition\": \"disposition:7\",\n        })\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    \n    parameters = []\n    phantom.debug(playbook_input_findings_list)\n    \n    for item in playbook_input_findings_list:\n        phantom.debug(item[0])\n        parameters.append({\n            \"id\": item[0],\n            \"status\": \"Closed\",\n            \"disposition\": \"disposition:7\",\n        })\n\n",
                     "warnings": {},
                     "x": 980,
                     "y": 580
@@ -135,7 +135,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T09:02:27.676954+00:00",
+    "create_time": "2025-06-19T09:05:02.476383+00:00",
     "draft_mode": false,
     "labels": [
         "*"
