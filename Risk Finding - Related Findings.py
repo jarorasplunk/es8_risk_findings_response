@@ -187,7 +187,7 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
         parameters.append({
             "id": included_findings__findings_list,
             "status": "Closed",
-            "disposition": "Closed - As part of investigation",
+            "disposition": "disposition:7",
             "finding_time": "",
         })
 
