@@ -186,6 +186,10 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
         conditions=[
             ["assignment_decision:action_result.summary.responses.0", "==", "Yourself"]
         ],
+        conditions_dps=[
+            ["assignment_decision:action_result.summary.responses.0", "==", "Yourself"]
+        ],
+        name="decision_1:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
@@ -199,6 +203,10 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
         conditions=[
             ["assignment_decision:action_result.summary.responses.0", "==", "Other"]
         ],
+        conditions_dps=[
+            ["assignment_decision:action_result.summary.responses.0", "==", "Other"]
+        ],
+        name="decision_1:condition_2",
         delimiter=None)
 
     # call connected blocks if condition 2 matched
