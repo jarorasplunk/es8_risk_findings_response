@@ -889,6 +889,11 @@ def update_finding_or_investigation_2(action=None, success=None, container=None,
     
     for item in included_findings__findings_list:
         phantom.debug(item)
+        parameters.append({
+            "id": item,
+            "status": "Closed",
+            "disposition": "disposition:7",
+        })
 
     ################################################################################
     ## Custom Code End
