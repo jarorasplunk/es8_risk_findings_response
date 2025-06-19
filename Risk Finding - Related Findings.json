@@ -145,7 +145,7 @@
                     "targetPort": "48_in"
                 }
             ],
-            "hash": "bd36e980f9c192c668347bfaaf4172e35d6b9b18",
+            "hash": "50d0ffc3b2f01a20d5876845225010f1a42854d6",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -378,7 +378,7 @@
                         "parameters": {
                             "disposition": "Closed - As part of investigation",
                             "finding_time": "",
-                            "id": "included_findings:custom_function:finding_id",
+                            "id": "included_findings:custom_function:findings_list",
                             "status": "Closed"
                         },
                         "requiredParameters": [
@@ -392,7 +392,7 @@
                     "errors": {},
                     "id": "23",
                     "type": "enterpriseSecurity",
-                    "userCode": "\n    # Write your custom code here...\n    parameters = []\n\n    if included_findings__finding_id is not None:\n        for item in included_findings__finding_id:\n            parameters.append({\n                \"id\": item,\n                \"status\": \"Closed\",\n                \"disposition\": \"Closed - As part of investigation\",\n                \"finding_time\": \"\",\n            })\n    \n\n",
+                    "userCode": "\n    # Write your custom code here...\n    parameters = []\n\n    if included_findings__findings_list is not None:\n        for item in included_findings__findings_list:\n            parameters.append({\n                \"id\": item,\n                \"status\": \"Closed\",\n                \"disposition\": \"Closed - As part of investigation\",\n                \"finding_time\": \"\",\n            })\n    \n\n",
                     "warnings": {},
                     "x": 1000,
                     "y": 2020
@@ -1366,17 +1366,18 @@
                         ],
                         "outputVariables": [
                             "finding_id",
-                            "intermediate_finding_id"
+                            "intermediate_finding_id",
+                            "findings_list"
                         ],
                         "type": "code"
                     },
                     "errors": {},
                     "id": "53",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n\n    included_findings__finding_id = []\n    included_findings__intermediate_finding_id = []\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        for long_key_string in item.keys():\n            matches = re.findall(r'(\\w+)=\"(.*?)\"', long_key_string)\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    included_findings__finding_id = final_result[\"finding_ids\"]\n    included_findings__intermediate_finding_id = final_result[\"intermediate_finding_ids\"]\n    \n    included_findings__finding_id = str(included_findings__finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    included_findings__intermediate_finding_id = str(included_findings__intermediate_finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    \n    phantom.debug(included_findings__finding_id)\n    phantom.debug(included_findings__intermediate_finding_id)\n    \n",
+                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n\n    included_findings__finding_id = []\n    included_findings__intermediate_finding_id = []\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        for long_key_string in item.keys():\n            matches = re.findall(r'(\\w+)=\"(.*?)\"', long_key_string)\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    included_findings__findings_list = final_result[\"finding_ids\"]\n    included_findings__finding_id = final_result[\"finding_ids\"]\n    included_findings__intermediate_finding_id = final_result[\"intermediate_finding_ids\"]\n    \n    included_findings__finding_id = str(included_findings__finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    included_findings__intermediate_finding_id = str(included_findings__intermediate_finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    \n    phantom.debug(included_findings__finding_id)\n    phantom.debug(included_findings__intermediate_finding_id)\n    \n",
                     "warnings": {},
                     "x": 420,
-                    "y": 1.4210854715202004e-14
+                    "y": 0
                 },
                 "57": {
                     "data": {
@@ -1419,7 +1420,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T06:19:12.631522+00:00",
+    "create_time": "2025-06-19T06:24:30.995119+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

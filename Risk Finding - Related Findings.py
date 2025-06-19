@@ -179,13 +179,13 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
+    included_findings__findings_list = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:findings_list")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
-    if included_findings__finding_id is not None:
+    if included_findings__findings_list is not None:
         parameters.append({
-            "id": included_findings__finding_id,
+            "id": included_findings__findings_list,
             "status": "Closed",
             "disposition": "Closed - As part of investigation",
             "finding_time": "",
@@ -198,8 +198,8 @@ def update_finding_or_investigation_1(action=None, success=None, container=None,
     # Write your custom code here...
     parameters = []
 
-    if included_findings__finding_id is not None:
-        for item in included_findings__finding_id:
+    if included_findings__findings_list is not None:
+        for item in included_findings__findings_list:
             parameters.append({
                 "id": item,
                 "status": "Closed",
@@ -786,6 +786,7 @@ def included_findings(action=None, success=None, container=None, results=None, h
 
     included_findings__finding_id = None
     included_findings__intermediate_finding_id = None
+    included_findings__findings_list = None
 
     ################################################################################
     ## Custom Code Start
@@ -812,6 +813,7 @@ def included_findings(action=None, success=None, container=None, results=None, h
                 if key in ["finding_ids", "intermediate_finding_ids"]:
                     final_result[key].append(value)
 
+    included_findings__findings_list = final_result["finding_ids"]
     included_findings__finding_id = final_result["finding_ids"]
     included_findings__intermediate_finding_id = final_result["intermediate_finding_ids"]
     
@@ -829,6 +831,7 @@ def included_findings(action=None, success=None, container=None, results=None, h
 
     phantom.save_block_result(key="included_findings:finding_id", value=json.dumps(included_findings__finding_id))
     phantom.save_block_result(key="included_findings:intermediate_finding_id", value=json.dumps(included_findings__intermediate_finding_id))
+    phantom.save_block_result(key="included_findings:findings_list", value=json.dumps(included_findings__findings_list))
 
     run_query_1(container=container)
 
