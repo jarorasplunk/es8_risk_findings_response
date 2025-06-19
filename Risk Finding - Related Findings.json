@@ -35,13 +35,6 @@
                     "targetPort": "42_in"
                 },
                 {
-                    "id": "port_23_to_port_27",
-                    "sourceNode": "23",
-                    "sourcePort": "23_out",
-                    "targetNode": "27",
-                    "targetPort": "27_in"
-                },
-                {
                     "id": "port_31_to_port_1",
                     "sourceNode": "31",
                     "sourcePort": "31_out",
@@ -125,14 +118,34 @@
                     "targetPort": "48_in"
                 },
                 {
-                    "id": "port_53_to_port_61",
+                    "id": "port_53_to_port_4",
                     "sourceNode": "53",
                     "sourcePort": "53_out",
+                    "targetNode": "4",
+                    "targetPort": "4_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_1",
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_26_to_port_61",
+                    "sourceNode": "26",
+                    "sourcePort": "26_out",
                     "targetNode": "61",
                     "targetPort": "61_in"
+                },
+                {
+                    "id": "port_61_to_port_27",
+                    "sourceNode": "61",
+                    "sourcePort": "61_out",
+                    "targetNode": "27",
+                    "targetPort": "27_in"
                 }
             ],
-            "hash": "5240a36b9ae898e342fa6ea5601ab6ea8f527f98",
+            "hash": "ff1efadab05fd092e72ba7a1cce6d2c7cfd20f5f",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -471,7 +484,7 @@
                             "content": {
                                 "functionId": 2,
                                 "parameters": [
-                                    "included_findings:custom_function:finding_id"
+                                    "included_findings:custom_function:findings_list"
                                 ],
                                 "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\nClosed Findings as part of this Investigation:\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | Closed |\n%%\n\n\n\nThere may be other \"Intermediate Findings\" contributing to this investigation, please review them in the Overview tab"
                             },
@@ -514,13 +527,9 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
-                    "x": 1060,
-                    "y": 2280
+                    "warnings": {},
+                    "x": 760,
+                    "y": 1540
                 },
                 "31": {
                     "data": {
@@ -575,11 +584,7 @@
                     "errors": {},
                     "id": "31",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 740,
                     "y": 2640
                 },
@@ -709,13 +714,9 @@
                     "errors": {},
                     "id": "33",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 20,
-                    "y": 3.197442310920451e-14
+                    "y": 3.552713678800501e-14
                 },
                 "34": {
                     "data": {
@@ -771,11 +772,7 @@
                     "errors": {},
                     "id": "34",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 20,
                     "y": 100
                 },
@@ -909,11 +906,7 @@
                     "errors": {},
                     "id": "38",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": -60,
                     "y": 660
                 },
@@ -1013,11 +1006,7 @@
                     "errors": {},
                     "id": "4",
                     "type": "action",
-                    "warnings": {
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 420,
                     "y": 120
                 },
@@ -1361,11 +1350,7 @@
                     "errors": {},
                     "id": "50",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 20,
                     "y": 200
                 },
@@ -1571,8 +1556,8 @@
                     "type": "action",
                     "userCode": "\n    # Write your custom code here...\n    \n    parameters = []\n    for item in included_findings__findings_list:\n        parameters.append({\n            \"event_ids\": item,\n            \"status\": 5,\n            \"integer_disposition\": 7,\n            \"wait_for_confirmation\": True,\n        })\n\n",
                     "warnings": {},
-                    "x": 820,
-                    "y": 260
+                    "x": 760,
+                    "y": 1320
                 }
             },
             "notes": ""
@@ -1585,7 +1570,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T23:40:42.032230+00:00",
+    "create_time": "2025-06-19T23:54:38.812319+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
