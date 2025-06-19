@@ -251,30 +251,29 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
         container=container,
         template="""Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\nClosed Findings as part of this Investigation:\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | Closed |\n%%\n\n\n\nThere may be other \"Intermediate Findings\" contributing to this investigation, please review them in the Overview tab""",
         parameters=[
-            "filtered-data:filter_1:condition_1:get_finding_or_investigation_2:action_result.data.*.finding_id"
+            "included_findings:custom_function:finding_id"
         ])
 
     get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
-    filtered_result_0_data_filter_1 = phantom.collect2(container=container, datapath=["filtered-data:filter_1:condition_1:get_finding_or_investigation_2:action_result.data.*.finding_id"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     # build parameters list for 'add_task_note_2' call
     for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
-        for filtered_result_0_item_filter_1 in filtered_result_0_data_filter_1:
-            for get_task_id_1_result_item in get_task_id_1_result_data:
-                for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                    if get_finding_or_investigation_1_result_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
-                        parameters.append({
-                            "id": get_finding_or_investigation_1_result_item[0],
-                            "title": "Analyst decision to close related findings",
-                            "content": content_formatted_string,
-                            "task_id": get_task_id_1_result_item[0],
-                            "phase_id": get_phase_id_1_result_item[0],
-                            "response_plan_id": get_finding_or_investigation_1_result_item[1],
-                        })
+        for get_task_id_1_result_item in get_task_id_1_result_data:
+            for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                if get_finding_or_investigation_1_result_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
+                    parameters.append({
+                        "id": get_finding_or_investigation_1_result_item[0],
+                        "title": "Analyst decision to close related findings",
+                        "content": content_formatted_string,
+                        "task_id": get_task_id_1_result_item[0],
+                        "phase_id": get_phase_id_1_result_item[0],
+                        "response_plan_id": get_finding_or_investigation_1_result_item[1],
+                    })
 
     ################################################################################
     ## Custom Code Start
