@@ -205,7 +205,7 @@
                     "targetPort": "13_in"
                 }
             ],
-            "hash": "4d61fd9a528f8d9520ec3cddcd190382596da751",
+            "hash": "c0af3abcff17b54217a4d8826ef73700a97fb887",
             "nodes": {
                 "0": {
                     "data": {
@@ -262,7 +262,7 @@
                             "run_query_1:action_result.data.*.owner",
                             ""
                         ],
-                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--7d%40h&latest=now&search={1}) | {2} | {3} |\n%%\n{4}\n",
+                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=--30d%40h&latest=now&search={1}) | {2} | {3} |\n%%\n{4}\n",
                         "type": "format"
                     },
                     "errors": {},
@@ -1598,7 +1598,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T05:31:07.064763+00:00",
+    "create_time": "2025-06-19T05:35:16.123834+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
