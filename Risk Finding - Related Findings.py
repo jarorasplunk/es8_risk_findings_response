@@ -914,6 +914,44 @@ def included_findings(action=None, success=None, container=None, results=None, h
 
     phantom.save_block_result(key="included_findings:consolidated_findings", value=json.dumps(included_findings__consolidated_findings))
 
+    debug_4(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def debug_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("debug_4() called")
+
+    included_findings__consolidated_findings = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:consolidated_findings")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    parameters.append({
+        "input_1": included_findings__consolidated_findings,
+        "input_2": None,
+        "input_3": None,
+        "input_4": None,
+        "input_5": None,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+        "input_9": None,
+        "input_10": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_4")
+
     return
 
 
