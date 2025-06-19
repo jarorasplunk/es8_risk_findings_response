@@ -25,31 +25,25 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""datamodel Risk.All_Risk \n| search [ | tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1} by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index\n| `get_mitre_annotations`\n| rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type\n| `generate_findings_summary`\n| stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)`\n| `dedup_and_compute_common_fbd_fields`, threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type), num_mitre_techniques=mvcount('annotations.mitre_attack'), annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack')\n| fillnull value=0 num_mitre_techniques, mitre_tactic_id_count, mitre_technique_id_count, total_event_count, risk_score\n| fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids\n| `drop_dm_object_name(\"All_Risk\")`\n| where normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n| where num_mitre_techniques>3 OR risk_score>100 OR total_event_count>5\n| eval all_finding_ids=mvdedup(finding_ids)\n| fields all_finding_ids\n| mvexpand all_finding_ids\n| rename all_finding_ids AS source_event_id ]\n| `add_events({4})`""",
+        template="""`notable` | where event_id=\"{0}\"""",
         parameters=[
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings._indextime",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id"
+            "included_findings:custom_function:finding_id"
         ])
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings._indextime","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type","refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
-    # build parameters list for 'run_query_1' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
-        if query_formatted_string is not None:
-            parameters.append({
-                "query": query_formatted_string,
-                "command": "| from ",
-                "display": "",
-                "end_time": "",
-                "start_time": "",
-                "search_mode": "verbose",
-                "attach_result": False,
-            })
+    if query_formatted_string is not None:
+        parameters.append({
+            "query": query_formatted_string,
+            "command": "",
+            "display": "",
+            "end_time": "",
+            "start_time": "",
+            "search_mode": "verbose",
+            "attach_result": False,
+        })
 
     ################################################################################
     ## Custom Code Start
@@ -89,8 +83,6 @@ def related_findings_note(action=None, success=None, container=None, results=Non
     ################################################################################
 
     phantom.format(container=container, template=template, parameters=parameters, name="related_findings_note")
-
-    add_task_note_1(container=container)
 
     return
 
@@ -459,21 +451,17 @@ def findings_exist(action=None, success=None, container=None, results=None, hand
     found_match_1 = phantom.decision(
         container=container,
         conditions=[
-            ["run_query_1:action_result.summary.total_events", "!=", 0]
+            ["get_finding_or_investigation_5:action_result.data.*.finding_id", "!=", 0]
         ],
         conditions_dps=[
-            ["run_query_1:action_result.summary.total_events", "!=", 0]
+            ["get_finding_or_investigation_5:action_result.data.*.finding_id", "!=", 0]
         ],
         name="findings_exist:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        related_findings_note(action=action, success=success, container=container, results=results, handle=handle)
         return
-
-    # check for 'else' condition 2
-    add_task_note_4(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 
@@ -916,32 +904,25 @@ def included_findings(action=None, success=None, container=None, results=None, h
     phantom.save_block_result(key="included_findings:finding_id", value=json.dumps(included_findings__finding_id))
     phantom.save_block_result(key="included_findings:intermediate_finding_id", value=json.dumps(included_findings__intermediate_finding_id))
 
-    debug_4(container=container)
+    get_finding_or_investigation_5(container=container)
 
     return
 
 
 @phantom.playbook_block()
-def debug_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("debug_4() called")
+def get_finding_or_investigation_5(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_finding_or_investigation_5() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
     included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
-    included_findings__intermediate_finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:intermediate_finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
-    parameters.append({
-        "input_1": included_findings__finding_id,
-        "input_2": included_findings__intermediate_finding_id,
-        "input_3": None,
-        "input_4": None,
-        "input_5": None,
-        "input_6": None,
-        "input_7": None,
-        "input_8": None,
-        "input_9": None,
-        "input_10": None,
-    })
+    if included_findings__finding_id is not None:
+        parameters.append({
+            "id": included_findings__finding_id,
+        })
 
     ################################################################################
     ## Custom Code Start
@@ -953,7 +934,7 @@ def debug_4(action=None, success=None, container=None, results=None, handle=None
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_4")
+    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_5", assets=["builtin_mc_connector"], callback=findings_exist)
 
     return
 
