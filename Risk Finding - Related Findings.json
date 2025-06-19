@@ -211,7 +211,7 @@
                     "targetPort": "53_in"
                 }
             ],
-            "hash": "9deef11e7b735b36046535b7dfc9221ca349cb8d",
+            "hash": "cc0d452b4a22022df3d1a13dba9853a82ba4e569",
             "nodes": {
                 "0": {
                     "data": {
@@ -1556,7 +1556,7 @@
                     "errors": {},
                     "id": "53",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n    phantom.debug(get_finding_or_investigation_1_result_item_0)\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        phantom.debug(item)\n        for long_key_string in item.keys():\n            phantom.debug(long_key_string)\n            # Use regex to extract all key=\"value\" pairs from the long string\n            matches = re.findall(r'(\\w+)=\\\\\"(.*?)\\\\\"', long_key_string)\n            phantom.debug(\"matches:\")\n            phantom.debug(matches)\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    phantom.debug(json.dumps(final_result, indent=2))\n\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n    \n    phantom.debug(get_finding_or_investigation_1_result_item_0)\n\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        phantom.debug(item)\n        for long_key_string in item.keys():\n            phantom.debug(long_key_string)\n        \n            # FIXED REGEX: No escaping needed, quotes are not escaped in actual string\n            matches = re.findall(r'(\\w+)=\"(.*?)\"', long_key_string)\n\n            phantom.debug(\"matches:\")\n            phantom.debug(matches)\n\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    phantom.debug(json.dumps(final_result, indent=2))\n\n\n\n",
                     "warnings": {},
                     "x": 420,
                     "y": 0
@@ -1572,7 +1572,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T02:57:27.399443+00:00",
+    "create_time": "2025-06-19T03:02:47.522696+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
