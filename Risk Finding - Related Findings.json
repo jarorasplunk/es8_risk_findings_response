@@ -145,10 +145,10 @@
                     "targetPort": "48_in"
                 }
             ],
-            "hash": "70de63a986cf43087340e7772a639cb81d88de54",
+            "hash": "80b3e876d47aedc10675eb012a5cb69885b0dbb4",
             "nodes": {
                 "0": {
-                    "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    return",
+                    "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
                     "data": {
                         "advanced": {
                             "join": []
@@ -1419,7 +1419,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T06:09:31.489535+00:00",
+    "create_time": "2025-06-19T06:10:27.380385+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
