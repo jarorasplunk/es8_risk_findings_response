@@ -897,6 +897,9 @@ def included_findings(action=None, success=None, container=None, results=None, h
     included_findings__finding_id = final_result["finding_ids"]
     included_findings__intermediate_finding_id = final_result["intermediate_finding_ids"]
     
+    included_findings__finding_id = str(included_findings__finding_id)
+    included_findings__intermediate_finding_id = str(included_findings__intermediate_finding_id)
+    
     phantom.debug(included_findings__finding_id)
     phantom.debug(included_findings__intermediate_finding_id)
     
@@ -908,33 +911,6 @@ def included_findings(action=None, success=None, container=None, results=None, h
 
     phantom.save_block_result(key="included_findings:finding_id", value=json.dumps(included_findings__finding_id))
     phantom.save_block_result(key="included_findings:intermediate_finding_id", value=json.dumps(included_findings__intermediate_finding_id))
-
-    return
-
-
-@phantom.playbook_block()
-def included_findings_values(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("included_findings_values() called")
-
-    included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
-
-    parameters = []
-
-    parameters.append({
-        "input_list": included_findings__finding_id,
-    })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="included_findings_values", callback=format_findings_query)
 
     return
 
