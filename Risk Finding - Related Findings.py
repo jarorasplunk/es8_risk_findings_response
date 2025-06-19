@@ -948,13 +948,13 @@ def update_event_1(action=None, success=None, container=None, results=None, hand
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    included_findings__finding_id = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:finding_id")) != "" else "null")  # pylint: disable=used-before-assignment
+    included_findings__findings_list = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:findings_list")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
-    if included_findings__finding_id is not None:
+    if included_findings__findings_list is not None:
         parameters.append({
-            "event_ids": included_findings__finding_id,
+            "event_ids": included_findings__findings_list,
             "status": "Closed",
             "disposition": "",
             "integer_disposition": 7,
@@ -968,7 +968,7 @@ def update_event_1(action=None, success=None, container=None, results=None, hand
     # Write your custom code here...
     
     parameters = []
-    for item in included_findings__finding_id:
+    for item in included_findings__findings_list:
         parameters.append({
             "event_ids": item,
             "status": "Closed",

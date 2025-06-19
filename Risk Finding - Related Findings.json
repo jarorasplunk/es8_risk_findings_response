@@ -132,7 +132,7 @@
                     "targetPort": "61_in"
                 }
             ],
-            "hash": "80b3e876d47aedc10675eb012a5cb69885b0dbb4",
+            "hash": "ae88b866d85118b9264e0c377d5042f34791ac89",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -1553,7 +1553,7 @@
                         },
                         "parameters": {
                             "disposition": "",
-                            "event_ids": "included_findings:custom_function:finding_id",
+                            "event_ids": "included_findings:custom_function:findings_list",
                             "integer_disposition": "7",
                             "status": "Closed",
                             "wait_for_confirmation": true
@@ -1569,7 +1569,7 @@
                     "errors": {},
                     "id": "61",
                     "type": "action",
-                    "userCode": "\n    # Write your custom code here...\n    \n    parameters = []\n    for item in included_findings__finding_id:\n        parameters.append({\n            \"event_ids\": item,\n            \"status\": \"Closed\",\n            \"integer_disposition\": 7,\n            \"wait_for_confirmation\": True,\n        })\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    \n    parameters = []\n    for item in included_findings__findings_list:\n        parameters.append({\n            \"event_ids\": item,\n            \"status\": \"Closed\",\n            \"integer_disposition\": 7,\n            \"wait_for_confirmation\": True,\n        })\n\n",
                     "warnings": {},
                     "x": 820,
                     "y": 260
@@ -1585,7 +1585,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T23:17:58.796426+00:00",
+    "create_time": "2025-06-19T23:29:19.959982+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
