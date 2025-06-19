@@ -884,24 +884,27 @@ def included_findings(action=None, success=None, container=None, results=None, h
     #phantom.debug(get_finding_or_investigation_1_result_item_0)
     #phantom.debug(type(get_finding_or_investigation_1_result_item_0))
     import json
-    
+
+    final_result = {}
+
     for item in get_finding_or_investigation_1_result_item_0:
-        result = {}
+        result = {
+            "finding_ids": [],
+            "intermediate_finding_ids": []
+        }
+
         for data in item:
             if isinstance(data, str) and "=" in data:
                 key, value = data.split("=", 1)
                 value = value.strip('"')
 
-            # Handle repeated keys as lists
-                if key in result:
-                    if not isinstance(result[key], list):
-                        result[key] = [result[key]]
+                if key in ["finding_ids", "intermediate_finding_ids"]:
                     result[key].append(value)
-                else:
-                    result[key] = value
 
-    # Print as JSON
-    phantom.debug(json.dumps(result, indent=2))
+        # Add the filtered result (can also append to a list if looping over multiple items)
+        final_result = result
+
+    phantom.debug(json.dumps(final_result, indent=2))
 
     ################################################################################
     ## Custom Code End
