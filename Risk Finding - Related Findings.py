@@ -25,7 +25,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
 
     query_formatted_string = phantom.format(
         container=container,
-        template="""`notable` | where event_id=\"{0}\"""",
+        template="""`notable` | where event_id IN ({0})""",
         parameters=[
             "included_findings_values:custom_function_result.data.output"
         ])
