@@ -955,7 +955,7 @@ def update_event_1(action=None, success=None, container=None, results=None, hand
     if included_findings__findings_list is not None:
         parameters.append({
             "event_ids": included_findings__findings_list,
-            "status": "Closed",
+            "status": 5,
             "disposition": "",
             "integer_disposition": 7,
             "wait_for_confirmation": True,
@@ -971,7 +971,7 @@ def update_event_1(action=None, success=None, container=None, results=None, hand
     for item in included_findings__findings_list:
         parameters.append({
             "event_ids": item,
-            "status": "Closed",
+            "status": 5,
             "integer_disposition": 7,
             "wait_for_confirmation": True,
         })
