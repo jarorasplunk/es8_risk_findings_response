@@ -77,13 +77,6 @@
                     "targetPort": "53_in"
                 },
                 {
-                    "id": "port_53_to_port_4",
-                    "sourceNode": "53",
-                    "sourcePort": "53_out",
-                    "targetNode": "4",
-                    "targetPort": "4_in"
-                },
-                {
                     "id": "port_4_to_port_37",
                     "sourceNode": "4",
                     "sourcePort": "4_out",
@@ -132,20 +125,14 @@
                     "targetPort": "48_in"
                 },
                 {
-                    "conditions": [
-                        {
-                            "conditionKey": "condition_key_1",
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_26_to_port_59",
-                    "sourceNode": "26",
-                    "sourcePort": "26_out",
+                    "id": "port_53_to_port_59",
+                    "sourceNode": "53",
+                    "sourcePort": "53_out",
                     "targetNode": "59",
                     "targetPort": "59_in"
                 }
             ],
-            "hash": "0bfd5693f0161ef6f13aee1f5076bbd63556473b",
+            "hash": "a0b631d889b564201efae592c7b2b30decba4435",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -722,9 +709,13 @@
                     "errors": {},
                     "id": "33",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 20,
-                    "y": 2.842170943040401e-14
+                    "y": 3.197442310920451e-14
                 },
                 "34": {
                     "data": {
@@ -780,7 +771,11 @@
                     "errors": {},
                     "id": "34",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 20,
                     "y": 100
                 },
@@ -914,7 +909,11 @@
                     "errors": {},
                     "id": "38",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": -60,
                     "y": 660
                 },
@@ -1014,7 +1013,11 @@
                     "errors": {},
                     "id": "4",
                     "type": "action",
-                    "warnings": {},
+                    "warnings": {
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 420,
                     "y": 120
                 },
@@ -1358,7 +1361,11 @@
                     "errors": {},
                     "id": "50",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 20,
                     "y": 200
                 },
@@ -1447,13 +1454,7 @@
                         },
                         "parameters": {
                             "disposition": "disposition:7",
-                            "id": {
-                                "functionId": 2,
-                                "parameters": [
-                                    "included_findings:custom_function:findings_list"
-                                ],
-                                "template": "%%\n{0}\n%%"
-                            },
+                            "id": "included_findings:custom_function:findings_list",
                             "status": "Closed"
                         },
                         "requiredParameters": [
@@ -1467,9 +1468,10 @@
                     "errors": {},
                     "id": "59",
                     "type": "enterpriseSecurity",
+                    "userCode": "\n    # Write your custom code here...\n    parameters = []\n    phantom.debug(included_findings__findings_list)\n\n",
                     "warnings": {},
-                    "x": 900,
-                    "y": 1484.5
+                    "x": 800,
+                    "y": 340
                 }
             },
             "notes": ""
@@ -1482,7 +1484,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T08:51:14.441615+00:00",
+    "create_time": "2025-06-19T08:54:44.034878+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

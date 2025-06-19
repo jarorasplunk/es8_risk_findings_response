@@ -235,7 +235,6 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        update_finding_or_investigation_2(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     return
@@ -832,7 +831,7 @@ def included_findings(action=None, success=None, container=None, results=None, h
     phantom.save_block_result(key="included_findings:intermediate_finding_id", value=json.dumps(included_findings__intermediate_finding_id))
     phantom.save_block_result(key="included_findings:findings_list", value=json.dumps(included_findings__findings_list))
 
-    run_query_1(container=container)
+    update_finding_or_investigation_2(container=container)
 
     return
 
@@ -869,20 +868,13 @@ def update_finding_or_investigation_2(action=None, success=None, container=None,
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    id_formatted_string = phantom.format(
-        container=container,
-        template="""%%\n{0}\n%%""",
-        parameters=[
-            "included_findings:custom_function:findings_list"
-        ])
-
     included_findings__findings_list = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:findings_list")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
-    if id_formatted_string is not None:
+    if included_findings__findings_list is not None:
         parameters.append({
-            "id": id_formatted_string,
+            "id": included_findings__findings_list,
             "status": "Closed",
             "disposition": "disposition:7",
         })
@@ -892,6 +884,8 @@ def update_finding_or_investigation_2(action=None, success=None, container=None,
     ################################################################################
 
     # Write your custom code here...
+    parameters = []
+    phantom.debug(included_findings__findings_list)
 
     ################################################################################
     ## Custom Code End
