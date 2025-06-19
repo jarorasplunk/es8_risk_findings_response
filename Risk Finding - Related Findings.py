@@ -877,7 +877,8 @@ def included_findings(action=None, success=None, container=None, results=None, h
     import json
     import re
 
-    included_findings__consolidated_findings = {}
+    included_findings__finding_id = []
+    included_findings__intermediate_finding_id = []
     final_result = {
         "finding_ids": [],
         "intermediate_finding_ids": []
