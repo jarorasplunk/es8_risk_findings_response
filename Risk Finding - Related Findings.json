@@ -70,47 +70,6 @@
                     "targetPort": "53_in"
                 },
                 {
-                    "id": "port_4_to_port_37",
-                    "sourceNode": "4",
-                    "sourcePort": "4_out",
-                    "targetNode": "37",
-                    "targetPort": "37_in"
-                },
-                {
-                    "conditions": [
-                        {
-                            "conditionKey": "condition_key_3",
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_37_to_port_13",
-                    "sourceNode": "37",
-                    "sourcePort": "37_out",
-                    "targetNode": "13",
-                    "targetPort": "13_in"
-                },
-                {
-                    "id": "port_13_to_port_33",
-                    "sourceNode": "13",
-                    "sourcePort": "13_out",
-                    "targetNode": "33",
-                    "targetPort": "33_in"
-                },
-                {
-                    "id": "port_50_to_port_38",
-                    "sourceNode": "50",
-                    "sourcePort": "50_out",
-                    "targetNode": "38",
-                    "targetPort": "38_in"
-                },
-                {
-                    "id": "port_38_to_port_22",
-                    "sourceNode": "38",
-                    "sourcePort": "38_out",
-                    "targetNode": "22",
-                    "targetPort": "22_in"
-                },
-                {
                     "id": "port_0_to_port_48",
                     "sourceNode": "0",
                     "sourcePort": "0_out",
@@ -143,9 +102,63 @@
                     "sourcePort": "61_out",
                     "targetNode": "27",
                     "targetPort": "27_in"
+                },
+                {
+                    "id": "port_4_to_port_13",
+                    "sourceNode": "4",
+                    "sourcePort": "4_out",
+                    "targetNode": "13",
+                    "targetPort": "13_in"
+                },
+                {
+                    "id": "port_13_to_port_33",
+                    "sourceNode": "13",
+                    "sourcePort": "13_out",
+                    "targetNode": "33",
+                    "targetPort": "33_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_19",
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_62_to_port_63",
+                    "sourceNode": "62",
+                    "sourcePort": "62_out",
+                    "targetNode": "63",
+                    "targetPort": "63_in"
+                },
+                {
+                    "id": "port_50_to_port_38",
+                    "sourceNode": "50",
+                    "sourcePort": "50_out",
+                    "targetNode": "38",
+                    "targetPort": "38_in"
+                },
+                {
+                    "id": "port_38_to_port_62",
+                    "sourceNode": "38",
+                    "sourcePort": "38_out",
+                    "targetNode": "62",
+                    "targetPort": "62_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_0",
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_62_to_port_22",
+                    "sourceNode": "62",
+                    "sourcePort": "62_out",
+                    "targetNode": "22",
+                    "targetPort": "22_in"
                 }
             ],
-            "hash": "ff1efadab05fd092e72ba7a1cce6d2c7cfd20f5f",
+            "hash": "cc80e260c5c8644097a04826fe958e2baa597267",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -209,8 +222,8 @@
                     "id": "13",
                     "type": "format",
                     "warnings": {},
-                    "x": 400,
-                    "y": 480
+                    "x": 420,
+                    "y": 260
                 },
                 "20": {
                     "data": {
@@ -292,8 +305,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 600,
-                    "y": 740
+                    "x": 920,
+                    "y": 800
                 },
                 "22": {
                     "data": {
@@ -309,9 +322,12 @@
                         "functionId": 1,
                         "functionName": "close_findings_prompt",
                         "id": "22",
-                        "message": "This Investigation is composed of many related findings and intermediate findings.\n\nYou can browse all these related findings on a risk timeline in the Overview Tab.\n\nPlease select a response below to manage these findings in the Analyst Queue while you continue to work on the investigation.\n\n{0}",
+                        "message": "This Investigation is composed of many related findings and intermediate findings.\n\nYou can browse all these related findings on a risk timeline in the Overview Tab.\n\nPlease select a response below to manage these findings in the Analyst Queue while you continue to work on the investigation.\n\n| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n",
                         "parameters": [
-                            "related_findings_note:formatted_data"
+                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.rule_name",
+                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id",
+                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label",
+                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"
                         ],
                         "responseTime": 30,
                         "responses": [
@@ -331,8 +347,8 @@
                     "id": "22",
                     "type": "prompt",
                     "warnings": {},
-                    "x": 280,
-                    "y": 900
+                    "x": 80,
+                    "y": 1020
                 },
                 "23": {
                     "data": {
@@ -452,8 +468,8 @@
                     "id": "26",
                     "type": "decision",
                     "warnings": {},
-                    "x": 360,
-                    "y": 1060
+                    "x": 160,
+                    "y": 1140
                 },
                 "27": {
                     "data": {
@@ -528,8 +544,8 @@
                     "id": "27",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 760,
-                    "y": 1540
+                    "x": 80,
+                    "y": 1520
                 },
                 "31": {
                     "data": {
@@ -593,6 +609,8 @@
                         "action": "add task note",
                         "actionType": "post",
                         "advanced": {
+                            "customName": "add_task_note_6",
+                            "customNameId": 0,
                             "join": []
                         },
                         "connector": "Enterprise Security",
@@ -602,7 +620,7 @@
                         "connectorId": 191,
                         "connectorVersion": "v1",
                         "functionId": 3,
-                        "functionName": "add_task_note_3",
+                        "functionName": "add_task_note_6",
                         "id": "32",
                         "loop": {
                             "enabled": false,
@@ -715,8 +733,8 @@
                     "id": "33",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 20,
-                    "y": 3.552713678800501e-14
+                    "x": 420,
+                    "y": 380
                 },
                 "34": {
                     "data": {
@@ -773,8 +791,8 @@
                     "id": "34",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 20,
-                    "y": 100
+                    "x": 420,
+                    "y": 500
                 },
                 "37": {
                     "data": {
@@ -793,7 +811,8 @@
                                         "value": "Resolved"
                                     },
                                     {
-                                        "op": "==",
+                                        "conditionIndex": 0,
+                                        "op": "!=",
                                         "param": "run_query_1:action_result.data.*.status_label",
                                         "value": "Closed"
                                     }
@@ -830,9 +849,16 @@
                     "errors": {},
                     "id": "37",
                     "type": "decision",
-                    "warnings": {},
-                    "x": 500,
-                    "y": 260
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
+                    "x": 660,
+                    "y": 800
                 },
                 "38": {
                     "data": {
@@ -865,7 +891,7 @@
                                 "parameters": [
                                     "related_findings_note:formatted_data"
                                 ],
-                                "template": "Below is the summary of included Findings in this Investigation (Intermediate Findings, check the \"Overview\" tab)\n\n{0}\n\n\n\nFollow the \"Prompt\" to manage these related Findings in the Analyst Queue.\n\n\nMessage prompt name: close_findings_prompt"
+                                "template": "Below is the summary of included Findings in this Investigation (Intermediate Findings, check the \"Overview\" tab)\n\n{0}\n\n\n\n\n\nCheck the \"Prompt\" to see if there are related Findings that are not \"Closed\" in the Analyst Queue.\n\nIf all the related findings are already \"Closed\", there will be no requests in the \"Prompt\"\n\n\n\n\nMessage prompt name: close_findings_prompt"
                             },
                             "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -907,8 +933,8 @@
                     "id": "38",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": -60,
-                    "y": 660
+                    "x": 420,
+                    "y": 720
                 },
                 "39": {
                     "data": {
@@ -1068,8 +1094,8 @@
                     "id": "41",
                     "type": "utility",
                     "warnings": {},
-                    "x": 180,
-                    "y": 1560
+                    "x": -200,
+                    "y": 1660
                 },
                 "42": {
                     "data": {
@@ -1129,92 +1155,8 @@
                     "id": "42",
                     "type": "utility",
                     "warnings": {},
-                    "x": 180,
-                    "y": 1720
-                },
-                "46": {
-                    "data": {
-                        "action": "add task note",
-                        "actionType": "post",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 5,
-                        "functionName": "add_task_note_5",
-                        "id": "46",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "content": {
-                                "functionId": 5,
-                                "parameters": [
-                                    "filtered-data:filter_1:condition_2:get_finding_or_investigation_2:action_result.data.*.finding_id",
-                                    "filtered-data:filter_1:condition_2:get_finding_or_investigation_2:action_result.data.*.status_name"
-                                ],
-                                "template": "| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | {1} |\n%%\n"
-                            },
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
-                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
-                            "task_id": "get_task_id_1:action_result.data.*.task_id",
-                            "title": "Previously or Already Closed Findings:"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "title"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "content"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "task_id"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "phase_id"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "response_plan_id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "46",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": -240,
-                    "y": 2160
+                    "x": -100,
+                    "y": 1860
                 },
                 "48": {
                     "data": {
@@ -1351,8 +1293,8 @@
                     "id": "50",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 20,
-                    "y": 200
+                    "x": 420,
+                    "y": 600
                 },
                 "53": {
                     "data": {
@@ -1538,7 +1480,7 @@
                         },
                         "parameters": {
                             "disposition": "",
-                            "event_ids": "included_findings:custom_function:findings_list",
+                            "event_ids": "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id",
                             "integer_disposition": "7",
                             "status": "5",
                             "wait_for_confirmation": true
@@ -1554,10 +1496,152 @@
                     "errors": {},
                     "id": "61",
                     "type": "action",
-                    "userCode": "\n    # Write your custom code here...\n    \n    parameters = []\n    for item in included_findings__findings_list:\n        parameters.append({\n            \"event_ids\": item,\n            \"status\": 5,\n            \"integer_disposition\": 7,\n            \"wait_for_confirmation\": True,\n        })\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    \n\n",
                     "warnings": {},
-                    "x": 760,
-                    "y": 1320
+                    "x": 80,
+                    "y": 1300
+                },
+                "62": {
+                    "data": {
+                        "advanced": {
+                            "customName": "related findings status filter",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "!=",
+                                        "param": "run_query_1:action_result.data.*.status_label",
+                                        "value": "Resolved"
+                                    },
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "!=",
+                                        "param": "run_query_1:action_result.data.*.status_label",
+                                        "value": "Closed"
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "conditionKey": "condition_key_0",
+                                "customName": "open findings",
+                                "logic": "or"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 1,
+                                        "op": "==",
+                                        "param": "run_query_1:action_result.data.*.status_label",
+                                        "value": "Closed"
+                                    },
+                                    {
+                                        "conditionIndex": 1,
+                                        "op": "==",
+                                        "param": "run_query_1:action_result.data.*.status_label",
+                                        "value": "Resolved"
+                                    }
+                                ],
+                                "conditionIndex": 1,
+                                "conditionKey": "condition_key_19",
+                                "customName": "closed findings",
+                                "logic": "and"
+                            }
+                        ],
+                        "functionId": 1,
+                        "functionName": "related_findings_status_filter",
+                        "id": "62",
+                        "type": "filter"
+                    },
+                    "errors": {},
+                    "id": "62",
+                    "type": "filter",
+                    "warnings": {},
+                    "x": 440,
+                    "y": 860
+                },
+                "63": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "customName": "",
+                            "customNameId": -1,
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 3,
+                        "functionName": "add_task_note_3",
+                        "id": "63",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": {
+                                "functionId": 3,
+                                "parameters": [
+                                    "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.rule_name",
+                                    "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.event_id",
+                                    "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.status_label",
+                                    "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.owner"
+                                ],
+                                "template": "Closed Findings that are related to this investigation:\n\n\n\n\n| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n\n"
+                            },
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
+                            "task_id": "get_task_id_1:action_result.data.*.task_id",
+                            "title": "Closed Findings"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "63",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 740,
+                    "y": 1040
                 }
             },
             "notes": ""
@@ -1570,7 +1654,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-19T23:54:38.812319+00:00",
+    "create_time": "2025-06-20T00:20:59.219457+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
