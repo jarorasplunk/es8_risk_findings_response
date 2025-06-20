@@ -104,13 +104,6 @@
                     "targetPort": "27_in"
                 },
                 {
-                    "id": "port_4_to_port_13",
-                    "sourceNode": "4",
-                    "sourcePort": "4_out",
-                    "targetNode": "13",
-                    "targetPort": "13_in"
-                },
-                {
                     "id": "port_13_to_port_33",
                     "sourceNode": "13",
                     "sourcePort": "13_out",
@@ -152,20 +145,14 @@
                     "targetPort": "22_in"
                 },
                 {
-                    "conditions": [
-                        {
-                            "conditionKey": "condition_key_0",
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_62_to_port_65",
-                    "sourceNode": "62",
-                    "sourcePort": "62_out",
-                    "targetNode": "65",
-                    "targetPort": "65_in"
+                    "id": "port_4_to_port_13",
+                    "sourceNode": "4",
+                    "sourcePort": "4_out",
+                    "targetNode": "13",
+                    "targetPort": "13_in"
                 }
             ],
-            "hash": "f15613716915e2e7987a1a67eb89515e6db034c6",
+            "hash": "d59ff4d6253c031a9b9836dcf49ace720bd096a1",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -230,7 +217,7 @@
                     "type": "format",
                     "warnings": {},
                     "x": 420,
-                    "y": 260
+                    "y": 300
                 },
                 "20": {
                     "data": {
@@ -1866,7 +1853,14 @@
                     "errors": {},
                     "id": "65",
                     "type": "utility",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 100,
                     "y": 760
                 }
@@ -1881,7 +1875,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-20T00:38:52.511087+00:00",
+    "create_time": "2025-06-20T00:41:13.012805+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
