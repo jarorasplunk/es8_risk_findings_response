@@ -147,18 +147,25 @@
                 {
                     "conditions": [
                         {
-                            "conditionKey": "condition_key_0",
-                            "index": 0
+                            "conditionKey": "condition_key_19",
+                            "index": 1
                         }
                     ],
-                    "id": "port_62_to_port_22",
+                    "id": "port_62_to_port_64",
                     "sourceNode": "62",
                     "sourcePort": "62_out",
+                    "targetNode": "64",
+                    "targetPort": "64_in"
+                },
+                {
+                    "id": "port_64_to_port_22",
+                    "sourceNode": "64",
+                    "sourcePort": "64_out",
                     "targetNode": "22",
                     "targetPort": "22_in"
                 }
             ],
-            "hash": "80b3e876d47aedc10675eb012a5cb69885b0dbb4",
+            "hash": "76d67e1465ae428e0149689fd4e642dc2e3eef40",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -322,12 +329,9 @@
                         "functionId": 1,
                         "functionName": "close_findings_prompt",
                         "id": "22",
-                        "message": "This Investigation is composed of many related findings and intermediate findings.\n\nYou can browse all these related findings on a risk timeline in the Overview Tab.\n\nPlease select a response below to manage these findings in the Analyst Queue while you continue to work on the investigation.\n\n| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n",
+                        "message": "This Investigation is composed of many related findings and intermediate findings.\n\nYou can browse all these related findings on a risk timeline in the Overview Tab.\n\nPlease select a response below to manage these findings in the Analyst Queue while you continue to work on the investigation.\n\n\n\n{0}\n",
                         "parameters": [
-                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.rule_name",
-                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id",
-                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label",
-                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"
+                            "format_closed_findings:formatted_data"
                         ],
                         "responseTime": 30,
                         "responses": [
@@ -347,7 +351,7 @@
                     "id": "22",
                     "type": "prompt",
                     "warnings": {},
-                    "x": 80,
+                    "x": 20,
                     "y": 1020
                 },
                 "23": {
@@ -1642,6 +1646,32 @@
                     "warnings": {},
                     "x": 740,
                     "y": 1040
+                },
+                "64": {
+                    "data": {
+                        "advanced": {
+                            "customName": "format closed findings",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 3,
+                        "functionName": "format_closed_findings",
+                        "id": "64",
+                        "parameters": [
+                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.rule_name",
+                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id",
+                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label",
+                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"
+                        ],
+                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n",
+                        "type": "format"
+                    },
+                    "errors": {},
+                    "id": "64",
+                    "type": "format",
+                    "warnings": {},
+                    "x": 20,
+                    "y": 900
                 }
             },
             "notes": ""
@@ -1654,7 +1684,7 @@
         "schema": "5.0.17",
         "version": "6.4.1.342"
     },
-    "create_time": "2025-06-20T00:20:59.219457+00:00",
+    "create_time": "2025-06-20T00:29:15.903344+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

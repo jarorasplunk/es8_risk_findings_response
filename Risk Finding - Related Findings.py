@@ -146,14 +146,11 @@ def close_findings_prompt(action=None, success=None, container=None, results=Non
 
     user = phantom.collect2(container=container, datapath=["finding:owner"])[0][0]
     role = None
-    message = """This Investigation is composed of many related findings and intermediate findings.\n\nYou can browse all these related findings on a risk timeline in the Overview Tab.\n\nPlease select a response below to manage these findings in the Analyst Queue while you continue to work on the investigation.\n\n| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n"""
+    message = """This Investigation is composed of many related findings and intermediate findings.\n\nYou can browse all these related findings on a risk timeline in the Overview Tab.\n\nPlease select a response below to manage these findings in the Analyst Queue while you continue to work on the investigation.\n\n\n\n{0}\n"""
 
     # parameter list for template variable replacement
     parameters = [
-        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.rule_name",
-        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id",
-        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label",
-        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"
+        "format_closed_findings:formatted_data"
     ]
 
     # responses
@@ -952,7 +949,7 @@ def related_findings_status_filter(action=None, success=None, container=None, re
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        close_findings_prompt(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
+        pass
 
     # collect filtered artifact ids and results for 'if' condition 2
     matched_artifacts_2, matched_results_2 = phantom.condition(
@@ -972,6 +969,7 @@ def related_findings_status_filter(action=None, success=None, container=None, re
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
         add_task_note_3(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+        format_closed_findings(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     return
 
@@ -1025,6 +1023,37 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
     ################################################################################
 
     phantom.act("add task note", parameters=parameters, name="add_task_note_3", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def format_closed_findings(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("format_closed_findings() called")
+
+    template = """| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n"""
+
+    # parameter list for template variable replacement
+    parameters = [
+        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.rule_name",
+        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id",
+        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label",
+        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"
+    ]
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.format(container=container, template=template, parameters=parameters, name="format_closed_findings")
+
+    close_findings_prompt(container=container)
 
     return
 
