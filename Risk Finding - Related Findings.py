@@ -1049,7 +1049,7 @@ def open_findings_1(action=None, success=None, container=None, results=None, han
 
     phantom.format(container=container, template=template, parameters=parameters, name="open_findings_1")
 
-    close_findings_prompt(container=container)
+    open_findings_format(container=container)
 
     return
 
@@ -1105,6 +1105,60 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
     if found_match_1:
         add_task_note_2(action=action, success=success, container=container, results=results, handle=handle)
         return
+
+    return
+
+
+@phantom.playbook_block()
+def open_findings_format(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("open_findings_format() called")
+
+    filtered_result_0_data_related_findings_status_filter = phantom.collect2(container=container, datapath=["filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.rule_name","filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id","filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label","filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"])
+
+    filtered_result_0_data___rule_name = [item[0] for item in filtered_result_0_data_related_findings_status_filter]
+    filtered_result_0_data___event_id = [item[1] for item in filtered_result_0_data_related_findings_status_filter]
+    filtered_result_0_data___status_label = [item[2] for item in filtered_result_0_data_related_findings_status_filter]
+    filtered_result_0_data___owner = [item[3] for item in filtered_result_0_data_related_findings_status_filter]
+
+    open_findings_format__open_findings_note = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    
+    if filtered_result_0_data_related_findings_status_filter:
+        note = (
+            "\n**Below are the list of open findings related to this investigation.**\n"
+            "| Rule name | Finding | Status | Owner |\n"
+            "| :--- | :--- | :--- | :--- |\n"
+        )
+        for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):
+            rule_name = rule_name.replace('\n','')
+            event_id = event_id.replace('\n','')
+            finding_url = "https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=" + event_id
+            status = status.replace('\n','')
+            owner = owner.replace('\n','')
+            note += "|{}|[{}]({})|{}|{}|\n".format(rule_name, event_id, finding_url, status, owner)
+
+        open_findings_format__open_findings_note = note
+    else:
+        open_findings_format__open_findings_note = "\n\n**No open findings found in the investigation in last 30 days**\n"    
+
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_block_result(key="open_findings_format__inputs:0:filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.rule_name", value=json.dumps(filtered_result_0_data___rule_name))
+    phantom.save_block_result(key="open_findings_format__inputs:1:filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id", value=json.dumps(filtered_result_0_data___event_id))
+    phantom.save_block_result(key="open_findings_format__inputs:2:filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label", value=json.dumps(filtered_result_0_data___status_label))
+    phantom.save_block_result(key="open_findings_format__inputs:3:filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner", value=json.dumps(filtered_result_0_data___owner))
+
+    phantom.save_block_result(key="open_findings_format:open_findings_note", value=json.dumps(open_findings_format__open_findings_note))
+
+    close_findings_prompt(container=container)
 
     return
 
