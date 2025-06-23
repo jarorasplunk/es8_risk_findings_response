@@ -148,7 +148,7 @@ def close_findings_prompt(action=None, success=None, container=None, results=Non
 
     # parameter list for template variable replacement
     parameters = [
-        "open_findings_1:formatted_data"
+        "open_findings_format:custom_function:open_findings_note"
     ]
 
     # responses

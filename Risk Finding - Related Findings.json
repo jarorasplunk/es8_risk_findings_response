@@ -171,7 +171,7 @@
                     "targetPort": "22_in"
                 }
             ],
-            "hash": "2df2aa648ecd7892a29c1f139c7aa83f2b653d3f",
+            "hash": "1dcc728e95ba0d652b0f8fc9f410d746c7901483",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -344,7 +344,7 @@
                         "id": "22",
                         "message": "This Investigation is composed of many related findings and intermediate findings.\n\nYou can browse all these related findings on a risk timeline in the Overview Tab.\n\nPlease select a response below to manage these findings in the Analyst Queue while you continue to work on the investigation.\n\n\n\n{0}\n",
                         "parameters": [
-                            "open_findings_1:formatted_data"
+                            "open_findings_format:custom_function:open_findings_note"
                         ],
                         "responseTime": 30,
                         "responses": [
@@ -1777,7 +1777,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-23T23:57:54.474064+00:00",
+    "create_time": "2025-06-23T23:58:37.713792+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
