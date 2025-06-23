@@ -151,7 +151,7 @@
                     "targetPort": "49_in"
                 }
             ],
-            "hash": "5076feaff470a658c4692f3244d8a89a25b95dc4",
+            "hash": "3d845db95685f0db25d9d8ae545e972412045224",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -317,7 +317,7 @@
                         },
                         "approver": {
                             "type": "user",
-                            "value": "finding_owner"
+                            "value": "launching_user"
                         },
                         "functionId": 1,
                         "functionName": "close_findings_prompt",
@@ -1694,7 +1694,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-23T07:07:07.919239+00:00",
+    "create_time": "2025-06-23T07:11:08.638908+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

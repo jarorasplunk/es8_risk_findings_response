@@ -142,7 +142,7 @@ def close_findings_prompt(action=None, success=None, container=None, results=Non
 
     # set approver and message variables for phantom.prompt call
 
-    user = phantom.collect2(container=container, datapath=["finding:owner"])[0][0]
+    user = phantom.collect2(container=container, datapath=["playbook:launching_user.name"])[0][0]
     role = None
     message = """This Investigation is composed of many related findings and intermediate findings.\n\nYou can browse all these related findings on a risk timeline in the Overview Tab.\n\nPlease select a response below to manage these findings in the Analyst Queue while you continue to work on the investigation.\n\n\n\n{0}\n"""
 
