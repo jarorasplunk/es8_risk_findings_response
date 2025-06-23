@@ -151,10 +151,10 @@
                     "targetPort": "49_in"
                 }
             ],
-            "hash": "b9317752c4cf67b3f5880d1976e58ceb7e62a632",
+            "hash": "5076feaff470a658c4692f3244d8a89a25b95dc4",
             "nodes": {
                 "0": {
-                    "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
+                    "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
                     "data": {
                         "advanced": {
                             "join": []
@@ -1202,7 +1202,7 @@
                     "id": "49",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 440,
+                    "x": 460,
                     "y": -220
                 },
                 "50": {
@@ -1694,7 +1694,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-23T07:06:28.137135+00:00",
+    "create_time": "2025-06-23T07:07:07.919239+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
