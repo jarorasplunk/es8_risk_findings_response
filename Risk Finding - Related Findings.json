@@ -158,7 +158,7 @@
                     "targetPort": "63_in"
                 }
             ],
-            "hash": "23c0d7e1bf996e71ae5dbd17337a92f086f2c839",
+            "hash": "481c6aca432707e65cec884758c24b356007545b",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    refresh_finding_or_investigation_1(container=container)\n    return",
@@ -506,7 +506,7 @@
                                 "parameters": [
                                     "included_findings:custom_function:findings_list"
                                 ],
-                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\nAll related findings key information has been added to the \"Events\" tab as evidence.\n\nClosed Findings as part of this Investigation:\n\n\n| Finding ID | Status |\n| --- | --- |\n%%\n| {0} | Closed |\n%%\n\n\n\nThere may be other \"Intermediate Findings\" contributing to this investigation, please review them in the Overview tab"
+                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\nThere may be other \"Intermediate Findings\" contributing to this investigation, please review them in the Overview tab"
                             },
                             "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -1680,7 +1680,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-23T06:00:57.900230+00:00",
+    "create_time": "2025-06-23T06:01:58.136801+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
