@@ -96,13 +96,6 @@
                     "targetPort": "26_in"
                 },
                 {
-                    "id": "port_0_to_port_28",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "28",
-                    "targetPort": "28_in"
-                },
-                {
                     "id": "port_25_to_port_30",
                     "sourceNode": "25",
                     "sourcePort": "25_out",
@@ -129,13 +122,6 @@
                     "sourcePort": "30_out",
                     "targetNode": "32",
                     "targetPort": "32_in"
-                },
-                {
-                    "id": "port_28_to_port_34",
-                    "sourceNode": "28",
-                    "sourcePort": "28_out",
-                    "targetNode": "34",
-                    "targetPort": "34_in"
                 },
                 {
                     "id": "port_34_to_port_3",
@@ -171,9 +157,16 @@
                     "sourcePort": "29_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
+                },
+                {
+                    "id": "port_0_to_port_34",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "34",
+                    "targetPort": "34_in"
                 }
             ],
-            "hash": "912e2a8b06905c714b620c12a21f633aecd131b0",
+            "hash": "35273c2bf4ecda8ada69c7482532a19c375494fd",
             "nodes": {
                 "0": {
                     "data": {
@@ -386,7 +379,11 @@
                     "errors": {},
                     "id": "14",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 180,
                     "y": 860
                 },
@@ -595,7 +592,11 @@
                     "errors": {},
                     "id": "25",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 340,
                     "y": 1660
                 },
@@ -645,52 +646,13 @@
                     "errors": {},
                     "id": "26",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": -80,
                     "y": 1560
-                },
-                "28": {
-                    "data": {
-                        "action": "refresh finding or investigation",
-                        "actionType": "get",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "refresh_finding_or_investigation_1",
-                        "id": "28",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "id": "finding:investigation_id"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "28",
-                    "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 200,
-                    "y": -320
                 },
                 "29": {
                     "data": {
@@ -765,7 +727,11 @@
                     "errors": {},
                     "id": "29",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": -80,
                     "y": 1880
                 },
@@ -985,7 +951,11 @@
                     "errors": {},
                     "id": "32",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 360,
                     "y": 1920
                 },
@@ -1202,7 +1172,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id"
+                            "id": "finding:investigation_id"
                         },
                         "requiredParameters": [
                             {
@@ -1265,7 +1235,11 @@
                     "errors": {},
                     "id": "35",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 460,
                     "y": 780
                 },
@@ -1425,10 +1399,10 @@
         "playbook_trigger": "artifact_created",
         "playbook_type": "es",
         "python_version": "3.9",
-        "schema": "5.0.17",
-        "version": "6.4.1.342"
+        "schema": "5.0.20",
+        "version": "6.4.1.361"
     },
-    "create_time": "2025-06-19T01:38:24.723133+00:00",
+    "create_time": "2025-06-23T07:44:25.377937+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

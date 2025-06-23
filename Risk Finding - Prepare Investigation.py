@@ -12,8 +12,8 @@ from datetime import datetime, timedelta
 def on_start(container):
     phantom.debug('on_start() called')
 
-    # call 'refresh_finding_or_investigation_1' block
-    refresh_finding_or_investigation_1(container=container)
+    # call 'get_finding_or_investigation_1' block
+    get_finding_or_investigation_1(container=container)
 
     return
 
@@ -473,38 +473,6 @@ def update_task_in_current_phase_2(action=None, success=None, container=None, re
 
 
 @phantom.playbook_block()
-def refresh_finding_or_investigation_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("refresh_finding_or_investigation_1() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
-
-    parameters = []
-
-    # build parameters list for 'refresh_finding_or_investigation_1' call
-    for finding_data_item in finding_data:
-        if finding_data_item[0] is not None:
-            parameters.append({
-                "id": finding_data_item[0],
-            })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("refresh finding or investigation", parameters=parameters, name="refresh_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=get_finding_or_investigation_1)
-
-    return
-
-
-@phantom.playbook_block()
 def add_task_note_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("add_task_note_2() called")
 
@@ -713,15 +681,15 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
 
     parameters = []
 
     # build parameters list for 'get_finding_or_investigation_1' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
-        if refresh_finding_or_investigation_1_result_item[0] is not None:
+    for finding_data_item in finding_data:
+        if finding_data_item[0] is not None:
             parameters.append({
-                "id": refresh_finding_or_investigation_1_result_item[0],
+                "id": finding_data_item[0],
             })
 
     ################################################################################
