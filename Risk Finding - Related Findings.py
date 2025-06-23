@@ -148,7 +148,7 @@ def close_findings_prompt(action=None, success=None, container=None, results=Non
 
     # parameter list for template variable replacement
     parameters = [
-        "format_closed_findings:formatted_data"
+        "open_findings_1:formatted_data"
     ]
 
     # responses
@@ -953,35 +953,31 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""Closed Findings that are related to this investigation:\n\n\n\n\n| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n\n""",
+        template="""Findings that are already Closed Findings and are related to this investigation:\n\n{0}""",
         parameters=[
-            "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.rule_name",
-            "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.event_id",
-            "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.status_label",
-            "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.owner"
+            "closed_findings:formatted_data"
         ])
 
     get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
-    filtered_result_0_data_related_findings_status_filter = phantom.collect2(container=container, datapath=["filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.rule_name","filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.event_id","filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.status_label","filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.owner"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    closed_findings = phantom.get_format_data(name="closed_findings")
 
     parameters = []
 
     # build parameters list for 'add_task_note_3' call
     for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
-        for filtered_result_0_item_related_findings_status_filter in filtered_result_0_data_related_findings_status_filter:
-            for get_task_id_1_result_item in get_task_id_1_result_data:
-                for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                    if get_finding_or_investigation_1_result_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
-                        parameters.append({
-                            "id": get_finding_or_investigation_1_result_item[0],
-                            "title": "Closed Findings",
-                            "content": content_formatted_string,
-                            "task_id": get_task_id_1_result_item[0],
-                            "phase_id": get_phase_id_1_result_item[0],
-                            "response_plan_id": get_finding_or_investigation_1_result_item[1],
-                        })
+        for get_task_id_1_result_item in get_task_id_1_result_data:
+            for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                if get_finding_or_investigation_1_result_item[0] is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
+                    parameters.append({
+                        "id": get_finding_or_investigation_1_result_item[0],
+                        "title": "Closed Findings",
+                        "content": content_formatted_string,
+                        "task_id": get_task_id_1_result_item[0],
+                        "phase_id": get_phase_id_1_result_item[0],
+                        "response_plan_id": get_finding_or_investigation_1_result_item[1],
+                    })
 
     ################################################################################
     ## Custom Code Start
@@ -1024,8 +1020,6 @@ def format_closed_findings(action=None, success=None, container=None, results=No
 
     phantom.format(container=container, template=template, parameters=parameters, name="format_closed_findings")
 
-    close_findings_prompt(container=container)
-
     return
 
 
@@ -1055,6 +1049,8 @@ def open_findings_1(action=None, success=None, container=None, results=None, han
 
     phantom.format(container=container, template=template, parameters=parameters, name="open_findings_1")
 
+    close_findings_prompt(container=container)
+
     return
 
 
@@ -1083,6 +1079,8 @@ def closed_findings(action=None, success=None, container=None, results=None, han
     ################################################################################
 
     phantom.format(container=container, template=template, parameters=parameters, name="closed_findings")
+
+    add_task_note_3(container=container)
 
     return
 
