@@ -53,7 +53,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["splunk"], callback=related_findings_note)
+    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["es"], callback=get_phase_id_1)
 
     return
 
@@ -83,8 +83,6 @@ def related_findings_note(action=None, success=None, container=None, results=Non
     ################################################################################
 
     phantom.format(container=container, template=template, parameters=parameters, name="related_findings_note")
-
-    get_phase_id_1(container=container)
 
     return
 
@@ -439,32 +437,6 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
 
 
 @phantom.playbook_block()
-def findings_exist(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("findings_exist() called")
-
-    # check for 'if' condition 1
-    found_match_1 = phantom.decision(
-        container=container,
-        logical_operator="or",
-        conditions=[
-            ["run_query_1:action_result.data.*.status_label", "!=", "Resolved"],
-            ["run_query_1:action_result.data.*.status_label", "!=", "Closed"]
-        ],
-        conditions_dps=[
-            ["run_query_1:action_result.data.*.status_label", "!=", "Resolved"],
-            ["run_query_1:action_result.data.*.status_label", "!=", "Closed"]
-        ],
-        name="findings_exist:condition_1",
-        delimiter=None)
-
-    # call connected blocks if condition 1 matched
-    if found_match_1:
-        return
-
-    return
-
-
-@phantom.playbook_block()
 def add_task_note_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("add_task_note_4() called")
 
@@ -508,7 +480,7 @@ def add_task_note_4(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("add task note", parameters=parameters, name="add_task_note_4", assets=["builtin_mc_connector"], callback=related_findings_status_filter)
+    phantom.act("add task note", parameters=parameters, name="add_task_note_4", assets=["builtin_mc_connector"])
 
     return
 
@@ -718,7 +690,7 @@ def update_task_in_current_phase_2(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"], callback=add_task_note_4)
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"], callback=related_findings_status_filter)
 
     return
 
@@ -905,8 +877,8 @@ def update_event_1(action=None, success=None, container=None, results=None, hand
     for filtered_result_0_item_related_findings_status_filter in filtered_result_0_data_related_findings_status_filter:
         if filtered_result_0_item_related_findings_status_filter[0] is not None:
             parameters.append({
-                "event_ids": filtered_result_0_item_related_findings_status_filter[0],
                 "status": 5,
+                "event_ids": filtered_result_0_item_related_findings_status_filter[0],
                 "disposition": "",
                 "integer_disposition": 7,
                 "wait_for_confirmation": True,
@@ -923,7 +895,7 @@ def update_event_1(action=None, success=None, container=None, results=None, hand
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update event", parameters=parameters, name="update_event_1", assets=["splunk"], callback=add_task_note_2)
+    phantom.act("update event", parameters=parameters, name="update_event_1", assets=["es"], callback=add_task_note_2)
 
     return
 
@@ -949,7 +921,7 @@ def related_findings_status_filter(action=None, success=None, container=None, re
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        pass
+        open_findings_1(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids and results for 'if' condition 2
     matched_artifacts_2, matched_results_2 = phantom.condition(
@@ -968,7 +940,7 @@ def related_findings_status_filter(action=None, success=None, container=None, re
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        add_task_note_3(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+        closed_findings(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     return
 
@@ -1058,27 +1030,18 @@ def format_closed_findings(action=None, success=None, container=None, results=No
 
 
 @phantom.playbook_block()
-def debug_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("debug_1() called")
+def open_findings_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("open_findings_1() called")
 
-    filtered_result_0_data_related_findings_status_filter = phantom.collect2(container=container, datapath=["filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id"])
+    template = """| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n\n"""
 
-    filtered_result_0_data___event_id = [item[0] for item in filtered_result_0_data_related_findings_status_filter]
-
-    parameters = []
-
-    parameters.append({
-        "input_1": filtered_result_0_data___event_id,
-        "input_2": None,
-        "input_3": None,
-        "input_4": None,
-        "input_5": None,
-        "input_6": None,
-        "input_7": None,
-        "input_8": None,
-        "input_9": None,
-        "input_10": None,
-    })
+    # parameter list for template variable replacement
+    parameters = [
+        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.rule_name",
+        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id",
+        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label",
+        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"
+    ]
 
     ################################################################################
     ## Custom Code Start
@@ -1090,7 +1053,36 @@ def debug_1(action=None, success=None, container=None, results=None, handle=None
     ## Custom Code End
     ################################################################################
 
-    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_1")
+    phantom.format(container=container, template=template, parameters=parameters, name="open_findings_1")
+
+    return
+
+
+@phantom.playbook_block()
+def closed_findings(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("closed_findings() called")
+
+    template = """| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n"""
+
+    # parameter list for template variable replacement
+    parameters = [
+        "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.rule_name",
+        "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.event_id",
+        "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.status_label",
+        "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.owner"
+    ]
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.format(container=container, template=template, parameters=parameters, name="closed_findings")
 
     return
 
