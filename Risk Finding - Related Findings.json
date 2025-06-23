@@ -83,13 +83,6 @@
                     "targetPort": "61_in"
                 },
                 {
-                    "id": "port_61_to_port_27",
-                    "sourceNode": "61",
-                    "sourcePort": "61_out",
-                    "targetNode": "27",
-                    "targetPort": "27_in"
-                },
-                {
                     "id": "port_4_to_port_33",
                     "sourceNode": "4",
                     "sourcePort": "4_out",
@@ -149,9 +142,29 @@
                     "sourcePort": "0_out",
                     "targetNode": "49",
                     "targetPort": "49_in"
+                },
+                {
+                    "id": "port_61_to_port_70",
+                    "sourceNode": "61",
+                    "sourcePort": "61_out",
+                    "targetNode": "70",
+                    "targetPort": "70_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_0",
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_70_to_port_27",
+                    "sourceNode": "70",
+                    "sourcePort": "70_out",
+                    "targetNode": "27",
+                    "targetPort": "27_in"
                 }
             ],
-            "hash": "3d845db95685f0db25d9d8ae545e972412045224",
+            "hash": "48a2c8b9050248c8ad06a19c37cdb4f94faab80c",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -541,8 +554,8 @@
                     "id": "27",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 600,
-                    "y": 1380
+                    "x": 620,
+                    "y": 1520
                 },
                 "31": {
                     "data": {
@@ -1647,7 +1660,7 @@
                             "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label",
                             "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"
                         ],
-                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n\n",
+                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id={1}) | {2} | {3} |\n%%\n\n",
                         "type": "format"
                     },
                     "errors": {},
@@ -1682,6 +1695,40 @@
                     "warnings": {},
                     "x": 260,
                     "y": 720
+                },
+                "70": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "==",
+                                        "param": "update_event_1:action_result.status",
+                                        "value": "success"
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "conditionKey": "condition_key_0",
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            }
+                        ],
+                        "functionId": 2,
+                        "functionName": "decision_2",
+                        "id": "70",
+                        "type": "decision"
+                    },
+                    "errors": {},
+                    "id": "70",
+                    "type": "decision",
+                    "warnings": {},
+                    "x": 700,
+                    "y": 1340
                 }
             },
             "notes": ""
@@ -1694,7 +1741,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-23T07:11:08.638908+00:00",
+    "create_time": "2025-06-23T07:39:33.249754+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

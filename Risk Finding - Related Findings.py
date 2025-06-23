@@ -895,7 +895,7 @@ def update_event_1(action=None, success=None, container=None, results=None, hand
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update event", parameters=parameters, name="update_event_1", assets=["es"], callback=add_task_note_2)
+    phantom.act("update event", parameters=parameters, name="update_event_1", assets=["es"], callback=decision_2)
 
     return
 
@@ -1027,7 +1027,7 @@ def format_closed_findings(action=None, success=None, container=None, results=No
 def open_findings_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("open_findings_1() called")
 
-    template = """| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n\n"""
+    template = """| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id={1}) | {2} | {3} |\n%%\n\n"""
 
     # parameter list for template variable replacement
     parameters = [
@@ -1081,6 +1081,30 @@ def closed_findings(action=None, success=None, container=None, results=None, han
     phantom.format(container=container, template=template, parameters=parameters, name="closed_findings")
 
     add_task_note_3(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def decision_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("decision_2() called")
+
+    # check for 'if' condition 1
+    found_match_1 = phantom.decision(
+        container=container,
+        conditions=[
+            ["update_event_1:action_result.status", "==", "success"]
+        ],
+        conditions_dps=[
+            ["update_event_1:action_result.status", "==", "success"]
+        ],
+        name="decision_2:condition_1",
+        delimiter=None)
+
+    # call connected blocks if condition 1 matched
+    if found_match_1:
+        add_task_note_2(action=action, success=success, container=container, results=results, handle=handle)
+        return
 
     return
 
