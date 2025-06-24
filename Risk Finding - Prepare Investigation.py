@@ -66,6 +66,7 @@ def all_users(action=None, success=None, container=None, results=None, handle=No
         "command": "| rest",
         "display": "userName, Name",
         "search_mode": "smart",
+        "add_raw_field": True,
     })
 
     ################################################################################
@@ -78,7 +79,7 @@ def all_users(action=None, success=None, container=None, results=None, handle=No
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="all_users", assets=["splunk"], callback=current_user)
+    phantom.act("run query", parameters=parameters, name="all_users", assets=["es"], callback=current_user)
 
     return
 
@@ -230,6 +231,7 @@ def current_user(action=None, success=None, container=None, results=None, handle
         "command": "|  rest",
         "display": "userName, Name",
         "search_mode": "smart",
+        "add_raw_field": True,
     })
 
     ################################################################################
@@ -242,7 +244,7 @@ def current_user(action=None, success=None, container=None, results=None, handle
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="current_user", assets=["splunk"], callback=es_users_list)
+    phantom.act("run query", parameters=parameters, name="current_user", assets=["es"], callback=es_users_list)
 
     return
 

@@ -166,7 +166,7 @@
                     "targetPort": "34_in"
                 }
             ],
-            "hash": "912e2a8b06905c714b620c12a21f633aecd131b0",
+            "hash": "0feb5d457fe3d30841887d73cf6b6a9ff88b5522",
             "nodes": {
                 "0": {
                     "data": {
@@ -217,7 +217,7 @@
                         },
                         "connector": "Splunk",
                         "connectorConfigs": [
-                            "splunk"
+                            "es"
                         ],
                         "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
                         "connectorVersion": "v1",
@@ -234,6 +234,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
+                            "add_raw_field": true,
                             "command": "|  rest",
                             "display": "userName, Name",
                             "query": " /services/authentication/current-context | rename realname as Name, username as userName | fields Name, userName",
@@ -243,16 +244,6 @@
                             {
                                 "data_type": "string",
                                 "field": "query"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "search",
-                                "field": "command"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "smart",
-                                "field": "search_mode"
                             }
                         ],
                         "type": "action"
@@ -730,7 +721,7 @@
                         },
                         "connector": "Splunk",
                         "connectorConfigs": [
-                            "splunk"
+                            "es"
                         ],
                         "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
                         "connectorVersion": "v1",
@@ -747,6 +738,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
+                            "add_raw_field": true,
                             "command": "| rest",
                             "display": "userName, Name",
                             "query": "/services/authentication/users |fields title roles realname|rename title as userName|rename realname as Name | where match(roles,\"ess\")",
@@ -756,16 +748,6 @@
                             {
                                 "data_type": "string",
                                 "field": "query"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "search",
-                                "field": "command"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "smart",
-                                "field": "search_mode"
                             }
                         ],
                         "type": "action"
@@ -1378,7 +1360,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-23T07:44:25.377937+00:00",
+    "create_time": "2025-06-24T04:46:41.248093+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
