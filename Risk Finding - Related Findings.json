@@ -99,19 +99,6 @@
                 {
                     "conditions": [
                         {
-                            "conditionKey": "condition_key_5",
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_62_to_port_68",
-                    "sourceNode": "62",
-                    "sourcePort": "62_out",
-                    "targetNode": "68",
-                    "targetPort": "68_in"
-                },
-                {
-                    "conditions": [
-                        {
                             "conditionKey": "condition_key_6",
                             "index": 1
                         }
@@ -146,25 +133,45 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_6",
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_62_to_port_71",
+                    "sourceNode": "62",
+                    "sourcePort": "62_out",
+                    "targetNode": "71",
+                    "targetPort": "71_in"
+                },
+                {
+                    "id": "port_71_to_port_22",
+                    "sourceNode": "71",
+                    "sourcePort": "71_out",
+                    "targetNode": "22",
+                    "targetPort": "22_in"
+                },
+                {
+                    "conditions": [
+                        {
                             "conditionKey": "condition_key_0",
                             "index": 0
                         }
                     ],
-                    "id": "port_70_to_port_27",
+                    "id": "port_70_to_port_68",
                     "sourceNode": "70",
                     "sourcePort": "70_out",
-                    "targetNode": "27",
-                    "targetPort": "27_in"
+                    "targetNode": "68",
+                    "targetPort": "68_in"
                 },
                 {
-                    "id": "port_68_to_port_71",
+                    "id": "port_68_to_port_27",
                     "sourceNode": "68",
                     "sourcePort": "68_out",
-                    "targetNode": "71",
-                    "targetPort": "71_in"
+                    "targetNode": "27",
+                    "targetPort": "27_in"
                 }
             ],
-            "hash": "d038527e33421e72978b510e80677f82a5f2baf9",
+            "hash": "3605f5ce205030db24127f4275b8b58c8860c051",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -356,14 +363,7 @@
                     "errors": {},
                     "id": "22",
                     "type": "prompt",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 620,
                     "y": 900
                 },
@@ -519,7 +519,7 @@
                                 "parameters": [
                                     "included_findings:custom_function:findings_list"
                                 ],
-                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\nThere may be other \"Intermediate Findings\" contributing to this investigation, please review them in the Overview tab"
+                                "template": "Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\n\n\nThere may be other \"Intermediate Findings\" contributing to this investigation, please review them in the Overview tab"
                             },
                             "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
@@ -560,13 +560,9 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 620,
-                    "y": 1520
+                    "y": 1680
                 },
                 "31": {
                     "data": {
@@ -621,11 +617,7 @@
                     "errors": {},
                     "id": "31",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 740,
                     "y": 2640
                 },
@@ -1484,11 +1476,7 @@
                     "id": "61",
                     "type": "action",
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 620,
                     "y": 1220
                 },
@@ -1679,7 +1667,7 @@
                             "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label",
                             "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"
                         ],
-                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id={1}) | {2} | {3} |\n%%\n\n",
+                        "template": "| Detection | Finding | Old Status | New Status | Owner |\n| --- | --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id={1}) | {2} | Closed | {3} |\n%%\n\n",
                         "type": "format"
                     },
                     "errors": {},
@@ -1687,7 +1675,7 @@
                     "type": "format",
                     "warnings": {},
                     "x": 620,
-                    "y": 720
+                    "y": 1520
                 },
                 "69": {
                     "data": {
@@ -1732,6 +1720,7 @@
                                 ],
                                 "conditionIndex": 0,
                                 "conditionKey": "condition_key_0",
+                                "customName": "success",
                                 "display": "If",
                                 "logic": "and",
                                 "type": "if"
@@ -1767,17 +1756,20 @@
                         ],
                         "outputVariables": [
                             "open_findings_note",
-                            "open_finding_ids"
+                            "open_finding_ids",
+                            "open_finding_rule_name",
+                            "open_finding_status",
+                            "open_finding_owner"
                         ],
                         "type": "code"
                     },
                     "errors": {},
                     "id": "71",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    open_findings_format__open_finding_ids = []\n    if filtered_result_0_data_related_findings_status_filter:\n        note = (\n            \"\\n**Below are the list of open findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n        for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):\n            #rule_name = rule_name.replace('\\n','')\n            #event_id = event_id.replace('\\n','')\n            finding_url = \"https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=\" + event_id\n            #status = status.replace('\\n','')\n            #owner = owner.replace('\\n','')\n            if status not in ('Closed', 'Resolved'):\n                phantom.debug(finding_url)\n                phantom.debug(status)\n                note += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                open_findings_format__open_finding_ids.append(event_id)\n\n        open_findings_format__open_findings_note = note\n    else:\n        open_findings_format__open_findings_note = \"\\n\\n**No open findings found in the investigation in last 30 days**\\n\"    \n\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    open_findings_format__open_finding_ids = []\n    open_findings_format__open_finding_rule_name = []\n    open_findings_format__open_finding_status = []\n    open_findings_format__open_finding_owner = []\n\n    if filtered_result_0_data_related_findings_status_filter:\n        note = (\n            \"\\n**Below are the list of open findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n        for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):\n            #rule_name = rule_name.replace('\\n','')\n            #event_id = event_id.replace('\\n','')\n            finding_url = \"https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=\" + event_id\n            #status = status.replace('\\n','')\n            #owner = owner.replace('\\n','')\n            if status not in ('Closed', 'Resolved'):\n                phantom.debug(finding_url)\n                phantom.debug(status)\n                note += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                open_findings_format__open_finding_ids.append(event_id)\n                open_findings_format__open_finding_rule_name.append(rule_name)\n                open_findings_format__open_finding_status.append(status)\n                open_findings_format__open_finding_owner.append(owner)\n\n        open_findings_format__open_findings_note = note\n    else:\n        open_findings_format__open_findings_note = \"\\n\\n**No open findings found in the investigation in last 30 days**\\n\"    \n\n\n",
                     "warnings": {},
                     "x": 620,
-                    "y": 800
+                    "y": 720
                 }
             },
             "notes": ""
@@ -1790,7 +1782,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T03:51:57.695712+00:00",
+    "create_time": "2025-06-24T03:58:40.454712+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
