@@ -171,7 +171,7 @@
                     "targetPort": "22_in"
                 }
             ],
-            "hash": "707c73a44b784452f98391b975f58f5fbd230eb4",
+            "hash": "b3bec7ad92984c74720dd889a5c317b6f5b20398",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -1459,7 +1459,7 @@
                         },
                         "parameters": {
                             "disposition": "",
-                            "event_ids": "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id",
+                            "event_ids": "open_findings_format:custom_function:open_finding_ids",
                             "integer_disposition": "7",
                             "status": "5",
                             "wait_for_confirmation": true
@@ -1778,7 +1778,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T03:36:19.729268+00:00",
+    "create_time": "2025-06-24T03:40:05.237904+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

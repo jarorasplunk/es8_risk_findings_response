@@ -869,20 +869,18 @@ def update_event_1(action=None, success=None, container=None, results=None, hand
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    filtered_result_0_data_related_findings_status_filter = phantom.collect2(container=container, datapath=["filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id"])
+    open_findings_format__open_finding_ids = json.loads(_ if (_ := phantom.get_run_data(key="open_findings_format:open_finding_ids")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
-    # build parameters list for 'update_event_1' call
-    for filtered_result_0_item_related_findings_status_filter in filtered_result_0_data_related_findings_status_filter:
-        if filtered_result_0_item_related_findings_status_filter[0] is not None:
-            parameters.append({
-                "status": 5,
-                "event_ids": filtered_result_0_item_related_findings_status_filter[0],
-                "disposition": "",
-                "integer_disposition": 7,
-                "wait_for_confirmation": True,
-            })
+    if open_findings_format__open_finding_ids is not None:
+        parameters.append({
+            "status": 5,
+            "event_ids": open_findings_format__open_finding_ids,
+            "disposition": "",
+            "integer_disposition": 7,
+            "wait_for_confirmation": True,
+        })
 
     ################################################################################
     ## Custom Code Start
