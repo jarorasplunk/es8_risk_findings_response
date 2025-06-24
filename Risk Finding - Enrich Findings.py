@@ -743,13 +743,13 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
         container=container,
         template="""datamodel Risk.All_Risk  \n| search _time>={0} AND _time<={1}\n| search normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n    \n| rename annotations.mitre_attack.mitre_tactic as mitre_tactic, annotations.mitre_attack.mitre_technique as mitre_technique, annotations.mitre_attack.mitre_technique_id as mitre_technique_id \n| fields mitre_tactic, mitre_technique, mitre_technique_id, risk_message, threat_object, threat_object_type, threat_match_value, threat_match_field""",
         parameters=[
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
+            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings_map.info_min_time",
+            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings_map.info_max_time",
             "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
             "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type"
         ])
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings_map.info_min_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings_map.info_max_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
