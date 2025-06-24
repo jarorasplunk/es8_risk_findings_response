@@ -28,25 +28,11 @@
                     "targetPort": "34_in"
                 },
                 {
-                    "id": "port_41_to_port_42",
-                    "sourceNode": "41",
-                    "sourcePort": "41_out",
-                    "targetNode": "42",
-                    "targetPort": "42_in"
-                },
-                {
                     "id": "port_31_to_port_1",
                     "sourceNode": "31",
                     "sourcePort": "31_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
-                },
-                {
-                    "id": "port_39_to_port_41",
-                    "sourceNode": "39",
-                    "sourcePort": "39_out",
-                    "targetNode": "41",
-                    "targetPort": "41_in"
                 },
                 {
                     "id": "port_34_to_port_50",
@@ -166,7 +152,7 @@
                     "targetPort": "69_in"
                 }
             ],
-            "hash": "10c017cba3d224985e985d8433152fc202992565",
+            "hash": "9e0db2e34f5c3b610f44aaea1a2ba3bb3aac6735",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -188,8 +174,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 2040,
-                    "y": 9
+                    "x": 190,
+                    "y": 0
                 },
                 "1": {
                     "data": {
@@ -204,124 +190,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 2040,
-                    "y": 2518
-                },
-                "13": {
-                    "data": {
-                        "advanced": {
-                            "customName": "related findings note",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "functionId": 1,
-                        "functionName": "related_findings_note",
-                        "id": "13",
-                        "parameters": [
-                            "run_query_1:action_result.data.*.rule_name",
-                            "run_query_1:action_result.data.*.event_id",
-                            "run_query_1:action_result.data.*.status_label",
-                            "run_query_1:action_result.data.*.owner"
-                        ],
-                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n",
-                        "type": "format"
-                    },
-                    "errors": {},
-                    "id": "13",
-                    "type": "format",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 340,
-                    "y": 15
-                },
-                "20": {
-                    "data": {
-                        "action": "add task note",
-                        "actionType": "post",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "add_task_note_1",
-                        "id": "20",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "content": {
-                                "functionId": 1,
-                                "parameters": [
-                                    "related_findings_note:formatted_data"
-                                ],
-                                "template": "{0}\n\n\n\nFollow the prompt to manage these related findings in the Analyst Queue.\n\nMessage prompt name: close_findings_prompt"
-                            },
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
-                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
-                            "task_id": "get_task_id_1:action_result.data.*.task_id",
-                            "title": "Related Findings in the Analyst Queue:"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "title"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "content"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "task_id"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "phase_id"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "response_plan_id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "20",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 680,
-                    "y": 8
+                    "x": 190,
+                    "y": 2500
                 },
                 "22": {
                     "data": {
@@ -359,78 +229,8 @@
                     "id": "22",
                     "type": "prompt",
                     "warnings": {},
-                    "x": 1850,
-                    "y": 1242
-                },
-                "23": {
-                    "data": {
-                        "action": "update finding or investigation",
-                        "actionType": "post",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "update_finding_or_investigation_1",
-                        "id": "23",
-                        "loop": {
-                            "conditions": [
-                                {
-                                    "comparisons": [
-                                        {
-                                            "conditionIndex": 0,
-                                            "op": "==",
-                                            "param": "",
-                                            "value": ""
-                                        }
-                                    ],
-                                    "conditionIndex": 0,
-                                    "display": "If",
-                                    "logic": "and",
-                                    "type": "if"
-                                }
-                            ],
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "disposition": "disposition:7",
-                            "finding_time": "",
-                            "id": "included_findings:custom_function:findings_list",
-                            "status": "Closed"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "23",
-                    "type": "enterpriseSecurity",
-                    "userCode": "\n    # Write your custom code here...\n    parameters = []\n\n    if included_findings__findings_list is not None:\n        for item in included_findings__findings_list:\n            parameters.append({\n                \"id\": item,\n                \"status\": \"Closed\",\n                \"disposition\": \"Closed - As part of investigation\",\n                \"finding_time\": \"\",\n            })\n    phantom.debug(parameters)\n\n",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 1020,
-                    "y": 0
+                    "x": 0,
+                    "y": 1224
                 },
                 "26": {
                     "data": {
@@ -480,8 +280,8 @@
                     "id": "26",
                     "type": "decision",
                     "warnings": {},
-                    "x": 1930,
-                    "y": 1404
+                    "x": 80,
+                    "y": 1386
                 },
                 "27": {
                     "data": {
@@ -556,8 +356,8 @@
                     "id": "27",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 1850,
-                    "y": 2208
+                    "x": 0,
+                    "y": 2190
                 },
                 "31": {
                     "data": {
@@ -613,87 +413,8 @@
                     "id": "31",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 1850,
-                    "y": 2356
-                },
-                "32": {
-                    "data": {
-                        "action": "add task note",
-                        "actionType": "post",
-                        "advanced": {
-                            "customName": "add_task_note_6",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 3,
-                        "functionName": "add_task_note_6",
-                        "id": "32",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "content": "Based on the negative response of the user prompt to close findings, all related findings have NOT been closed in the Analyst Queue.",
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
-                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
-                            "task_id": "get_task_id_1:action_result.data.*.task_id",
-                            "title": "Analyst decision to NOT close related findings"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "title"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "content"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "task_id"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "phase_id"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "response_plan_id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "32",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 1360,
-                    "y": 8
+                    "x": 0,
+                    "y": 2338
                 },
                 "33": {
                     "data": {
@@ -745,8 +466,8 @@
                     "id": "33",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 2020,
-                    "y": 636
+                    "x": 170,
+                    "y": 618
                 },
                 "34": {
                     "data": {
@@ -803,126 +524,8 @@
                     "id": "34",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 2020,
-                    "y": 784
-                },
-                "38": {
-                    "data": {
-                        "action": "add task note",
-                        "actionType": "post",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 4,
-                        "functionName": "add_task_note_4",
-                        "id": "38",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "content": {
-                                "functionId": 4,
-                                "parameters": [
-                                    "related_findings_note:formatted_data"
-                                ],
-                                "template": "Below is the summary of included Findings in this Investigation (Intermediate Findings, check the \"Overview\" tab)\n\n{0}\n\n\n\n\n\nCheck the \"Prompt\" to see if there are related Findings that are not \"Closed\" in the Analyst Queue.\n\nIf all the related findings are already \"Closed\", there will be no requests in the \"Prompt\"\n\n\n\n\nMessage prompt name: close_findings_prompt"
-                            },
-                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
-                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
-                            "task_id": "get_task_id_1:action_result.data.*.task_id",
-                            "title": "Related Findings in the Analyst Queue:"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "title"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "",
-                                "field": "content"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "task_id"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "phase_id"
-                            },
-                            {
-                                "data_type": "string",
-                                "field": "response_plan_id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "38",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 1700,
-                    "y": 8
-                },
-                "39": {
-                    "data": {
-                        "advanced": {
-                            "customName": "related findings list",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "functionId": 2,
-                        "functionName": "related_findings_list",
-                        "id": "39",
-                        "inputParameters": [
-                            "run_query_1:action_result.data.*.source_event_id",
-                            "run_query_1:action_result.data.*._time"
-                        ],
-                        "outputVariables": [
-                            "related_findings_id",
-                            "related_findings_time"
-                        ],
-                        "type": "code"
-                    },
-                    "errors": {},
-                    "id": "39",
-                    "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n\n    related_findings_list__related_findings_id = []\n    related_findings_list__related_findings_time = []\n    \n    for item in run_query_1_result_item_0:\n        phantom.debug(item)\n        if isinstance(item, list):\n            for id in item:\n                related_findings_list__related_findings_id.append(id)\n        else:\n            related_findings_list__related_findings_id.append(item)\n    \n    for item in run_query_1_result_item_1:\n        phantom.debug(item)\n        if isinstance(item, list):\n            for id in item:\n                related_findings_list__related_findings_time.append(id)\n        else:\n            related_findings_list__related_findings_time.append(item)\n    phantom.debug(related_findings_list__related_findings_id)\n    phantom.debug(related_findings_list__related_findings_time)\n",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 0,
-                    "y": 15
+                    "x": 170,
+                    "y": 766
                 },
                 "4": {
                     "data": {
@@ -986,194 +589,8 @@
                     "id": "4",
                     "type": "action",
                     "warnings": {},
-                    "x": 2020,
-                    "y": 488
-                },
-                "41": {
-                    "data": {
-                        "advanced": {
-                            "customName": "id list",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "list_demux",
-                            "repoName": "community"
-                        },
-                        "functionId": 2,
-                        "functionName": "id_list",
-                        "id": "41",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "list_demux": {
-                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "A list of objects. Nested lists are not unpacked.",
-                                        "inputType": "item",
-                                        "label": "input_list",
-                                        "name": "input_list",
-                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "list_demux",
-                                "name": "list_demux"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "list_demux": {
-                                "input_list": "related_findings_list:custom_function:related_findings_id"
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "41",
-                    "type": "utility",
-                    "warnings": {},
-                    "x": 0,
-                    "y": 185
-                },
-                "42": {
-                    "data": {
-                        "advanced": {
-                            "customName": "time list",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "list_demux",
-                            "repoName": "community"
-                        },
-                        "functionId": 3,
-                        "functionName": "time_list",
-                        "id": "42",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "list_demux": {
-                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "A list of objects. Nested lists are not unpacked.",
-                                        "inputType": "item",
-                                        "label": "input_list",
-                                        "name": "input_list",
-                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "list_demux",
-                                "name": "list_demux"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "list_demux": {
-                                "input_list": "related_findings_list:custom_function:related_findings_time"
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "42",
-                    "type": "utility",
-                    "warnings": {},
-                    "x": 0,
-                    "y": 340
-                },
-                "48": {
-                    "data": {
-                        "action": "refresh finding or investigation",
-                        "actionType": "get",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "refresh_finding_or_investigation_1",
-                        "id": "48",
-                        "loop": {
-                            "conditions": [
-                                {
-                                    "comparisons": [
-                                        {
-                                            "conditionIndex": 0,
-                                            "op": "==",
-                                            "param": "",
-                                            "value": ""
-                                        }
-                                    ],
-                                    "conditionIndex": 0,
-                                    "conditionKey": "condition_key_0",
-                                    "display": "If",
-                                    "logic": "and",
-                                    "type": "if"
-                                }
-                            ],
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "id": "finding:investigation_id"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "48",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 2340,
-                    "y": 0
+                    "x": 170,
+                    "y": 470
                 },
                 "49": {
                     "data": {
@@ -1217,8 +634,8 @@
                     "id": "49",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 2020,
-                    "y": 178
+                    "x": 170,
+                    "y": 160
                 },
                 "50": {
                     "data": {
@@ -1267,8 +684,8 @@
                     "id": "50",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 2020,
-                    "y": 932
+                    "x": 170,
+                    "y": 914
                 },
                 "53": {
                     "data": {
@@ -1295,137 +712,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n\n    included_findings__finding_id = []\n    included_findings__intermediate_finding_id = []\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        for long_key_string in item.keys():\n            matches = re.findall(r'(\\w+)=\"(.*?)\"', long_key_string)\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    included_findings__findings_list = final_result[\"finding_ids\"]\n    included_findings__finding_id = final_result[\"finding_ids\"]\n    included_findings__intermediate_finding_id = final_result[\"intermediate_finding_ids\"]\n    \n    included_findings__finding_id = str(included_findings__finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    included_findings__intermediate_finding_id = str(included_findings__intermediate_finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    \n    phantom.debug(included_findings__finding_id)\n    phantom.debug(included_findings__intermediate_finding_id)\n    \n",
                     "warnings": {},
-                    "x": 2020,
-                    "y": 340
-                },
-                "57": {
-                    "data": {
-                        "advanced": {
-                            "customName": "format_findings_query",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "functionId": 2,
-                        "functionName": "format_findings_query",
-                        "id": "57",
-                        "parameters": [
-                            "included_findings_values:custom_function_result.data.output"
-                        ],
-                        "template": "`notable` | where event_id IN (\"{0}\")\n",
-                        "type": "format"
-                    },
-                    "errors": {},
-                    "id": "57",
-                    "type": "format",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 2680,
-                    "y": 15
-                },
-                "59": {
-                    "data": {
-                        "action": "update finding or investigation",
-                        "actionType": "post",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
-                        "connectorVersion": "v1",
-                        "functionId": 2,
-                        "functionName": "update_finding_or_investigation_2",
-                        "id": "59",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "disposition": "disposition:7",
-                            "id": "included_findings:custom_function:findings_list",
-                            "status": "Closed"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "59",
-                    "type": "enterpriseSecurity",
-                    "userCode": "\n    # Write your custom code here...\n    parameters = []\n    phantom.debug(included_findings__findings_list)\n    \n    for item in included_findings__findings_list:\n        phantom.debug(item)\n        parameters.append({\n            \"id\": item,\n            \"status\": \"Closed\",\n            \"disposition\": \"disposition:7\",\n        })\n\n",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 3020,
-                    "y": 0
-                },
-                "60": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "functionId": 1,
-                        "functionName": "playbook_close_related_findings_1",
-                        "id": "60",
-                        "inputs": {
-                            "findings_list": {
-                                "datapaths": [
-                                    "included_findings:custom_function:findings_list"
-                                ],
-                                "deduplicate": false
-                            }
-                        },
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "playbookName": "close_related_findings",
-                        "playbookRepo": 3,
-                        "playbookRepoName": "es8_risk_findings_response",
-                        "playbookType": "data",
-                        "synchronous": true,
-                        "type": "playbook"
-                    },
-                    "errors": {},
-                    "id": "60",
-                    "type": "playbook",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 3360,
-                    "y": 8
+                    "x": 170,
+                    "y": 322
                 },
                 "61": {
                     "data": {
@@ -1472,8 +760,8 @@
                     "type": "action",
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
                     "warnings": {},
-                    "x": 1850,
-                    "y": 1732
+                    "x": 0,
+                    "y": 1714
                 },
                 "63": {
                     "data": {
@@ -1550,41 +838,8 @@
                     "id": "63",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 2190,
-                    "y": 2363
-                },
-                "64": {
-                    "data": {
-                        "advanced": {
-                            "customName": "format closed findings",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "functionId": 3,
-                        "functionName": "format_closed_findings",
-                        "id": "64",
-                        "parameters": [
-                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.rule_name",
-                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id",
-                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label",
-                            "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"
-                        ],
-                        "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n",
-                        "type": "format"
-                    },
-                    "errors": {},
-                    "id": "64",
-                    "type": "format",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 3700,
-                    "y": 8
+                    "x": 340,
+                    "y": 2345
                 },
                 "68": {
                     "data": {
@@ -1609,8 +864,8 @@
                     "id": "68",
                     "type": "format",
                     "warnings": {},
-                    "x": 1850,
-                    "y": 2060
+                    "x": 0,
+                    "y": 2042
                 },
                 "69": {
                     "data": {
@@ -1635,8 +890,8 @@
                     "id": "69",
                     "type": "format",
                     "warnings": {},
-                    "x": 2190,
-                    "y": 2208
+                    "x": 340,
+                    "y": 2190
                 },
                 "70": {
                     "data": {
@@ -1670,8 +925,8 @@
                     "id": "70",
                     "type": "decision",
                     "warnings": {},
-                    "x": 1930,
-                    "y": 1880
+                    "x": 80,
+                    "y": 1862
                 },
                 "71": {
                     "data": {
@@ -1708,8 +963,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n\n    findings_status_eval__open_finding_ids = []\n    findings_status_eval__open_finding_rule_name = []\n    findings_status_eval__open_finding_status = []\n    findings_status_eval__open_finding_owner = []\n    \n    findings_status_eval__closed_finding_ids = []\n    findings_status_eval__closed_finding_rule_name = []\n    findings_status_eval__closed_finding_status = []\n    findings_status_eval__closed_finding_owner = []\n\n\n    if run_query_1_result_data:\n        note_open = (\n            \"\\n**Below are the list of open findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n        note_closed = (\n            \"\\n**Below are the list of already findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n\n        for rule_name,event_id,status,owner in zip(run_query_1_result_item_0,run_query_1_result_item_1,run_query_1_result_item_2,run_query_1_result_item_3):\n            #rule_name = rule_name.replace('\\n','')\n            #event_id = event_id.replace('\\n','')\n            finding_url = \"https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=\" + event_id\n            #status = status.replace('\\n','')\n            #owner = owner.replace('\\n','')\n            if status not in ('Closed', 'Resolved'):\n                note_open += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                findings_status_eval__open_finding_ids.append(event_id)\n                findings_status_eval__open_finding_rule_name.append(rule_name)\n                findings_status_eval__open_finding_status.append(status)\n                findings_status_eval__open_finding_owner.append(owner)\n            if status in ('Closed', 'Resolved'):\n                note_closed += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                findings_status_eval__closed_finding_ids.append(event_id)\n                findings_status_eval__closed_finding_rule_name.append(rule_name)\n                findings_status_eval__closed_finding_status.append(status)\n                findings_status_eval__closed_finding_owner.append(owner)\n\n        findings_status_eval__open_findings_note = note_open\n        findings_status_eval__closed_findings_note = note_closed\n        \n    else:\n        findings_status_eval__open_findings_note = \"\\n\\n**No open findings found in the investigation in last 30 days**\\n\"    \n        findings_status_eval__closed_findings_note = \"\\n\\n**No closed findings found in the investigation in last 30 days**\\n\"    \n\n\n",
                     "warnings": {},
-                    "x": 2020,
-                    "y": 1094
+                    "x": 170,
+                    "y": 1076
                 },
                 "73": {
                     "data": {
@@ -1769,8 +1024,8 @@
                     "id": "73",
                     "type": "utility",
                     "warnings": {},
-                    "x": 1850,
-                    "y": 1584
+                    "x": 0,
+                    "y": 1566
                 }
             },
             "notes": ""
@@ -1783,7 +1038,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T04:36:48.406052+00:00",
+    "create_time": "2025-06-24T04:43:35.773796+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
