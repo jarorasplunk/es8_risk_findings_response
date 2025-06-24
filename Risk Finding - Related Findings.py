@@ -148,7 +148,7 @@ def close_findings_prompt(action=None, success=None, container=None, results=Non
 
     # parameter list for template variable replacement
     parameters = [
-        "open_findings_format:custom_function:open_findings_note"
+        "findings_status_eval:custom_function:open_findings_note"
     ]
 
     # responses
@@ -690,7 +690,7 @@ def update_task_in_current_phase_2(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"], callback=related_findings_status_filter)
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"], callback=findings_status_eval)
 
     return
 
@@ -901,51 +901,6 @@ def update_event_1(action=None, success=None, container=None, results=None, hand
 
 
 @phantom.playbook_block()
-def related_findings_status_filter(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("related_findings_status_filter() called")
-
-    # collect filtered artifact ids and results for 'if' condition 1
-    matched_artifacts_1, matched_results_1 = phantom.condition(
-        container=container,
-        logical_operator="or",
-        conditions=[
-            ["run_query_1:action_result.data.*.status_label", "!=", "Resolved"],
-            ["run_query_1:action_result.data.*.status_label", "!=", "Closed"]
-        ],
-        conditions_dps=[
-            ["run_query_1:action_result.data.*.status_label", "!=", "Resolved"],
-            ["run_query_1:action_result.data.*.status_label", "!=", "Closed"]
-        ],
-        name="related_findings_status_filter:condition_1",
-        delimiter=None)
-
-    # call connected blocks if filtered artifacts or results
-    if matched_artifacts_1 or matched_results_1:
-        open_findings_format(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
-
-    # collect filtered artifact ids and results for 'if' condition 2
-    matched_artifacts_2, matched_results_2 = phantom.condition(
-        container=container,
-        logical_operator="and",
-        conditions=[
-            ["run_query_1:action_result.data.*.status_label", "==", "Closed"],
-            ["run_query_1:action_result.data.*.status_label", "==", "Resolved"]
-        ],
-        conditions_dps=[
-            ["run_query_1:action_result.data.*.status_label", "==", "Closed"],
-            ["run_query_1:action_result.data.*.status_label", "==", "Resolved"]
-        ],
-        name="related_findings_status_filter:condition_2",
-        delimiter=None)
-
-    # call connected blocks if filtered artifacts or results
-    if matched_artifacts_2 or matched_results_2:
-        closed_findings_format(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
-
-    return
-
-
-@phantom.playbook_block()
 def add_task_note_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("add_task_note_3() called")
 
@@ -1031,10 +986,10 @@ def open_findings_1(action=None, success=None, container=None, results=None, han
 
     # parameter list for template variable replacement
     parameters = [
-        "open_findings_format:custom_function:open_finding_rule_name",
-        "open_findings_format:custom_function:open_finding_ids",
-        "open_findings_format:custom_function:open_finding_status",
-        "open_findings_format:custom_function:open_finding_owner"
+        "findings_status_eval:custom_function:open_finding_rule_name",
+        "findings_status_eval:custom_function:open_finding_ids",
+        "findings_status_eval:custom_function:open_finding_status",
+        "findings_status_eval:custom_function:open_finding_owner"
     ]
 
     ################################################################################
@@ -1110,72 +1065,102 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
 
 
 @phantom.playbook_block()
-def open_findings_format(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("open_findings_format() called")
+def findings_status_eval(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("findings_status_eval() called")
 
-    filtered_result_0_data_related_findings_status_filter = phantom.collect2(container=container, datapath=["filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.rule_name","filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id","filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label","filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"])
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.rule_name","run_query_1:action_result.data.*.event_id","run_query_1:action_result.data.*.status_label","run_query_1:action_result.data.*.owner"], action_results=results)
 
-    filtered_result_0_data___rule_name = [item[0] for item in filtered_result_0_data_related_findings_status_filter]
-    filtered_result_0_data___event_id = [item[1] for item in filtered_result_0_data_related_findings_status_filter]
-    filtered_result_0_data___status_label = [item[2] for item in filtered_result_0_data_related_findings_status_filter]
-    filtered_result_0_data___owner = [item[3] for item in filtered_result_0_data_related_findings_status_filter]
+    run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
+    run_query_1_result_item_1 = [item[1] for item in run_query_1_result_data]
+    run_query_1_result_item_2 = [item[2] for item in run_query_1_result_data]
+    run_query_1_result_item_3 = [item[3] for item in run_query_1_result_data]
 
-    open_findings_format__open_findings_note = None
-    open_findings_format__open_finding_ids = None
-    open_findings_format__open_finding_rule_name = None
-    open_findings_format__open_finding_status = None
-    open_findings_format__open_finding_owner = None
+    findings_status_eval__open_findings_note = None
+    findings_status_eval__open_finding_ids = None
+    findings_status_eval__open_finding_rule_name = None
+    findings_status_eval__open_finding_status = None
+    findings_status_eval__open_finding_owner = None
+    findings_status_eval__closed_findings_note = None
+    findings_status_eval__closed_finding_ids = None
+    findings_status_eval__closed_finding_rule_name = None
+    findings_status_eval__closed_finding_status = None
+    findings_status_eval__closed_finding_owner = None
 
     ################################################################################
     ## Custom Code Start
     ################################################################################
 
     # Write your custom code here...
-    open_findings_format__open_finding_ids = []
-    open_findings_format__open_finding_rule_name = []
-    open_findings_format__open_finding_status = []
-    open_findings_format__open_finding_owner = []
 
-    if filtered_result_0_data_related_findings_status_filter:
-        note = (
+    findings_status_eval__open_finding_ids = []
+    findings_status_eval__open_finding_rule_name = []
+    findings_status_eval__open_finding_status = []
+    findings_status_eval__open_finding_owner = []
+    
+    findings_status_eval__closed_finding_ids = []
+    findings_status_eval__closed_finding_rule_name = []
+    findings_status_eval__closed_finding_status = []
+    findings_status_eval__closed_finding_owner = []
+
+
+    if run_query_1_result_data:
+        note_open = (
             "\n**Below are the list of open findings related to this investigation.**\n"
             "| Rule name | Finding | Status | Owner |\n"
             "| :--- | :--- | :--- | :--- |\n"
         )
-        for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):
+        note_closed = (
+            "\n**Below are the list of already findings related to this investigation.**\n"
+            "| Rule name | Finding | Status | Owner |\n"
+            "| :--- | :--- | :--- | :--- |\n"
+        )
+
+        for rule_name,event_id,status,owner in zip(run_query_1_result_item_0,run_query_1_result_item_1,run_query_1_result_item_2,run_query_1_result_item_3):
             #rule_name = rule_name.replace('\n','')
             #event_id = event_id.replace('\n','')
             finding_url = "https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=" + event_id
             #status = status.replace('\n','')
             #owner = owner.replace('\n','')
             if status not in ('Closed', 'Resolved'):
-                phantom.debug(finding_url)
-                phantom.debug(status)
-                note += "|{}|[{}]({})|{}|{}|\n".format(rule_name, event_id, finding_url, status, owner)
-                open_findings_format__open_finding_ids.append(event_id)
-                open_findings_format__open_finding_rule_name.append(rule_name)
-                open_findings_format__open_finding_status.append(status)
-                open_findings_format__open_finding_owner.append(owner)
+                note_open += "|{}|[{}]({})|{}|{}|\n".format(rule_name, event_id, finding_url, status, owner)
+                findings_status_eval__open_finding_ids.append(event_id)
+                findings_status_eval__open_finding_rule_name.append(rule_name)
+                findings_status_eval__open_finding_status.append(status)
+                findings_status_eval__open_finding_owner.append(owner)
+            if status in ('Closed', 'Resolved'):
+                note_closed += "|{}|[{}]({})|{}|{}|\n".format(rule_name, event_id, finding_url, status, owner)
+                findings_status_eval__closed_finding_ids.append(event_id)
+                findings_status_eval__closed_finding_rule_name.append(rule_name)
+                findings_status_eval__closed_finding_status.append(status)
+                findings_status_eval__closed_finding_owner.append(owner)
 
-        open_findings_format__open_findings_note = note
+        findings_status_eval__open_findings_note = note_open
+        findings_status_eval__closed_findings_note = note_closed
+        
     else:
-        open_findings_format__open_findings_note = "\n\n**No open findings found in the investigation in last 30 days**\n"    
+        findings_status_eval__open_findings_note = "\n\n**No open findings found in the investigation in last 30 days**\n"    
+        findings_status_eval__closed_findings_note = "\n\n**No closed findings found in the investigation in last 30 days**\n"    
 
 
     ################################################################################
     ## Custom Code End
     ################################################################################
 
-    phantom.save_block_result(key="open_findings_format__inputs:0:filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.rule_name", value=json.dumps(filtered_result_0_data___rule_name))
-    phantom.save_block_result(key="open_findings_format__inputs:1:filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id", value=json.dumps(filtered_result_0_data___event_id))
-    phantom.save_block_result(key="open_findings_format__inputs:2:filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label", value=json.dumps(filtered_result_0_data___status_label))
-    phantom.save_block_result(key="open_findings_format__inputs:3:filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner", value=json.dumps(filtered_result_0_data___owner))
+    phantom.save_block_result(key="findings_status_eval__inputs:0:run_query_1:action_result.data.*.rule_name", value=json.dumps(run_query_1_result_item_0))
+    phantom.save_block_result(key="findings_status_eval__inputs:1:run_query_1:action_result.data.*.event_id", value=json.dumps(run_query_1_result_item_1))
+    phantom.save_block_result(key="findings_status_eval__inputs:2:run_query_1:action_result.data.*.status_label", value=json.dumps(run_query_1_result_item_2))
+    phantom.save_block_result(key="findings_status_eval__inputs:3:run_query_1:action_result.data.*.owner", value=json.dumps(run_query_1_result_item_3))
 
-    phantom.save_block_result(key="open_findings_format:open_findings_note", value=json.dumps(open_findings_format__open_findings_note))
-    phantom.save_block_result(key="open_findings_format:open_finding_ids", value=json.dumps(open_findings_format__open_finding_ids))
-    phantom.save_block_result(key="open_findings_format:open_finding_rule_name", value=json.dumps(open_findings_format__open_finding_rule_name))
-    phantom.save_block_result(key="open_findings_format:open_finding_status", value=json.dumps(open_findings_format__open_finding_status))
-    phantom.save_block_result(key="open_findings_format:open_finding_owner", value=json.dumps(open_findings_format__open_finding_owner))
+    phantom.save_block_result(key="findings_status_eval:open_findings_note", value=json.dumps(findings_status_eval__open_findings_note))
+    phantom.save_block_result(key="findings_status_eval:open_finding_ids", value=json.dumps(findings_status_eval__open_finding_ids))
+    phantom.save_block_result(key="findings_status_eval:open_finding_rule_name", value=json.dumps(findings_status_eval__open_finding_rule_name))
+    phantom.save_block_result(key="findings_status_eval:open_finding_status", value=json.dumps(findings_status_eval__open_finding_status))
+    phantom.save_block_result(key="findings_status_eval:open_finding_owner", value=json.dumps(findings_status_eval__open_finding_owner))
+    phantom.save_block_result(key="findings_status_eval:closed_findings_note", value=json.dumps(findings_status_eval__closed_findings_note))
+    phantom.save_block_result(key="findings_status_eval:closed_finding_ids", value=json.dumps(findings_status_eval__closed_finding_ids))
+    phantom.save_block_result(key="findings_status_eval:closed_finding_rule_name", value=json.dumps(findings_status_eval__closed_finding_rule_name))
+    phantom.save_block_result(key="findings_status_eval:closed_finding_status", value=json.dumps(findings_status_eval__closed_finding_status))
+    phantom.save_block_result(key="findings_status_eval:closed_finding_owner", value=json.dumps(findings_status_eval__closed_finding_owner))
 
     close_findings_prompt(container=container)
 
@@ -1261,12 +1246,12 @@ def closed_findings_format(action=None, success=None, container=None, results=No
 def open_finding_ids(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("open_finding_ids() called")
 
-    open_findings_format__open_finding_ids = json.loads(_ if (_ := phantom.get_run_data(key="open_findings_format:open_finding_ids")) != "" else "null")  # pylint: disable=used-before-assignment
+    findings_status_eval__open_finding_ids = json.loads(_ if (_ := phantom.get_run_data(key="findings_status_eval:open_finding_ids")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     parameters.append({
-        "input_list": open_findings_format__open_finding_ids,
+        "input_list": findings_status_eval__open_finding_ids,
     })
 
     ################################################################################
