@@ -166,7 +166,7 @@
                     "targetPort": "34_in"
                 }
             ],
-            "hash": "0feb5d457fe3d30841887d73cf6b6a9ff88b5522",
+            "hash": "9223eeb0a71c3847e0dc01c4beb49169fbfe94b9",
             "nodes": {
                 "0": {
                     "data": {
@@ -188,7 +188,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 220,
-                    "y": -440.0000000000001
+                    "y": -440.0000000000002
                 },
                 "1": {
                     "data": {
@@ -1267,7 +1267,7 @@
                         "parameters": [
                             "es_users_list:formatted_data"
                         ],
-                        "responseTime": 30,
+                        "responseTime": 360,
                         "responses": [
                             {
                                 "required": true,
@@ -1325,7 +1325,7 @@
                         "id": "8",
                         "message": "Do you want to assign this investigation to yourself or to another team member?",
                         "parameters": [],
-                        "responseTime": 30,
+                        "responseTime": 360,
                         "responses": [
                             {
                                 "required": true,
@@ -1408,7 +1408,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T04:46:41.248093+00:00",
+    "create_time": "2025-06-24T05:59:47.816531+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

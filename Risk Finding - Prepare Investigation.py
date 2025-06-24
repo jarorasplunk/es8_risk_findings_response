@@ -110,7 +110,7 @@ def select_owner(action=None, success=None, container=None, results=None, handle
         }
     ]
 
-    phantom.prompt2(container=container, user=user, role=role, message=message, respond_in_mins=30, name="select_owner", parameters=parameters, response_types=response_types, callback=update_finding_or_investigation_1)
+    phantom.prompt2(container=container, user=user, role=role, message=message, respond_in_mins=360, name="select_owner", parameters=parameters, response_types=response_types, callback=update_finding_or_investigation_1)
 
     return
 
@@ -172,7 +172,7 @@ def assignment_decision(action=None, success=None, container=None, results=None,
         }
     ]
 
-    phantom.prompt2(container=container, user=user, role=role, message=message, respond_in_mins=30, name="assignment_decision", parameters=parameters, response_types=response_types, callback=decision_1)
+    phantom.prompt2(container=container, user=user, role=role, message=message, respond_in_mins=360, name="assignment_decision", parameters=parameters, response_types=response_types, callback=decision_1)
 
     return
 
