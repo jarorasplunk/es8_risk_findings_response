@@ -188,7 +188,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 220,
-                    "y": -440
+                    "y": -440.0000000000001
                 },
                 "1": {
                     "data": {
@@ -296,7 +296,11 @@
                     "errors": {},
                     "id": "12",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": -80,
                     "y": 1400
                 },
@@ -370,7 +374,11 @@
                     "errors": {},
                     "id": "14",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 180,
                     "y": 860
                 },
@@ -415,7 +423,11 @@
                     "errors": {},
                     "id": "2",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 340,
                     "y": 1520
                 },
@@ -470,7 +482,11 @@
                     "errors": {},
                     "id": "23",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": -140,
                     "y": 540
                 },
@@ -528,7 +544,11 @@
                     "errors": {},
                     "id": "24",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 180,
                     "y": 660
                 },
@@ -579,7 +599,11 @@
                     "errors": {},
                     "id": "25",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 340,
                     "y": 1660
                 },
@@ -629,7 +653,11 @@
                     "errors": {},
                     "id": "26",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": -80,
                     "y": 1560
                 },
@@ -706,7 +734,11 @@
                     "errors": {},
                     "id": "29",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": -80,
                     "y": 1880
                 },
@@ -798,7 +830,11 @@
                     "errors": {},
                     "id": "30",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 340,
                     "y": 1780
                 },
@@ -841,7 +877,11 @@
                     "errors": {},
                     "id": "31",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": -80,
                     "y": 1700
                 },
@@ -917,7 +957,11 @@
                     "errors": {},
                     "id": "32",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 360,
                     "y": 1920
                 },
@@ -1197,7 +1241,11 @@
                     "errors": {},
                     "id": "35",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 460,
                     "y": 780
                 },
@@ -1365,5 +1413,7 @@
     "labels": [
         "es_soar_integration"
     ],
-    "tags": []
+    "tags": [
+        "enrichment"
+    ]
 }
