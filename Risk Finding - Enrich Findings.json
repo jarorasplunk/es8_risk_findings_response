@@ -314,7 +314,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 640,
-                    "y": -40
+                    "y": -40.00000000000006
                 },
                 "1": {
                     "data": {
@@ -379,7 +379,11 @@
                     "errors": {},
                     "id": "12",
                     "type": "decision",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 250,
                     "y": 1584
                 },
@@ -432,7 +436,11 @@
                     "errors": {},
                     "id": "16",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 610,
                     "y": 311.9999999999999
                 },
@@ -490,7 +498,11 @@
                     "errors": {},
                     "id": "17",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 610,
                     "y": 461.9999999999999
                 },
@@ -578,7 +590,11 @@
                     "errors": {},
                     "id": "18",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 1130,
                     "y": 1434
                 },
@@ -747,7 +763,11 @@
                     "errors": {},
                     "id": "20",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 680,
                     "y": 2596
                 },
@@ -770,7 +790,11 @@
                     "errors": {},
                     "id": "22",
                     "type": "format",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 0,
                     "y": 1764
                 },
@@ -793,7 +817,11 @@
                     "errors": {},
                     "id": "23",
                     "type": "format",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 340,
                     "y": 1764
                 },
@@ -863,7 +891,11 @@
                     "errors": {},
                     "id": "24",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 340,
                     "y": 1914
                 },
@@ -933,7 +965,11 @@
                     "errors": {},
                     "id": "25",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 0,
                     "y": 1914
                 },
@@ -1028,7 +1064,11 @@
                     "errors": {},
                     "id": "28",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 940,
                     "y": 2460
                 },
@@ -1129,7 +1169,11 @@
                     "errors": {},
                     "id": "34",
                     "type": "decision",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 1030,
                     "y": 762
                 },
@@ -1301,7 +1345,11 @@
                     "errors": {},
                     "id": "37",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 770,
                     "y": 1434
                 },
@@ -1484,7 +1532,11 @@
                     "errors": {},
                     "id": "40",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 580,
                     "y": 2460
                 },
@@ -1671,5 +1723,7 @@
     "labels": [
         "es_soar_integration"
     ],
-    "tags": []
+    "tags": [
+        "enrichment"
+    ]
 }
