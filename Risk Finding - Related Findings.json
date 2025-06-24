@@ -152,7 +152,7 @@
                     "targetPort": "69_in"
                 }
             ],
-            "hash": "9e0db2e34f5c3b610f44aaea1a2ba3bb3aac6735",
+            "hash": "a6708315a8dbc837112ca55a150e6a6621d43c4b",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -211,7 +211,7 @@
                         "parameters": [
                             "findings_status_eval:custom_function:open_findings_note"
                         ],
-                        "responseTime": 30,
+                        "responseTime": 360,
                         "responses": [
                             {
                                 "required": true,
@@ -355,11 +355,7 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 0,
                     "y": 2190
                 },
@@ -416,11 +412,7 @@
                     "errors": {},
                     "id": "31",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 0,
                     "y": 2338
                 },
@@ -473,11 +465,7 @@
                     "errors": {},
                     "id": "33",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 170,
                     "y": 618
                 },
@@ -535,11 +523,7 @@
                     "errors": {},
                     "id": "34",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 170,
                     "y": 766
                 },
@@ -699,11 +683,7 @@
                     "errors": {},
                     "id": "50",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 170,
                     "y": 914
                 },
@@ -857,11 +837,7 @@
                     "errors": {},
                     "id": "63",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 340,
                     "y": 2345
                 },
@@ -1062,7 +1038,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T04:43:35.773796+00:00",
+    "create_time": "2025-06-24T05:58:38.555747+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

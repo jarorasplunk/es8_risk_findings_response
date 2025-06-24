@@ -88,7 +88,7 @@ def close_findings_prompt(action=None, success=None, container=None, results=Non
         }
     ]
 
-    phantom.prompt2(container=container, user=user, role=role, message=message, respond_in_mins=30, name="close_findings_prompt", parameters=parameters, response_types=response_types, callback=decision_1)
+    phantom.prompt2(container=container, user=user, role=role, message=message, respond_in_mins=360, name="close_findings_prompt", parameters=parameters, response_types=response_types, callback=decision_1)
 
     return
 
