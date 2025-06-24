@@ -1139,7 +1139,11 @@ def open_findings_format(action=None, success=None, container=None, results=None
             finding_url = "https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=" + event_id
             #status = status.replace('\n','')
             #owner = owner.replace('\n','')
+            phantom.debug(finding_url)
+            phantom.debug(status)
             if status != "Closed" or status != "Resolved":
+                phantom.debug(finding_url)
+                phantom.debug(status)
                 note += "|{}|[{}]({})|{}|{}|\n".format(rule_name, event_id, finding_url, status, owner)
                 open_findings_format__open_finding_ids.append(event_id)
 
@@ -1159,8 +1163,6 @@ def open_findings_format(action=None, success=None, container=None, results=None
 
     phantom.save_block_result(key="open_findings_format:open_findings_note", value=json.dumps(open_findings_format__open_findings_note))
     phantom.save_block_result(key="open_findings_format:open_finding_ids", value=json.dumps(open_findings_format__open_finding_ids))
-
-    close_findings_prompt(container=container)
 
     return
 

@@ -162,16 +162,9 @@
                     "sourcePort": "68_out",
                     "targetNode": "71",
                     "targetPort": "71_in"
-                },
-                {
-                    "id": "port_71_to_port_22",
-                    "sourceNode": "71",
-                    "sourcePort": "71_out",
-                    "targetNode": "22",
-                    "targetPort": "22_in"
                 }
             ],
-            "hash": "b3bec7ad92984c74720dd889a5c317b6f5b20398",
+            "hash": "3cd247f56dc6fa3bc9b8aa30d363bca27ae11b90",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -363,7 +356,14 @@
                     "errors": {},
                     "id": "22",
                     "type": "prompt",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 620,
                     "y": 900
                 },
@@ -560,7 +560,11 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 620,
                     "y": 1520
                 },
@@ -617,7 +621,11 @@
                     "errors": {},
                     "id": "31",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 740,
                     "y": 2640
                 },
@@ -1476,7 +1484,11 @@
                     "id": "61",
                     "type": "action",
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 620,
                     "y": 1220
                 },
@@ -1762,7 +1774,7 @@
                     "errors": {},
                     "id": "71",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    open_findings_format__open_finding_ids = []\n    if filtered_result_0_data_related_findings_status_filter:\n        note = (\n            \"\\n**Below are the list of open findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n        for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):\n            #rule_name = rule_name.replace('\\n','')\n            #event_id = event_id.replace('\\n','')\n            finding_url = \"https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=\" + event_id\n            #status = status.replace('\\n','')\n            #owner = owner.replace('\\n','')\n            if status != \"Closed\" or status != \"Resolved\":\n                note += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                open_findings_format__open_finding_ids.append(event_id)\n\n        open_findings_format__open_findings_note = note\n    else:\n        open_findings_format__open_findings_note = \"\\n\\n**No open findings found in the investigation in last 30 days**\\n\"    \n\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    open_findings_format__open_finding_ids = []\n    if filtered_result_0_data_related_findings_status_filter:\n        note = (\n            \"\\n**Below are the list of open findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n        for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):\n            #rule_name = rule_name.replace('\\n','')\n            #event_id = event_id.replace('\\n','')\n            finding_url = \"https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=\" + event_id\n            #status = status.replace('\\n','')\n            #owner = owner.replace('\\n','')\n            phantom.debug(finding_url)\n            phantom.debug(status)\n            if status != \"Closed\" or status != \"Resolved\":\n                phantom.debug(finding_url)\n                phantom.debug(status)\n                note += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                open_findings_format__open_finding_ids.append(event_id)\n\n        open_findings_format__open_findings_note = note\n    else:\n        open_findings_format__open_findings_note = \"\\n\\n**No open findings found in the investigation in last 30 days**\\n\"    \n\n\n",
                     "warnings": {},
                     "x": 620,
                     "y": 800
@@ -1778,7 +1790,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T03:40:05.237904+00:00",
+    "create_time": "2025-06-24T03:43:38.571126+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
