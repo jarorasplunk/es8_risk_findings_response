@@ -233,7 +233,7 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        update_event_1(action=action, success=success, container=container, results=results, handle=handle)
+        open_finding_ids(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     return
@@ -869,18 +869,20 @@ def update_event_1(action=None, success=None, container=None, results=None, hand
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    open_findings_format__open_finding_ids = json.loads(_ if (_ := phantom.get_run_data(key="open_findings_format:open_finding_ids")) != "" else "null")  # pylint: disable=used-before-assignment
+    open_finding_ids__result = phantom.collect2(container=container, datapath=["open_finding_ids:custom_function_result.data.output"])
 
     parameters = []
 
-    if open_findings_format__open_finding_ids is not None:
-        parameters.append({
-            "status": 5,
-            "event_ids": open_findings_format__open_finding_ids,
-            "disposition": "",
-            "integer_disposition": 7,
-            "wait_for_confirmation": True,
-        })
+    # build parameters list for 'update_event_1' call
+    for open_finding_ids__result_item in open_finding_ids__result:
+        if open_finding_ids__result_item[0] is not None:
+            parameters.append({
+                "status": 5,
+                "event_ids": open_finding_ids__result_item[0],
+                "disposition": "",
+                "integer_disposition": 7,
+                "wait_for_confirmation": True,
+            })
 
     ################################################################################
     ## Custom Code Start
@@ -1251,6 +1253,33 @@ def closed_findings_format(action=None, success=None, container=None, results=No
     phantom.save_block_result(key="closed_findings_format:closed_finding_owner", value=json.dumps(closed_findings_format__closed_finding_owner))
 
     closed_findings(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def open_finding_ids(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("open_finding_ids() called")
+
+    open_findings_format__open_finding_ids = json.loads(_ if (_ := phantom.get_run_data(key="open_findings_format:open_finding_ids")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    parameters.append({
+        "input_list": open_findings_format__open_finding_ids,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="open_finding_ids", callback=update_event_1)
 
     return
 

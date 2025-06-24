@@ -70,19 +70,6 @@
                     "targetPort": "4_in"
                 },
                 {
-                    "conditions": [
-                        {
-                            "conditionKey": "condition_key_1",
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_26_to_port_61",
-                    "sourceNode": "26",
-                    "sourcePort": "26_out",
-                    "targetNode": "61",
-                    "targetPort": "61_in"
-                },
-                {
                     "id": "port_4_to_port_33",
                     "sourceNode": "4",
                     "sourcePort": "4_out",
@@ -183,9 +170,29 @@
                     "sourcePort": "63_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_1",
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_26_to_port_73",
+                    "sourceNode": "26",
+                    "sourcePort": "26_out",
+                    "targetNode": "73",
+                    "targetPort": "73_in"
+                },
+                {
+                    "id": "port_73_to_port_61",
+                    "sourceNode": "73",
+                    "sourcePort": "73_out",
+                    "targetNode": "61",
+                    "targetPort": "61_in"
                 }
             ],
-            "hash": "1cf516b773dc0dce5a6c7eaac0db8f3b0f11aee5",
+            "hash": "82938efbd43785bb434743678268048b86b79f2c",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -207,8 +214,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 460,
-                    "y": -520
+                    "x": 2040,
+                    "y": 9
                 },
                 "1": {
                     "data": {
@@ -223,8 +230,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 540,
-                    "y": 3020
+                    "x": 2040,
+                    "y": 2550
                 },
                 "13": {
                     "data": {
@@ -256,8 +263,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 780,
-                    "y": 160
+                    "x": 340,
+                    "y": 15
                 },
                 "20": {
                     "data": {
@@ -339,8 +346,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 920,
-                    "y": 800
+                    "x": 680,
+                    "y": 8
                 },
                 "22": {
                     "data": {
@@ -378,8 +385,8 @@
                     "id": "22",
                     "type": "prompt",
                     "warnings": {},
-                    "x": 620,
-                    "y": 900
+                    "x": 1840,
+                    "y": 1380
                 },
                 "23": {
                     "data": {
@@ -448,8 +455,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 1000,
-                    "y": 2020
+                    "x": 1020,
+                    "y": 0
                 },
                 "26": {
                     "data": {
@@ -499,8 +506,8 @@
                     "id": "26",
                     "type": "decision",
                     "warnings": {},
-                    "x": 700,
-                    "y": 1020
+                    "x": 1920,
+                    "y": 1500
                 },
                 "27": {
                     "data": {
@@ -575,8 +582,8 @@
                     "id": "27",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 620,
-                    "y": 1680
+                    "x": 1850,
+                    "y": 2240
                 },
                 "31": {
                     "data": {
@@ -632,8 +639,8 @@
                     "id": "31",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 740,
-                    "y": 2640
+                    "x": 1850,
+                    "y": 2388
                 },
                 "32": {
                     "data": {
@@ -711,8 +718,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": -100,
-                    "y": 2440
+                    "x": 1360,
+                    "y": 8
                 },
                 "33": {
                     "data": {
@@ -764,8 +771,8 @@
                     "id": "33",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 440,
-                    "y": 140
+                    "x": 2020,
+                    "y": 636
                 },
                 "34": {
                     "data": {
@@ -822,8 +829,8 @@
                     "id": "34",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 440,
-                    "y": 280
+                    "x": 2020,
+                    "y": 784
                 },
                 "38": {
                     "data": {
@@ -905,8 +912,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 780,
-                    "y": 440
+                    "x": 1700,
+                    "y": 8
                 },
                 "39": {
                     "data": {
@@ -940,8 +947,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": -100,
-                    "y": 1380
+                    "x": 0,
+                    "y": 15
                 },
                 "4": {
                     "data": {
@@ -1005,8 +1012,8 @@
                     "id": "4",
                     "type": "action",
                     "warnings": {},
-                    "x": 440,
-                    "y": 20
+                    "x": 2020,
+                    "y": 488
                 },
                 "41": {
                     "data": {
@@ -1066,8 +1073,8 @@
                     "id": "41",
                     "type": "utility",
                     "warnings": {},
-                    "x": -200,
-                    "y": 1660
+                    "x": 0,
+                    "y": 185
                 },
                 "42": {
                     "data": {
@@ -1127,8 +1134,8 @@
                     "id": "42",
                     "type": "utility",
                     "warnings": {},
-                    "x": -100,
-                    "y": 1860
+                    "x": 0,
+                    "y": 340
                 },
                 "48": {
                     "data": {
@@ -1191,8 +1198,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 660,
-                    "y": -420
+                    "x": 2340,
+                    "y": 0
                 },
                 "49": {
                     "data": {
@@ -1236,8 +1243,8 @@
                     "id": "49",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 460,
-                    "y": -220
+                    "x": 2020,
+                    "y": 178
                 },
                 "50": {
                     "data": {
@@ -1286,8 +1293,8 @@
                     "id": "50",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 440,
-                    "y": 420
+                    "x": 2020,
+                    "y": 932
                 },
                 "53": {
                     "data": {
@@ -1314,8 +1321,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n\n    included_findings__finding_id = []\n    included_findings__intermediate_finding_id = []\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        for long_key_string in item.keys():\n            matches = re.findall(r'(\\w+)=\"(.*?)\"', long_key_string)\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    included_findings__findings_list = final_result[\"finding_ids\"]\n    included_findings__finding_id = final_result[\"finding_ids\"]\n    included_findings__intermediate_finding_id = final_result[\"intermediate_finding_ids\"]\n    \n    included_findings__finding_id = str(included_findings__finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    included_findings__intermediate_finding_id = str(included_findings__intermediate_finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    \n    phantom.debug(included_findings__finding_id)\n    phantom.debug(included_findings__intermediate_finding_id)\n    \n",
                     "warnings": {},
-                    "x": 440,
-                    "y": -80
+                    "x": 2020,
+                    "y": 340
                 },
                 "57": {
                     "data": {
@@ -1344,8 +1351,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 1120,
-                    "y": 280
+                    "x": 2680,
+                    "y": 15
                 },
                 "59": {
                     "data": {
@@ -1397,8 +1404,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 1000,
-                    "y": 1820
+                    "x": 3020,
+                    "y": 0
                 },
                 "60": {
                     "data": {
@@ -1443,8 +1450,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 920,
-                    "y": 624.5
+                    "x": 3360,
+                    "y": 8
                 },
                 "61": {
                     "data": {
@@ -1473,7 +1480,7 @@
                         },
                         "parameters": {
                             "disposition": "",
-                            "event_ids": "open_findings_format:custom_function:open_finding_ids",
+                            "event_ids": "open_finding_ids:custom_function_result.data.output",
                             "integer_disposition": "7",
                             "status": "5",
                             "wait_for_confirmation": true
@@ -1491,8 +1498,8 @@
                     "type": "action",
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
                     "warnings": {},
-                    "x": 620,
-                    "y": 1220
+                    "x": 1850,
+                    "y": 1764
                 },
                 "62": {
                     "data": {
@@ -1552,8 +1559,8 @@
                     "id": "62",
                     "type": "filter",
                     "warnings": {},
-                    "x": 500,
-                    "y": 560
+                    "x": 2080,
+                    "y": 1094
                 },
                 "63": {
                     "data": {
@@ -1630,8 +1637,8 @@
                     "id": "63",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 260,
-                    "y": 1180
+                    "x": 2190,
+                    "y": 2395
                 },
                 "64": {
                     "data": {
@@ -1663,8 +1670,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": 20,
-                    "y": 900
+                    "x": 3700,
+                    "y": 8
                 },
                 "68": {
                     "data": {
@@ -1689,8 +1696,8 @@
                     "id": "68",
                     "type": "format",
                     "warnings": {},
-                    "x": 620,
-                    "y": 1520
+                    "x": 1850,
+                    "y": 2092
                 },
                 "69": {
                     "data": {
@@ -1715,8 +1722,8 @@
                     "id": "69",
                     "type": "format",
                     "warnings": {},
-                    "x": 240,
-                    "y": 940
+                    "x": 2190,
+                    "y": 2240
                 },
                 "70": {
                     "data": {
@@ -1750,8 +1757,8 @@
                     "id": "70",
                     "type": "decision",
                     "warnings": {},
-                    "x": 700,
-                    "y": 1340
+                    "x": 1930,
+                    "y": 1912
                 },
                 "71": {
                     "data": {
@@ -1783,8 +1790,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    open_findings_format__open_finding_ids = []\n    open_findings_format__open_finding_rule_name = []\n    open_findings_format__open_finding_status = []\n    open_findings_format__open_finding_owner = []\n\n    if filtered_result_0_data_related_findings_status_filter:\n        note = (\n            \"\\n**Below are the list of open findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n        for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):\n            #rule_name = rule_name.replace('\\n','')\n            #event_id = event_id.replace('\\n','')\n            finding_url = \"https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=\" + event_id\n            #status = status.replace('\\n','')\n            #owner = owner.replace('\\n','')\n            if status not in ('Closed', 'Resolved'):\n                phantom.debug(finding_url)\n                phantom.debug(status)\n                note += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                open_findings_format__open_finding_ids.append(event_id)\n                open_findings_format__open_finding_rule_name.append(rule_name)\n                open_findings_format__open_finding_status.append(status)\n                open_findings_format__open_finding_owner.append(owner)\n\n        open_findings_format__open_findings_note = note\n    else:\n        open_findings_format__open_findings_note = \"\\n\\n**No open findings found in the investigation in last 30 days**\\n\"    \n\n\n",
                     "warnings": {},
-                    "x": 620,
-                    "y": 700
+                    "x": 1850,
+                    "y": 1274
                 },
                 "72": {
                     "data": {
@@ -1816,8 +1823,69 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n\n    closed_findings_format__closed_finding_ids = []\n    closed_findings_format__closed_finding_rule_name = []\n    closed_findings_format__closed_finding_status = []\n    closed_findings_format__closed_finding_owner = []\n\n    \n    if filtered_result_0_data_related_findings_status_filter:\n        note = (\n            \"\\n**Below are the list of already closed findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n        for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):\n            #rule_name = rule_name.replace('\\n','')\n            #event_id = event_id.replace('\\n','')\n            finding_url = \"https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=\" + event_id\n            #status = status.replace('\\n','')\n            #owner = owner.replace('\\n','')\n            if status in ('Closed', 'Resolved'):\n                phantom.debug(finding_url)\n                phantom.debug(status)\n                note += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                closed_findings_format__closed_finding_ids.append(event_id)\n                closed_findings_format__closed_finding_rule_name.append(rule_name)\n                closed_findings_format__closed_finding_status.append(status)\n                closed_findings_format__closed_finding_owner.append(owner)\n\n        closed_findings_format__closed_findings_note = note\n    else:\n        closed_findings_format__closed_findings_note = \"\\n\\n**There were no findings that were already closed found in the investigation in last 30 days**\\n\"    \n\n\n",
                     "warnings": {},
-                    "x": 240,
-                    "y": 744.5
+                    "x": 2190,
+                    "y": 2092
+                },
+                "73": {
+                    "data": {
+                        "advanced": {
+                            "customName": "open_finding_ids",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "list_demux",
+                            "repoName": "community"
+                        },
+                        "functionId": 1,
+                        "functionName": "open_finding_ids",
+                        "id": "73",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "list_demux": {
+                                "description": "Accepts a single list and converts it into multiple custom function output results. All output will be placed in the \"output\" datapath. Sub-items and sub-item variable names are dependent on the input.",
+                                "fields": [
+                                    {
+                                        "dataTypes": [
+                                            "*"
+                                        ],
+                                        "description": "A list of objects. Nested lists are not unpacked.",
+                                        "inputType": "item",
+                                        "label": "input_list",
+                                        "name": "input_list",
+                                        "placeholder": "[\"list_item_1\", \"list_item_2\", \"list_item_3\"]",
+                                        "renderType": "datapath",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "list_demux",
+                                "name": "list_demux"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "list_demux": {
+                                "input_list": "open_findings_format:custom_function:open_finding_ids"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "73",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 1840,
+                    "y": 1644.5
                 }
             },
             "notes": ""
@@ -1830,7 +1898,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T04:08:28.037935+00:00",
+    "create_time": "2025-06-24T04:13:32.326460+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
