@@ -1235,7 +1235,52 @@ def get_finding_or_investigation_1(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=get_phase_id_1)
+    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=run_query_parameters)
+
+    return
+
+
+@phantom.playbook_block()
+def run_query_parameters(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("run_query_parameters() called")
+
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings_map.info_min_time","get_finding_or_investigation_1:action_result.data.*.consolidated_findings_map.info_max_time","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type"], action_results=results)
+
+    get_finding_or_investigation_1_result_item_0 = [item[0] for item in get_finding_or_investigation_1_result_data]
+    get_finding_or_investigation_1_result_item_1 = [item[1] for item in get_finding_or_investigation_1_result_data]
+    get_finding_or_investigation_1_result_item_2 = [item[2] for item in get_finding_or_investigation_1_result_data]
+    get_finding_or_investigation_1_result_item_3 = [item[3] for item in get_finding_or_investigation_1_result_data]
+
+    run_query_parameters__info_min_time = None
+    run_query_parameters__info_max_time = None
+    run_query_parameters__normalized_risk_object = None
+    run_query_parameters__risk_object_type = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+    phantom.debug(get_finding_or_investigation_1_result_item_0)
+    phantom.debug(get_finding_or_investigation_1_result_item_1)
+    phantom.debug(get_finding_or_investigation_1_result_item_2)
+    phantom.debug(get_finding_or_investigation_1_result_item_3)
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_block_result(key="run_query_parameters__inputs:0:get_finding_or_investigation_1:action_result.data.*.consolidated_findings_map.info_min_time", value=json.dumps(get_finding_or_investigation_1_result_item_0))
+    phantom.save_block_result(key="run_query_parameters__inputs:1:get_finding_or_investigation_1:action_result.data.*.consolidated_findings_map.info_max_time", value=json.dumps(get_finding_or_investigation_1_result_item_1))
+    phantom.save_block_result(key="run_query_parameters__inputs:2:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object", value=json.dumps(get_finding_or_investigation_1_result_item_2))
+    phantom.save_block_result(key="run_query_parameters__inputs:3:get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type", value=json.dumps(get_finding_or_investigation_1_result_item_3))
+
+    phantom.save_block_result(key="run_query_parameters:info_min_time", value=json.dumps(run_query_parameters__info_min_time))
+    phantom.save_block_result(key="run_query_parameters:info_max_time", value=json.dumps(run_query_parameters__info_max_time))
+    phantom.save_block_result(key="run_query_parameters:normalized_risk_object", value=json.dumps(run_query_parameters__normalized_risk_object))
+    phantom.save_block_result(key="run_query_parameters:risk_object_type", value=json.dumps(run_query_parameters__risk_object_type))
+
+    get_phase_id_1(container=container)
 
     return
 

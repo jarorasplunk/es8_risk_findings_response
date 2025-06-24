@@ -278,14 +278,21 @@
                     "targetPort": "44_in"
                 },
                 {
-                    "id": "port_44_to_port_16",
+                    "id": "port_44_to_port_45",
                     "sourceNode": "44",
                     "sourcePort": "44_out",
+                    "targetNode": "45",
+                    "targetPort": "45_in"
+                },
+                {
+                    "id": "port_45_to_port_16",
+                    "sourceNode": "45",
+                    "sourcePort": "45_out",
                     "targetNode": "16",
                     "targetPort": "16_in"
                 }
             ],
-            "hash": "4d5a63015a8bb12930460bcccdc346e12aa02261",
+            "hash": "12a90328a05aeb4cae480bdb2145e47cbb62932f",
             "nodes": {
                 "0": {
                     "data": {
@@ -306,8 +313,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 630,
-                    "y": -1.5276668818842154e-13
+                    "x": 640,
+                    "y": -40
                 },
                 "1": {
                     "data": {
@@ -1579,7 +1586,39 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 620,
-                    "y": 124.5
+                    "y": 80
+                },
+                "45": {
+                    "data": {
+                        "advanced": {
+                            "customName": "run query parameters",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 3,
+                        "functionName": "run_query_parameters",
+                        "id": "45",
+                        "inputParameters": [
+                            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings_map.info_min_time",
+                            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings_map.info_max_time",
+                            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object",
+                            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type"
+                        ],
+                        "outputVariables": [
+                            "info_min_time",
+                            "info_max_time",
+                            "normalized_risk_object",
+                            "risk_object_type"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "45",
+                    "type": "code",
+                    "userCode": "\n    # Write your custom code here...\n    phantom.debug(get_finding_or_investigation_1_result_item_0)\n    phantom.debug(get_finding_or_investigation_1_result_item_1)\n    phantom.debug(get_finding_or_investigation_1_result_item_2)\n    phantom.debug(get_finding_or_investigation_1_result_item_3)\n\n",
+                    "warnings": {},
+                    "x": 620,
+                    "y": 200
                 },
                 "5": {
                     "data": {
@@ -1627,7 +1666,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T05:19:22.666204+00:00",
+    "create_time": "2025-06-24T05:28:24.745355+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
