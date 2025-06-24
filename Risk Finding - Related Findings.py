@@ -1060,10 +1060,10 @@ def closed_findings(action=None, success=None, container=None, results=None, han
 
     # parameter list for template variable replacement
     parameters = [
-        "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.rule_name",
-        "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.event_id",
-        "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.status_label",
-        "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.owner"
+        "closed_findings_format:custom_function:closed_finding_rule_name",
+        "closed_findings_format:custom_function:closed_finding_ids",
+        "closed_findings_format:custom_function:closed_finding_status",
+        "closed_findings_format:custom_function:closed_finding_owner"
     ]
 
     ################################################################################
@@ -1249,6 +1249,8 @@ def closed_findings_format(action=None, success=None, container=None, results=No
     phantom.save_block_result(key="closed_findings_format:closed_finding_rule_name", value=json.dumps(closed_findings_format__closed_finding_rule_name))
     phantom.save_block_result(key="closed_findings_format:closed_finding_status", value=json.dumps(closed_findings_format__closed_finding_status))
     phantom.save_block_result(key="closed_findings_format:closed_finding_owner", value=json.dumps(closed_findings_format__closed_finding_owner))
+
+    closed_findings(container=container)
 
     return
 

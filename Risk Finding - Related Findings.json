@@ -169,9 +169,23 @@
                     "sourcePort": "62_out",
                     "targetNode": "72",
                     "targetPort": "72_in"
+                },
+                {
+                    "id": "port_72_to_port_69",
+                    "sourceNode": "72",
+                    "sourcePort": "72_out",
+                    "targetNode": "69",
+                    "targetPort": "69_in"
+                },
+                {
+                    "id": "port_63_to_port_1",
+                    "sourceNode": "63",
+                    "sourcePort": "63_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "06f309b6d79f59bf13d4cd754d307c908b4ec3c2",
+            "hash": "1cf516b773dc0dce5a6c7eaac0db8f3b0f11aee5",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -1570,6 +1584,7 @@
                         },
                         "parameters": {
                             "content": {
+                                "functionId": 3,
                                 "parameters": [
                                     "closed_findings:formatted_data"
                                 ],
@@ -1614,11 +1629,7 @@
                     "errors": {},
                     "id": "63",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 260,
                     "y": 1180
                 },
@@ -1692,10 +1703,10 @@
                         "functionName": "closed_findings",
                         "id": "69",
                         "parameters": [
-                            "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.rule_name",
-                            "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.event_id",
-                            "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.status_label",
-                            "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.owner"
+                            "closed_findings_format:custom_function:closed_finding_rule_name",
+                            "closed_findings_format:custom_function:closed_finding_ids",
+                            "closed_findings_format:custom_function:closed_finding_status",
+                            "closed_findings_format:custom_function:closed_finding_owner"
                         ],
                         "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n",
                         "type": "format"
@@ -1703,14 +1714,7 @@
                     "errors": {},
                     "id": "69",
                     "type": "format",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 240,
                     "y": 940
                 },
@@ -1826,7 +1830,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T04:07:16.500114+00:00",
+    "create_time": "2025-06-24T04:08:28.037935+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
