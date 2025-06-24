@@ -1,0 +1,331 @@
+{
+    "blockly": false,
+    "blockly_xml": "<xml></xml>",
+    "category": "Uncategorized",
+    "coa": {
+        "data": {
+            "description": "",
+            "edges": [
+                {
+                    "id": "port_9_to_port_1",
+                    "sourceNode": "9",
+                    "sourcePort": "9_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                },
+                {
+                    "id": "port_3_to_port_8",
+                    "sourceNode": "3",
+                    "sourcePort": "3_out",
+                    "targetNode": "8",
+                    "targetPort": "8_in"
+                },
+                {
+                    "id": "port_0_to_port_2",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "2",
+                    "targetPort": "2_in"
+                },
+                {
+                    "id": "port_2_to_port_3",
+                    "sourceNode": "2",
+                    "sourcePort": "2_out",
+                    "targetNode": "3",
+                    "targetPort": "3_in"
+                },
+                {
+                    "id": "port_8_to_port_9",
+                    "sourceNode": "8",
+                    "sourcePort": "8_out",
+                    "targetNode": "9",
+                    "targetPort": "9_in"
+                },
+                {
+                    "id": "port_8_to_port_10",
+                    "sourceNode": "8",
+                    "sourcePort": "8_out",
+                    "targetNode": "10",
+                    "targetPort": "10_in"
+                }
+            ],
+            "hash": "41c55b3c0d2278313d3d976bffa5e98076fbc652",
+            "nodes": {
+                "0": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionName": "on_start",
+                        "id": "0",
+                        "type": "start"
+                    },
+                    "errors": {
+                        "input_spec": [
+                            {
+                                "name": "Name is required"
+                            }
+                        ]
+                    },
+                    "id": "0",
+                    "type": "start",
+                    "warnings": {},
+                    "x": 1000,
+                    "y": 119.99999999999983
+                },
+                "1": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionName": "on_finish",
+                        "id": "1",
+                        "type": "end"
+                    },
+                    "errors": {},
+                    "id": "1",
+                    "type": "end",
+                    "warnings": {},
+                    "x": 1000,
+                    "y": 980
+                },
+                "10": {
+                    "data": {
+                        "advanced": {
+                            "customName": "Another dispatch playbooks with DLP tag",
+                            "customNameId": 0,
+                            "description": "Another dispatch playbooks with DLP tag",
+                            "join": [],
+                            "note": "Another dispatch playbooks with DLP tag"
+                        },
+                        "customFunction": {
+                            "draftMode": false,
+                            "name": "noop",
+                            "repoName": "community"
+                        },
+                        "functionId": 1,
+                        "functionName": "another_dispatch_playbooks_with_dlp_tag",
+                        "id": "10",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "type": "utility",
+                        "utilities": {
+                            "noop": {
+                                "description": "Do nothing and return nothing. Use this if you want to do something in a custom function setup section or leave a placeholder block in a playbook. This does not sleep or wait and will return as soon as possible.",
+                                "fields": [],
+                                "label": "noop",
+                                "name": "noop"
+                            }
+                        },
+                        "utilityType": "custom_function",
+                        "values": {
+                            "noop": {}
+                        }
+                    },
+                    "errors": {},
+                    "id": "10",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 1260,
+                    "y": 784.5
+                },
+                "2": {
+                    "data": {
+                        "action": "start investigations",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "start_investigations_1",
+                        "id": "2",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "description": "finding:description",
+                            "disposition": "finding:disposition",
+                            "finding_ids": [
+                                "finding:id"
+                            ],
+                            "investigation_type": "finding:consolidated_findings.investigation_type",
+                            "name": "finding:name",
+                            "owner": "finding:owner",
+                            "sensitivity": "finding:sensitivity",
+                            "status": "finding:status",
+                            "urgency": "finding:urgency"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "name"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "2",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 240
+                },
+                "3": {
+                    "data": {
+                        "action": "get finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "get_finding_or_investigation_2",
+                        "id": "3",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "start_investigations_1:action_result.data.*.id"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "3",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 380
+                },
+                "8": {
+                    "data": {
+                        "advanced": {
+                            "customName": "get playbook name",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "get_playbook_name",
+                        "id": "8",
+                        "inputParameters": [
+                            "get_finding_or_investigation_2:action_result.data.*.response_plans.*.phases.*.tasks.*.suggestions.playbooks.*.playbook_id"
+                        ],
+                        "outputVariables": [
+                            "playbook_name"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "8",
+                    "type": "code",
+                    "userCode": "\n    # Write your custom code here...\n    playbook_name = []\n    for item in get_finding_or_investigation_2_result_item_0:\n        playbook_name.append(item)\n\n    get_playbook_name__playbook_name = playbook_name\n    \n    \n",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 620
+                },
+                "9": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "playbook_dispatch_playbooks_1",
+                        "id": "9",
+                        "inputs": {
+                            "playbook_name": {
+                                "datapaths": [
+                                    "get_playbook_name:custom_function:playbook_name"
+                                ],
+                                "deduplicate": false
+                            },
+                            "playbook_tags": {
+                                "datapaths": [
+                                    "phishing"
+                                ],
+                                "deduplicate": false
+                            }
+                        },
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "playbookName": "dispatch_playbooks",
+                        "playbookRepo": 3,
+                        "playbookRepoName": "boq_dev",
+                        "playbookType": "data",
+                        "synchronous": true,
+                        "type": "playbook"
+                    },
+                    "errors": {},
+                    "id": "9",
+                    "type": "playbook",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 800
+                }
+            },
+            "notes": "",
+            "origin": {
+                "playbook_id": 312,
+                "playbook_name": "Create Investigation",
+                "playbook_repo_id": 2,
+                "playbook_repo_name": "local"
+            }
+        },
+        "input_spec": null,
+        "output_spec": null,
+        "playbook_trigger": "artifact_created",
+        "playbook_type": "es",
+        "python_version": "3.9",
+        "schema": "5.0.17",
+        "version": "6.4.0.85"
+    },
+    "create_time": "2025-06-24T06:00:22.178242+00:00",
+    "draft_mode": false,
+    "labels": [
+        "es_soar_integration"
+    ],
+    "tags": []
+}
