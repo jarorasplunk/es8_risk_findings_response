@@ -1135,11 +1135,11 @@ def open_findings_format(action=None, success=None, container=None, results=None
             "| :--- | :--- | :--- | :--- |\n"
         )
         for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):
-            rule_name = rule_name.replace('\n','')
-            event_id = event_id.replace('\n','')
+            #rule_name = rule_name.replace('\n','')
+            #event_id = event_id.replace('\n','')
             finding_url = "https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=" + event_id
-            status = status.replace('\n','')
-            owner = owner.replace('\n','')
+            #status = status.replace('\n','')
+            #owner = owner.replace('\n','')
             if status != "Closed" or status != "Resolved":
                 note += "|{}|[{}]({})|{}|{}|\n".format(rule_name, event_id, finding_url, status, owner)
 
