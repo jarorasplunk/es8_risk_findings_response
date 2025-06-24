@@ -1230,9 +1230,9 @@ def closed_findings_format(action=None, success=None, container=None, results=No
                 closed_findings_format__closed_finding_status.append(status)
                 closed_findings_format__closed_finding_owner.append(owner)
 
-        closed_findings_format__open_findings_note = note
+        closed_findings_format__closed_findings_note = note
     else:
-        closed_findings_format__open_findings_note = "\n\n**There were no findings that were already closed found in the investigation in last 30 days**\n"    
+        closed_findings_format__closed_findings_note = "\n\n**There were no findings that were already closed found in the investigation in last 30 days**\n"    
 
 
     ################################################################################
