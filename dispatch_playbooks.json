@@ -1,0 +1,325 @@
+{
+    "blockly": false,
+    "blockly_xml": "<xml></xml>",
+    "category": "Utility",
+    "coa": {
+        "data": {
+            "description": "An alternative to the included playbook block that collects indicator type data from the container and routes it to available input playbooks based on provided criteria. It will pair indicator data with the playbook's inputs based on the data type.",
+            "edges": [
+                {
+                    "id": "port_11_to_port_12",
+                    "sourceNode": "11",
+                    "sourcePort": "11_out",
+                    "targetNode": "12",
+                    "targetPort": "12_in"
+                },
+                {
+                    "id": "port_0_to_port_18",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "18",
+                    "targetPort": "18_in"
+                },
+                {
+                    "id": "port_12_to_port_1",
+                    "sourceNode": "12",
+                    "sourcePort": "12_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                },
+                {
+                    "id": "port_18_to_port_23",
+                    "sourceNode": "18",
+                    "sourcePort": "18_out",
+                    "targetNode": "23",
+                    "targetPort": "23_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_0",
+                            "index": 0
+                        },
+                        {
+                            "conditionKey": "condition_key_3",
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_23_to_port_11",
+                    "sourceNode": "23",
+                    "sourcePort": "23_out",
+                    "targetNode": "11",
+                    "targetPort": "11_in"
+                }
+            ],
+            "hash": "64d8d7167a3057087c357460cc70fe7f44444ae9",
+            "nodes": {
+                "0": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionName": "on_start",
+                        "id": "0",
+                        "type": "start"
+                    },
+                    "errors": {},
+                    "id": "0",
+                    "type": "start",
+                    "warnings": {},
+                    "x": 19.999999999999986,
+                    "y": 79.99999999999984
+                },
+                "1": {
+                    "customCode": null,
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "on_finish",
+                        "id": "1",
+                        "type": "end"
+                    },
+                    "errors": {},
+                    "id": "1",
+                    "type": "end",
+                    "userCode": "    \n    # If certain outputs should appear, put those into the End block, but do not \n    # populate them. The process_outputs block will handle passing those outputs \n    # forward if they exist in the child playbooks.\n    \n    # Overwrite output with outputs generated in process_outputs.\n    #process_outputs__data = phantom.get_run_data(key=\"process_outputs:data\")\n    \n    #if process_outputs__data: \n    #    output = json.loads(process_outputs__data)\n    \n",
+                    "warnings": {},
+                    "x": 19.999999999999986,
+                    "y": 980
+                },
+                "11": {
+                    "data": {
+                        "advanced": {
+                            "customName": "dispatch playbooks",
+                            "customNameId": 0,
+                            "description": "Dynamically routes indicator types to playbook inputs based on  playbook input_spec and generates a list of playbook IDs and names to check downstream.",
+                            "join": [],
+                            "note": "Dynamically routes indicator types to playbook inputs based on  playbook input_spec and generates a list of playbook IDs and names to check downstream."
+                        },
+                        "functionId": 2,
+                        "functionName": "dispatch_playbooks",
+                        "id": "11",
+                        "inputParameters": [
+                            "playbook_input:playbook_name"
+                        ],
+                        "outputVariables": [
+                            "names",
+                            "ids"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "11",
+                    "type": "code",
+                    "userCode": "\n\n    playbook_launch_list = {}\n    dispatch_playbooks__names = []\n    dispatch_playbooks__ids = []\n\n    phantom.debug(playbook_input_playbook_name_values)\n    for pb_name in playbook_input_playbook_name_values:\n        playbook_launch_list[pb_name] = pb_name\n\n    if playbook_launch_list:\n        for k,v in playbook_launch_list.items():\n            name = 'playbook_{}'.format(k.split('/')[1].replace(' ','_').lower())\n            dispatch_playbooks__names.append(name)\n            phantom.debug(f\"Launching playbook '{k}'\")\n            dispatch_playbooks__ids.append(phantom.playbook(playbook=k, container=container, name=name, callback=wait_for_playbooks))\n            \n    else:\n        raise RuntimeError(f\"\"\"Unable to find any playbooks in the response plan\"\"\")\n        \n",
+                    "warnings": {},
+                    "x": 1.4210854715202004e-14,
+                    "y": 600
+                },
+                "12": {
+                    "customCode": null,
+                    "data": {
+                        "advanced": {
+                            "customName": "wait for playbooks",
+                            "customNameId": 0,
+                            "description": "Waits for all of the playbooks from the preceding block to finish.",
+                            "join": [],
+                            "note": "Waits for all of the playbooks from the preceding block to finish."
+                        },
+                        "functionId": 3,
+                        "functionName": "wait_for_playbooks",
+                        "id": "12",
+                        "inputParameters": [
+                            "dispatch_playbooks:custom_function:names"
+                        ],
+                        "outputVariables": [],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "12",
+                    "type": "code",
+                    "userCode": "\n    if phantom.completed(playbook_names=dispatch_playbooks__names):\n        #process_outputs(container=container)\n        phantom.debug(\"playbooks have been executed\")\n    # return early to avoid moving to next block\n    return    \n\n",
+                    "warnings": {},
+                    "x": 1.4210854715202004e-14,
+                    "y": 780
+                },
+                "18": {
+                    "data": {
+                        "advanced": {
+                            "customName": "check valid inputs",
+                            "customNameId": 0,
+                            "description": "Check playbook inputs and produce associated errors",
+                            "join": [],
+                            "note": "Check playbook inputs and produce associated errors"
+                        },
+                        "functionId": 1,
+                        "functionName": "check_valid_inputs",
+                        "id": "18",
+                        "inputParameters": [
+                            "playbook_input:playbook_tags",
+                            "playbook_input:playbook_name"
+                        ],
+                        "outputVariables": [],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "18",
+                    "type": "code",
+                    "userCode": "    \n    # Check for at least 1 playbook_tag\n    if not playbook_input_playbook_tags_values or not any(playbook_input_playbook_tags_values):\n        raise ValueError(\"Must provide at least 1 playbook tag value to find available playbooks\")\n    \n    if not playbook_input_playbook_name_values or not any(playbook_input_playbook_name_values):\n        raise ValueError(\"Must provide at least 1 playbook Name to find available playbooks\")\n    \n",
+                    "warnings": {},
+                    "x": 1.4210854715202004e-14,
+                    "y": 200
+                },
+                "23": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "in",
+                                        "param": "phishing",
+                                        "value": "playbook_input:playbook_tags"
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "conditionKey": "condition_key_0",
+                                "customName": "phishing case",
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 1,
+                                        "op": "in",
+                                        "param": "Usecase_DLP",
+                                        "value": "playbook_input:playbook_tags"
+                                    }
+                                ],
+                                "conditionIndex": 1,
+                                "conditionKey": "condition_key_3",
+                                "customName": "DLP case",
+                                "display": "Else If",
+                                "logic": "and",
+                                "type": "elif"
+                            }
+                        ],
+                        "functionId": 3,
+                        "functionName": "decision_3",
+                        "id": "23",
+                        "type": "decision"
+                    },
+                    "errors": {},
+                    "id": "23",
+                    "type": "decision",
+                    "warnings": {},
+                    "x": 80,
+                    "y": 380
+                }
+            },
+            "notes": "- Must have at least one input style playbook in whichever repo you choose for this utility to work.\n- Playbook will error out if community repo is provided to ensure that users do not accidentally launch community input playbooks that have not been configured.\n- Artifact scope will be ignored and playbook will always run with \"all\" scope. If certain artifacts are desired, pass those artifacts in to 'artifact_ids_include.'",
+            "origin": {
+                "playbook_id": 70,
+                "playbook_name": "dispatch_input_playbooks",
+                "playbook_repo_id": 1,
+                "playbook_repo_name": "community"
+            }
+        },
+        "input_spec": [
+            {
+                "contains": [],
+                "description": "Only execute playbooks that contain ALL of the provided tags. Must provide at least 1 tag.",
+                "name": "playbook_tags"
+            },
+            {
+                "contains": [],
+                "description": "Playbook Names to be executed",
+                "name": "playbook_name"
+            }
+        ],
+        "output_spec": [
+            {
+                "contains": [],
+                "datapaths": [],
+                "deduplicate": false,
+                "description": "Contains a playbook verdict that can be used to make a decision.",
+                "metadata": {},
+                "name": "verdict"
+            },
+            {
+                "contains": [],
+                "datapaths": [],
+                "deduplicate": false,
+                "description": "Contains all of the sub playbook outputs per playbook that was launched",
+                "metadata": {},
+                "name": "sub_playbook_outputs"
+            },
+            {
+                "contains": [],
+                "datapaths": [],
+                "deduplicate": false,
+                "description": "Contains all of the sub playbook inputs per playbook that was launched",
+                "metadata": {},
+                "name": "sub_playbook_inputs"
+            },
+            {
+                "contains": [],
+                "datapaths": [],
+                "deduplicate": false,
+                "description": "IDs of playbook runs initiated by this playbook",
+                "metadata": {},
+                "name": "playbook_run_id_list"
+            },
+            {
+                "contains": [],
+                "datapaths": [],
+                "deduplicate": false,
+                "description": "IDs of playbooks initiated by this playbook",
+                "metadata": {},
+                "name": "playbook_id_list"
+            },
+            {
+                "contains": [],
+                "datapaths": [],
+                "deduplicate": false,
+                "description": "Names of playbooks initiated by this playbook",
+                "metadata": {},
+                "name": "playbook_name_list"
+            },
+            {
+                "contains": [],
+                "datapaths": [],
+                "deduplicate": false,
+                "description": "A dictionary containing observable data such as reputation or attributes.",
+                "metadata": {},
+                "name": "observable"
+            },
+            {
+                "contains": [],
+                "datapaths": [],
+                "deduplicate": false,
+                "description": "Contains content that can be used for a note",
+                "metadata": {},
+                "name": "markdown_report"
+            }
+        ],
+        "playbook_trigger": "artifact_created",
+        "playbook_type": "data",
+        "python_version": "3.9",
+        "schema": "5.0.17",
+        "version": "6.4.0.85"
+    },
+    "create_time": "2025-06-24T06:00:41.079015+00:00",
+    "draft_mode": false,
+    "labels": [
+        "*"
+    ],
+    "tags": []
+}
