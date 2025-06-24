@@ -247,15 +247,15 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
 
     content_formatted_string = phantom.format(
         container=container,
-        template="""Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n\n\n\nThere may be other \"Intermediate Findings\" contributing to this investigation, please review them in the Overview tab""",
+        template="""Based on the positive response of the user prompt to close findings, all related findings have been closed in the Analyst Queue with Disposition as \"Closed - As part of investigation\". The context of all those individual findings is available in this investigation.\n\n{0}\n\n\nThere may be other \"Intermediate Findings\" contributing to this investigation, please review them in the Overview tab""",
         parameters=[
-            "included_findings:custom_function:findings_list"
+            "open_findings_1:formatted_data"
         ])
 
     get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
-    included_findings__findings_list = json.loads(_ if (_ := phantom.get_run_data(key="included_findings:findings_list")) != "" else "null")  # pylint: disable=used-before-assignment
+    open_findings_1 = phantom.get_format_data(name="open_findings_1")
 
     parameters = []
 
@@ -919,7 +919,7 @@ def related_findings_status_filter(action=None, success=None, container=None, re
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_1 or matched_results_1:
-        pass
+        open_findings_format(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_1, filtered_results=matched_results_1)
 
     # collect filtered artifact ids and results for 'if' condition 2
     matched_artifacts_2, matched_results_2 = phantom.condition(
@@ -938,8 +938,7 @@ def related_findings_status_filter(action=None, success=None, container=None, re
 
     # call connected blocks if filtered artifacts or results
     if matched_artifacts_2 or matched_results_2:
-        closed_findings(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
-        open_findings_format(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
+        closed_findings_format(action=action, success=success, container=container, results=results, handle=handle, filtered_artifacts=matched_artifacts_2, filtered_results=matched_results_2)
 
     return
 
@@ -1030,10 +1029,10 @@ def open_findings_1(action=None, success=None, container=None, results=None, han
 
     # parameter list for template variable replacement
     parameters = [
-        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.rule_name",
-        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.event_id",
-        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.status_label",
-        "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"
+        "open_findings_format:custom_function:open_finding_rule_name",
+        "open_findings_format:custom_function:open_finding_ids",
+        "open_findings_format:custom_function:open_finding_status",
+        "open_findings_format:custom_function:open_finding_owner"
     ]
 
     ################################################################################
@@ -1177,6 +1176,79 @@ def open_findings_format(action=None, success=None, container=None, results=None
     phantom.save_block_result(key="open_findings_format:open_finding_owner", value=json.dumps(open_findings_format__open_finding_owner))
 
     close_findings_prompt(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def closed_findings_format(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("closed_findings_format() called")
+
+    filtered_result_0_data_related_findings_status_filter = phantom.collect2(container=container, datapath=["filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.rule_name","filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.event_id","filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.status_label","filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.owner"])
+
+    filtered_result_0_data___rule_name = [item[0] for item in filtered_result_0_data_related_findings_status_filter]
+    filtered_result_0_data___event_id = [item[1] for item in filtered_result_0_data_related_findings_status_filter]
+    filtered_result_0_data___status_label = [item[2] for item in filtered_result_0_data_related_findings_status_filter]
+    filtered_result_0_data___owner = [item[3] for item in filtered_result_0_data_related_findings_status_filter]
+
+    closed_findings_format__closed_findings_note = None
+    closed_findings_format__closed_finding_ids = None
+    closed_findings_format__closed_finding_rule_name = None
+    closed_findings_format__closed_finding_status = None
+    closed_findings_format__closed_finding_owner = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    closed_findings_format__closed_finding_ids = []
+    closed_findings_format__closed_finding_rule_name = []
+    closed_findings_format__closed_finding_status = []
+    closed_findings_format__closed_finding_owner = []
+
+    
+    if filtered_result_0_data_related_findings_status_filter:
+        note = (
+            "\n**Below are the list of already closed findings related to this investigation.**\n"
+            "| Rule name | Finding | Status | Owner |\n"
+            "| :--- | :--- | :--- | :--- |\n"
+        )
+        for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):
+            #rule_name = rule_name.replace('\n','')
+            #event_id = event_id.replace('\n','')
+            finding_url = "https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=" + event_id
+            #status = status.replace('\n','')
+            #owner = owner.replace('\n','')
+            if status in ('Closed', 'Resolved'):
+                phantom.debug(finding_url)
+                phantom.debug(status)
+                note += "|{}|[{}]({})|{}|{}|\n".format(rule_name, event_id, finding_url, status, owner)
+                closed_findings_format__closed_finding_ids.append(event_id)
+                closed_findings_format__closed_finding_rule_name.append(rule_name)
+                closed_findings_format__closed_finding_status.append(status)
+                closed_findings_format__closed_finding_owner.append(owner)
+
+        closed_findings_format__open_findings_note = note
+    else:
+        closed_findings_format__open_findings_note = "\n\n**There were no findings that were already closed found in the investigation in last 30 days**\n"    
+
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_block_result(key="closed_findings_format__inputs:0:filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.rule_name", value=json.dumps(filtered_result_0_data___rule_name))
+    phantom.save_block_result(key="closed_findings_format__inputs:1:filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.event_id", value=json.dumps(filtered_result_0_data___event_id))
+    phantom.save_block_result(key="closed_findings_format__inputs:2:filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.status_label", value=json.dumps(filtered_result_0_data___status_label))
+    phantom.save_block_result(key="closed_findings_format__inputs:3:filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.owner", value=json.dumps(filtered_result_0_data___owner))
+
+    phantom.save_block_result(key="closed_findings_format:closed_findings_note", value=json.dumps(closed_findings_format__closed_findings_note))
+    phantom.save_block_result(key="closed_findings_format:closed_finding_ids", value=json.dumps(closed_findings_format__closed_finding_ids))
+    phantom.save_block_result(key="closed_findings_format:closed_finding_rule_name", value=json.dumps(closed_findings_format__closed_finding_rule_name))
+    phantom.save_block_result(key="closed_findings_format:closed_finding_status", value=json.dumps(closed_findings_format__closed_finding_status))
+    phantom.save_block_result(key="closed_findings_format:closed_finding_owner", value=json.dumps(closed_findings_format__closed_finding_owner))
 
     return
 
