@@ -144,25 +144,16 @@ def decision_3(action=None, success=None, container=None, results=None, handle=N
     found_match_1 = phantom.decision(
         container=container,
         conditions=[
-            ["phishing", "in", "playbook_input:playbook_tags"]
+            ["enrichment", "in", "playbook_input:playbook_tags"]
         ],
+        conditions_dps=[
+            ["enrichment", "in", "playbook_input:playbook_tags"]
+        ],
+        name="decision_3:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        dispatch_playbooks(action=action, success=success, container=container, results=results, handle=handle)
-        return
-
-    # check for 'elif' condition 2
-    found_match_2 = phantom.decision(
-        container=container,
-        conditions=[
-            ["Usecase_DLP", "in", "playbook_input:playbook_tags"]
-        ],
-        delimiter=None)
-
-    # call connected blocks if condition 2 matched
-    if found_match_2:
         dispatch_playbooks(action=action, success=success, container=container, results=results, handle=handle)
         return
 

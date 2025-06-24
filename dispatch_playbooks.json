@@ -37,12 +37,8 @@
                 {
                     "conditions": [
                         {
-                            "conditionKey": "condition_key_0",
+                            "conditionKey": "condition_key_1",
                             "index": 0
-                        },
-                        {
-                            "conditionKey": "condition_key_3",
-                            "index": 1
                         }
                     ],
                     "id": "port_23_to_port_11",
@@ -52,7 +48,7 @@
                     "targetPort": "11_in"
                 }
             ],
-            "hash": "64d8d7167a3057087c357460cc70fe7f44444ae9",
+            "hash": "acef3806630700d38a173e264d3a65c83f720e44",
             "nodes": {
                 "0": {
                     "data": {
@@ -68,7 +64,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 19.999999999999986,
-                    "y": 79.99999999999984
+                    "y": 79.99999999999979
                 },
                 "1": {
                     "customCode": null,
@@ -183,32 +179,16 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "in",
-                                        "param": "phishing",
+                                        "param": "enrichment",
                                         "value": "playbook_input:playbook_tags"
                                     }
                                 ],
                                 "conditionIndex": 0,
-                                "conditionKey": "condition_key_0",
-                                "customName": "phishing case",
+                                "conditionKey": "condition_key_1",
+                                "customName": "enrichment",
                                 "display": "If",
                                 "logic": "and",
                                 "type": "if"
-                            },
-                            {
-                                "comparisons": [
-                                    {
-                                        "conditionIndex": 1,
-                                        "op": "in",
-                                        "param": "Usecase_DLP",
-                                        "value": "playbook_input:playbook_tags"
-                                    }
-                                ],
-                                "conditionIndex": 1,
-                                "conditionKey": "condition_key_3",
-                                "customName": "DLP case",
-                                "display": "Else If",
-                                "logic": "and",
-                                "type": "elif"
                             }
                         ],
                         "functionId": 3,
@@ -313,10 +293,10 @@
         "playbook_trigger": "artifact_created",
         "playbook_type": "data",
         "python_version": "3.9",
-        "schema": "5.0.17",
-        "version": "6.4.0.85"
+        "schema": "5.0.20",
+        "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T06:00:41.079015+00:00",
+    "create_time": "2025-06-24T06:08:10.103843+00:00",
     "draft_mode": false,
     "labels": [
         "*"
