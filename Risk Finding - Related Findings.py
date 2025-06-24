@@ -1121,13 +1121,14 @@ def open_findings_format(action=None, success=None, container=None, results=None
     filtered_result_0_data___owner = [item[3] for item in filtered_result_0_data_related_findings_status_filter]
 
     open_findings_format__open_findings_note = None
+    open_findings_format__open_finding_ids = None
 
     ################################################################################
     ## Custom Code Start
     ################################################################################
 
     # Write your custom code here...
-    
+    open_findings_format__open_finding_ids = []
     if filtered_result_0_data_related_findings_status_filter:
         note = (
             "\n**Below are the list of open findings related to this investigation.**\n"
@@ -1142,6 +1143,7 @@ def open_findings_format(action=None, success=None, container=None, results=None
             #owner = owner.replace('\n','')
             if status != "Closed" or status != "Resolved":
                 note += "|{}|[{}]({})|{}|{}|\n".format(rule_name, event_id, finding_url, status, owner)
+                open_findings_format__open_finding_ids.append(event_id)
 
         open_findings_format__open_findings_note = note
     else:
@@ -1158,6 +1160,7 @@ def open_findings_format(action=None, success=None, container=None, results=None
     phantom.save_block_result(key="open_findings_format__inputs:3:filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner", value=json.dumps(filtered_result_0_data___owner))
 
     phantom.save_block_result(key="open_findings_format:open_findings_note", value=json.dumps(open_findings_format__open_findings_note))
+    phantom.save_block_result(key="open_findings_format:open_finding_ids", value=json.dumps(open_findings_format__open_finding_ids))
 
     close_findings_prompt(container=container)
 

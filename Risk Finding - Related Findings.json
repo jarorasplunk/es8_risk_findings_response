@@ -171,7 +171,7 @@
                     "targetPort": "22_in"
                 }
             ],
-            "hash": "d59ff4d6253c031a9b9836dcf49ace720bd096a1",
+            "hash": "707c73a44b784452f98391b975f58f5fbd230eb4",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -1754,14 +1754,15 @@
                             "filtered-data:related_findings_status_filter:condition_1:run_query_1:action_result.data.*.owner"
                         ],
                         "outputVariables": [
-                            "open_findings_note"
+                            "open_findings_note",
+                            "open_finding_ids"
                         ],
                         "type": "code"
                     },
                     "errors": {},
                     "id": "71",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    \n    if filtered_result_0_data_related_findings_status_filter:\n        note = (\n            \"\\n**Below are the list of open findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n        for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):\n            #rule_name = rule_name.replace('\\n','')\n            #event_id = event_id.replace('\\n','')\n            finding_url = \"https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=\" + event_id\n            #status = status.replace('\\n','')\n            #owner = owner.replace('\\n','')\n            if status != \"Closed\" or status != \"Resolved\":\n                note += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n\n        open_findings_format__open_findings_note = note\n    else:\n        open_findings_format__open_findings_note = \"\\n\\n**No open findings found in the investigation in last 30 days**\\n\"    \n\n\n",
+                    "userCode": "\n    # Write your custom code here...\n    open_findings_format__open_finding_ids = []\n    if filtered_result_0_data_related_findings_status_filter:\n        note = (\n            \"\\n**Below are the list of open findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n        for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):\n            #rule_name = rule_name.replace('\\n','')\n            #event_id = event_id.replace('\\n','')\n            finding_url = \"https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=\" + event_id\n            #status = status.replace('\\n','')\n            #owner = owner.replace('\\n','')\n            if status != \"Closed\" or status != \"Resolved\":\n                note += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                open_findings_format__open_finding_ids.append(event_id)\n\n        open_findings_format__open_findings_note = note\n    else:\n        open_findings_format__open_findings_note = \"\\n\\n**No open findings found in the investigation in last 30 days**\\n\"    \n\n\n",
                     "warnings": {},
                     "x": 620,
                     "y": 800
@@ -1777,7 +1778,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T02:41:44.473356+00:00",
+    "create_time": "2025-06-24T03:36:19.729268+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
