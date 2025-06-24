@@ -125,13 +125,6 @@
                     "targetPort": "27_in"
                 },
                 {
-                    "id": "port_72_to_port_69",
-                    "sourceNode": "72",
-                    "sourcePort": "72_out",
-                    "targetNode": "69",
-                    "targetPort": "69_in"
-                },
-                {
                     "id": "port_63_to_port_1",
                     "sourceNode": "63",
                     "sourcePort": "63_out",
@@ -164,9 +157,16 @@
                     "sourcePort": "50_out",
                     "targetNode": "71",
                     "targetPort": "71_in"
+                },
+                {
+                    "id": "port_71_to_port_69",
+                    "sourceNode": "71",
+                    "sourcePort": "71_out",
+                    "targetNode": "69",
+                    "targetPort": "69_in"
                 }
             ],
-            "hash": "c0e3ede92cd33081ede65f0724729b5e79b385f2",
+            "hash": "10c017cba3d224985e985d8433152fc202992565",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -205,7 +205,7 @@
                     "type": "end",
                     "warnings": {},
                     "x": 2040,
-                    "y": 2550
+                    "y": 2518
                 },
                 "13": {
                     "data": {
@@ -359,8 +359,8 @@
                     "id": "22",
                     "type": "prompt",
                     "warnings": {},
-                    "x": 1840,
-                    "y": 1380
+                    "x": 1850,
+                    "y": 1242
                 },
                 "23": {
                     "data": {
@@ -480,8 +480,8 @@
                     "id": "26",
                     "type": "decision",
                     "warnings": {},
-                    "x": 1920,
-                    "y": 1500
+                    "x": 1930,
+                    "y": 1404
                 },
                 "27": {
                     "data": {
@@ -557,7 +557,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 1850,
-                    "y": 2240
+                    "y": 2208
                 },
                 "31": {
                     "data": {
@@ -614,7 +614,7 @@
                     "type": "enterpriseSecurity",
                     "warnings": {},
                     "x": 1850,
-                    "y": 2388
+                    "y": 2356
                 },
                 "32": {
                     "data": {
@@ -1473,7 +1473,7 @@
                     "userCode": "\n    # Write your custom code here...\n    \n\n",
                     "warnings": {},
                     "x": 1850,
-                    "y": 1764
+                    "y": 1732
                 },
                 "63": {
                     "data": {
@@ -1549,13 +1549,9 @@
                     "errors": {},
                     "id": "63",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 2190,
-                    "y": 2395
+                    "y": 2363
                 },
                 "64": {
                     "data": {
@@ -1614,7 +1610,7 @@
                     "type": "format",
                     "warnings": {},
                     "x": 1850,
-                    "y": 2092
+                    "y": 2060
                 },
                 "69": {
                     "data": {
@@ -1627,10 +1623,10 @@
                         "functionName": "closed_findings",
                         "id": "69",
                         "parameters": [
-                            "closed_findings_format:custom_function:closed_finding_rule_name",
-                            "closed_findings_format:custom_function:closed_finding_ids",
-                            "closed_findings_format:custom_function:closed_finding_status",
-                            "closed_findings_format:custom_function:closed_finding_owner"
+                            "findings_status_eval:custom_function:closed_finding_rule_name",
+                            "findings_status_eval:custom_function:closed_finding_ids",
+                            "findings_status_eval:custom_function:closed_finding_status",
+                            "findings_status_eval:custom_function:closed_finding_owner"
                         ],
                         "template": "| Detection | Finding | Status | Owner |\n| --- | --- | --- | --- |\n%%\n| {0} | [{1}](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&search={1}) | {2} | {3} |\n%%\n",
                         "type": "format"
@@ -1640,7 +1636,7 @@
                     "type": "format",
                     "warnings": {},
                     "x": 2190,
-                    "y": 2240
+                    "y": 2208
                 },
                 "70": {
                     "data": {
@@ -1675,7 +1671,7 @@
                     "type": "decision",
                     "warnings": {},
                     "x": 1930,
-                    "y": 1912
+                    "y": 1880
                 },
                 "71": {
                     "data": {
@@ -1713,47 +1709,7 @@
                     "userCode": "\n    # Write your custom code here...\n\n    findings_status_eval__open_finding_ids = []\n    findings_status_eval__open_finding_rule_name = []\n    findings_status_eval__open_finding_status = []\n    findings_status_eval__open_finding_owner = []\n    \n    findings_status_eval__closed_finding_ids = []\n    findings_status_eval__closed_finding_rule_name = []\n    findings_status_eval__closed_finding_status = []\n    findings_status_eval__closed_finding_owner = []\n\n\n    if run_query_1_result_data:\n        note_open = (\n            \"\\n**Below are the list of open findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n        note_closed = (\n            \"\\n**Below are the list of already findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n\n        for rule_name,event_id,status,owner in zip(run_query_1_result_item_0,run_query_1_result_item_1,run_query_1_result_item_2,run_query_1_result_item_3):\n            #rule_name = rule_name.replace('\\n','')\n            #event_id = event_id.replace('\\n','')\n            finding_url = \"https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=\" + event_id\n            #status = status.replace('\\n','')\n            #owner = owner.replace('\\n','')\n            if status not in ('Closed', 'Resolved'):\n                note_open += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                findings_status_eval__open_finding_ids.append(event_id)\n                findings_status_eval__open_finding_rule_name.append(rule_name)\n                findings_status_eval__open_finding_status.append(status)\n                findings_status_eval__open_finding_owner.append(owner)\n            if status in ('Closed', 'Resolved'):\n                note_closed += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                findings_status_eval__closed_finding_ids.append(event_id)\n                findings_status_eval__closed_finding_rule_name.append(rule_name)\n                findings_status_eval__closed_finding_status.append(status)\n                findings_status_eval__closed_finding_owner.append(owner)\n\n        findings_status_eval__open_findings_note = note_open\n        findings_status_eval__closed_findings_note = note_closed\n        \n    else:\n        findings_status_eval__open_findings_note = \"\\n\\n**No open findings found in the investigation in last 30 days**\\n\"    \n        findings_status_eval__closed_findings_note = \"\\n\\n**No closed findings found in the investigation in last 30 days**\\n\"    \n\n\n",
                     "warnings": {},
                     "x": 2020,
-                    "y": 1160
-                },
-                "72": {
-                    "data": {
-                        "advanced": {
-                            "customName": "closed_findings_format",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "functionId": 4,
-                        "functionName": "closed_findings_format",
-                        "id": "72",
-                        "inputParameters": [
-                            "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.rule_name",
-                            "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.event_id",
-                            "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.status_label",
-                            "filtered-data:related_findings_status_filter:condition_2:run_query_1:action_result.data.*.owner"
-                        ],
-                        "outputVariables": [
-                            "closed_findings_note",
-                            "closed_finding_ids",
-                            "closed_finding_rule_name",
-                            "closed_finding_status",
-                            "closed_finding_owner"
-                        ],
-                        "type": "code"
-                    },
-                    "errors": {},
-                    "id": "72",
-                    "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n\n    closed_findings_format__closed_finding_ids = []\n    closed_findings_format__closed_finding_rule_name = []\n    closed_findings_format__closed_finding_status = []\n    closed_findings_format__closed_finding_owner = []\n\n    \n    if filtered_result_0_data_related_findings_status_filter:\n        note = (\n            \"\\n**Below are the list of already closed findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n        for rule_name,event_id,status,owner in zip(filtered_result_0_data___rule_name,filtered_result_0_data___event_id,filtered_result_0_data___status_label,filtered_result_0_data___owner):\n            #rule_name = rule_name.replace('\\n','')\n            #event_id = event_id.replace('\\n','')\n            finding_url = \"https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=\" + event_id\n            #status = status.replace('\\n','')\n            #owner = owner.replace('\\n','')\n            if status in ('Closed', 'Resolved'):\n                phantom.debug(finding_url)\n                phantom.debug(status)\n                note += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                closed_findings_format__closed_finding_ids.append(event_id)\n                closed_findings_format__closed_finding_rule_name.append(rule_name)\n                closed_findings_format__closed_finding_status.append(status)\n                closed_findings_format__closed_finding_owner.append(owner)\n\n        closed_findings_format__closed_findings_note = note\n    else:\n        closed_findings_format__closed_findings_note = \"\\n\\n**There were no findings that were already closed found in the investigation in last 30 days**\\n\"    \n\n\n",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 2190,
-                    "y": 2092
+                    "y": 1094
                 },
                 "73": {
                     "data": {
@@ -1813,8 +1769,8 @@
                     "id": "73",
                     "type": "utility",
                     "warnings": {},
-                    "x": 1840,
-                    "y": 1644.5
+                    "x": 1850,
+                    "y": 1584
                 }
             },
             "notes": ""
@@ -1827,7 +1783,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T04:34:44.179668+00:00",
+    "create_time": "2025-06-24T04:36:48.406052+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
