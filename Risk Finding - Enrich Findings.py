@@ -1262,6 +1262,8 @@ def run_query_parameters(action=None, success=None, container=None, results=None
 
     # Write your custom code here...
     phantom.debug(get_finding_or_investigation_1_result_item_0)
+    info_min_time = list(get_finding_or_investigation_1_result_item_0[0].keys())[0]
+    phantom.debug(info_min_time)
     phantom.debug(get_finding_or_investigation_1_result_item_1)
     phantom.debug(get_finding_or_investigation_1_result_item_2)
     phantom.debug(get_finding_or_investigation_1_result_item_3)
