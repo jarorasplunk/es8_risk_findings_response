@@ -12,8 +12,8 @@ from datetime import datetime, timedelta
 def on_start(container):
     phantom.debug('on_start() called')
 
-    # call 'refresh_finding_or_investigation_1' block
-    refresh_finding_or_investigation_1(container=container)
+    # call 'get_finding_or_investigation_1' block
+    get_finding_or_investigation_1(container=container)
 
     return
 
@@ -43,6 +43,8 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
             parameters.append({
                 "query": query_formatted_string,
                 "command": "| from ",
+                "search_mode": "smart",
+                "add_raw_field": True,
             })
 
     ################################################################################
@@ -55,7 +57,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["splunk"], callback=run_query_decision)
+    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["es"], callback=run_query_decision)
 
     return
 
@@ -70,6 +72,10 @@ def run_query_decision(action=None, success=None, container=None, results=None, 
         conditions=[
             ["run_query_1:action_result.summary.total_events", ">", 0]
         ],
+        conditions_dps=[
+            ["run_query_1:action_result.summary.total_events", ">", 0]
+        ],
+        name="run_query_decision:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
@@ -185,7 +191,12 @@ def mitre_format_findings(action=None, success=None, container=None, results=Non
     ## Custom Code End
     ################################################################################
 
-    phantom.save_run_data(key="mitre_format_findings:output", value=json.dumps(mitre_format_findings__output))
+    phantom.save_block_result(key="mitre_format_findings__inputs:0:run_query_1:action_result.data.*.mitre_tactic", value=json.dumps(run_query_1_result_item_0))
+    phantom.save_block_result(key="mitre_format_findings__inputs:1:run_query_1:action_result.data.*.mitre_technique", value=json.dumps(run_query_1_result_item_1))
+    phantom.save_block_result(key="mitre_format_findings__inputs:2:run_query_1:action_result.data.*.mitre_technique_id", value=json.dumps(run_query_1_result_item_2))
+    phantom.save_block_result(key="mitre_format_findings__inputs:3:run_query_1:action_result.data.*.risk_message", value=json.dumps(run_query_1_result_item_3))
+
+    phantom.save_block_result(key="mitre_format_findings:output", value=json.dumps(mitre_format_findings__output))
 
     add_task_note_1(container=container)
 
@@ -202,6 +213,10 @@ def decision_3(action=None, success=None, container=None, results=None, handle=N
         conditions=[
             ["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type", "==", "user"]
         ],
+        conditions_dps=[
+            ["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type", "==", "user"]
+        ],
+        name="decision_3:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
@@ -215,6 +230,10 @@ def decision_3(action=None, success=None, container=None, results=None, handle=N
         conditions=[
             ["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type", "==", "system"]
         ],
+        conditions_dps=[
+            ["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type", "==", "system"]
+        ],
+        name="decision_3:condition_2",
         delimiter=None)
 
     # call connected blocks if condition 2 matched
@@ -231,17 +250,17 @@ def get_phase_id_1(action=None, success=None, container=None, results=None, hand
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.name","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.name","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'get_phase_id_1' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
-        if refresh_finding_or_investigation_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
             parameters.append({
-                "id": refresh_finding_or_investigation_1_result_item[0],
+                "id": get_finding_or_investigation_1_result_item[0],
                 "phase_name": "Preprocess",
-                "response_template_name": refresh_finding_or_investigation_1_result_item[1],
+                "response_template_name": get_finding_or_investigation_1_result_item[1],
             })
 
     ################################################################################
@@ -265,18 +284,18 @@ def get_task_id_1(action=None, success=None, container=None, results=None, handl
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.name","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.name","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'get_task_id_1' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
-        if refresh_finding_or_investigation_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        if get_finding_or_investigation_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
             parameters.append({
-                "id": refresh_finding_or_investigation_1_result_item[0],
+                "id": get_finding_or_investigation_1_result_item[0],
                 "task_name": "Enrich findings",
                 "phase_name": "Preprocess",
-                "response_template_name": refresh_finding_or_investigation_1_result_item[1],
+                "response_template_name": get_finding_or_investigation_1_result_item[1],
             })
 
     ################################################################################
@@ -376,7 +395,7 @@ def asset_get_attributes_1(action=None, success=None, container=None, results=No
     parameters = []
 
     parameters.append({
-        "asset": "splunk",
+        "asset": "es",
     })
 
     ################################################################################
@@ -402,9 +421,9 @@ def join_update_task_in_current_phase_1(action=None, success=None, container=Non
     if phantom.get_run_data(key="join_update_task_in_current_phase_1_called"):
         return
 
-    if phantom.completed(action_names=["add_task_note_1", "add_task_note_5", "add_task_note_6"]):
+    if phantom.completed(code_names=["finding_threat_objects", "int_findings_threat_objects"], action_names=["add_task_note_6"]):
         # save the state that the joined function has now been called
-        phantom.save_run_data(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
+        phantom.save_block_result(key="join_update_task_in_current_phase_1_called", value="update_task_in_current_phase_1")
 
         # call connected block "update_task_in_current_phase_1"
         update_task_in_current_phase_1(container=container, handle=handle)
@@ -661,38 +680,6 @@ def add_task_note_4(action=None, success=None, container=None, results=None, han
 
 
 @phantom.playbook_block()
-def refresh_finding_or_investigation_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("refresh_finding_or_investigation_1() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
-
-    parameters = []
-
-    # build parameters list for 'refresh_finding_or_investigation_1' call
-    for finding_data_item in finding_data:
-        if finding_data_item[0] is not None:
-            parameters.append({
-                "id": finding_data_item[0],
-            })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("refresh finding or investigation", parameters=parameters, name="refresh_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=get_phase_id_1)
-
-    return
-
-
-@phantom.playbook_block()
 def decision_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("decision_2() called")
 
@@ -702,6 +689,10 @@ def decision_2(action=None, success=None, container=None, results=None, handle=N
         conditions=[
             ["finding_threat_objects:custom_function:threat_object", "is not empty"]
         ],
+        conditions_dps=[
+            ["finding_threat_objects:custom_function:threat_object", "is not empty"]
+        ],
+        name="decision_2:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
@@ -723,8 +714,12 @@ def decision_4(action=None, success=None, container=None, results=None, handle=N
     found_match_1 = phantom.decision(
         container=container,
         conditions=[
-            ["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.count_findings", "!=", 0]
+            ["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.count_findings", "!=", 0]
         ],
+        conditions_dps=[
+            ["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.count_findings", "!=", 0]
+        ],
+        name="decision_4:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
@@ -765,6 +760,7 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
                 "query": query_formatted_string,
                 "command": "| from ",
                 "search_mode": "smart",
+                "add_raw_field": True,
             })
 
     ################################################################################
@@ -777,7 +773,7 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_2", assets=["splunk"], callback=mitre_format_int_findings)
+    phantom.act("run query", parameters=parameters, name="run_query_2", assets=["es"], callback=mitre_format_int_findings)
 
     return
 
@@ -889,7 +885,12 @@ def mitre_format_int_findings(action=None, success=None, container=None, results
     ## Custom Code End
     ################################################################################
 
-    phantom.save_run_data(key="mitre_format_int_findings:output", value=json.dumps(mitre_format_int_findings__output))
+    phantom.save_block_result(key="mitre_format_int_findings__inputs:0:run_query_2:action_result.data.*.mitre_tactic", value=json.dumps(run_query_2_result_item_0))
+    phantom.save_block_result(key="mitre_format_int_findings__inputs:1:run_query_2:action_result.data.*.mitre_technique", value=json.dumps(run_query_2_result_item_1))
+    phantom.save_block_result(key="mitre_format_int_findings__inputs:2:run_query_2:action_result.data.*.mitre_technique_id", value=json.dumps(run_query_2_result_item_2))
+    phantom.save_block_result(key="mitre_format_int_findings__inputs:3:run_query_2:action_result.data.*.risk_message", value=json.dumps(run_query_2_result_item_3))
+
+    phantom.save_block_result(key="mitre_format_int_findings:output", value=json.dumps(mitre_format_int_findings__output))
 
     add_task_note_5(container=container)
 
@@ -969,6 +970,10 @@ def decision_5(action=None, success=None, container=None, results=None, handle=N
         conditions=[
             ["int_findings_threat_objects:custom_function:threat_object", "is not empty"]
         ],
+        conditions_dps=[
+            ["int_findings_threat_objects:custom_function:threat_object", "is not empty"]
+        ],
+        name="decision_5:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
@@ -1105,8 +1110,11 @@ def int_findings_threat_objects(action=None, success=None, container=None, resul
     ## Custom Code End
     ################################################################################
 
-    phantom.save_run_data(key="int_findings_threat_objects:threat_object", value=json.dumps(int_findings_threat_objects__threat_object))
-    phantom.save_run_data(key="int_findings_threat_objects:threat_object_type", value=json.dumps(int_findings_threat_objects__threat_object_type))
+    phantom.save_block_result(key="int_findings_threat_objects__inputs:0:run_query_2:action_result.data.*.threat_object", value=json.dumps(run_query_2_result_item_0))
+    phantom.save_block_result(key="int_findings_threat_objects__inputs:1:run_query_2:action_result.data.*.threat_object_type", value=json.dumps(run_query_2_result_item_1))
+
+    phantom.save_block_result(key="int_findings_threat_objects:threat_object", value=json.dumps(int_findings_threat_objects__threat_object))
+    phantom.save_block_result(key="int_findings_threat_objects:threat_object_type", value=json.dumps(int_findings_threat_objects__threat_object_type))
 
     decision_5(container=container)
 
@@ -1188,10 +1196,46 @@ def finding_threat_objects(action=None, success=None, container=None, results=No
     ## Custom Code End
     ################################################################################
 
-    phantom.save_run_data(key="finding_threat_objects:threat_object", value=json.dumps(finding_threat_objects__threat_object))
-    phantom.save_run_data(key="finding_threat_objects:threat_object_type", value=json.dumps(finding_threat_objects__threat_object_type))
+    phantom.save_block_result(key="finding_threat_objects__inputs:0:run_query_1:action_result.data.*.threat_object", value=json.dumps(run_query_1_result_item_0))
+    phantom.save_block_result(key="finding_threat_objects__inputs:1:run_query_1:action_result.data.*.threat_object_type", value=json.dumps(run_query_1_result_item_1))
+
+    phantom.save_block_result(key="finding_threat_objects:threat_object", value=json.dumps(finding_threat_objects__threat_object))
+    phantom.save_block_result(key="finding_threat_objects:threat_object_type", value=json.dumps(finding_threat_objects__threat_object_type))
 
     decision_2(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def get_finding_or_investigation_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_finding_or_investigation_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    finding_data = phantom.collect2(container=container, datapath=["finding:investigation_id"])
+
+    parameters = []
+
+    # build parameters list for 'get_finding_or_investigation_1' call
+    for finding_data_item in finding_data:
+        if finding_data_item[0] is not None:
+            parameters.append({
+                "id": finding_data_item[0],
+                "map_consolidated_findings": 1,
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("get finding or investigation", parameters=parameters, name="get_finding_or_investigation_1", assets=["builtin_mc_connector"], callback=get_phase_id_1)
 
     return
 

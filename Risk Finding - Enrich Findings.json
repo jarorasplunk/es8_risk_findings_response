@@ -44,6 +44,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_2",
                             "index": 0
                         }
                     ],
@@ -56,6 +57,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_3",
                             "index": 1
                         }
                     ],
@@ -108,22 +110,9 @@
                     "targetPort": "20_in"
                 },
                 {
-                    "id": "port_0_to_port_29",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "29",
-                    "targetPort": "29_in"
-                },
-                {
-                    "id": "port_29_to_port_16",
-                    "sourceNode": "29",
-                    "sourcePort": "29_out",
-                    "targetNode": "16",
-                    "targetPort": "16_in"
-                },
-                {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_4",
                             "index": 0
                         }
                     ],
@@ -136,6 +125,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_5",
                             "index": 1
                         }
                     ],
@@ -148,6 +138,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_6",
                             "index": 0
                         }
                     ],
@@ -160,6 +151,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_7",
                             "index": 1
                         }
                     ],
@@ -179,6 +171,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_1",
                             "index": 0
                         }
                     ],
@@ -205,6 +198,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_9",
                             "index": 1
                         }
                     ],
@@ -238,6 +232,7 @@
                 {
                     "conditions": [
                         {
+                            "conditionKey": "condition_key_8",
                             "index": 0
                         }
                     ],
@@ -274,9 +269,23 @@
                     "sourcePort": "43_out",
                     "targetNode": "30",
                     "targetPort": "30_in"
+                },
+                {
+                    "id": "port_0_to_port_44",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "44",
+                    "targetPort": "44_in"
+                },
+                {
+                    "id": "port_44_to_port_16",
+                    "sourceNode": "44",
+                    "sourcePort": "44_out",
+                    "targetNode": "16",
+                    "targetPort": "16_in"
                 }
             ],
-            "hash": "4d5a63015a8bb12930460bcccdc346e12aa02261",
+            "hash": "4a8ab5ef651d444776ff7e57ec94b0a7cccb8a30",
             "nodes": {
                 "0": {
                     "data": {
@@ -298,7 +307,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 630,
-                    "y": -8.881784197001252e-14
+                    "y": -1.5276668818842154e-13
                 },
                 "1": {
                     "data": {
@@ -332,6 +341,7 @@
                                     }
                                 ],
                                 "conditionIndex": 0,
+                                "conditionKey": "condition_key_2",
                                 "customName": "user",
                                 "display": "If",
                                 "logic": "and",
@@ -347,6 +357,7 @@
                                     }
                                 ],
                                 "conditionIndex": 1,
+                                "conditionKey": "condition_key_3",
                                 "customName": "system",
                                 "display": "Else If",
                                 "logic": "and",
@@ -361,7 +372,11 @@
                     "errors": {},
                     "id": "12",
                     "type": "decision",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 250,
                     "y": 1584
                 },
@@ -391,9 +406,9 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_name": "Preprocess",
-                            "response_template_name": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.name"
+                            "response_template_name": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.name"
                         },
                         "requiredParameters": [
                             {
@@ -444,9 +459,9 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_name": "Preprocess",
-                            "response_template_name": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.name",
+                            "response_template_name": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.name",
                             "task_name": "Enrich findings"
                         },
                         "requiredParameters": [
@@ -560,7 +575,11 @@
                     "errors": {},
                     "id": "18",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 1130,
                     "y": 1434
                 },
@@ -612,7 +631,7 @@
                         "utilityType": "custom_function",
                         "values": {
                             "asset_get_attributes": {
-                                "asset": "splunk"
+                                "asset": "es"
                             }
                         }
                     },
@@ -632,7 +651,7 @@
                         },
                         "connector": "Splunk",
                         "connectorConfigs": [
-                            "splunk"
+                            "es"
                         ],
                         "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
                         "connectorVersion": "v1",
@@ -649,6 +668,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
+                            "add_raw_field": true,
                             "command": "| from ",
                             "query": {
                                 "functionId": 1,
@@ -659,17 +679,13 @@
                                     "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type"
                                 ],
                                 "template": "datamodel Risk.All_Risk \n| search [ | tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1} by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index\n| `get_mitre_annotations`\n| rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type\n| `generate_findings_summary`\n| stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)`\n| `dedup_and_compute_common_fbd_fields`, threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type), num_mitre_techniques=mvcount('annotations.mitre_attack'), annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack')\n| fillnull value=0 num_mitre_techniques, mitre_tactic_id_count, mitre_technique_id_count, total_event_count, risk_score\n| fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids\n| `drop_dm_object_name(\"All_Risk\")`\n| where normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n| where num_mitre_techniques>3 OR risk_score>100 OR total_event_count>5\n| eval all_finding_ids=mvdedup(finding_ids)\n| fields all_finding_ids\n| mvexpand all_finding_ids\n| rename all_finding_ids AS source_event_id ]\n| rename annotations.mitre_attack.mitre_tactic as mitre_tactic, annotations.mitre_attack.mitre_technique as mitre_technique, annotations.mitre_attack.mitre_technique_id as mitre_technique_id\n| fields mitre_tactic, mitre_technique, mitre_technique_id, risk_message, threat_object, threat_object_type, threat_match_value, threat_match_field"
-                            }
+                            },
+                            "search_mode": "smart"
                         },
                         "requiredParameters": [
                             {
                                 "data_type": "string",
                                 "field": "query"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "search",
-                                "field": "command"
                             }
                         ],
                         "type": "action"
@@ -732,7 +748,11 @@
                     "errors": {},
                     "id": "20",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 680,
                     "y": 2596
                 },
@@ -755,7 +775,11 @@
                     "errors": {},
                     "id": "22",
                     "type": "format",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 0,
                     "y": 1764
                 },
@@ -778,7 +802,11 @@
                     "errors": {},
                     "id": "23",
                     "type": "format",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 340,
                     "y": 1764
                 },
@@ -848,7 +876,11 @@
                     "errors": {},
                     "id": "24",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 340,
                     "y": 1914
                 },
@@ -918,7 +950,11 @@
                     "errors": {},
                     "id": "25",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 0,
                     "y": 1914
                 },
@@ -1013,52 +1049,13 @@
                     "errors": {},
                     "id": "28",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 940,
                     "y": 2460
-                },
-                "29": {
-                    "data": {
-                        "action": "refresh finding or investigation",
-                        "actionType": "get",
-                        "advanced": {
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": 191,
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "refresh_finding_or_investigation_1",
-                        "id": "29",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "id": "finding:investigation_id"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "id"
-                            }
-                        ],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "29",
-                    "type": "enterpriseSecurity",
-                    "warnings": {},
-                    "x": 610,
-                    "y": 149.99999999999991
                 },
                 "30": {
                     "data": {
@@ -1075,6 +1072,7 @@
                                     }
                                 ],
                                 "conditionIndex": 0,
+                                "conditionKey": "condition_key_4",
                                 "customName": "threat objects",
                                 "display": "If",
                                 "logic": "and",
@@ -1090,6 +1088,7 @@
                                     }
                                 ],
                                 "conditionIndex": 1,
+                                "conditionKey": "condition_key_5",
                                 "customName": "no threat objects",
                                 "display": "Else",
                                 "logic": "and",
@@ -1119,11 +1118,12 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "!=",
-                                        "param": "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.count_findings",
+                                        "param": "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.count_findings",
                                         "value": "0"
                                     }
                                 ],
                                 "conditionIndex": 0,
+                                "conditionKey": "condition_key_6",
                                 "customName": "findings",
                                 "display": "If",
                                 "logic": "and",
@@ -1132,12 +1132,14 @@
                             {
                                 "comparisons": [
                                     {
+                                        "conditionIndex": 1,
                                         "op": "==",
                                         "param": "",
                                         "value": ""
                                     }
                                 ],
                                 "conditionIndex": 1,
+                                "conditionKey": "condition_key_7",
                                 "customName": "intermediate findings",
                                 "display": "Else",
                                 "logic": "and",
@@ -1165,7 +1167,7 @@
                         },
                         "connector": "Splunk",
                         "connectorConfigs": [
-                            "splunk"
+                            "es"
                         ],
                         "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
                         "connectorVersion": "v1",
@@ -1182,6 +1184,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
+                            "add_raw_field": true,
                             "command": "| from ",
                             "query": {
                                 "functionId": 2,
@@ -1199,16 +1202,6 @@
                             {
                                 "data_type": "string",
                                 "field": "query"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "search",
-                                "field": "command"
-                            },
-                            {
-                                "data_type": "string",
-                                "default": "smart",
-                                "field": "search_mode"
                             }
                         ],
                         "type": "action"
@@ -1333,7 +1326,11 @@
                     "errors": {},
                     "id": "37",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 770,
                     "y": 1434
                 },
@@ -1354,6 +1351,7 @@
                                     }
                                 ],
                                 "conditionIndex": 0,
+                                "conditionKey": "condition_key_8",
                                 "customName": "threat objects",
                                 "display": "If",
                                 "logic": "and",
@@ -1369,6 +1367,7 @@
                                     }
                                 ],
                                 "conditionIndex": 1,
+                                "conditionKey": "condition_key_9",
                                 "customName": "no threat objects",
                                 "display": "Else",
                                 "logic": "and",
@@ -1429,6 +1428,7 @@
                                     }
                                 ],
                                 "conditionIndex": 0,
+                                "conditionKey": "condition_key_1",
                                 "customName": "splunk results exist",
                                 "display": "If",
                                 "logic": "and",
@@ -1513,7 +1513,11 @@
                     "errors": {},
                     "id": "40",
                     "type": "enterpriseSecurity",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ]
+                    },
                     "x": 580,
                     "y": 2460
                 },
@@ -1573,6 +1577,50 @@
                     "x": 1140,
                     "y": 1560
                 },
+                "44": {
+                    "data": {
+                        "action": "get finding or investigation",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "get_finding_or_investigation_1",
+                        "id": "44",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "id": "finding:investigation_id",
+                            "map_consolidated_findings": "1"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "44",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 620,
+                    "y": 124.5
+                },
                 "5": {
                     "data": {
                         "advanced": {
@@ -1615,11 +1663,11 @@
         "output_spec": null,
         "playbook_trigger": "artifact_created",
         "playbook_type": "es",
-        "python_version": "3",
-        "schema": "5.0.15",
-        "version": "6.3.1.176"
+        "python_version": "3.9",
+        "schema": "5.0.20",
+        "version": "6.4.1.361"
     },
-    "create_time": "2024-12-11T05:52:47.001764+00:00",
+    "create_time": "2025-06-24T04:54:28.920253+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
