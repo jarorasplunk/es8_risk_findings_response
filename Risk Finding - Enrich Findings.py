@@ -27,18 +27,18 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
         container=container,
         template="""datamodel Risk.All_Risk \n| search [ | tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1} by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index\n| `get_mitre_annotations`\n| rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type\n| `generate_findings_summary`\n| stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)`\n| `dedup_and_compute_common_fbd_fields`, threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type), num_mitre_techniques=mvcount('annotations.mitre_attack'), annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack')\n| fillnull value=0 num_mitre_techniques, mitre_tactic_id_count, mitre_technique_id_count, total_event_count, risk_score\n| fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids\n| `drop_dm_object_name(\"All_Risk\")`\n| where normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n| where num_mitre_techniques>3 OR risk_score>100 OR total_event_count>5\n| eval all_finding_ids=mvdedup(finding_ids)\n| fields all_finding_ids\n| mvexpand all_finding_ids\n| rename all_finding_ids AS source_event_id ]\n| rename annotations.mitre_attack.mitre_tactic as mitre_tactic, annotations.mitre_attack.mitre_technique as mitre_technique, annotations.mitre_attack.mitre_technique_id as mitre_technique_id\n| fields mitre_tactic, mitre_technique, mitre_technique_id, risk_message, threat_object, threat_object_type, threat_match_value, threat_match_field""",
         parameters=[
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type"
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_min_time",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_max_time",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type"
         ])
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_min_time","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_max_time","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'run_query_1' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         if query_formatted_string is not None:
             parameters.append({
                 "query": query_formatted_string,
@@ -211,10 +211,10 @@ def decision_3(action=None, success=None, container=None, results=None, handle=N
     found_match_1 = phantom.decision(
         container=container,
         conditions=[
-            ["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type", "==", "user"]
+            ["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type", "==", "user"]
         ],
         conditions_dps=[
-            ["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type", "==", "user"]
+            ["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type", "==", "user"]
         ],
         name="decision_3:condition_1",
         delimiter=None)
@@ -228,10 +228,10 @@ def decision_3(action=None, success=None, container=None, results=None, handle=N
     found_match_2 = phantom.decision(
         container=container,
         conditions=[
-            ["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type", "==", "system"]
+            ["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type", "==", "system"]
         ],
         conditions_dps=[
-            ["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type", "==", "system"]
+            ["get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type", "==", "system"]
         ],
         name="decision_3:condition_2",
         delimiter=None)
@@ -335,22 +335,22 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
         container=container,
         template="""SOAR Analysis for: {0}\n""",
         parameters=[
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object"
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object"
         ])
     content_formatted_string = phantom.format(
         container=container,
         template="""### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](https://{6}/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1}) \n\n\n\n# MITRE ATT&CK®\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}""",
         parameters=[
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_score",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_score",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_min_time",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_max_time",
             "mitre_format_findings:custom_function:output",
             "asset_get_attributes_1:custom_function_result.data.configuration.device"
         ])
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_score","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_score","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_min_time","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_max_time","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     asset_get_attributes_1__result = phantom.collect2(container=container, datapath=["asset_get_attributes_1:custom_function_result.data.configuration.device"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
@@ -359,18 +359,18 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     parameters = []
 
     # build parameters list for 'add_task_note_1' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for asset_get_attributes_1__result_item in asset_get_attributes_1__result:
             for get_task_id_1_result_item in get_task_id_1_result_data:
                 for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                    if refresh_finding_or_investigation_1_result_item[0] is not None and title_formatted_string is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[6] is not None:
+                    if get_finding_or_investigation_1_result_item[0] is not None and title_formatted_string is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[6] is not None:
                         parameters.append({
-                            "id": refresh_finding_or_investigation_1_result_item[0],
+                            "id": get_finding_or_investigation_1_result_item[0],
                             "title": title_formatted_string,
                             "content": content_formatted_string,
                             "task_id": get_task_id_1_result_item[0],
                             "phase_id": get_phase_id_1_result_item[0],
-                            "response_plan_id": refresh_finding_or_investigation_1_result_item[6],
+                            "response_plan_id": get_finding_or_investigation_1_result_item[6],
                         })
 
     ################################################################################
@@ -437,17 +437,17 @@ def update_task_in_current_phase_1(action=None, success=None, container=None, re
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
 
     parameters = []
 
     # build parameters list for 'update_task_in_current_phase_1' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for get_task_id_1_result_item in get_task_id_1_result_data:
-            if refresh_finding_or_investigation_1_result_item[0] is not None and get_task_id_1_result_item[0] is not None:
+            if get_finding_or_investigation_1_result_item[0] is not None and get_task_id_1_result_item[0] is not None:
                 parameters.append({
-                    "id": refresh_finding_or_investigation_1_result_item[0],
+                    "id": get_finding_or_investigation_1_result_item[0],
                     "name": "Enrich findings",
                     "status": "Ended",
                     "task_id": get_task_id_1_result_item[0],
@@ -476,7 +476,7 @@ def user_enrichment_note(action=None, success=None, container=None, results=None
 
     # parameter list for template variable replacement
     parameters = [
-        "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object"
+        "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object"
     ]
 
     ################################################################################
@@ -504,7 +504,7 @@ def asset_enrichment_note(action=None, success=None, container=None, results=Non
 
     # parameter list for template variable replacement
     parameters = [
-        "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object"
+        "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object"
     ]
 
     ################################################################################
@@ -530,7 +530,7 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     asset_enrichment_note = phantom.get_format_data(name="asset_enrichment_note")
@@ -538,17 +538,17 @@ def add_task_note_2(action=None, success=None, container=None, results=None, han
     parameters = []
 
     # build parameters list for 'add_task_note_2' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for get_task_id_1_result_item in get_task_id_1_result_data:
             for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                if refresh_finding_or_investigation_1_result_item[0] is not None and asset_enrichment_note is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
+                if get_finding_or_investigation_1_result_item[0] is not None and asset_enrichment_note is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
                     parameters.append({
-                        "id": refresh_finding_or_investigation_1_result_item[0],
+                        "id": get_finding_or_investigation_1_result_item[0],
                         "title": "Asset information:",
                         "content": asset_enrichment_note,
                         "task_id": get_task_id_1_result_item[0],
                         "phase_id": get_phase_id_1_result_item[0],
-                        "response_plan_id": refresh_finding_or_investigation_1_result_item[1],
+                        "response_plan_id": get_finding_or_investigation_1_result_item[1],
                     })
 
     ################################################################################
@@ -572,7 +572,7 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     user_enrichment_note = phantom.get_format_data(name="user_enrichment_note")
@@ -580,17 +580,17 @@ def add_task_note_3(action=None, success=None, container=None, results=None, han
     parameters = []
 
     # build parameters list for 'add_task_note_3' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for get_task_id_1_result_item in get_task_id_1_result_data:
             for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                if refresh_finding_or_investigation_1_result_item[0] is not None and user_enrichment_note is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
+                if get_finding_or_investigation_1_result_item[0] is not None and user_enrichment_note is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
                     parameters.append({
-                        "id": refresh_finding_or_investigation_1_result_item[0],
+                        "id": get_finding_or_investigation_1_result_item[0],
                         "title": "User information:",
                         "content": user_enrichment_note,
                         "task_id": get_task_id_1_result_item[0],
                         "phase_id": get_phase_id_1_result_item[0],
-                        "response_plan_id": refresh_finding_or_investigation_1_result_item[1],
+                        "response_plan_id": get_finding_or_investigation_1_result_item[1],
                     })
 
     ################################################################################
@@ -643,7 +643,7 @@ def add_task_note_4(action=None, success=None, container=None, results=None, han
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     threat_objects_note = phantom.get_format_data(name="threat_objects_note")
@@ -651,17 +651,17 @@ def add_task_note_4(action=None, success=None, container=None, results=None, han
     parameters = []
 
     # build parameters list for 'add_task_note_4' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for get_task_id_1_result_item in get_task_id_1_result_data:
             for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                if refresh_finding_or_investigation_1_result_item[0] is not None and threat_objects_note is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
+                if get_finding_or_investigation_1_result_item[0] is not None and threat_objects_note is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
                     parameters.append({
-                        "id": refresh_finding_or_investigation_1_result_item[0],
+                        "id": get_finding_or_investigation_1_result_item[0],
                         "title": "Threat information:",
                         "content": threat_objects_note,
                         "task_id": get_task_id_1_result_item[0],
                         "phase_id": get_phase_id_1_result_item[0],
-                        "response_plan_id": refresh_finding_or_investigation_1_result_item[1],
+                        "response_plan_id": get_finding_or_investigation_1_result_item[1],
                     })
 
     ################################################################################
@@ -907,22 +907,22 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
         container=container,
         template="""SOAR Analysis for: {0}\n""",
         parameters=[
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object"
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object"
         ])
     content_formatted_string = phantom.format(
         container=container,
         template="""### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](https://{6}/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1}) \n\n\n\n# MITRE ATT&CK®\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}""",
         parameters=[
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_score",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_score",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_min_time",
+            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_max_time",
             "mitre_format_int_findings:custom_function:output",
             "asset_get_attributes_1:custom_function_result.data.configuration.device"
         ])
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_score","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_score","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_min_time","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_max_time","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     asset_get_attributes_1__result = phantom.collect2(container=container, datapath=["asset_get_attributes_1:custom_function_result.data.configuration.device"])
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
@@ -931,18 +931,18 @@ def add_task_note_5(action=None, success=None, container=None, results=None, han
     parameters = []
 
     # build parameters list for 'add_task_note_5' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for asset_get_attributes_1__result_item in asset_get_attributes_1__result:
             for get_task_id_1_result_item in get_task_id_1_result_data:
                 for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                    if refresh_finding_or_investigation_1_result_item[0] is not None and title_formatted_string is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[6] is not None:
+                    if get_finding_or_investigation_1_result_item[0] is not None and title_formatted_string is not None and content_formatted_string is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[6] is not None:
                         parameters.append({
-                            "id": refresh_finding_or_investigation_1_result_item[0],
+                            "id": get_finding_or_investigation_1_result_item[0],
                             "title": title_formatted_string,
                             "content": content_formatted_string,
                             "task_id": get_task_id_1_result_item[0],
                             "phase_id": get_phase_id_1_result_item[0],
-                            "response_plan_id": refresh_finding_or_investigation_1_result_item[6],
+                            "response_plan_id": get_finding_or_investigation_1_result_item[6],
                         })
 
     ################################################################################
@@ -1022,7 +1022,7 @@ def add_task_note_6(action=None, success=None, container=None, results=None, han
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id","refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
     threat_objects_note_1 = phantom.get_format_data(name="threat_objects_note_1")
@@ -1030,17 +1030,17 @@ def add_task_note_6(action=None, success=None, container=None, results=None, han
     parameters = []
 
     # build parameters list for 'add_task_note_6' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
         for get_task_id_1_result_item in get_task_id_1_result_data:
             for get_phase_id_1_result_item in get_phase_id_1_result_data:
-                if refresh_finding_or_investigation_1_result_item[0] is not None and threat_objects_note_1 is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and refresh_finding_or_investigation_1_result_item[1] is not None:
+                if get_finding_or_investigation_1_result_item[0] is not None and threat_objects_note_1 is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
                     parameters.append({
-                        "id": refresh_finding_or_investigation_1_result_item[0],
+                        "id": get_finding_or_investigation_1_result_item[0],
                         "title": "Threat information:",
                         "content": threat_objects_note_1,
                         "task_id": get_task_id_1_result_item[0],
                         "phase_id": get_phase_id_1_result_item[0],
-                        "response_plan_id": refresh_finding_or_investigation_1_result_item[1],
+                        "response_plan_id": get_finding_or_investigation_1_result_item[1],
                     })
 
     ################################################################################

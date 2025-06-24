@@ -285,7 +285,7 @@
                     "targetPort": "16_in"
                 }
             ],
-            "hash": "4a8ab5ef651d444776ff7e57ec94b0a7cccb8a30",
+            "hash": "05e68f76ded7b8a84e457f99d265b77dd8828dea",
             "nodes": {
                 "0": {
                     "data": {
@@ -336,7 +336,7 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "==",
-                                        "param": "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type",
+                                        "param": "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type",
                                         "value": "user"
                                     }
                                 ],
@@ -352,7 +352,7 @@
                                     {
                                         "conditionIndex": 1,
                                         "op": "==",
-                                        "param": "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type",
+                                        "param": "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type",
                                         "value": "system"
                                     }
                                 ],
@@ -372,11 +372,7 @@
                     "errors": {},
                     "id": "12",
                     "type": "decision",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 250,
                     "y": 1584
                 },
@@ -520,24 +516,24 @@
                             "content": {
                                 "functionId": 1,
                                 "parameters": [
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type",
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_score",
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_score",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_min_time",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_max_time",
                                     "mitre_format_findings:custom_function:output",
                                     "asset_get_attributes_1:custom_function_result.data.configuration.device"
                                 ],
                                 "template": "### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](https://{6}/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1}) \n\n\n\n# MITRE ATT&CK\u00ae\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}"
                             },
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": {
                                 "functionId": 1,
                                 "parameters": [
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object"
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object"
                                 ],
                                 "template": "SOAR Analysis for: {0}\n"
                             }
@@ -575,11 +571,7 @@
                     "errors": {},
                     "id": "18",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 1130,
                     "y": 1434
                 },
@@ -673,10 +665,10 @@
                             "query": {
                                 "functionId": 1,
                                 "parameters": [
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type"
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_min_time",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_max_time",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type"
                                 ],
                                 "template": "datamodel Risk.All_Risk \n| search [ | tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1} by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index\n| `get_mitre_annotations`\n| rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type\n| `generate_findings_summary`\n| stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)`\n| `dedup_and_compute_common_fbd_fields`, threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type), num_mitre_techniques=mvcount('annotations.mitre_attack'), annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack')\n| fillnull value=0 num_mitre_techniques, mitre_tactic_id_count, mitre_technique_id_count, total_event_count, risk_score\n| fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids\n| `drop_dm_object_name(\"All_Risk\")`\n| where normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n| where num_mitre_techniques>3 OR risk_score>100 OR total_event_count>5\n| eval all_finding_ids=mvdedup(finding_ids)\n| fields all_finding_ids\n| mvexpand all_finding_ids\n| rename all_finding_ids AS source_event_id ]\n| rename annotations.mitre_attack.mitre_tactic as mitre_tactic, annotations.mitre_attack.mitre_technique as mitre_technique, annotations.mitre_attack.mitre_technique_id as mitre_technique_id\n| fields mitre_tactic, mitre_technique, mitre_technique_id, risk_message, threat_object, threat_object_type, threat_match_value, threat_match_field"
                             },
@@ -694,8 +686,8 @@
                     "id": "2",
                     "type": "action",
                     "warnings": {},
-                    "x": 1130,
-                    "y": 942
+                    "x": 1140,
+                    "y": 940
                 },
                 "20": {
                     "data": {
@@ -728,7 +720,7 @@
                             "pauseValue": 2
                         },
                         "parameters": {
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "name": "Enrich findings",
                             "status": "Ended",
                             "task_id": "get_task_id_1:action_result.data.*.task_id"
@@ -748,11 +740,7 @@
                     "errors": {},
                     "id": "20",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 680,
                     "y": 2596
                 },
@@ -767,7 +755,7 @@
                         "functionName": "user_enrichment_note",
                         "id": "22",
                         "parameters": [
-                            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object"
+                            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object"
                         ],
                         "template": "Review the user: {0} details:\n[Assets and Identities database](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/identity_center?form.username={0}&form.priority=*&form.bunit=*&form.category=*&form.watchlist=*)\n\n\nGather intelligence about the user: {0} in ARI:\n\n[Asset and Risk Intelligence](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkAssetRiskIntelligence/ari_user_search?form.time.earliest=-30d%40d&form.time.latest=now&form.profile=ip&form.series={0})\n",
                         "type": "format"
@@ -775,11 +763,7 @@
                     "errors": {},
                     "id": "22",
                     "type": "format",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 0,
                     "y": 1764
                 },
@@ -794,7 +778,7 @@
                         "functionName": "asset_enrichment_note",
                         "id": "23",
                         "parameters": [
-                            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object"
+                            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object"
                         ],
                         "template": "Review the asset: {0} details:\n[Assets and Identities database](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkEnterpriseSecuritySuite/asset_center?form.pci_domain=*&form.asset={0}&form.priority=*&form.bunit=*&form.category=*&form.owner=*)\n\n\nGather intelligence about the asset: {0} in ARI:\n[Asset and Risk Intelligence](https://es8-shw-46d5351519c4f2.stg.splunkcloud.com/en-GB/app/SplunkAssetRiskIntelligence/ari_network_search?form.time.earliest=-7d%40h&form.time.latest=now&form.profile=ip&form.series={0})",
                         "type": "format"
@@ -802,11 +786,7 @@
                     "errors": {},
                     "id": "23",
                     "type": "format",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 340,
                     "y": 1764
                 },
@@ -837,9 +817,9 @@
                         },
                         "parameters": {
                             "content": "asset_enrichment_note:formatted_data",
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": "Asset information:"
                         },
@@ -876,11 +856,7 @@
                     "errors": {},
                     "id": "24",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 340,
                     "y": 1914
                 },
@@ -911,9 +887,9 @@
                         },
                         "parameters": {
                             "content": "user_enrichment_note:formatted_data",
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": "User information:"
                         },
@@ -950,11 +926,7 @@
                     "errors": {},
                     "id": "25",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 0,
                     "y": 1914
                 },
@@ -1010,9 +982,9 @@
                         },
                         "parameters": {
                             "content": "threat_objects_note:formatted_data",
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": "Threat information:"
                         },
@@ -1049,11 +1021,7 @@
                     "errors": {},
                     "id": "28",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 940,
                     "y": 2460
                 },
@@ -1271,24 +1239,24 @@
                             "content": {
                                 "functionId": 5,
                                 "parameters": [
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type",
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_score",
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_min_time",
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.info_max_time",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_score",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_min_time",
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.info_max_time",
                                     "mitre_format_int_findings:custom_function:output",
                                     "asset_get_attributes_1:custom_function_result.data.configuration.device"
                                 ],
                                 "template": "### Splunk Enterprise Security has detected that {0} '**{1}**' generated {2} points of risk.\n\n### Full statistics and timeline on this user's risk behavior can be found [here](https://{6}/app/SplunkEnterpriseSecuritySuite/risk_analysis?earliest={3}&latest={4}&form.risk_object_type_raw={0}&form.risk_object_raw={1}) \n\n\n\n# MITRE ATT&CK\u00ae\nSplunk SOAR has aggregated and aligned the following risk rules to ATT&CK Tactics and Techniques.\n\n{5}"
                             },
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": {
                                 "functionId": 5,
                                 "parameters": [
-                                    "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object"
+                                    "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object"
                                 ],
                                 "template": "SOAR Analysis for: {0}\n"
                             }
@@ -1326,11 +1294,7 @@
                     "errors": {},
                     "id": "37",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 770,
                     "y": 1434
                 },
@@ -1474,9 +1438,9 @@
                         },
                         "parameters": {
                             "content": "threat_objects_note_1:formatted_data",
-                            "id": "refresh_finding_or_investigation_1:action_result.data.*.data.investigation_id",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
                             "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
-                            "response_plan_id": "refresh_finding_or_investigation_1:action_result.data.*.data.response_plans.*.id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
                             "task_id": "get_task_id_1:action_result.data.*.task_id",
                             "title": "Threat information:"
                         },
@@ -1513,11 +1477,7 @@
                     "errors": {},
                     "id": "40",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 580,
                     "y": 2460
                 },
@@ -1667,7 +1627,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T04:54:28.920253+00:00",
+    "create_time": "2025-06-24T05:04:59.124347+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
