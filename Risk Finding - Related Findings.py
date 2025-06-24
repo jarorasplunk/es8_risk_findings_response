@@ -1139,9 +1139,7 @@ def open_findings_format(action=None, success=None, container=None, results=None
             finding_url = "https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=" + event_id
             #status = status.replace('\n','')
             #owner = owner.replace('\n','')
-            phantom.debug(finding_url)
-            phantom.debug(status)
-            if status != "Closed" or status != "Resolved":
+            if status != 'Closed' or status != 'Resolved':
                 phantom.debug(finding_url)
                 phantom.debug(status)
                 note += "|{}|[{}]({})|{}|{}|\n".format(rule_name, event_id, finding_url, status, owner)
