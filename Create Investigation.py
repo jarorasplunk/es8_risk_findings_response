@@ -23,7 +23,7 @@ def start_investigations_1(action=None, success=None, container=None, results=No
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
-    finding_data = phantom.collect2(container=container, datapath=["finding:name","finding:owner","finding:status","finding:urgency","finding:description","finding:disposition","finding:id","finding:sensitivity","finding:consolidated_findings.investigation_type"])
+    finding_data = phantom.collect2(container=container, datapath=["finding:name","finding:owner","finding:status","finding:urgency","finding:description","finding:disposition","finding:id","finding:consolidated_findings.event_id","finding:sensitivity","finding:consolidated_findings.investigation_type"])
 
     parameters = []
 
@@ -39,9 +39,10 @@ def start_investigations_1(action=None, success=None, container=None, results=No
                 "disposition": finding_data_item[5],
                 "finding_ids": [
                     finding_data_item[6],
+                    finding_data_item[7],
                 ],
-                "sensitivity": finding_data_item[7],
-                "investigation_type": finding_data_item[8],
+                "sensitivity": finding_data_item[8],
+                "investigation_type": finding_data_item[9],
             })
 
     ################################################################################
@@ -121,8 +122,7 @@ def get_playbook_name(action=None, success=None, container=None, results=None, h
 
     phantom.save_block_result(key="get_playbook_name:playbook_name", value=json.dumps(get_playbook_name__playbook_name))
 
-    playbook_dispatch_playbooks_1(container=container)
-    another_dispatch_playbooks_with_dlp_tag(container=container)
+    playbook_dispatch_playbooks_2(container=container)
 
     return
 
@@ -187,6 +187,45 @@ def another_dispatch_playbooks_with_dlp_tag(action=None, success=None, container
     ################################################################################
 
     phantom.custom_function(custom_function="community/noop", parameters=parameters, name="another_dispatch_playbooks_with_dlp_tag")
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_dispatch_playbooks_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_dispatch_playbooks_2() called")
+
+    get_playbook_name__playbook_name = json.loads(_ if (_ := phantom.get_run_data(key="get_playbook_name:playbook_name")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    inputs = {
+        "playbook_tags": ["enrichment"],
+        "playbook_name": get_playbook_name__playbook_name,
+    }
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    # call playbook "es8_risk_findings_response/dispatch_playbooks", returns the playbook_run_id
+    playbook_run_id = phantom.playbook("es8_risk_findings_response/dispatch_playbooks", container=container, name="playbook_dispatch_playbooks_2", callback=playbook_dispatch_playbooks_2_callback, inputs=inputs)
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_dispatch_playbooks_2_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_dispatch_playbooks_2_callback() called")
+
+    
+    # Downstream End block cannot be called directly, since execution will call on_finish automatically.
+    # Using placeholder callback function so child playbook is run synchronously.
+
 
     return
 

@@ -7,13 +7,6 @@
             "description": "",
             "edges": [
                 {
-                    "id": "port_9_to_port_1",
-                    "sourceNode": "9",
-                    "sourcePort": "9_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
                     "id": "port_3_to_port_8",
                     "sourceNode": "3",
                     "sourcePort": "3_out",
@@ -35,21 +28,21 @@
                     "targetPort": "3_in"
                 },
                 {
-                    "id": "port_8_to_port_9",
+                    "id": "port_8_to_port_11",
                     "sourceNode": "8",
                     "sourcePort": "8_out",
-                    "targetNode": "9",
-                    "targetPort": "9_in"
+                    "targetNode": "11",
+                    "targetPort": "11_in"
                 },
                 {
-                    "id": "port_8_to_port_10",
-                    "sourceNode": "8",
-                    "sourcePort": "8_out",
-                    "targetNode": "10",
-                    "targetPort": "10_in"
+                    "id": "port_11_to_port_1",
+                    "sourceNode": "11",
+                    "sourcePort": "11_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "41c55b3c0d2278313d3d976bffa5e98076fbc652",
+            "hash": "84687854619bcda75bfd22f7c8a104b1a98d12f3",
             "nodes": {
                 "0": {
                     "data": {
@@ -71,7 +64,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 1000,
-                    "y": 119.99999999999983
+                    "y": 119.99999999999977
                 },
                 "1": {
                     "data": {
@@ -133,8 +126,57 @@
                     "errors": {},
                     "id": "10",
                     "type": "utility",
-                    "warnings": {},
+                    "warnings": {
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 1260,
+                    "y": 784.5
+                },
+                "11": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionId": 2,
+                        "functionName": "playbook_dispatch_playbooks_2",
+                        "id": "11",
+                        "inputs": {
+                            "playbook_name": {
+                                "datapaths": [
+                                    "get_playbook_name:custom_function:playbook_name"
+                                ],
+                                "deduplicate": false
+                            },
+                            "playbook_tags": {
+                                "datapaths": [
+                                    "enrichment"
+                                ],
+                                "deduplicate": false
+                            }
+                        },
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "playbookName": "dispatch_playbooks",
+                        "playbookRepo": 4,
+                        "playbookRepoName": "es8_risk_findings_response",
+                        "playbookType": "data",
+                        "synchronous": true,
+                        "type": "playbook"
+                    },
+                    "errors": {},
+                    "id": "11",
+                    "type": "playbook",
+                    "warnings": {},
+                    "x": 740,
                     "y": 784.5
                 },
                 "2": {
@@ -166,7 +208,8 @@
                             "description": "finding:description",
                             "disposition": "finding:disposition",
                             "finding_ids": [
-                                "finding:id"
+                                "finding:id",
+                                "finding:consolidated_findings.event_id"
                             ],
                             "investigation_type": "finding:consolidated_findings.investigation_type",
                             "name": "finding:name",
@@ -301,7 +344,14 @@
                     "errors": {},
                     "id": "9",
                     "type": "playbook",
-                    "warnings": {},
+                    "warnings": {
+                        "config": [
+                            "Reconfigure invalid datapath."
+                        ],
+                        "context": [
+                            "Connect block to playbook flow."
+                        ]
+                    },
                     "x": 980,
                     "y": 800
                 }
@@ -319,10 +369,10 @@
         "playbook_trigger": "artifact_created",
         "playbook_type": "es",
         "python_version": "3.9",
-        "schema": "5.0.17",
-        "version": "6.4.0.85"
+        "schema": "5.0.20",
+        "version": "6.4.1.361"
     },
-    "create_time": "2025-06-24T06:00:22.178242+00:00",
+    "create_time": "2025-06-24T06:04:45.824536+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
