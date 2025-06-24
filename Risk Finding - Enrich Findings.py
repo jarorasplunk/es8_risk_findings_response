@@ -27,25 +27,26 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
         container=container,
         template="""datamodel Risk.All_Risk \n| search [ | tstats `summariesonly` `common_fbd_fields`, values(All_Risk.threat_object) as threat_object from datamodel=Risk.All_Risk where earliest={0} latest={1} by All_Risk.normalized_risk_object, All_Risk.risk_object_type, index\n| `get_mitre_annotations`\n| rename All_Risk.normalized_risk_object as normalized_risk_object, All_Risk.risk_object_type as risk_object_type\n| `generate_findings_summary`\n| stats list(*) as * limit=1000000, sum(int_risk_score_sum) as risk_score by `fbd_grouping(normalized_risk_object)`\n| `dedup_and_compute_common_fbd_fields`, threat_object=mvdedup(threat_object), risk_object_type=mvdedup(risk_object_type), num_mitre_techniques=mvcount('annotations.mitre_attack'), annotations.mitre_attack=mvdedup('annotations.mitre_attack'), annotations.mitre_attack.mitre_tactic=mvdedup('annotations.mitre_attack.mitre_tactic'), mitre_tactic_id_count=mvcount('annotations.mitre_attack.mitre_tactic'), mitre_technique_id_count=mvcount('annotations.mitre_attack')\n| fillnull value=0 num_mitre_techniques, mitre_tactic_id_count, mitre_technique_id_count, total_event_count, risk_score\n| fields - int_risk_score_sum, int_findings_count, individual_threat_object_count, contributing_event_ids\n| `drop_dm_object_name(\"All_Risk\")`\n| where normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n| where num_mitre_techniques>3 OR risk_score>100 OR total_event_count>5\n| eval all_finding_ids=mvdedup(finding_ids)\n| fields all_finding_ids\n| mvexpand all_finding_ids\n| rename all_finding_ids AS source_event_id ]\n| rename annotations.mitre_attack.mitre_tactic as mitre_tactic, annotations.mitre_attack.mitre_technique as mitre_technique, annotations.mitre_attack.mitre_technique_id as mitre_technique_id\n| fields mitre_tactic, mitre_technique, mitre_technique_id, risk_message, threat_object, threat_object_type, threat_match_value, threat_match_field""",
         parameters=[
-            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings_map.info_min_time",
-            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings_map.info_max_time",
-            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object",
-            "get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type"
+            "run_query_parameters:custom_function:info_min_time",
+            "run_query_parameters:custom_function:info_max_time",
+            "run_query_parameters:custom_function:normalized_risk_object",
+            "run_query_parameters:custom_function:risk_object_type"
         ])
 
-    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.consolidated_findings_map.info_min_time","get_finding_or_investigation_1:action_result.data.*.consolidated_findings_map.info_max_time","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.normalized_risk_object","get_finding_or_investigation_1:action_result.data.*.consolidated_findings.risk_object_type","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    run_query_parameters__info_min_time = json.loads(_ if (_ := phantom.get_run_data(key="run_query_parameters:info_min_time")) != "" else "null")  # pylint: disable=used-before-assignment
+    run_query_parameters__info_max_time = json.loads(_ if (_ := phantom.get_run_data(key="run_query_parameters:info_max_time")) != "" else "null")  # pylint: disable=used-before-assignment
+    run_query_parameters__normalized_risk_object = json.loads(_ if (_ := phantom.get_run_data(key="run_query_parameters:normalized_risk_object")) != "" else "null")  # pylint: disable=used-before-assignment
+    run_query_parameters__risk_object_type = json.loads(_ if (_ := phantom.get_run_data(key="run_query_parameters:risk_object_type")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
-    # build parameters list for 'run_query_1' call
-    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
-        if query_formatted_string is not None:
-            parameters.append({
-                "query": query_formatted_string,
-                "command": "| from ",
-                "search_mode": "smart",
-                "add_raw_field": True,
-            })
+    if query_formatted_string is not None:
+        parameters.append({
+            "query": query_formatted_string,
+            "command": "| from ",
+            "search_mode": "smart",
+            "add_raw_field": True,
+        })
 
     ################################################################################
     ## Custom Code Start
@@ -743,25 +744,26 @@ def run_query_2(action=None, success=None, container=None, results=None, handle=
         container=container,
         template="""datamodel Risk.All_Risk  \n| search _time>={0} AND _time<={1}\n| search normalized_risk_object=\"{2}\" AND risk_object_type=\"{3}\"\n    \n| rename annotations.mitre_attack.mitre_tactic as mitre_tactic, annotations.mitre_attack.mitre_technique as mitre_technique, annotations.mitre_attack.mitre_technique_id as mitre_technique_id \n| fields mitre_tactic, mitre_technique, mitre_technique_id, risk_message, threat_object, threat_object_type, threat_match_value, threat_match_field""",
         parameters=[
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings_map.info_min_time",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings_map.info_max_time",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object",
-            "refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type"
+            "run_query_parameters:custom_function:info_min_time",
+            "run_query_parameters:custom_function:info_max_time",
+            "run_query_parameters:custom_function:normalized_risk_object",
+            "run_query_parameters:custom_function:risk_object_type"
         ])
 
-    refresh_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings_map.info_min_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings_map.info_max_time","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.normalized_risk_object","refresh_finding_or_investigation_1:action_result.data.*.data.consolidated_findings.risk_object_type","refresh_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    run_query_parameters__info_min_time = json.loads(_ if (_ := phantom.get_run_data(key="run_query_parameters:info_min_time")) != "" else "null")  # pylint: disable=used-before-assignment
+    run_query_parameters__info_max_time = json.loads(_ if (_ := phantom.get_run_data(key="run_query_parameters:info_max_time")) != "" else "null")  # pylint: disable=used-before-assignment
+    run_query_parameters__normalized_risk_object = json.loads(_ if (_ := phantom.get_run_data(key="run_query_parameters:normalized_risk_object")) != "" else "null")  # pylint: disable=used-before-assignment
+    run_query_parameters__risk_object_type = json.loads(_ if (_ := phantom.get_run_data(key="run_query_parameters:risk_object_type")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
-    # build parameters list for 'run_query_2' call
-    for refresh_finding_or_investigation_1_result_item in refresh_finding_or_investigation_1_result_data:
-        if query_formatted_string is not None:
-            parameters.append({
-                "query": query_formatted_string,
-                "command": "| from ",
-                "search_mode": "smart",
-                "add_raw_field": True,
-            })
+    if query_formatted_string is not None:
+        parameters.append({
+            "query": query_formatted_string,
+            "command": "| from ",
+            "search_mode": "smart",
+            "add_raw_field": True,
+        })
 
     ################################################################################
     ## Custom Code Start
@@ -1261,12 +1263,12 @@ def run_query_parameters(action=None, success=None, container=None, results=None
     ################################################################################
 
     # Write your custom code here...
-    phantom.debug(get_finding_or_investigation_1_result_item_0)
-    info_min_time = list(get_finding_or_investigation_1_result_item_0[0].keys())[0]
-    phantom.debug(info_min_time)
-    phantom.debug(get_finding_or_investigation_1_result_item_1)
-    phantom.debug(get_finding_or_investigation_1_result_item_2)
-    phantom.debug(get_finding_or_investigation_1_result_item_3)
+
+    run_query_parameters__info_min_time = list(get_finding_or_investigation_1_result_item_0[0].keys())[0]
+    run_query_parameters__info_max_time = list(get_finding_or_investigation_1_result_item_1[0].keys())[0]
+    run_query_parameters__normalized_risk_object = get_finding_or_investigation_1_result_item_2[0]
+    run_query_parameters__risk_object_type = get_finding_or_investigation_1_result_item_3[0]
+    
 
     ################################################################################
     ## Custom Code End
@@ -1281,6 +1283,8 @@ def run_query_parameters(action=None, success=None, container=None, results=None
     phantom.save_block_result(key="run_query_parameters:info_max_time", value=json.dumps(run_query_parameters__info_max_time))
     phantom.save_block_result(key="run_query_parameters:normalized_risk_object", value=json.dumps(run_query_parameters__normalized_risk_object))
     phantom.save_block_result(key="run_query_parameters:risk_object_type", value=json.dumps(run_query_parameters__risk_object_type))
+
+    get_phase_id_1(container=container)
 
     return
 
