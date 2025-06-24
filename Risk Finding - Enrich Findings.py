@@ -1280,8 +1280,6 @@ def run_query_parameters(action=None, success=None, container=None, results=None
     phantom.save_block_result(key="run_query_parameters:normalized_risk_object", value=json.dumps(run_query_parameters__normalized_risk_object))
     phantom.save_block_result(key="run_query_parameters:risk_object_type", value=json.dumps(run_query_parameters__risk_object_type))
 
-    get_phase_id_1(container=container)
-
     return
 
 
