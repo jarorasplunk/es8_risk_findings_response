@@ -74,7 +74,45 @@ def get_open_alerts(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="get_open_alerts", assets=["es"])
+    phantom.act("run query", parameters=parameters, name="get_open_alerts", assets=["es"], callback=playbook_update_alert_1)
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_update_alert_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_update_alert_1() called")
+
+    inputs_data_0 = phantom.collect2(container=container, datapath=["get_open_alerts:artifact:*.cef.event_id","get_open_alerts:artifact:*.cef.owner","get_open_alerts:artifact:*.cef. status_label","get_open_alerts:artifact:*.cef. disposition_label","get_open_alerts:artifact:*.cef. random1","get_open_alerts:artifact:*.cef. random2"])
+
+    inputs_item_0_0 = [item[0] for item in inputs_data_0]
+    inputs_item_0_1 = [item[1] for item in inputs_data_0]
+    inputs_item_0_2 = [item[2] for item in inputs_data_0]
+    inputs_item_0_3 = [item[3] for item in inputs_data_0]
+    inputs_item_0_4 = [item[4] for item in inputs_data_0]
+    inputs_item_0_5 = [item[5] for item in inputs_data_0]
+
+    inputs = {
+        "event_id": inputs_item_0_0,
+        "owner": inputs_item_0_1,
+        "status_label": inputs_item_0_2,
+        "disposition_label": inputs_item_0_3,
+        "random1": inputs_item_0_4,
+        "random2": inputs_item_0_5,
+    }
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    # call playbook "es8_risk_findings_response/Update Alert", returns the playbook_run_id
+    playbook_run_id = phantom.playbook("es8_risk_findings_response/Update Alert", container=container, inputs=inputs)
 
     return
 

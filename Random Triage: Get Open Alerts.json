@@ -38,9 +38,23 @@
                     "sourcePort": "2_out",
                     "targetNode": "5",
                     "targetPort": "5_in"
+                },
+                {
+                    "id": "port_5_to_port_6",
+                    "sourceNode": "5",
+                    "sourcePort": "5_out",
+                    "targetNode": "6",
+                    "targetPort": "6_in"
+                },
+                {
+                    "id": "port_6_to_port_1",
+                    "sourceNode": "6",
+                    "sourcePort": "6_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "76e30bfd1e413af37d363ac276a5af15098cccf9",
+            "hash": "c307f4dca2ff29e108b106cfe1815b8fa48d7bd5",
             "nodes": {
                 "0": {
                     "data": {
@@ -179,6 +193,75 @@
                     "warnings": {},
                     "x": 1520,
                     "y": 800
+                },
+                "6": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "playbook_Update_Alert_1",
+                        "id": "6",
+                        "inputs": {
+                            "disposition_label": {
+                                "datapaths": [
+                                    "get_open_alerts:artifact:*.cef. disposition_label"
+                                ],
+                                "deduplicate": false
+                            },
+                            "event_id": {
+                                "datapaths": [
+                                    "get_open_alerts:artifact:*.cef.event_id"
+                                ],
+                                "deduplicate": false
+                            },
+                            "owner": {
+                                "datapaths": [
+                                    "get_open_alerts:artifact:*.cef.owner"
+                                ],
+                                "deduplicate": false
+                            },
+                            "random1": {
+                                "datapaths": [
+                                    "get_open_alerts:artifact:*.cef. random1"
+                                ],
+                                "deduplicate": false
+                            },
+                            "random2": {
+                                "datapaths": [
+                                    "get_open_alerts:artifact:*.cef. random2"
+                                ],
+                                "deduplicate": false
+                            },
+                            "status_label": {
+                                "datapaths": [
+                                    "get_open_alerts:artifact:*.cef. status_label"
+                                ],
+                                "deduplicate": false
+                            }
+                        },
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "playbookName": "Update Alert",
+                        "playbookRepo": 3,
+                        "playbookRepoName": "es8_risk_findings_response",
+                        "playbookType": "data",
+                        "synchronous": false,
+                        "type": "playbook"
+                    },
+                    "errors": {},
+                    "id": "6",
+                    "type": "playbook",
+                    "warnings": {},
+                    "x": 1520,
+                    "y": 960
                 }
             },
             "notes": ""
@@ -191,7 +274,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T05:25:55.080619+00:00",
+    "create_time": "2025-06-25T05:47:08.432585+00:00",
     "draft_mode": false,
     "labels": [
         "*"
