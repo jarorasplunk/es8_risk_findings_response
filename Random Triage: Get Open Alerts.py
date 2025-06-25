@@ -39,7 +39,7 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
         return
 
     # check for 'else' condition 2
-    list_open_alerts(action=action, success=success, container=container, results=results, handle=handle)
+    run_query_1(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 
@@ -111,7 +111,7 @@ def list_open_alerts(action=None, success=None, container=None, results=None, ha
     ## Custom Code End
     ################################################################################
 
-    phantom.act("list findings", parameters=parameters, name="list_open_alerts", assets=["builtin_mc_connector"], callback=playbook_update_alert_1)
+    phantom.act("list findings", parameters=parameters, name="list_open_alerts", assets=["builtin_mc_connector"])
 
     return
 
@@ -148,7 +148,7 @@ def join_close_container(action=None, success=None, container=None, results=None
     if phantom.get_run_data(key="join_close_container_called"):
         return
 
-    if phantom.completed(action_names=["list_open_alerts"]):
+    if phantom.completed(action_names=["run_query_1"]):
         # save the state that the joined function has now been called
         phantom.save_block_result(key="join_close_container_called", value="close_container")
 
@@ -226,6 +226,39 @@ def add_comment_4(action=None, success=None, container=None, results=None, handl
     phantom.comment(container=container, comment=format_1)
 
     join_close_container(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def run_query_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("run_query_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    parameters = []
+
+    parameters.append({
+        "command": "search",
+        "search_mode": "smart",
+        "add_raw_field": False,
+        "query": "detection_type=ebd `notable` | where status_end=\"false\" | tail 2 | stats values(event_id) as event_id",
+        "display": "event_id",
+        "start_time": "-7d",
+        "end_time": "-24h",
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["es"], callback=playbook_update_alert_1)
 
     return
 
