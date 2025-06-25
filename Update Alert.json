@@ -39,9 +39,29 @@
                     "sourcePort": "4_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_2",
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_2_to_port_6",
+                    "sourceNode": "2",
+                    "sourcePort": "2_out",
+                    "targetNode": "6",
+                    "targetPort": "6_in"
+                },
+                {
+                    "id": "port_6_to_port_1",
+                    "sourceNode": "6",
+                    "sourcePort": "6_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "b6a3c736fdab4e29af02227ca689acacc70ab09e",
+            "hash": "822ee2a513cd4f66d0a127c9fcd5131bb4e07298",
             "nodes": {
                 "0": {
                     "data": {
@@ -78,6 +98,8 @@
                 "2": {
                     "data": {
                         "advanced": {
+                            "customName": "Notable Status",
+                            "customNameId": 0,
                             "join": []
                         },
                         "conditions": [
@@ -100,6 +122,7 @@
                             {
                                 "comparisons": [
                                     {
+                                        "conditionIndex": 1,
                                         "op": "==",
                                         "param": "",
                                         "value": ""
@@ -114,7 +137,7 @@
                             }
                         ],
                         "functionId": 1,
-                        "functionName": "decision_1",
+                        "functionName": "notable_status",
                         "id": "2",
                         "type": "decision"
                     },
@@ -205,6 +228,51 @@
                     "warnings": {},
                     "x": 900,
                     "y": 1060
+                },
+                "6": {
+                    "data": {
+                        "action": "update finding or investigation",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "update_finding_or_investigation_2",
+                        "id": "6",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "disposition": "False Positive",
+                            "id": "playbook_input:event_id",
+                            "status": "Resolved"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "6",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 340,
+                    "y": 820
                 }
             },
             "notes": ""
@@ -248,7 +316,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T05:44:40.805918+00:00",
+    "create_time": "2025-06-25T06:04:17.306903+00:00",
     "draft_mode": false,
     "labels": [
         "*"

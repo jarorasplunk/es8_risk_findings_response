@@ -12,14 +12,14 @@ from datetime import datetime, timedelta
 def on_start(container):
     phantom.debug('on_start() called')
 
-    # call 'decision_1' block
-    decision_1(container=container)
+    # call 'notable_status' block
+    notable_status(container=container)
 
     return
 
 @phantom.playbook_block()
-def decision_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("decision_1() called")
+def notable_status(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("notable_status() called")
 
     # check for 'if' condition 1
     found_match_1 = phantom.decision(
@@ -30,13 +30,16 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
         conditions_dps=[
             ["playbook_input:status_label", "==", "New"]
         ],
-        name="decision_1:condition_1",
+        name="notable_status:condition_1",
         delimiter=None)
 
     # call connected blocks if condition 1 matched
     if found_match_1:
         decide_analyst(action=action, success=success, container=container, results=results, handle=handle)
         return
+
+    # check for 'else' condition 2
+    update_finding_or_investigation_2(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 
@@ -132,6 +135,40 @@ def update_alert_in_progress(action=None, success=None, container=None, results=
     ################################################################################
 
     phantom.act("update event", parameters=parameters, name="update_alert_in_progress", assets=["es"])
+
+    return
+
+
+@phantom.playbook_block()
+def update_finding_or_investigation_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("update_finding_or_investigation_2() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    playbook_input_event_id = phantom.collect2(container=container, datapath=["playbook_input:event_id"])
+
+    parameters = []
+
+    # build parameters list for 'update_finding_or_investigation_2' call
+    for playbook_input_event_id_item in playbook_input_event_id:
+        if playbook_input_event_id_item[0] is not None:
+            parameters.append({
+                "id": playbook_input_event_id_item[0],
+                "status": "Resolved",
+                "disposition": "False Positive",
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("update finding or investigation", parameters=parameters, name="update_finding_or_investigation_2", assets=["builtin_mc_connector"])
 
     return
 
