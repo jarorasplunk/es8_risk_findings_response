@@ -191,7 +191,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "d732241858cd5d9814748666b868a3852f38750f",
+            "hash": "a6708315a8dbc837112ca55a150e6a6621d43c4b",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
