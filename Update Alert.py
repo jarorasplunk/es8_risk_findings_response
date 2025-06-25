@@ -61,11 +61,11 @@ def decide_analyst(action=None, success=None, container=None, results=None, hand
         random1 = random.randint(1, 10)
         
         # Apply the conditional logic to set the analyst
-        if random1 < 5:
+        if random1 < 4:
             decide_analyst__analyst = "jaejun@cisco.com"
-        elif random1 == 5:
+        elif random1 == 4:
             decide_analyst__analyst = "dluxton@splunk.com"
-        elif 6 <= random1 <= 7: # Checks if random1 is 6 or 7
+        elif random1 <= 7: 
             decide_analyst__analyst = "alice"
         elif random1 == 8:
             decide_analyst__analyst = "alice"
