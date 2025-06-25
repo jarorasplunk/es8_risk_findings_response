@@ -35,6 +35,7 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
+        join_close_container(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'else' condition 2
@@ -78,6 +79,8 @@ def playbook_update_alert_1(action=None, success=None, container=None, results=N
 
     # call playbook "es8_risk_findings_response/Update Alert", returns the playbook_run_id
     playbook_run_id = phantom.playbook("es8_risk_findings_response/Update Alert", container=container, inputs=inputs)
+
+    join_close_container(container=container)
 
     return
 
@@ -130,6 +133,44 @@ def generate_random_number(action=None, success=None, container=None, results=No
     phantom.save_block_result(key="generate_random_number:random1_odds", value=json.dumps(generate_random_number__random1_odds))
 
     decision_1(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def join_close_container(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("join_close_container() called")
+
+    # if the joined function has already been called, do nothing
+    if phantom.get_run_data(key="join_close_container_called"):
+        return
+
+    # save the state that the joined function has now been called
+    phantom.save_block_result(key="join_close_container_called", value="close_container")
+
+    # call connected block "close_container"
+    close_container(container=container, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
+def close_container(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("close_container() called")
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.set_status(container=container, status="closed")
+
+    container = phantom.get_container(container.get('id', None))
 
     return
 

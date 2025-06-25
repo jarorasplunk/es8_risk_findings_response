@@ -9,26 +9,6 @@
                 {
                     "conditions": [
                         {
-                            "conditionKey": "condition_key_0",
-                            "index": 0
-                        }
-                    ],
-                    "id": "port_2_to_port_1",
-                    "sourceNode": "2",
-                    "sourcePort": "2_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
-                    "id": "port_6_to_port_1",
-                    "sourceNode": "6",
-                    "sourcePort": "6_out",
-                    "targetNode": "1",
-                    "targetPort": "1_in"
-                },
-                {
-                    "conditions": [
-                        {
                             "conditionKey": "condition_key_3",
                             "index": 1
                         }
@@ -59,9 +39,36 @@
                     "sourcePort": "9_out",
                     "targetNode": "2",
                     "targetPort": "2_in"
+                },
+                {
+                    "id": "port_6_to_port_10",
+                    "sourceNode": "6",
+                    "sourcePort": "6_out",
+                    "targetNode": "10",
+                    "targetPort": "10_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_0",
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_2_to_port_10",
+                    "sourceNode": "2",
+                    "sourcePort": "2_out",
+                    "targetNode": "10",
+                    "targetPort": "10_in"
+                },
+                {
+                    "id": "port_10_to_port_1",
+                    "sourceNode": "10",
+                    "sourcePort": "10_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "b57c94578d217d37131e8d248a3a07d9395d4444",
+            "hash": "6e58b40107e4e988f07bfbc53d302060de77b35f",
             "nodes": {
                 "0": {
                     "data": {
@@ -92,8 +99,82 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 110,
-                    "y": 772
+                    "x": 120,
+                    "y": 920
+                },
+                "10": {
+                    "data": {
+                        "advanced": {
+                            "customName": "Close Container",
+                            "customNameId": 0,
+                            "join": [],
+                            "notRequiredJoins": [
+                                "generate_random_number",
+                                "list_open_alerts"
+                            ],
+                            "refreshNotableData": true
+                        },
+                        "functionId": 1,
+                        "functionName": "close_container",
+                        "id": "10",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "tab": "apis",
+                        "type": "utility",
+                        "utilities": {
+                            "set_status": {
+                                "description": "",
+                                "fields": [
+                                    {
+                                        "choices": "notableStatus",
+                                        "description": "",
+                                        "label": "status",
+                                        "name": "status",
+                                        "placeholder": "Select status",
+                                        "renderType": "dropdown",
+                                        "required": true
+                                    },
+                                    {
+                                        "hidden": true,
+                                        "name": "container",
+                                        "required": false
+                                    },
+                                    {
+                                        "hidden": true,
+                                        "name": "trace",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "set status",
+                                "name": "set_status",
+                                "refreshNotableData": true
+                            }
+                        },
+                        "utilityType": "api",
+                        "values": {
+                            "set_status": {
+                                "_internal": [
+                                    "container",
+                                    "trace"
+                                ],
+                                "status": "closed"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "10",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 100,
+                    "y": 780
                 },
                 "2": {
                     "data": {
@@ -228,11 +309,7 @@
                     "errors": {},
                     "id": "6",
                     "type": "playbook",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 0,
                     "y": 624
                 },
@@ -312,7 +389,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T08:22:35.597562+00:00",
+    "create_time": "2025-06-25T08:25:38.299851+00:00",
     "draft_mode": false,
     "labels": [
         "auto_triage"
