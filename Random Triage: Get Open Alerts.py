@@ -38,10 +38,12 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
+        list_findings_2(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'else' condition 2
     get_open_alerts(action=action, success=success, container=container, results=results, handle=handle)
+    list_findings_2(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 
@@ -74,7 +76,7 @@ def get_open_alerts(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="get_open_alerts", assets=["es"], callback=debug_4)
+    phantom.act("run query", parameters=parameters, name="get_open_alerts", assets=["es"], callback=join_debug_4)
 
     return
 
@@ -119,18 +121,31 @@ def playbook_update_alert_1(action=None, success=None, container=None, results=N
 
 
 @phantom.playbook_block()
+def join_debug_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("join_debug_4() called")
+
+    if phantom.completed(action_names=["get_open_alerts", "list_findings_2"]):
+        # call connected block "debug_4"
+        debug_4(container=container, handle=handle)
+
+    return
+
+
+@phantom.playbook_block()
 def debug_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("debug_4() called")
 
     get_open_alerts_result_data = phantom.collect2(container=container, datapath=["get_open_alerts:action_result.data.*.event_id","get_open_alerts:action_result.parameter.context.artifact_id"], action_results=results)
+    list_findings_2_result_data = phantom.collect2(container=container, datapath=["list_findings_2:action_result.data.*.items.*.event_id","list_findings_2:action_result.parameter.context.artifact_id"], action_results=results)
 
     get_open_alerts_result_item_0 = [item[0] for item in get_open_alerts_result_data]
+    list_findings_2_result_item_0 = [item[0] for item in list_findings_2_result_data]
 
     parameters = []
 
     parameters.append({
         "input_1": get_open_alerts_result_item_0,
-        "input_2": None,
+        "input_2": list_findings_2_result_item_0,
         "input_3": None,
         "input_4": None,
         "input_5": None,
@@ -152,6 +167,34 @@ def debug_4(action=None, success=None, container=None, results=None, handle=None
     ################################################################################
 
     phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_4")
+
+    return
+
+
+@phantom.playbook_block()
+def list_findings_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("list_findings_2() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    parameters = []
+
+    parameters.append({
+        "limit": 4,
+        "disposition": "Undetermined",
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("list findings", parameters=parameters, name="list_findings_2", assets=["builtin_mc_connector"], callback=join_debug_4)
 
     return
 

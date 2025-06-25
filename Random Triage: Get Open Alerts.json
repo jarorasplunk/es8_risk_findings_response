@@ -52,9 +52,33 @@
                     "sourcePort": "5_out",
                     "targetNode": "7",
                     "targetPort": "7_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_0",
+                            "index": 0
+                        },
+                        {
+                            "conditionKey": "condition_key_3",
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_2_to_port_8",
+                    "sourceNode": "2",
+                    "sourcePort": "2_out",
+                    "targetNode": "8",
+                    "targetPort": "8_in"
+                },
+                {
+                    "id": "port_8_to_port_7",
+                    "sourceNode": "8",
+                    "sourcePort": "8_out",
+                    "targetNode": "7",
+                    "targetPort": "7_in"
                 }
             ],
-            "hash": "1c074240d212309350977b1a883a81f88925d10c",
+            "hash": "2bfff45aebf53dc3360805d5d4c1cd3e2c97a66a",
             "nodes": {
                 "0": {
                     "data": {
@@ -466,7 +490,9 @@
                                     "get_open_alerts:action_result.data.*.event_id"
                                 ],
                                 "input_10": null,
-                                "input_2": null,
+                                "input_2": [
+                                    "list_findings_2:action_result.data.*.items.*.event_id"
+                                ],
                                 "input_3": null,
                                 "input_4": null,
                                 "input_5": null,
@@ -483,6 +509,45 @@
                     "warnings": {},
                     "x": 1500,
                     "y": 1024.5
+                },
+                "8": {
+                    "data": {
+                        "action": "list findings",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 2,
+                        "functionName": "list_findings_2",
+                        "id": "8",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "disposition": "Undetermined",
+                            "limit": "4"
+                        },
+                        "requiredParameters": [],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "8",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 1260,
+                    "y": 840
                 }
             },
             "notes": ""
@@ -495,7 +560,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T07:52:51.195537+00:00",
+    "create_time": "2025-06-25T07:57:45.839677+00:00",
     "draft_mode": false,
     "labels": [
         "*"
