@@ -74,7 +74,7 @@ def get_open_alerts(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="get_open_alerts", assets=["es"], callback=playbook_update_alert_1)
+    phantom.act("run query", parameters=parameters, name="get_open_alerts", assets=["es"], callback=sleep_5_seconds)
 
     return
 
@@ -113,6 +113,26 @@ def playbook_update_alert_1(action=None, success=None, container=None, results=N
 
     # call playbook "es8_risk_findings_response/Update Alert", returns the playbook_run_id
     playbook_run_id = phantom.playbook("es8_risk_findings_response/Update Alert", container=container, inputs=inputs)
+
+    return
+
+
+@phantom.playbook_block()
+def sleep_5_seconds(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("sleep_5_seconds() called")
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    import time
+    time.sleep(5)
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    playbook_update_alert_1(container=container)
 
     return
 
