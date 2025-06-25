@@ -48,12 +48,12 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 def playbook_update_alert_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_update_alert_1() called")
 
-    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.event_id"], action_results=results)
+    regex_split_5_data = phantom.collect2(container=container, datapath=["regex_split_5:custom_function_result.data.*.item"])
 
-    run_query_1_result_item_0 = [item[0] for item in run_query_1_result_data]
+    regex_split_5_data___item = [item[0] for item in regex_split_5_data]
 
     inputs = {
-        "event_id": run_query_1_result_item_0,
+        "event_id": regex_split_5_data___item,
     }
 
     ################################################################################
@@ -137,7 +137,7 @@ def join_close_container(action=None, success=None, container=None, results=None
     if phantom.get_run_data(key="join_close_container_called"):
         return
 
-    if phantom.completed(action_names=["run_query_1"]):
+    if phantom.completed(custom_function_names=["regex_split_5"]):
         # save the state that the joined function has now been called
         phantom.save_block_result(key="join_close_container_called", value="close_container")
 
@@ -231,7 +231,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
         "command": "search",
         "search_mode": "smart",
         "add_raw_field": False,
-        "query": "detection_type=ebd `notable` | where status_end=\"false\" | tail 2 | stats values(event_id) as event_id",
+        "query": "detection_type=ebd `notable` | where status_end=\"false\" | tail 2 | stats values(event_id) as event_id  | nomv event_id",
         "display": "event_id",
         "start_time": "-7d",
         "end_time": "-24h",
@@ -247,7 +247,38 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["es"], callback=playbook_update_alert_1)
+    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["es"], callback=regex_split_5)
+
+    return
+
+
+@phantom.playbook_block()
+def regex_split_5(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("regex_split_5() called")
+
+    run_query_1_result_data = phantom.collect2(container=container, datapath=["run_query_1:action_result.data.*.event_id","run_query_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'regex_split_5' call
+    for run_query_1_result_item in run_query_1_result_data:
+        parameters.append({
+            "input_string": run_query_1_result_item[0],
+            "regex": " ",
+            "strip_whitespace": None,
+        })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/regex_split", parameters=parameters, name="regex_split_5", callback=playbook_update_alert_1)
 
     return
 
