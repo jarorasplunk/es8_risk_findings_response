@@ -89,7 +89,7 @@
                     "targetPort": "6_in"
                 }
             ],
-            "hash": "5a7a2384b131a94e9a431410b858bc66daaa4f56",
+            "hash": "f06ce7aecd0fcb6312a9bdeaff2afe7081e49b93",
             "nodes": {
                 "0": {
                     "data": {
@@ -319,10 +319,10 @@
                             "add_raw_field": false,
                             "command": "search",
                             "display": "event_id",
-                            "end_time": "-24h",
-                            "query": "detection_type=ebd `notable` | where status_end=\"false\" | tail 20 | stats values(event_id) as event_id  | nomv event_id",
+                            "end_time": "-15m",
+                            "query": "detection_type=ebd `notable` | where status_end=\"false\" | tail 4 | stats values(event_id) as event_id  | nomv event_id",
                             "search_mode": "smart",
-                            "start_time": "-7d"
+                            "start_time": "-24h"
                         },
                         "requiredParameters": [
                             {
@@ -432,7 +432,7 @@
                                         "conditionIndex": 0,
                                         "op": "<",
                                         "param": "generate_random_number:custom_function:random1_odds",
-                                        "value": "1"
+                                        "value": "85"
                                     }
                                 ],
                                 "conditionIndex": 0,
@@ -527,54 +527,6 @@
                     "x": 0,
                     "y": 786
                 },
-                "8": {
-                    "data": {
-                        "action": "list findings",
-                        "actionType": "get",
-                        "advanced": {
-                            "customName": "List Open Alerts",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "connector": "Enterprise Security",
-                        "connectorConfigs": [
-                            "builtin_mc_connector"
-                        ],
-                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
-                        "connectorVersion": "v1",
-                        "functionId": 2,
-                        "functionName": "list_open_alerts",
-                        "id": "8",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "disposition": "Undetermined",
-                            "earliest": "-7d",
-                            "latest": "-24h",
-                            "limit": "20",
-                            "status": "New, In Progress"
-                        },
-                        "requiredParameters": [],
-                        "type": "enterpriseSecurity"
-                    },
-                    "errors": {},
-                    "id": "8",
-                    "type": "enterpriseSecurity",
-                    "warnings": {
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 490,
-                    "y": 0
-                },
                 "9": {
                     "data": {
                         "advanced": {
@@ -610,7 +562,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T11:11:21.764763+00:00",
+    "create_time": "2025-06-25T22:11:35.042200+00:00",
     "draft_mode": false,
     "labels": [
         "auto_triage",

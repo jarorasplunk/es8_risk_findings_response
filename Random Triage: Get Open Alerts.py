@@ -25,10 +25,10 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
     found_match_1 = phantom.decision(
         container=container,
         conditions=[
-            ["generate_random_number:custom_function:random1_odds", "<", 1]
+            ["generate_random_number:custom_function:random1_odds", "<", 85]
         ],
         conditions_dps=[
-            ["generate_random_number:custom_function:random1_odds", "<", 1]
+            ["generate_random_number:custom_function:random1_odds", "<", 85]
         ],
         name="decision_1:condition_1",
         delimiter=None)
@@ -70,37 +70,6 @@ def playbook_update_alert_1(action=None, success=None, container=None, results=N
     playbook_run_id = phantom.playbook("es8_risk_findings_response/Update Alert", container=container, inputs=inputs)
 
     join_close_container(container=container)
-
-    return
-
-
-@phantom.playbook_block()
-def list_open_alerts(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("list_open_alerts() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    parameters = []
-
-    parameters.append({
-        "limit": 20,
-        "disposition": "Undetermined",
-        "latest": "-24h",
-        "earliest": "-7d",
-        "status": "New, In Progress",
-    })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("list findings", parameters=parameters, name="list_open_alerts", assets=["builtin_mc_connector"])
 
     return
 
@@ -231,10 +200,10 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
         "command": "search",
         "search_mode": "smart",
         "add_raw_field": False,
-        "query": "detection_type=ebd `notable` | where status_end=\"false\" | tail 20 | stats values(event_id) as event_id  | nomv event_id",
+        "query": "detection_type=ebd `notable` | where status_end=\"false\" | tail 4 | stats values(event_id) as event_id  | nomv event_id",
         "display": "event_id",
-        "start_time": "-7d",
-        "end_time": "-24h",
+        "start_time": "-24h",
+        "end_time": "-15m",
     })
 
     ################################################################################
