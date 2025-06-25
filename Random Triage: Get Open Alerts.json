@@ -501,7 +501,8 @@
     "create_time": "2025-06-25T10:38:52.803954+00:00",
     "draft_mode": false,
     "labels": [
-        "auto_triage"
+        "auto_triage",
+        "generator"
     ],
     "tags": []
 }
