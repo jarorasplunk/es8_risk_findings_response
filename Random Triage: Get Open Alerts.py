@@ -121,7 +121,7 @@ def generate_random_number(action=None, success=None, container=None, results=No
     ################################################################################
 
     import random
-    random1__random1 = random.randint(1, 100)
+    generate_random_number__random1_odds = random.randint(1, 100)
 
     ################################################################################
     ## Custom Code End
