@@ -103,8 +103,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 110,
-                    "y": -6.394884621840902e-14
+                    "x": 190,
+                    "y": 7
                 },
                 "1": {
                     "data": {
@@ -119,8 +119,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 120,
-                    "y": 1020
+                    "x": 190,
+                    "y": 1082
                 },
                 "10": {
                     "data": {
@@ -193,8 +193,8 @@
                     "id": "10",
                     "type": "utility",
                     "warnings": {},
-                    "x": 100,
-                    "y": 780
+                    "x": 170,
+                    "y": 934
                 },
                 "13": {
                     "data": {
@@ -214,8 +214,8 @@
                     "id": "13",
                     "type": "format",
                     "warnings": {},
-                    "x": 440,
-                    "y": 600
+                    "x": 340,
+                    "y": 638
                 },
                 "14": {
                     "data": {
@@ -286,8 +286,8 @@
                     "id": "14",
                     "type": "utility",
                     "warnings": {},
-                    "x": 440,
-                    "y": 744.5
+                    "x": 340,
+                    "y": 786
                 },
                 "15": {
                     "data": {
@@ -335,8 +335,8 @@
                     "id": "15",
                     "type": "action",
                     "warnings": {},
-                    "x": -240,
-                    "y": 484.5
+                    "x": 0,
+                    "y": 490
                 },
                 "16": {
                     "data": {
@@ -416,8 +416,8 @@
                     "id": "16",
                     "type": "utility",
                     "warnings": {},
-                    "x": -260,
-                    "y": 624.5
+                    "x": 0,
+                    "y": 638
                 },
                 "2": {
                     "data": {
@@ -467,8 +467,8 @@
                     "id": "2",
                     "type": "decision",
                     "warnings": {},
-                    "x": 180,
-                    "y": 300
+                    "x": 250,
+                    "y": 310
                 },
                 "6": {
                     "data": {
@@ -524,7 +524,7 @@
                     "type": "playbook",
                     "warnings": {},
                     "x": 0,
-                    "y": 624
+                    "y": 786
                 },
                 "8": {
                     "data": {
@@ -571,8 +571,8 @@
                             "Connect block to playbook flow."
                         ]
                     },
-                    "x": -540,
-                    "y": 500
+                    "x": 490,
+                    "y": 0
                 },
                 "9": {
                     "data": {
@@ -595,8 +595,8 @@
                     "type": "code",
                     "userCode": "\n    import random\n    generate_random_number__random1_odds = random.randint(1, 100)\n\n",
                     "warnings": {},
-                    "x": 90,
-                    "y": 148
+                    "x": 170,
+                    "y": 162
                 }
             },
             "notes": ""
