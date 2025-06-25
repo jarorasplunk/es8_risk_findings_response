@@ -54,6 +54,7 @@
                     "targetPort": "1_in"
                 }
             ],
+            "hash": "fd95797fdf0343f3d990fdfe943dc7169e9a341c",
             "nodes": {
                 "0": {
                     "data": {
@@ -102,6 +103,7 @@
                                         "value": "true"
                                     },
                                     {
+                                        "conditionIndex": 0,
                                         "op": "==",
                                         "param": "artifact:*.cef.random2_oods",
                                         "value": "true"
@@ -117,6 +119,7 @@
                             {
                                 "comparisons": [
                                     {
+                                        "conditionIndex": 1,
                                         "op": "==",
                                         "param": "",
                                         "value": ""
@@ -204,37 +207,37 @@
                         "inputs": {
                             "disposition_label": {
                                 "datapaths": [
-                                    "get_open_alerts:artifact:*.cef. disposition_label"
+                                    "get_open_alerts:action_result.data.*. disposition_label"
                                 ],
                                 "deduplicate": false
                             },
                             "event_id": {
                                 "datapaths": [
-                                    "get_open_alerts:artifact:*.cef.event_id"
+                                    "get_open_alerts:action_result.data.*. event_id"
                                 ],
                                 "deduplicate": false
                             },
                             "owner": {
                                 "datapaths": [
-                                    "get_open_alerts:artifact:*.cef.owner"
+                                    "get_open_alerts:action_result.data.*. owner"
                                 ],
                                 "deduplicate": false
                             },
                             "random1": {
                                 "datapaths": [
-                                    "get_open_alerts:artifact:*.cef. random1"
+                                    "get_open_alerts:action_result.data.*. random1"
                                 ],
                                 "deduplicate": false
                             },
                             "random2": {
                                 "datapaths": [
-                                    "get_open_alerts:artifact:*.cef. random2"
+                                    "get_open_alerts:action_result.data.*. random2"
                                 ],
                                 "deduplicate": false
                             },
                             "status_label": {
                                 "datapaths": [
-                                    "get_open_alerts:artifact:*.cef. status_label"
+                                    "get_open_alerts:action_result.data.*. status_label"
                                 ],
                                 "deduplicate": false
                             }
@@ -273,7 +276,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T05:47:08.432585+00:00",
+    "create_time": "2025-06-25T06:07:16.939822+00:00",
     "draft_mode": false,
     "labels": [
         "*"

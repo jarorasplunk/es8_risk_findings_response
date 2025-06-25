@@ -83,22 +83,22 @@ def get_open_alerts(action=None, success=None, container=None, results=None, han
 def playbook_update_alert_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_update_alert_1() called")
 
-    inputs_data_0 = phantom.collect2(container=container, datapath=["get_open_alerts:artifact:*.cef.event_id","get_open_alerts:artifact:*.cef.owner","get_open_alerts:artifact:*.cef. status_label","get_open_alerts:artifact:*.cef. disposition_label","get_open_alerts:artifact:*.cef. random1","get_open_alerts:artifact:*.cef. random2"])
+    get_open_alerts_result_data = phantom.collect2(container=container, datapath=["get_open_alerts:action_result.data.*. event_id","get_open_alerts:action_result.data.*. owner","get_open_alerts:action_result.data.*. status_label","get_open_alerts:action_result.data.*. disposition_label","get_open_alerts:action_result.data.*. random1","get_open_alerts:action_result.data.*. random2"], action_results=results)
 
-    inputs_item_0_0 = [item[0] for item in inputs_data_0]
-    inputs_item_0_1 = [item[1] for item in inputs_data_0]
-    inputs_item_0_2 = [item[2] for item in inputs_data_0]
-    inputs_item_0_3 = [item[3] for item in inputs_data_0]
-    inputs_item_0_4 = [item[4] for item in inputs_data_0]
-    inputs_item_0_5 = [item[5] for item in inputs_data_0]
+    get_open_alerts_result_item_0 = [item[0] for item in get_open_alerts_result_data]
+    get_open_alerts_result_item_1 = [item[1] for item in get_open_alerts_result_data]
+    get_open_alerts_result_item_2 = [item[2] for item in get_open_alerts_result_data]
+    get_open_alerts_result_item_3 = [item[3] for item in get_open_alerts_result_data]
+    get_open_alerts_result_item_4 = [item[4] for item in get_open_alerts_result_data]
+    get_open_alerts_result_item_5 = [item[5] for item in get_open_alerts_result_data]
 
     inputs = {
-        "event_id": inputs_item_0_0,
-        "owner": inputs_item_0_1,
-        "status_label": inputs_item_0_2,
-        "disposition_label": inputs_item_0_3,
-        "random1": inputs_item_0_4,
-        "random2": inputs_item_0_5,
+        "event_id": get_open_alerts_result_item_0,
+        "owner": get_open_alerts_result_item_1,
+        "status_label": get_open_alerts_result_item_2,
+        "disposition_label": get_open_alerts_result_item_3,
+        "random1": get_open_alerts_result_item_4,
+        "random2": get_open_alerts_result_item_5,
     }
 
     ################################################################################
