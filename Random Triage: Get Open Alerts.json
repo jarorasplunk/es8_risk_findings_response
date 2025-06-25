@@ -54,9 +54,23 @@
                             "index": 0
                         }
                     ],
-                    "id": "port_2_to_port_10",
+                    "id": "port_2_to_port_13",
                     "sourceNode": "2",
                     "sourcePort": "2_out",
+                    "targetNode": "13",
+                    "targetPort": "13_in"
+                },
+                {
+                    "id": "port_13_to_port_14",
+                    "sourceNode": "13",
+                    "sourcePort": "13_out",
+                    "targetNode": "14",
+                    "targetPort": "14_in"
+                },
+                {
+                    "id": "port_14_to_port_10",
+                    "sourceNode": "14",
+                    "sourcePort": "14_out",
                     "targetNode": "10",
                     "targetPort": "10_in"
                 },
@@ -68,7 +82,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "6e58b40107e4e988f07bfbc53d302060de77b35f",
+            "hash": "d6d24d5345bef675fae2b44e7e362860a6610b2a",
             "nodes": {
                 "0": {
                     "data": {
@@ -100,7 +114,7 @@
                     "type": "end",
                     "warnings": {},
                     "x": 120,
-                    "y": 920
+                    "y": 1020
                 },
                 "10": {
                     "data": {
@@ -175,6 +189,99 @@
                     "warnings": {},
                     "x": 100,
                     "y": 780
+                },
+                "13": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "format_1",
+                        "id": "13",
+                        "parameters": [
+                            "generate_random_number:custom_function:random1_odds"
+                        ],
+                        "template": "Random number {0} did not trigger any auto triage this time.  \n",
+                        "type": "format"
+                    },
+                    "errors": {},
+                    "id": "13",
+                    "type": "format",
+                    "warnings": {},
+                    "x": 440,
+                    "y": 600
+                },
+                "14": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "customFunction": null,
+                        "functionId": 4,
+                        "functionName": "add_comment_4",
+                        "id": "14",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "selectMore": false,
+                        "tab": "apis",
+                        "type": "utility",
+                        "utilities": {
+                            "comment": {
+                                "description": "",
+                                "fields": [
+                                    {
+                                        "description": "",
+                                        "label": "comment",
+                                        "name": "comment",
+                                        "placeholder": "Enter a comment",
+                                        "renderType": "datapath",
+                                        "required": true
+                                    },
+                                    {
+                                        "hidden": true,
+                                        "name": "container",
+                                        "required": false
+                                    },
+                                    {
+                                        "hidden": true,
+                                        "name": "author",
+                                        "required": false
+                                    },
+                                    {
+                                        "hidden": true,
+                                        "name": "trace",
+                                        "required": false
+                                    }
+                                ],
+                                "label": "add comment",
+                                "name": "comment"
+                            }
+                        },
+                        "utilityType": "api",
+                        "values": {
+                            "comment": {
+                                "_internal": [
+                                    "container",
+                                    "author",
+                                    "trace"
+                                ],
+                                "comment": "format_1:formatted_data"
+                            }
+                        }
+                    },
+                    "errors": {},
+                    "id": "14",
+                    "type": "utility",
+                    "warnings": {},
+                    "x": 440,
+                    "y": 744.5
                 },
                 "2": {
                     "data": {
@@ -389,7 +496,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T08:25:38.299851+00:00",
+    "create_time": "2025-06-25T08:31:45.744357+00:00",
     "draft_mode": false,
     "labels": [
         "auto_triage"

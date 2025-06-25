@@ -35,7 +35,7 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        join_close_container(action=action, success=success, container=container, results=results, handle=handle)
+        format_1(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'else' condition 2
@@ -171,6 +171,57 @@ def close_container(action=None, success=None, container=None, results=None, han
     phantom.set_status(container=container, status="closed")
 
     container = phantom.get_container(container.get('id', None))
+
+    return
+
+
+@phantom.playbook_block()
+def format_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("format_1() called")
+
+    template = """Random number {0} did not trigger any auto triage this time.  \n"""
+
+    # parameter list for template variable replacement
+    parameters = [
+        "generate_random_number:custom_function:random1_odds"
+    ]
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.format(container=container, template=template, parameters=parameters, name="format_1")
+
+    add_comment_4(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def add_comment_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_comment_4() called")
+
+    format_1 = phantom.get_format_data(name="format_1")
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.comment(container=container, comment=format_1)
+
+    join_close_container(container=container)
 
     return
 
