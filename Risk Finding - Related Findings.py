@@ -676,8 +676,7 @@ def findings_status_eval(action=None, success=None, container=None, results=None
     phantom.save_block_result(key="findings_status_eval:closed_finding_status", value=json.dumps(findings_status_eval__closed_finding_status))
     phantom.save_block_result(key="findings_status_eval:closed_finding_owner", value=json.dumps(findings_status_eval__closed_finding_owner))
 
-    close_findings_prompt(container=container)
-    closed_findings(container=container)
+    decision_3(container=container)
 
     return
 
@@ -705,6 +704,108 @@ def open_finding_ids(action=None, success=None, container=None, results=None, ha
     ################################################################################
 
     phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="open_finding_ids", callback=update_event_1)
+
+    return
+
+
+@phantom.playbook_block()
+def decision_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("decision_3() called")
+
+    # check for 'if' condition 1
+    found_match_1 = phantom.decision(
+        container=container,
+        conditions=[
+            ["findings_status_eval:custom_function:open_finding_ids", "is not empty"]
+        ],
+        conditions_dps=[
+            ["findings_status_eval:custom_function:open_finding_ids", "is not empty"]
+        ],
+        name="decision_3:condition_1",
+        delimiter=None)
+
+    # call connected blocks if condition 1 matched
+    if found_match_1:
+        close_findings_prompt(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'elif' condition 2
+    found_match_2 = phantom.decision(
+        container=container,
+        conditions=[
+            ["findings_status_eval:custom_function:closed_finding_ids", "is not empty"]
+        ],
+        conditions_dps=[
+            ["findings_status_eval:custom_function:closed_finding_ids", "is not empty"]
+        ],
+        name="decision_3:condition_2",
+        delimiter=None)
+
+    # call connected blocks if condition 2 matched
+    if found_match_2:
+        closed_findings(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'elif' condition 3
+    found_match_3 = phantom.decision(
+        container=container,
+        logical_operator="and",
+        conditions=[
+            ["findings_status_eval:custom_function:open_finding_ids", "is empty"],
+            ["findings_status_eval:custom_function:closed_finding_ids", "is empty"]
+        ],
+        conditions_dps=[
+            ["findings_status_eval:custom_function:open_finding_ids", "is empty"],
+            ["findings_status_eval:custom_function:closed_finding_ids", "is empty"]
+        ],
+        name="decision_3:condition_3",
+        delimiter=None)
+
+    # call connected blocks if condition 3 matched
+    if found_match_3:
+        add_task_note_1(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    return
+
+
+@phantom.playbook_block()
+def add_task_note_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("add_task_note_1() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    get_finding_or_investigation_1_result_data = phantom.collect2(container=container, datapath=["get_finding_or_investigation_1:action_result.data.*.investigation_id","get_finding_or_investigation_1:action_result.data.*.response_plans.*.id","get_finding_or_investigation_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_task_id_1_result_data = phantom.collect2(container=container, datapath=["get_task_id_1:action_result.data.*.task_id","get_task_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+    get_phase_id_1_result_data = phantom.collect2(container=container, datapath=["get_phase_id_1:action_result.data.*.phase_id","get_phase_id_1:action_result.parameter.context.artifact_id"], action_results=results)
+
+    parameters = []
+
+    # build parameters list for 'add_task_note_1' call
+    for get_finding_or_investigation_1_result_item in get_finding_or_investigation_1_result_data:
+        for get_task_id_1_result_item in get_task_id_1_result_data:
+            for get_phase_id_1_result_item in get_phase_id_1_result_data:
+                if get_finding_or_investigation_1_result_item[0] is not None and get_task_id_1_result_item[0] is not None and get_phase_id_1_result_item[0] is not None and get_finding_or_investigation_1_result_item[1] is not None:
+                    parameters.append({
+                        "id": get_finding_or_investigation_1_result_item[0],
+                        "title": "No Related Findings found:",
+                        "content": "There are no related findings in this investigation. Please analyze the associated Intermediate Findings in the overview tab.",
+                        "task_id": get_task_id_1_result_item[0],
+                        "phase_id": get_phase_id_1_result_item[0],
+                        "response_plan_id": get_finding_or_investigation_1_result_item[1],
+                    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"])
 
     return
 

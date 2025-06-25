@@ -84,13 +84,6 @@
                     "targetPort": "70_in"
                 },
                 {
-                    "id": "port_71_to_port_22",
-                    "sourceNode": "71",
-                    "sourcePort": "71_out",
-                    "targetNode": "22",
-                    "targetPort": "22_in"
-                },
-                {
                     "conditions": [
                         {
                             "conditionKey": "condition_key_0",
@@ -145,14 +138,60 @@
                     "targetPort": "71_in"
                 },
                 {
-                    "id": "port_71_to_port_69",
+                    "id": "port_71_to_port_74",
                     "sourceNode": "71",
                     "sourcePort": "71_out",
+                    "targetNode": "74",
+                    "targetPort": "74_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_0",
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_74_to_port_22",
+                    "sourceNode": "74",
+                    "sourcePort": "74_out",
+                    "targetNode": "22",
+                    "targetPort": "22_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_4",
+                            "index": 1
+                        }
+                    ],
+                    "id": "port_74_to_port_69",
+                    "sourceNode": "74",
+                    "sourcePort": "74_out",
                     "targetNode": "69",
                     "targetPort": "69_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_6",
+                            "index": 2
+                        }
+                    ],
+                    "id": "port_74_to_port_75",
+                    "sourceNode": "74",
+                    "sourcePort": "74_out",
+                    "targetNode": "75",
+                    "targetPort": "75_in"
+                },
+                {
+                    "id": "port_75_to_port_1",
+                    "sourceNode": "75",
+                    "sourcePort": "75_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
                 }
             ],
-            "hash": "a6708315a8dbc837112ca55a150e6a6621d43c4b",
+            "hash": "d732241858cd5d9814748666b868a3852f38750f",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -230,7 +269,7 @@
                     "type": "prompt",
                     "warnings": {},
                     "x": 0,
-                    "y": 1224
+                    "y": 1260
                 },
                 "26": {
                     "data": {
@@ -355,13 +394,9 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 0,
-                    "y": 2190
+                    "y": 2200
                 },
                 "31": {
                     "data": {
@@ -416,11 +451,7 @@
                     "errors": {},
                     "id": "31",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 0,
                     "y": 2338
                 },
@@ -473,11 +504,7 @@
                     "errors": {},
                     "id": "33",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 170,
                     "y": 618
                 },
@@ -535,11 +562,7 @@
                     "errors": {},
                     "id": "34",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 170,
                     "y": 766
                 },
@@ -699,11 +722,7 @@
                     "errors": {},
                     "id": "50",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 170,
                     "y": 914
                 },
@@ -732,8 +751,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n\n    included_findings__finding_id = []\n    included_findings__intermediate_finding_id = []\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        for long_key_string in item.keys():\n            matches = re.findall(r'(\\w+)=\"(.*?)\"', long_key_string)\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    included_findings__findings_list = final_result[\"finding_ids\"]\n    included_findings__finding_id = final_result[\"finding_ids\"]\n    included_findings__intermediate_finding_id = final_result[\"intermediate_finding_ids\"]\n    \n    included_findings__finding_id = str(included_findings__finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    included_findings__intermediate_finding_id = str(included_findings__intermediate_finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    \n    phantom.debug(included_findings__finding_id)\n    phantom.debug(included_findings__intermediate_finding_id)\n    \n",
                     "warnings": {},
-                    "x": 170,
-                    "y": 322
+                    "x": 180,
+                    "y": 320
                 },
                 "61": {
                     "data": {
@@ -857,13 +876,9 @@
                     "errors": {},
                     "id": "63",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 340,
-                    "y": 2345
+                    "y": 2340
                 },
                 "68": {
                     "data": {
@@ -987,8 +1002,8 @@
                     "type": "code",
                     "userCode": "\n    # Write your custom code here...\n\n    findings_status_eval__open_finding_ids = []\n    findings_status_eval__open_finding_rule_name = []\n    findings_status_eval__open_finding_status = []\n    findings_status_eval__open_finding_owner = []\n    \n    findings_status_eval__closed_finding_ids = []\n    findings_status_eval__closed_finding_rule_name = []\n    findings_status_eval__closed_finding_status = []\n    findings_status_eval__closed_finding_owner = []\n\n\n    if run_query_1_result_data:\n        note_open = (\n            \"\\n**Below are the list of open findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n        note_closed = (\n            \"\\n**Below are the list of already findings related to this investigation.**\\n\"\n            \"| Rule name | Finding | Status | Owner |\\n\"\n            \"| :--- | :--- | :--- | :--- |\\n\"\n        )\n\n        for rule_name,event_id,status,owner in zip(run_query_1_result_item_0,run_query_1_result_item_1,run_query_1_result_item_2,run_query_1_result_item_3):\n            #rule_name = rule_name.replace('\\n','')\n            #event_id = event_id.replace('\\n','')\n            finding_url = \"https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-30d&latest=now&event_id=\" + event_id\n            #status = status.replace('\\n','')\n            #owner = owner.replace('\\n','')\n            if status not in ('Closed', 'Resolved'):\n                note_open += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                findings_status_eval__open_finding_ids.append(event_id)\n                findings_status_eval__open_finding_rule_name.append(rule_name)\n                findings_status_eval__open_finding_status.append(status)\n                findings_status_eval__open_finding_owner.append(owner)\n            if status in ('Closed', 'Resolved'):\n                note_closed += \"|{}|[{}]({})|{}|{}|\\n\".format(rule_name, event_id, finding_url, status, owner)\n                findings_status_eval__closed_finding_ids.append(event_id)\n                findings_status_eval__closed_finding_rule_name.append(rule_name)\n                findings_status_eval__closed_finding_status.append(status)\n                findings_status_eval__closed_finding_owner.append(owner)\n\n        findings_status_eval__open_findings_note = note_open\n        findings_status_eval__closed_findings_note = note_closed\n        \n    else:\n        findings_status_eval__open_findings_note = \"\\n\\n**No open findings found in the investigation in last 30 days**\\n\"    \n        findings_status_eval__closed_findings_note = \"\\n\\n**No closed findings found in the investigation in last 30 days**\\n\"    \n\n\n",
                     "warnings": {},
-                    "x": 170,
-                    "y": 1076
+                    "x": 180,
+                    "y": 1040
                 },
                 "73": {
                     "data": {
@@ -1050,6 +1065,142 @@
                     "warnings": {},
                     "x": 0,
                     "y": 1566
+                },
+                "74": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "is not empty",
+                                        "param": "findings_status_eval:custom_function:open_finding_ids"
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "conditionKey": "condition_key_0",
+                                "customName": "open findings exists",
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "op": "is not empty",
+                                        "param": "findings_status_eval:custom_function:closed_finding_ids"
+                                    }
+                                ],
+                                "conditionIndex": 1,
+                                "conditionKey": "condition_key_4",
+                                "customName": "closed findings exists",
+                                "display": "Else If",
+                                "logic": "and",
+                                "type": "elif"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "op": "is empty",
+                                        "param": "findings_status_eval:custom_function:open_finding_ids"
+                                    },
+                                    {
+                                        "op": "is empty",
+                                        "param": "findings_status_eval:custom_function:closed_finding_ids"
+                                    }
+                                ],
+                                "conditionIndex": 2,
+                                "conditionKey": "condition_key_6",
+                                "customName": "findings doesnt exists",
+                                "display": "Else If",
+                                "logic": "and",
+                                "type": "elif"
+                            }
+                        ],
+                        "functionId": 3,
+                        "functionName": "decision_3",
+                        "id": "74",
+                        "type": "decision"
+                    },
+                    "errors": {},
+                    "id": "74",
+                    "type": "decision",
+                    "warnings": {},
+                    "x": 260,
+                    "y": 1140
+                },
+                "75": {
+                    "data": {
+                        "action": "add task note",
+                        "actionType": "post",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "add_task_note_1",
+                        "id": "75",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "content": "There are no related findings in this investigation. Please analyze the associated Intermediate Findings in the overview tab.",
+                            "id": "get_finding_or_investigation_1:action_result.data.*.investigation_id",
+                            "phase_id": "get_phase_id_1:action_result.data.*.phase_id",
+                            "response_plan_id": "get_finding_or_investigation_1:action_result.data.*.response_plans.*.id",
+                            "task_id": "get_task_id_1:action_result.data.*.task_id",
+                            "title": "No Related Findings found:"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "title"
+                            },
+                            {
+                                "data_type": "string",
+                                "default": "",
+                                "field": "content"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "task_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "phase_id"
+                            },
+                            {
+                                "data_type": "string",
+                                "field": "response_plan_id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "75",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 680,
+                    "y": 1580
                 }
             },
             "notes": ""
@@ -1062,7 +1213,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T05:11:09.532591+00:00",
+    "create_time": "2025-06-25T05:18:24.833186+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"
