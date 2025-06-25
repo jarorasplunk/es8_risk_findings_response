@@ -89,8 +89,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 1000,
-                    "y": 420
+                    "x": 190,
+                    "y": 0
                 },
                 "1": {
                     "data": {
@@ -105,8 +105,8 @@
                     "id": "1",
                     "type": "end",
                     "warnings": {},
-                    "x": 980,
-                    "y": 1260
+                    "x": 190,
+                    "y": 786
                 },
                 "10": {
                     "data": {
@@ -129,8 +129,8 @@
                     "type": "code",
                     "userCode": "\n    import random\n    \n    try:\n        # Attempt to convert the input to an integer for numerical comparisons\n        random1 = random.randint(1, 10)\n        \n        # Apply the conditional logic to set the analyst\n        if random1 < 5:\n            decide_disposition__disposition = \"Benign Positive - Suspicious But Expected\"\n        elif random1 == 5:\n            decide_disposition__disposition = \"True Positive - Suspicious Activity\"\n        elif 6 <= random1 <= 7: # Checks if random1 is 6 or 7\n            decide_disposition__disposition = \"False Positive - Incorrect Analytic Logic\"\n        elif random1 == 8:\n            decide_disposition__disposition = \"False Positive - Inaccurate Data\"\n        elif random1 == 9:\n            decide_disposition__disposition = \"Other\"\n        else:\n            # Handle cases where random1 is outside the specified range (e.g., > 9 or < 0)\n            decide_disposition__disposition = \"Other\" # Assign a default or error value\n            \n    except (TypeError, ValueError) as e:\n        # Handle cases where the input 'random1' is not a valid integer\n        phantom.debug(f\"Error: {e}\")\n        decide_disposition__disposition = \"Other\" # Assign an error value if input is invalid\n\n\n",
                     "warnings": {},
-                    "x": 380,
-                    "y": 764.5
+                    "x": 340,
+                    "y": 476
                 },
                 "2": {
                     "data": {
@@ -182,8 +182,8 @@
                     "id": "2",
                     "type": "decision",
                     "warnings": {},
-                    "x": 1060,
-                    "y": 624.5
+                    "x": 250,
+                    "y": 148
                 },
                 "3": {
                     "data": {
@@ -206,8 +206,8 @@
                     "type": "code",
                     "userCode": "\n    import random\n    \n    try:\n        # Attempt to convert the input to an integer for numerical comparisons\n        random1 = random.randint(1, 10)\n        \n        # Apply the conditional logic to set the analyst\n        if random1 < 5:\n            decide_analyst__analyst = \"jaejun@cisco.com\"\n        elif random1 == 5:\n            decide_analyst__analyst = \"dluxton@splunk.com\"\n        elif 6 <= random1 <= 7: # Checks if random1 is 6 or 7\n            decide_analyst__analyst = \"alice\"\n        elif random1 == 8:\n            decide_analyst__analyst = \"jaejun@cisco.com\"\n        elif random1 == 9:\n            decide_analyst__analyst = \"jitaror@cisco.com\"\n        else:\n            # Handle cases where random1 is outside the specified range (e.g., > 9 or < 0)\n            decide_analyst__analyst = \"unassigned\" # Assign a default or error value\n            \n    except (TypeError, ValueError) as e:\n        # Handle cases where the input 'random1' is not a valid integer\n        phantom.debug(f\"Error: {e}\")\n        decide_analyst__analyst = \"input_error\" # Assign an error value if input is invalid\n\n",
                     "warnings": {},
-                    "x": 1240,
-                    "y": 824.5
+                    "x": 0,
+                    "y": 328
                 },
                 "4": {
                     "data": {
@@ -261,8 +261,8 @@
                     "id": "4",
                     "type": "action",
                     "warnings": {},
-                    "x": 1180,
-                    "y": 1100
+                    "x": 0,
+                    "y": 624
                 },
                 "8": {
                     "data": {
@@ -439,8 +439,8 @@
                     "id": "8",
                     "type": "utility",
                     "warnings": {},
-                    "x": 1240,
-                    "y": 964.5
+                    "x": 0,
+                    "y": 476
                 },
                 "9": {
                     "data": {
@@ -494,8 +494,8 @@
                     "id": "9",
                     "type": "action",
                     "warnings": {},
-                    "x": 380,
-                    "y": 960
+                    "x": 340,
+                    "y": 631
                 }
             },
             "notes": ""
