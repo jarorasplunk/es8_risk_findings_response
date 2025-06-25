@@ -75,7 +75,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "3abc86f9c5bedf9d5b339420dee5a543189b305f",
+            "hash": "dc15e86f1b2fbeff5c962e13fc8a5bc8fb26e4bf",
             "nodes": {
                 "0": {
                     "data": {
@@ -480,7 +480,8 @@
                             },
                             "disposition": "decide_disposition:custom_function:disposition",
                             "event_ids": "playbook_input:event_id",
-                            "status": "Closed"
+                            "integer_status": "",
+                            "status": "closed"
                         },
                         "requiredParameters": [
                             {
@@ -539,7 +540,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T07:11:38.105912+00:00",
+    "create_time": "2025-06-25T07:21:20.282077+00:00",
     "draft_mode": false,
     "labels": [
         "*"

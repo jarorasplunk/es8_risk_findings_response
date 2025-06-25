@@ -197,9 +197,10 @@ def update_alert_closed(action=None, success=None, container=None, results=None,
             if playbook_input_event_id_item[0] is not None:
                 parameters.append({
                     "event_ids": playbook_input_event_id_item[0],
-                    "status": "Closed",
+                    "status": "closed",
                     "comment": comment_formatted_string,
                     "disposition": decide_disposition__disposition,
+                    "integer_status": "",
                 })
 
     ################################################################################
