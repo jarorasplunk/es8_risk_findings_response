@@ -7,13 +7,6 @@
             "description": "",
             "edges": [
                 {
-                    "id": "port_0_to_port_2",
-                    "sourceNode": "0",
-                    "sourcePort": "0_out",
-                    "targetNode": "2",
-                    "targetPort": "2_in"
-                },
-                {
                     "conditions": [
                         {
                             "conditionKey": "condition_key_0",
@@ -73,8 +66,23 @@
                     "sourcePort": "9_out",
                     "targetNode": "1",
                     "targetPort": "1_in"
+                },
+                {
+                    "id": "port_0_to_port_11",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "11",
+                    "targetPort": "11_in"
+                },
+                {
+                    "id": "port_11_to_port_2",
+                    "sourceNode": "11",
+                    "sourcePort": "11_out",
+                    "targetNode": "2",
+                    "targetPort": "2_in"
                 }
             ],
+            "hash": "31f846a64ab465f168a0dd9a0ef1352f81b3fc71",
             "nodes": {
                 "0": {
                     "data": {
@@ -89,8 +97,8 @@
                     "id": "0",
                     "type": "start",
                     "warnings": {},
-                    "x": 190,
-                    "y": -6.394884621840902e-14
+                    "x": 200,
+                    "y": -200
                 },
                 "1": {
                     "data": {
@@ -132,6 +140,51 @@
                     "x": 340,
                     "y": 476
                 },
+                "11": {
+                    "data": {
+                        "action": "get finding by id",
+                        "actionType": "get",
+                        "advanced": {
+                            "join": []
+                        },
+                        "connector": "Enterprise Security",
+                        "connectorConfigs": [
+                            "builtin_mc_connector"
+                        ],
+                        "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
+                        "connectorVersion": "v1",
+                        "functionId": 4,
+                        "functionName": "get_finding_by_id_4",
+                        "id": "11",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "earliest": "-7day",
+                            "id": "playbook_input:event_id",
+                            "latest": "now"
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "id"
+                            }
+                        ],
+                        "type": "enterpriseSecurity"
+                    },
+                    "errors": {},
+                    "id": "11",
+                    "type": "enterpriseSecurity",
+                    "warnings": {},
+                    "x": 180,
+                    "y": -40
+                },
                 "2": {
                     "data": {
                         "advanced": {
@@ -145,7 +198,7 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "==",
-                                        "param": "playbook_input:status_label",
+                                        "param": "get_finding_by_id_4:action_result.data.*.status_label",
                                         "value": "New"
                                     }
                                 ],
@@ -182,8 +235,8 @@
                     "id": "2",
                     "type": "decision",
                     "warnings": {},
-                    "x": 250,
-                    "y": 148
+                    "x": 260,
+                    "y": 140
                 },
                 "3": {
                     "data": {
@@ -471,6 +524,7 @@
                         },
                         "parameters": {
                             "comment": {
+                                "functionId": 2,
                                 "parameters": [
                                     "decide_disposition:custom_function:disposition",
                                     "playbook_input:owner"
@@ -514,7 +568,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T08:48:41.050737+00:00",
+    "create_time": "2025-06-25T10:42:11.351422+00:00",
     "draft_mode": false,
     "labels": [
         "*"

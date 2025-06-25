@@ -12,8 +12,8 @@ from datetime import datetime, timedelta
 def on_start(container):
     phantom.debug('on_start() called')
 
-    # call 'notable_status' block
-    notable_status(container=container)
+    # call 'get_finding_by_id_4' block
+    get_finding_by_id_4(container=container)
 
     return
 
@@ -25,10 +25,10 @@ def notable_status(action=None, success=None, container=None, results=None, hand
     found_match_1 = phantom.decision(
         container=container,
         conditions=[
-            ["playbook_input:status_label", "==", "New"]
+            ["get_finding_by_id_4:action_result.data.*.status_label", "==", "New"]
         ],
         conditions_dps=[
-            ["playbook_input:status_label", "==", "New"]
+            ["get_finding_by_id_4:action_result.data.*.status_label", "==", "New"]
         ],
         name="notable_status:condition_1",
         delimiter=None)
@@ -262,6 +262,40 @@ def decide_disposition(action=None, success=None, container=None, results=None, 
     phantom.save_block_result(key="decide_disposition:disposition", value=json.dumps(decide_disposition__disposition))
 
     update_alert_closed(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def get_finding_by_id_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("get_finding_by_id_4() called")
+
+    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
+
+    playbook_input_event_id = phantom.collect2(container=container, datapath=["playbook_input:event_id"])
+
+    parameters = []
+
+    # build parameters list for 'get_finding_by_id_4' call
+    for playbook_input_event_id_item in playbook_input_event_id:
+        if playbook_input_event_id_item[0] is not None:
+            parameters.append({
+                "id": playbook_input_event_id_item[0],
+                "latest": "now",
+                "earliest": "-7day",
+            })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.act("get finding by id", parameters=parameters, name="get_finding_by_id_4", assets=["builtin_mc_connector"], callback=notable_status)
 
     return
 
