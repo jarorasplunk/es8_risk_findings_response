@@ -54,7 +54,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "fd95797fdf0343f3d990fdfe943dc7169e9a341c",
+            "hash": "815dd6d98457c540914e606f1e8582de869b9540",
             "nodes": {
                 "0": {
                     "data": {
@@ -99,13 +99,13 @@
                                     {
                                         "conditionIndex": 0,
                                         "op": "==",
-                                        "param": "artifact:*.cef.random1_oods",
+                                        "param": "container:random1_oods",
                                         "value": "true"
                                     },
                                     {
                                         "conditionIndex": 0,
                                         "op": "==",
-                                        "param": "artifact:*.cef.random2_oods",
+                                        "param": "container:random2_oods",
                                         "value": "true"
                                     }
                                 ],
@@ -276,7 +276,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T06:07:16.939822+00:00",
+    "create_time": "2025-06-25T06:08:04.264181+00:00",
     "draft_mode": false,
     "labels": [
         "*"
