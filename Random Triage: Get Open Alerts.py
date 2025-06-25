@@ -129,7 +129,43 @@ def generate_random_number(action=None, success=None, container=None, results=No
 
     phantom.save_block_result(key="generate_random_number:random1_odds", value=json.dumps(generate_random_number__random1_odds))
 
-    decision_1(container=container)
+    debug_5(container=container)
+
+    return
+
+
+@phantom.playbook_block()
+def debug_5(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("debug_5() called")
+
+    generate_random_number__random1_odds = json.loads(_ if (_ := phantom.get_run_data(key="generate_random_number:random1_odds")) != "" else "null")  # pylint: disable=used-before-assignment
+
+    parameters = []
+
+    parameters.append({
+        "input_1": generate_random_number__random1_odds,
+        "input_2": None,
+        "input_3": None,
+        "input_4": None,
+        "input_5": None,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+        "input_9": None,
+        "input_10": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_5")
 
     return
 
