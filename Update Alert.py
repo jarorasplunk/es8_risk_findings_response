@@ -182,18 +182,18 @@ def update_alert_closed(action=None, success=None, container=None, results=None,
         template="""This one is a {0}\n{1}\n""",
         parameters=[
             "decide_disposition:custom_function:disposition",
-            "playbook_input:owner"
+            "get_finding_by_id_4:action_result.data.*.owner"
         ])
 
     playbook_input_event_id = phantom.collect2(container=container, datapath=["playbook_input:event_id"])
-    playbook_input_owner = phantom.collect2(container=container, datapath=["playbook_input:owner"])
+    get_finding_by_id_4_result_data = phantom.collect2(container=container, datapath=["get_finding_by_id_4:action_result.data.*.owner","get_finding_by_id_4:action_result.parameter.context.artifact_id"], action_results=results)
     decide_disposition__disposition = json.loads(_ if (_ := phantom.get_run_data(key="decide_disposition:disposition")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     # build parameters list for 'update_alert_closed' call
     for playbook_input_event_id_item in playbook_input_event_id:
-        for playbook_input_owner_item in playbook_input_owner:
+        for get_finding_by_id_4_result_item in get_finding_by_id_4_result_data:
             if playbook_input_event_id_item[0] is not None:
                 parameters.append({
                     "event_ids": playbook_input_event_id_item[0],
@@ -201,6 +201,7 @@ def update_alert_closed(action=None, success=None, container=None, results=None,
                     "comment": comment_formatted_string,
                     "disposition": decide_disposition__disposition,
                     "integer_status": "",
+                    "context": {'artifact_id': get_finding_by_id_4_result_item[1]},
                 })
 
     ################################################################################

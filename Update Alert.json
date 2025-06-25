@@ -82,7 +82,7 @@
                     "targetPort": "2_in"
                 }
             ],
-            "hash": "31f846a64ab465f168a0dd9a0ef1352f81b3fc71",
+            "hash": "dfa000ea3619350e3ac633fa9dd44942e8581d51",
             "nodes": {
                 "0": {
                     "data": {
@@ -527,7 +527,7 @@
                                 "functionId": 2,
                                 "parameters": [
                                     "decide_disposition:custom_function:disposition",
-                                    "playbook_input:owner"
+                                    "get_finding_by_id_4:action_result.data.*.owner"
                                 ],
                                 "template": "This one is a {0}\n{1}\n"
                             },
@@ -568,7 +568,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T10:42:11.351422+00:00",
+    "create_time": "2025-06-25T11:07:55.368694+00:00",
     "draft_mode": false,
     "labels": [
         "*"
