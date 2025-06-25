@@ -82,7 +82,6 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "86fc30897082761791f12d1bee7e11293a58ddb9",
             "nodes": {
                 "0": {
                     "data": {
@@ -502,8 +501,7 @@
     "create_time": "2025-06-25T10:38:52.803954+00:00",
     "draft_mode": false,
     "labels": [
-        "auto_triage",
-        "generator"
+        "auto_triage"
     ],
     "tags": []
 }
