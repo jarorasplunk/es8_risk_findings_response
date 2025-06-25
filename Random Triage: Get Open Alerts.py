@@ -113,7 +113,19 @@ def playbook_update_alert_1(action=None, success=None, container=None, results=N
     ################################################################################
 
     # call playbook "es8_risk_findings_response/Update Alert", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("es8_risk_findings_response/Update Alert", container=container, inputs=inputs)
+    playbook_run_id = phantom.playbook("es8_risk_findings_response/Update Alert", container=container, name="playbook_update_alert_1", callback=playbook_update_alert_1_callback, inputs=inputs)
+
+    return
+
+
+@phantom.playbook_block()
+def playbook_update_alert_1_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("playbook_update_alert_1_callback() called")
+
+    
+    # Downstream End block cannot be called directly, since execution will call on_finish automatically.
+    # Using placeholder callback function so child playbook is run synchronously.
+
 
     return
 
