@@ -68,12 +68,12 @@ def decide_analyst(action=None, success=None, container=None, results=None, hand
         elif 6 <= random1 <= 7: # Checks if random1 is 6 or 7
             decide_analyst__analyst = "alice"
         elif random1 == 8:
-            decide_analyst__analyst = "jaejun@cisco.com"
+            decide_analyst__analyst = "alice"
         elif random1 == 9:
-            decide_analyst__analyst = "jitaror@cisco.com"
+            decide_analyst__analyst = "damo"
         else:
             # Handle cases where random1 is outside the specified range (e.g., > 9 or < 0)
-            decide_analyst__analyst = "unassigned" # Assign a default or error value
+            decide_analyst__analyst = "wally" # Assign a default or error value
             
     except (TypeError, ValueError) as e:
         # Handle cases where the input 'random1' is not a valid integer

@@ -75,6 +75,7 @@
                     "targetPort": "1_in"
                 }
             ],
+            "hash": "551a3a44f705daa45d7a6df3e37f2e34ce624dd9",
             "nodes": {
                 "0": {
                     "data": {
@@ -90,7 +91,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 190,
-                    "y": 0
+                    "y": -6.394884621840902e-14
                 },
                 "1": {
                     "data": {
@@ -204,10 +205,10 @@
                     "errors": {},
                     "id": "3",
                     "type": "code",
-                    "userCode": "\n    import random\n    \n    try:\n        # Attempt to convert the input to an integer for numerical comparisons\n        random1 = random.randint(1, 10)\n        \n        # Apply the conditional logic to set the analyst\n        if random1 < 5:\n            decide_analyst__analyst = \"jaejun@cisco.com\"\n        elif random1 == 5:\n            decide_analyst__analyst = \"dluxton@splunk.com\"\n        elif 6 <= random1 <= 7: # Checks if random1 is 6 or 7\n            decide_analyst__analyst = \"alice\"\n        elif random1 == 8:\n            decide_analyst__analyst = \"jaejun@cisco.com\"\n        elif random1 == 9:\n            decide_analyst__analyst = \"jitaror@cisco.com\"\n        else:\n            # Handle cases where random1 is outside the specified range (e.g., > 9 or < 0)\n            decide_analyst__analyst = \"unassigned\" # Assign a default or error value\n            \n    except (TypeError, ValueError) as e:\n        # Handle cases where the input 'random1' is not a valid integer\n        phantom.debug(f\"Error: {e}\")\n        decide_analyst__analyst = \"input_error\" # Assign an error value if input is invalid\n\n",
+                    "userCode": "\n    import random\n    \n    try:\n        # Attempt to convert the input to an integer for numerical comparisons\n        random1 = random.randint(1, 10)\n        \n        # Apply the conditional logic to set the analyst\n        if random1 < 5:\n            decide_analyst__analyst = \"jaejun@cisco.com\"\n        elif random1 == 5:\n            decide_analyst__analyst = \"dluxton@splunk.com\"\n        elif 6 <= random1 <= 7: # Checks if random1 is 6 or 7\n            decide_analyst__analyst = \"alice\"\n        elif random1 == 8:\n            decide_analyst__analyst = \"alice\"\n        elif random1 == 9:\n            decide_analyst__analyst = \"damo\"\n        else:\n            # Handle cases where random1 is outside the specified range (e.g., > 9 or < 0)\n            decide_analyst__analyst = \"wally\" # Assign a default or error value\n            \n    except (TypeError, ValueError) as e:\n        # Handle cases where the input 'random1' is not a valid integer\n        phantom.debug(f\"Error: {e}\")\n        decide_analyst__analyst = \"input_error\" # Assign an error value if input is invalid\n\n",
                     "warnings": {},
                     "x": 0,
-                    "y": 328
+                    "y": 320
                 },
                 "4": {
                     "data": {
@@ -524,7 +525,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T07:21:20.282077+00:00",
+    "create_time": "2025-06-25T08:27:57.495134+00:00",
     "draft_mode": false,
     "labels": [
         "*"
