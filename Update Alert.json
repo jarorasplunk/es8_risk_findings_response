@@ -1,0 +1,257 @@
+{
+    "blockly": false,
+    "blockly_xml": "<xml></xml>",
+    "category": "Uncategorized",
+    "coa": {
+        "data": {
+            "description": "",
+            "edges": [
+                {
+                    "id": "port_0_to_port_2",
+                    "sourceNode": "0",
+                    "sourcePort": "0_out",
+                    "targetNode": "2",
+                    "targetPort": "2_in"
+                },
+                {
+                    "conditions": [
+                        {
+                            "conditionKey": "condition_key_0",
+                            "index": 0
+                        }
+                    ],
+                    "id": "port_2_to_port_3",
+                    "sourceNode": "2",
+                    "sourcePort": "2_out",
+                    "targetNode": "3",
+                    "targetPort": "3_in"
+                },
+                {
+                    "id": "port_3_to_port_4",
+                    "sourceNode": "3",
+                    "sourcePort": "3_out",
+                    "targetNode": "4",
+                    "targetPort": "4_in"
+                },
+                {
+                    "id": "port_4_to_port_1",
+                    "sourceNode": "4",
+                    "sourcePort": "4_out",
+                    "targetNode": "1",
+                    "targetPort": "1_in"
+                }
+            ],
+            "hash": "b6a3c736fdab4e29af02227ca689acacc70ab09e",
+            "nodes": {
+                "0": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionName": "on_start",
+                        "id": "0",
+                        "type": "start"
+                    },
+                    "errors": {},
+                    "id": "0",
+                    "type": "start",
+                    "warnings": {},
+                    "x": 1000,
+                    "y": 419.9999999999999
+                },
+                "1": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "functionName": "on_finish",
+                        "id": "1",
+                        "type": "end"
+                    },
+                    "errors": {},
+                    "id": "1",
+                    "type": "end",
+                    "warnings": {},
+                    "x": 980,
+                    "y": 1260
+                },
+                "2": {
+                    "data": {
+                        "advanced": {
+                            "join": []
+                        },
+                        "conditions": [
+                            {
+                                "comparisons": [
+                                    {
+                                        "conditionIndex": 0,
+                                        "op": "==",
+                                        "param": "playbook_input:status_label",
+                                        "value": "New"
+                                    }
+                                ],
+                                "conditionIndex": 0,
+                                "conditionKey": "condition_key_0",
+                                "customName": "New Notable",
+                                "display": "If",
+                                "logic": "and",
+                                "type": "if"
+                            },
+                            {
+                                "comparisons": [
+                                    {
+                                        "op": "==",
+                                        "param": "",
+                                        "value": ""
+                                    }
+                                ],
+                                "conditionIndex": 1,
+                                "conditionKey": "condition_key_2",
+                                "customName": "In progress",
+                                "display": "Else",
+                                "logic": "and",
+                                "type": "else"
+                            }
+                        ],
+                        "functionId": 1,
+                        "functionName": "decision_1",
+                        "id": "2",
+                        "type": "decision"
+                    },
+                    "errors": {},
+                    "id": "2",
+                    "type": "decision",
+                    "warnings": {},
+                    "x": 1060,
+                    "y": 624.5
+                },
+                "3": {
+                    "data": {
+                        "advanced": {
+                            "customName": "Decide Analyst",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "functionId": 1,
+                        "functionName": "decide_analyst",
+                        "id": "3",
+                        "inputParameters": [
+                            "random1"
+                        ],
+                        "outputVariables": [
+                            "analyst"
+                        ],
+                        "type": "code"
+                    },
+                    "errors": {},
+                    "id": "3",
+                    "type": "code",
+                    "userCode": "\n    \n    try:\n        # Attempt to convert the input to an integer for numerical comparisons\n        random1 = int(input_parameter_0)\n        \n        # Apply the conditional logic to set the analyst\n        if random1 < 5:\n            code_1__analyst = \"alice\"\n        elif random1 == 5:\n            code_1__analyst = \"dluxton@splunk.com\"\n        elif 6 <= random1 <= 7: # Checks if random1 is 6 or 7\n            code_1__analyst = \"damo\"\n        elif random1 == 8:\n            code_1__analyst = \"fyodor\"\n        elif random1 == 9:\n            code_1__analyst = \"wally\"\n        else:\n            # Handle cases where random1 is outside the specified range (e.g., > 9 or < 0)\n            phantom.debug(f\"Input '{input_parameter_0}' value ({random1}) is outside the defined assignment range (0-9).\")\n            code_1__analyst = \"unassigned_analyst\" # Assign a default or error value\n            \n    except (TypeError, ValueError) as e:\n        # Handle cases where the input 'random1' is not a valid integer\n        phantom.debug(f\"Error: Input '{input_parameter_0}' is not a valid integer. Received: '{input_parameter_0}'. Error: {e}\")\n        code_1__analyst = \"input_error\" # Assign an error value if input is invalid\n\n",
+                    "warnings": {},
+                    "x": 1240,
+                    "y": 824.5
+                },
+                "4": {
+                    "data": {
+                        "action": "update event",
+                        "actionType": "generic",
+                        "advanced": {
+                            "customName": "Update Alert In Progress",
+                            "customNameId": 0,
+                            "join": []
+                        },
+                        "connector": "Splunk",
+                        "connectorConfigs": [
+                            "es"
+                        ],
+                        "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
+                        "connectorVersion": "v1",
+                        "functionId": 1,
+                        "functionName": "update_alert_in_progress",
+                        "id": "4",
+                        "loop": {
+                            "enabled": false,
+                            "exitAfterUnit": "m",
+                            "exitAfterValue": 10,
+                            "exitConditionEnabled": false,
+                            "exitLoopAfter": 2,
+                            "pauseUnit": "m",
+                            "pauseValue": 2
+                        },
+                        "parameters": {
+                            "comment": {
+                                "functionId": 1,
+                                "parameters": [
+                                    "decide_analyst:custom_function:analyst"
+                                ],
+                                "template": "Investigating this one now. \n{0}\n"
+                            },
+                            "event_ids": "playbook_input:event_id",
+                            "integer_status": "2",
+                            "owner": "decide_analyst:custom_function:analyst",
+                            "status": ""
+                        },
+                        "requiredParameters": [
+                            {
+                                "data_type": "string",
+                                "field": "event_ids"
+                            }
+                        ],
+                        "type": "action"
+                    },
+                    "errors": {},
+                    "id": "4",
+                    "type": "action",
+                    "warnings": {},
+                    "x": 900,
+                    "y": 1060
+                }
+            },
+            "notes": ""
+        },
+        "input_spec": [
+            {
+                "contains": [],
+                "description": "Alert ID",
+                "name": "event_id"
+            },
+            {
+                "contains": [],
+                "description": "",
+                "name": "owner"
+            },
+            {
+                "contains": [],
+                "description": "",
+                "name": "status_label"
+            },
+            {
+                "contains": [],
+                "description": "",
+                "name": "disposition_label"
+            },
+            {
+                "contains": [],
+                "description": "",
+                "name": "random1"
+            },
+            {
+                "contains": [],
+                "description": "",
+                "name": "random2"
+            }
+        ],
+        "output_spec": null,
+        "playbook_trigger": "artifact_created",
+        "playbook_type": "data",
+        "python_version": "3.9",
+        "schema": "5.0.20",
+        "version": "6.4.1.361"
+    },
+    "create_time": "2025-06-25T05:44:40.805918+00:00",
+    "draft_mode": false,
+    "labels": [
+        "*"
+    ],
+    "tags": []
+}
