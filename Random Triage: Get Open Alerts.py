@@ -145,12 +145,11 @@ def join_close_container(action=None, success=None, container=None, results=None
     if phantom.get_run_data(key="join_close_container_called"):
         return
 
-    if phantom.completed(playbook_names=["playbook_update_alert_1"]):
-        # save the state that the joined function has now been called
-        phantom.save_block_result(key="join_close_container_called", value="close_container")
+    # save the state that the joined function has now been called
+    phantom.save_block_result(key="join_close_container_called", value="close_container")
 
-        # call connected block "close_container"
-        close_container(container=container, handle=handle)
+    # call connected block "close_container"
+    close_container(container=container, handle=handle)
 
     return
 
