@@ -78,9 +78,7 @@ def playbook_update_alert_1(action=None, success=None, container=None, results=N
     ################################################################################
 
     # call playbook "es8_risk_findings_response/Update Alert", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("es8_risk_findings_response/Update Alert", container=container, inputs=inputs)
-
-    join_close_container(container=container)
+    playbook_run_id = phantom.playbook("es8_risk_findings_response/Update Alert", container=container, name="playbook_update_alert_1", callback=join_close_container, inputs=inputs)
 
     return
 
@@ -97,7 +95,7 @@ def list_open_alerts(action=None, success=None, container=None, results=None, ha
         "limit": 2,
         "disposition": "Undetermined",
         "latest": "-15m@m",
-        "earliest": "-7d",
+        "earliest": "-24h",
     })
 
     ################################################################################
@@ -147,11 +145,12 @@ def join_close_container(action=None, success=None, container=None, results=None
     if phantom.get_run_data(key="join_close_container_called"):
         return
 
-    # save the state that the joined function has now been called
-    phantom.save_block_result(key="join_close_container_called", value="close_container")
+    if phantom.completed(playbook_names=["playbook_update_alert_1"]):
+        # save the state that the joined function has now been called
+        phantom.save_block_result(key="join_close_container_called", value="close_container")
 
-    # call connected block "close_container"
-    close_container(container=container, handle=handle)
+        # call connected block "close_container"
+        close_container(container=container, handle=handle)
 
     return
 
