@@ -82,7 +82,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "855d55ad37cab9947923e0605109ad4e585d35a3",
+            "hash": "86fc30897082761791f12d1bee7e11293a58ddb9",
             "nodes": {
                 "0": {
                     "data": {
@@ -452,7 +452,7 @@
                             "earliest": "-7d",
                             "latest": "-24h",
                             "limit": "20",
-                            "status": ""
+                            "status": "New, In Progress"
                         },
                         "requiredParameters": [],
                         "type": "enterpriseSecurity"
@@ -499,7 +499,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T10:36:41.754767+00:00",
+    "create_time": "2025-06-25T10:38:52.803954+00:00",
     "draft_mode": false,
     "labels": [
         "auto_triage",

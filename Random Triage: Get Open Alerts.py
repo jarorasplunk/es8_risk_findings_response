@@ -98,7 +98,7 @@ def list_open_alerts(action=None, success=None, container=None, results=None, ha
         "disposition": "Undetermined",
         "latest": "-24h",
         "earliest": "-7d",
-        "status": "",
+        "status": "New, In Progress",
     })
 
     ################################################################################
