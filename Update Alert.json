@@ -75,7 +75,6 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "dc15e86f1b2fbeff5c962e13fc8a5bc8fb26e4bf",
             "nodes": {
                 "0": {
                     "data": {
@@ -91,7 +90,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 1000,
-                    "y": 419.9999999999999
+                    "y": 420
                 },
                 "1": {
                     "data": {
@@ -516,21 +515,6 @@
                 "contains": [],
                 "description": "",
                 "name": "status_label"
-            },
-            {
-                "contains": [],
-                "description": "",
-                "name": "disposition_label"
-            },
-            {
-                "contains": [],
-                "description": "",
-                "name": "random1"
-            },
-            {
-                "contains": [],
-                "description": "",
-                "name": "random2"
             }
         ],
         "output_spec": null,
