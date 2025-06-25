@@ -82,7 +82,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "994b2db02d7c0c240f726a8860577825a12200f0",
+            "hash": "855d55ad37cab9947923e0605109ad4e585d35a3",
             "nodes": {
                 "0": {
                     "data": {
@@ -410,7 +410,7 @@
                         "playbookRepo": 3,
                         "playbookRepoName": "es8_risk_findings_response",
                         "playbookType": "data",
-                        "synchronous": true,
+                        "synchronous": false,
                         "type": "playbook"
                     },
                     "errors": {},
@@ -499,7 +499,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T10:31:46.813511+00:00",
+    "create_time": "2025-06-25T10:36:41.754767+00:00",
     "draft_mode": false,
     "labels": [
         "auto_triage",
