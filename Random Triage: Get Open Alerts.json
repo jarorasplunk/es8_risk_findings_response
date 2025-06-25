@@ -82,7 +82,7 @@
                     "targetPort": "6_in"
                 }
             ],
-            "hash": "368015a9da8a37bbb575f1d048d65647eda7b6a5",
+            "hash": "4d11231861608d773da2d021c25d3582b8fb7315",
             "nodes": {
                 "0": {
                     "data": {
@@ -392,39 +392,9 @@
                         "functionName": "playbook_Update_Alert_1",
                         "id": "6",
                         "inputs": {
-                            "disposition_label": {
-                                "datapaths": [
-                                    "list_open_alerts:action_result.data.*.items.*.disposition_label"
-                                ],
-                                "deduplicate": false
-                            },
                             "event_id": {
                                 "datapaths": [
-                                    "list_open_alerts:action_result.data.*.items.*.event_id"
-                                ],
-                                "deduplicate": false
-                            },
-                            "owner": {
-                                "datapaths": [
-                                    "list_open_alerts:action_result.data.*.items.*.owner"
-                                ],
-                                "deduplicate": false
-                            },
-                            "random1": {
-                                "datapaths": [
-                                    "artifact:*.cef.random1"
-                                ],
-                                "deduplicate": false
-                            },
-                            "random2": {
-                                "datapaths": [
-                                    "artifact:*.cef.random2"
-                                ],
-                                "deduplicate": false
-                            },
-                            "status_label": {
-                                "datapaths": [
-                                    "list_open_alerts:action_result.data.*.items.*.status_label"
+                                    "run_query_1:action_result.data.*.event_id"
                                 ],
                                 "deduplicate": false
                             }
@@ -465,11 +435,7 @@
                     "errors": {},
                     "id": "6",
                     "type": "playbook",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 0,
                     "y": 624
                 },
@@ -556,7 +522,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T10:56:23.962374+00:00",
+    "create_time": "2025-06-25T10:57:04.224113+00:00",
     "draft_mode": false,
     "labels": [
         "auto_triage",
