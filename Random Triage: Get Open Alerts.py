@@ -12,8 +12,8 @@ from datetime import datetime, timedelta
 def on_start(container):
     phantom.debug('on_start() called')
 
-    # call 'decision_1' block
-    decision_1(container=container)
+    # call 'generate_random_number' block
+    generate_random_number(container=container)
 
     return
 
@@ -24,14 +24,11 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
     # check for 'if' condition 1
     found_match_1 = phantom.decision(
         container=container,
-        logical_operator="or",
         conditions=[
-            ["artifact:*.cef.random1_odds", "==", True],
-            ["artifact:*.cef.random2_oods", "==", True]
+            ["generate_random_number:custom_function:random1_odds", "<", 85]
         ],
         conditions_dps=[
-            ["artifact:*.cef.random1_odds", "==", True],
-            ["artifact:*.cef.random2_oods", "==", True]
+            ["generate_random_number:custom_function:random1_odds", "<", 85]
         ],
         name="decision_1:condition_1",
         delimiter=None)
@@ -109,6 +106,30 @@ def list_open_alerts(action=None, success=None, container=None, results=None, ha
     ################################################################################
 
     phantom.act("list findings", parameters=parameters, name="list_open_alerts", assets=["builtin_mc_connector"], callback=playbook_update_alert_1)
+
+    return
+
+
+@phantom.playbook_block()
+def generate_random_number(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("generate_random_number() called")
+
+    generate_random_number__random1_odds = None
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    import random
+    random1__random1 = random.randint(1, 100)
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.save_block_result(key="generate_random_number:random1_odds", value=json.dumps(generate_random_number__random1_odds))
+
+    decision_1(container=container)
 
     return
 
