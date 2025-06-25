@@ -89,6 +89,7 @@
                     "targetPort": "6_in"
                 }
             ],
+            "hash": "5a7a2384b131a94e9a431410b858bc66daaa4f56",
             "nodes": {
                 "0": {
                     "data": {
@@ -319,7 +320,7 @@
                             "command": "search",
                             "display": "event_id",
                             "end_time": "-24h",
-                            "query": "detection_type=ebd `notable` | where status_end=\"false\" | tail 2 | stats values(event_id) as event_id  | nomv event_id",
+                            "query": "detection_type=ebd `notable` | where status_end=\"false\" | tail 20 | stats values(event_id) as event_id  | nomv event_id",
                             "search_mode": "smart",
                             "start_time": "-7d"
                         },
@@ -609,7 +610,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T11:03:55.502688+00:00",
+    "create_time": "2025-06-25T11:11:21.764763+00:00",
     "draft_mode": false,
     "labels": [
         "auto_triage",
