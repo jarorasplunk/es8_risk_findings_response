@@ -58,7 +58,7 @@ def get_open_alerts(action=None, success=None, container=None, results=None, han
         "command": "search",
         "search_mode": "smart",
         "add_raw_field": True,
-        "query": "\"e2e00310-0b22-4699-9c69-2efded776106@@notable@@e2e003100b2246999c692efded776106\" detection_type=ebd `notable` | where status_end=\"false\" | table event_id owner status* disposition*",
+        "query": "(515f9487-1993-43a0-b416-db3e4593d2fa@@notable@@515f9487199343a0b416db3e4593d2fa OR 047ca399-3872-4155-a045-f1ad49ce0ef3@@notable@@047ca39938724155a045f1ad49ce0ef3)  detection_type=ebd `notable` | where status_end=\"false\" | table event_id owner status* disposition*",
         "display": "event_id,owner, status_label, disposition_label",
         "start_time": "-24h",
         "end_time": "now",

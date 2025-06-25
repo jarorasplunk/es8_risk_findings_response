@@ -54,6 +54,7 @@
                     "targetPort": "6_in"
                 }
             ],
+            "hash": "21e04fe63ca0dd74b61f6ffc8dc5f9dcacbd6bb7",
             "nodes": {
                 "0": {
                     "data": {
@@ -193,7 +194,7 @@
                             "command": "search",
                             "display": "event_id,owner, status_label, disposition_label",
                             "end_time": "now",
-                            "query": "\"e2e00310-0b22-4699-9c69-2efded776106@@notable@@e2e003100b2246999c692efded776106\" detection_type=ebd `notable` | where status_end=\"false\" | table event_id owner status* disposition*",
+                            "query": "(515f9487-1993-43a0-b416-db3e4593d2fa@@notable@@515f9487199343a0b416db3e4593d2fa OR 047ca399-3872-4155-a045-f1ad49ce0ef3@@notable@@047ca39938724155a045f1ad49ce0ef3)  detection_type=ebd `notable` | where status_end=\"false\" | table event_id owner status* disposition*",
                             "search_mode": "smart",
                             "start_time": "-24h"
                         },
@@ -309,7 +310,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T06:49:51.668562+00:00",
+    "create_time": "2025-06-25T07:45:02.756289+00:00",
     "draft_mode": false,
     "labels": [
         "*"
