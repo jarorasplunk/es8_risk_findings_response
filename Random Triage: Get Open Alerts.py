@@ -25,10 +25,10 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
     found_match_1 = phantom.decision(
         container=container,
         conditions=[
-            ["generate_random_number:custom_function:random1_odds", "<", 85]
+            ["generate_random_number:custom_function:random1_odds", "<", 1]
         ],
         conditions_dps=[
-            ["generate_random_number:custom_function:random1_odds", "<", 85]
+            ["generate_random_number:custom_function:random1_odds", "<", 1]
         ],
         name="decision_1:condition_1",
         delimiter=None)
