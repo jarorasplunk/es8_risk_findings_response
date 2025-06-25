@@ -61,7 +61,7 @@
                     "targetPort": "1_in"
                 }
             ],
-            "hash": "64bbd50bd06ead1594cf73927c6d546b14df9961",
+            "hash": "171c675dbf393c293a89365fe4c527c10dabc28c",
             "nodes": {
                 "0": {
                     "data": {
@@ -158,9 +158,7 @@
                         "functionId": 1,
                         "functionName": "decide_analyst",
                         "id": "3",
-                        "inputParameters": [
-                            "playbook_input:random1"
-                        ],
+                        "inputParameters": [],
                         "outputVariables": [
                             "analyst"
                         ],
@@ -169,7 +167,7 @@
                     "errors": {},
                     "id": "3",
                     "type": "code",
-                    "userCode": "\n    \n    try:\n        # Attempt to convert the input to an integer for numerical comparisons\n        random1 = int(playbook_input_random1_values)\n        \n        # Apply the conditional logic to set the analyst\n        if random1 < 5:\n            code_1__analyst = \"alice\"\n        elif random1 == 5:\n            code_1__analyst = \"dluxton@splunk.com\"\n        elif 6 <= random1 <= 7: # Checks if random1 is 6 or 7\n            code_1__analyst = \"damo\"\n        elif random1 == 8:\n            code_1__analyst = \"fyodor\"\n        elif random1 == 9:\n            code_1__analyst = \"wally\"\n        else:\n            # Handle cases where random1 is outside the specified range (e.g., > 9 or < 0)\n            phantom.debug(f\"Input '{playbook_input_random1_values}' value ({playbook_input_random1_values}) is outside the defined assignment range (0-9).\")\n            code_1__analyst = \"unassigned_analyst\" # Assign a default or error value\n            \n    except (TypeError, ValueError) as e:\n        # Handle cases where the input 'random1' is not a valid integer\n        phantom.debug(f\"Error: Input '{playbook_input_random1_values}' is not a valid integer. Received: '{playbook_input_random1_values}'. Error: {e}\")\n        code_1__analyst = \"input_error\" # Assign an error value if input is invalid\n\n",
+                    "userCode": "\n    import random\n    \n    try:\n        # Attempt to convert the input to an integer for numerical comparisons\n        random1 = random.randint(1, 10)\n        \n        # Apply the conditional logic to set the analyst\n        if random1 < 5:\n            decide_analyst__analyst = \"alice\"\n        elif random1 == 5:\n            decide_analyst__analyst = \"dluxton@splunk.com\"\n        elif 6 <= random1 <= 7: # Checks if random1 is 6 or 7\n            decide_analyst__analyst = \"damo\"\n        elif random1 == 8:\n            decide_analyst__analyst = \"fyodor\"\n        elif random1 == 9:\n            decide_analyst__analyst = \"wally\"\n        else:\n            # Handle cases where random1 is outside the specified range (e.g., > 9 or < 0)\n            decide_analyst__analyst = \"unassigned\" # Assign a default or error value\n            \n    except (TypeError, ValueError) as e:\n        # Handle cases where the input 'random1' is not a valid integer\n        phantom.debug(f\"Error: {e}\")\n        decide_analyst__analyst = \"input_error\" # Assign an error value if input is invalid\n\n",
                     "warnings": {},
                     "x": 1240,
                     "y": 824.5
@@ -316,7 +314,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T06:54:50.244673+00:00",
+    "create_time": "2025-06-25T07:01:16.641771+00:00",
     "draft_mode": false,
     "labels": [
         "*"

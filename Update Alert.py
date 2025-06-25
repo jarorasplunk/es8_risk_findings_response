@@ -48,47 +48,41 @@ def notable_status(action=None, success=None, container=None, results=None, hand
 def decide_analyst(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("decide_analyst() called")
 
-    playbook_input_random1 = phantom.collect2(container=container, datapath=["playbook_input:random1"])
-
-    playbook_input_random1_values = [item[0] for item in playbook_input_random1]
-
     decide_analyst__analyst = None
 
     ################################################################################
     ## Custom Code Start
     ################################################################################
 
+    import random
     
     try:
         # Attempt to convert the input to an integer for numerical comparisons
-        random1 = int(playbook_input_random1_values)
+        random1 = random.randint(1, 10)
         
         # Apply the conditional logic to set the analyst
         if random1 < 5:
-            code_1__analyst = "alice"
+            decide_analyst__analyst = "alice"
         elif random1 == 5:
-            code_1__analyst = "dluxton@splunk.com"
+            decide_analyst__analyst = "dluxton@splunk.com"
         elif 6 <= random1 <= 7: # Checks if random1 is 6 or 7
-            code_1__analyst = "damo"
+            decide_analyst__analyst = "damo"
         elif random1 == 8:
-            code_1__analyst = "fyodor"
+            decide_analyst__analyst = "fyodor"
         elif random1 == 9:
-            code_1__analyst = "wally"
+            decide_analyst__analyst = "wally"
         else:
             # Handle cases where random1 is outside the specified range (e.g., > 9 or < 0)
-            phantom.debug(f"Input '{playbook_input_random1_values}' value ({playbook_input_random1_values}) is outside the defined assignment range (0-9).")
-            code_1__analyst = "unassigned_analyst" # Assign a default or error value
+            decide_analyst__analyst = "unassigned" # Assign a default or error value
             
     except (TypeError, ValueError) as e:
         # Handle cases where the input 'random1' is not a valid integer
-        phantom.debug(f"Error: Input '{playbook_input_random1_values}' is not a valid integer. Received: '{playbook_input_random1_values}'. Error: {e}")
-        code_1__analyst = "input_error" # Assign an error value if input is invalid
+        phantom.debug(f"Error: {e}")
+        decide_analyst__analyst = "input_error" # Assign an error value if input is invalid
 
     ################################################################################
     ## Custom Code End
     ################################################################################
-
-    phantom.save_block_result(key="decide_analyst__inputs:0:playbook_input:random1", value=json.dumps(playbook_input_random1_values))
 
     phantom.save_block_result(key="decide_analyst:analyst", value=json.dumps(decide_analyst__analyst))
 
