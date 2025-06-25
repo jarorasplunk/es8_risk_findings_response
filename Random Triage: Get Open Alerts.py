@@ -21,20 +21,17 @@ def on_start(container):
 def decision_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("decision_1() called")
 
-    random1_oods_value = container.get("random1_oods", None)
-    random2_oods_value = container.get("random2_oods", None)
-
     # check for 'if' condition 1
     found_match_1 = phantom.decision(
         container=container,
         logical_operator="or",
         conditions=[
-            [random1_oods_value, "==", True],
-            [random2_oods_value, "==", True]
+            ["artifact:*.cef.random1_odds", "==", True],
+            ["artifact:*.cef.random2_oods", "==", True]
         ],
         conditions_dps=[
-            ["container:random1_oods", "==", True],
-            ["container:random2_oods", "==", True]
+            ["artifact:*.cef.random1_odds", "==", True],
+            ["artifact:*.cef.random2_oods", "==", True]
         ],
         name="decision_1:condition_1",
         delimiter=None)
