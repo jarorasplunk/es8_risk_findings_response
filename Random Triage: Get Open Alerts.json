@@ -47,21 +47,14 @@
                     "targetPort": "1_in"
                 },
                 {
-                    "id": "port_5_to_port_10",
+                    "id": "port_5_to_port_6",
                     "sourceNode": "5",
                     "sourcePort": "5_out",
-                    "targetNode": "10",
-                    "targetPort": "10_in"
-                },
-                {
-                    "id": "port_10_to_port_6",
-                    "sourceNode": "10",
-                    "sourcePort": "10_out",
                     "targetNode": "6",
                     "targetPort": "6_in"
                 }
             ],
-            "hash": "47066e7002827b592806a0c34f38d5946183e005",
+            "hash": "49069f86f5992f1db576eb1dba814764c0f92686",
             "nodes": {
                 "0": {
                     "data": {
@@ -94,28 +87,6 @@
                     "warnings": {},
                     "x": 1000,
                     "y": 1000
-                },
-                "10": {
-                    "data": {
-                        "advanced": {
-                            "customName": "Sleep 5 seconds",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "functionId": 1,
-                        "functionName": "sleep_5_seconds",
-                        "id": "10",
-                        "inputParameters": [],
-                        "outputVariables": [],
-                        "type": "code"
-                    },
-                    "errors": {},
-                    "id": "10",
-                    "type": "code",
-                    "userCode": "\n    import time\n    time.sleep(5)\n\n",
-                    "warnings": {},
-                    "x": 1520,
-                    "y": 900
                 },
                 "2": {
                     "data": {
@@ -253,37 +224,37 @@
                         "inputs": {
                             "disposition_label": {
                                 "datapaths": [
-                                    "get_open_alerts:action_result.data.*. disposition_label"
+                                    "get_open_alerts:action_result.data.*.disposition_label"
                                 ],
                                 "deduplicate": false
                             },
                             "event_id": {
                                 "datapaths": [
-                                    "get_open_alerts:action_result.data.*. event_id"
+                                    "get_open_alerts:action_result.data.*.event_id"
                                 ],
                                 "deduplicate": false
                             },
                             "owner": {
                                 "datapaths": [
-                                    "get_open_alerts:action_result.data.*. owner"
+                                    "get_open_alerts:action_result.data.*.owner"
                                 ],
                                 "deduplicate": false
                             },
                             "random1": {
                                 "datapaths": [
-                                    "get_open_alerts:action_result.data.*. random1"
+                                    "get_open_alerts:action_result.data.*.random1"
                                 ],
                                 "deduplicate": false
                             },
                             "random2": {
                                 "datapaths": [
-                                    "get_open_alerts:action_result.data.*. random2"
+                                    "get_open_alerts:action_result.data.*.random2"
                                 ],
                                 "deduplicate": false
                             },
                             "status_label": {
                                 "datapaths": [
-                                    "get_open_alerts:action_result.data.*. status_label"
+                                    "get_open_alerts:action_result.data.*.status_label"
                                 ],
                                 "deduplicate": false
                             }
@@ -325,8 +296,8 @@
                     "id": "6",
                     "type": "playbook",
                     "warnings": {},
-                    "x": 1500,
-                    "y": 1140
+                    "x": 1520,
+                    "y": 920
                 }
             },
             "notes": ""
@@ -339,7 +310,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T06:34:54.048695+00:00",
+    "create_time": "2025-06-25T06:37:26.865237+00:00",
     "draft_mode": false,
     "labels": [
         "*"
