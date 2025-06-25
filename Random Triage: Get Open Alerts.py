@@ -47,7 +47,7 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 def playbook_update_alert_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_update_alert_1() called")
 
-    list_open_alerts_result_data = phantom.collect2(container=container, datapath=["list_open_alerts:action_result.data.*.items.*.event_id","list_open_alerts:action_result.data.*.items.*.owner","list_open_alerts:action_result.data.*.items.*.status_label","list_open_alerts:action_result.data.*.items.*.disposition_label"], action_results=results)
+    list_open_alerts_result_data = phantom.collect2(container=container, datapath=["list_open_alerts:action_result.data.*.items.*.owner","list_open_alerts:action_result.data.*.items.*.event_id","list_open_alerts:action_result.data.*.items.*.status_label","list_open_alerts:action_result.data.*.items.*.disposition_label"], action_results=results)
     container_artifact_data = phantom.collect2(container=container, datapath=["artifact:*.cef.random1","artifact:*.cef.random2"])
 
     list_open_alerts_result_item_0 = [item[0] for item in list_open_alerts_result_data]
@@ -58,12 +58,12 @@ def playbook_update_alert_1(action=None, success=None, container=None, results=N
     container_artifact_cef_item_1 = [item[1] for item in container_artifact_data]
 
     inputs = {
-        "event_id": list_open_alerts_result_item_0,
-        "owner": list_open_alerts_result_item_1,
-        "status_label": list_open_alerts_result_item_2,
-        "disposition_label": list_open_alerts_result_item_3,
+        "owner": list_open_alerts_result_item_0,
         "random1": container_artifact_cef_item_0,
         "random2": container_artifact_cef_item_1,
+        "event_id": list_open_alerts_result_item_1,
+        "status_label": list_open_alerts_result_item_2,
+        "disposition_label": list_open_alerts_result_item_3,
     }
 
     ################################################################################
