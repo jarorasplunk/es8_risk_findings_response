@@ -82,7 +82,7 @@
                     "targetPort": "2_in"
                 }
             ],
-            "hash": "dfa000ea3619350e3ac633fa9dd44942e8581d51",
+            "hash": "4b760052cf9e6cca12e2ec83c2bbed87b96a80ad",
             "nodes": {
                 "0": {
                     "data": {
@@ -315,7 +315,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 0,
-                    "y": 624
+                    "y": 620
                 },
                 "8": {
                     "data": {
@@ -524,12 +524,10 @@
                         },
                         "parameters": {
                             "comment": {
-                                "functionId": 2,
                                 "parameters": [
-                                    "decide_disposition:custom_function:disposition",
-                                    "get_finding_by_id_4:action_result.data.*.owner"
+                                    "decide_disposition:custom_function:disposition"
                                 ],
-                                "template": "This one is a {0}\n{1}\n"
+                                "template": "This one is a {0}\n\n"
                             },
                             "disposition": "decide_disposition:custom_function:disposition",
                             "event_ids": "playbook_input:event_id",
@@ -568,7 +566,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T11:07:55.368694+00:00",
+    "create_time": "2025-06-25T11:11:02.228281+00:00",
     "draft_mode": false,
     "labels": [
         "*"

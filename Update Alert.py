@@ -179,30 +179,26 @@ def update_alert_closed(action=None, success=None, container=None, results=None,
 
     comment_formatted_string = phantom.format(
         container=container,
-        template="""This one is a {0}\n{1}\n""",
+        template="""This one is a {0}\n\n""",
         parameters=[
-            "decide_disposition:custom_function:disposition",
-            "get_finding_by_id_4:action_result.data.*.owner"
+            "decide_disposition:custom_function:disposition"
         ])
 
     playbook_input_event_id = phantom.collect2(container=container, datapath=["playbook_input:event_id"])
-    get_finding_by_id_4_result_data = phantom.collect2(container=container, datapath=["get_finding_by_id_4:action_result.data.*.owner","get_finding_by_id_4:action_result.parameter.context.artifact_id"], action_results=results)
     decide_disposition__disposition = json.loads(_ if (_ := phantom.get_run_data(key="decide_disposition:disposition")) != "" else "null")  # pylint: disable=used-before-assignment
 
     parameters = []
 
     # build parameters list for 'update_alert_closed' call
     for playbook_input_event_id_item in playbook_input_event_id:
-        for get_finding_by_id_4_result_item in get_finding_by_id_4_result_data:
-            if playbook_input_event_id_item[0] is not None:
-                parameters.append({
-                    "event_ids": playbook_input_event_id_item[0],
-                    "status": "closed",
-                    "comment": comment_formatted_string,
-                    "disposition": decide_disposition__disposition,
-                    "integer_status": "",
-                    "context": {'artifact_id': get_finding_by_id_4_result_item[1]},
-                })
+        if playbook_input_event_id_item[0] is not None:
+            parameters.append({
+                "event_ids": playbook_input_event_id_item[0],
+                "status": "closed",
+                "comment": comment_formatted_string,
+                "disposition": decide_disposition__disposition,
+                "integer_status": "",
+            })
 
     ################################################################################
     ## Custom Code Start
