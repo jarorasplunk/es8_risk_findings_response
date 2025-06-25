@@ -74,7 +74,7 @@ def get_open_alerts(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="get_open_alerts", assets=["es"], callback=playbook_update_alert_1)
+    phantom.act("run query", parameters=parameters, name="get_open_alerts", assets=["es"], callback=debug_4)
 
     return
 
@@ -113,19 +113,45 @@ def playbook_update_alert_1(action=None, success=None, container=None, results=N
     ################################################################################
 
     # call playbook "es8_risk_findings_response/Update Alert", returns the playbook_run_id
-    playbook_run_id = phantom.playbook("es8_risk_findings_response/Update Alert", container=container, name="playbook_update_alert_1", callback=playbook_update_alert_1_callback, inputs=inputs)
+    playbook_run_id = phantom.playbook("es8_risk_findings_response/Update Alert", container=container, inputs=inputs)
 
     return
 
 
 @phantom.playbook_block()
-def playbook_update_alert_1_callback(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("playbook_update_alert_1_callback() called")
+def debug_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("debug_4() called")
 
-    
-    # Downstream End block cannot be called directly, since execution will call on_finish automatically.
-    # Using placeholder callback function so child playbook is run synchronously.
+    get_open_alerts_result_data = phantom.collect2(container=container, datapath=["get_open_alerts:action_result.data.*.event_id","get_open_alerts:action_result.parameter.context.artifact_id"], action_results=results)
 
+    get_open_alerts_result_item_0 = [item[0] for item in get_open_alerts_result_data]
+
+    parameters = []
+
+    parameters.append({
+        "input_1": get_open_alerts_result_item_0,
+        "input_2": None,
+        "input_3": None,
+        "input_4": None,
+        "input_5": None,
+        "input_6": None,
+        "input_7": None,
+        "input_8": None,
+        "input_9": None,
+        "input_10": None,
+    })
+
+    ################################################################################
+    ## Custom Code Start
+    ################################################################################
+
+    # Write your custom code here...
+
+    ################################################################################
+    ## Custom Code End
+    ################################################################################
+
+    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_4")
 
     return
 
