@@ -53,7 +53,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
     ## Custom Code End
     ################################################################################
 
-    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["es"], callback=get_phase_id_1)
+    phantom.act("run query", parameters=parameters, name="run_query_1", assets=["es"], callback=decision_4)
 
     return
 
@@ -339,7 +339,7 @@ def update_task_in_current_phase_2(action=None, success=None, container=None, re
     ## Custom Code End
     ################################################################################
 
-    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"], callback=findings_status_eval)
+    phantom.act("update task in current phase", parameters=parameters, name="update_task_in_current_phase_2", assets=["builtin_mc_connector"], callback=run_query_1)
 
     return
 
@@ -401,7 +401,7 @@ def included_findings(action=None, success=None, container=None, results=None, h
     phantom.save_block_result(key="included_findings:intermediate_finding_id", value=json.dumps(included_findings__intermediate_finding_id))
     phantom.save_block_result(key="included_findings:findings_list", value=json.dumps(included_findings__findings_list))
 
-    run_query_1(container=container)
+    get_phase_id_1(container=container)
 
     return
 
@@ -676,7 +676,8 @@ def findings_status_eval(action=None, success=None, container=None, results=None
     phantom.save_block_result(key="findings_status_eval:closed_finding_status", value=json.dumps(findings_status_eval__closed_finding_status))
     phantom.save_block_result(key="findings_status_eval:closed_finding_owner", value=json.dumps(findings_status_eval__closed_finding_owner))
 
-    decision_3(container=container)
+    close_findings_prompt(container=container)
+    closed_findings(container=container)
 
     return
 
@@ -704,67 +705,6 @@ def open_finding_ids(action=None, success=None, container=None, results=None, ha
     ################################################################################
 
     phantom.custom_function(custom_function="community/list_demux", parameters=parameters, name="open_finding_ids", callback=update_event_1)
-
-    return
-
-
-@phantom.playbook_block()
-def decision_3(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("decision_3() called")
-
-    # check for 'if' condition 1
-    found_match_1 = phantom.decision(
-        container=container,
-        conditions=[
-            ["findings_status_eval:custom_function:open_finding_ids", "is not empty"]
-        ],
-        conditions_dps=[
-            ["findings_status_eval:custom_function:open_finding_ids", "is not empty"]
-        ],
-        name="decision_3:condition_1",
-        delimiter=None)
-
-    # call connected blocks if condition 1 matched
-    if found_match_1:
-        close_findings_prompt(action=action, success=success, container=container, results=results, handle=handle)
-        return
-
-    # check for 'elif' condition 2
-    found_match_2 = phantom.decision(
-        container=container,
-        conditions=[
-            ["findings_status_eval:custom_function:closed_finding_ids", "is not empty"]
-        ],
-        conditions_dps=[
-            ["findings_status_eval:custom_function:closed_finding_ids", "is not empty"]
-        ],
-        name="decision_3:condition_2",
-        delimiter=None)
-
-    # call connected blocks if condition 2 matched
-    if found_match_2:
-        closed_findings(action=action, success=success, container=container, results=results, handle=handle)
-        return
-
-    # check for 'elif' condition 3
-    found_match_3 = phantom.decision(
-        container=container,
-        logical_operator="and",
-        conditions=[
-            ["findings_status_eval:custom_function:open_finding_ids", "is empty"],
-            ["findings_status_eval:custom_function:closed_finding_ids", "is empty"]
-        ],
-        conditions_dps=[
-            ["findings_status_eval:custom_function:open_finding_ids", "is empty"],
-            ["findings_status_eval:custom_function:closed_finding_ids", "is empty"]
-        ],
-        name="decision_3:condition_3",
-        delimiter=None)
-
-    # call connected blocks if condition 3 matched
-    if found_match_3:
-        add_task_note_1(action=action, success=success, container=container, results=results, handle=handle)
-        return
 
     return
 
@@ -806,6 +746,33 @@ def add_task_note_1(action=None, success=None, container=None, results=None, han
     ################################################################################
 
     phantom.act("add task note", parameters=parameters, name="add_task_note_1", assets=["builtin_mc_connector"])
+
+    return
+
+
+@phantom.playbook_block()
+def decision_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("decision_4() called")
+
+    # check for 'if' condition 1
+    found_match_1 = phantom.decision(
+        container=container,
+        conditions=[
+            ["run_query_1:action_result.summary.total_events", ">", 0]
+        ],
+        conditions_dps=[
+            ["run_query_1:action_result.summary.total_events", ">", 0]
+        ],
+        name="decision_4:condition_1",
+        delimiter=None)
+
+    # call connected blocks if condition 1 matched
+    if found_match_1:
+        findings_status_eval(action=action, success=success, container=container, results=results, handle=handle)
+        return
+
+    # check for 'else' condition 2
+    add_task_note_1(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 
