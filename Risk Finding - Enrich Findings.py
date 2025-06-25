@@ -473,7 +473,7 @@ def update_task_in_current_phase_1(action=None, success=None, container=None, re
 def user_enrichment_note(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("user_enrichment_note() called")
 
-    template = """Review the user: {0} details:\n[Assets and Identities database](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/identity_center?form.username={0}&form.priority=*&form.bunit=*&form.category=*&form.watchlist=*)\n\n\nGather intelligence about the user: {0} in ARI:\n\n[Asset and Risk Intelligence](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkAssetRiskIntelligence/ari_user_search?form.time.earliest=-30d%40d&form.time.latest=now&form.profile=ip&form.series={0})\n"""
+    template = """Review the user: {0} details:\n`[Assets and Identities database](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkEnterpriseSecuritySuite/identity_center?form.username={0}&form.priority=*&form.bunit=*&form.category=*&form.watchlist=*)`\n\n\n\nGather intelligence about the user: {0} in ARI:\n\n`[Asset and Risk Intelligence](https://i-0e6bc36a44836889b.splunk.show/en-GB/app/SplunkAssetRiskIntelligence/ari_user_search?form.time.earliest=-30d%40d&form.time.latest=now&form.profile=ip&form.series={0})`\n"""
 
     # parameter list for template variable replacement
     parameters = [
