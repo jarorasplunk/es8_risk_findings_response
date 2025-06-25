@@ -93,9 +93,10 @@ def list_open_alerts(action=None, success=None, container=None, results=None, ha
 
     parameters.append({
         "limit": 20,
-        "disposition": "Undetermined",
+        "disposition": "",
         "latest": "-24h",
         "earliest": "-7d",
+        "status": "New, In Progress",
     })
 
     ################################################################################
