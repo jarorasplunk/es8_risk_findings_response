@@ -505,16 +505,6 @@
                 "contains": [],
                 "description": "Alert ID",
                 "name": "event_id"
-            },
-            {
-                "contains": [],
-                "description": "",
-                "name": "owner"
-            },
-            {
-                "contains": [],
-                "description": "",
-                "name": "status_label"
             }
         ],
         "output_spec": null,
