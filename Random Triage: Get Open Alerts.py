@@ -38,45 +38,10 @@ def decision_1(action=None, success=None, container=None, results=None, handle=N
 
     # call connected blocks if condition 1 matched
     if found_match_1:
-        list_findings_2(action=action, success=success, container=container, results=results, handle=handle)
         return
 
     # check for 'else' condition 2
-    get_open_alerts(action=action, success=success, container=container, results=results, handle=handle)
-    list_findings_2(action=action, success=success, container=container, results=results, handle=handle)
-
-    return
-
-
-@phantom.playbook_block()
-def get_open_alerts(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("get_open_alerts() called")
-
-    # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
-
-    parameters = []
-
-    parameters.append({
-        "command": "search",
-        "search_mode": "smart",
-        "add_raw_field": True,
-        "query": "(515f9487-1993-43a0-b416-db3e4593d2fa@@notable@@515f9487199343a0b416db3e4593d2fa OR 047ca399-3872-4155-a045-f1ad49ce0ef3@@notable@@047ca39938724155a045f1ad49ce0ef3)  detection_type=ebd `notable` | where status_end=\"false\" | table event_id owner status* disposition*",
-        "display": "event_id,owner, status_label, disposition_label",
-        "start_time": "-24h",
-        "end_time": "now",
-    })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.act("run query", parameters=parameters, name="get_open_alerts", assets=["es"], callback=join_debug_4)
+    list_open_alerts(action=action, success=success, container=container, results=results, handle=handle)
 
     return
 
@@ -85,21 +50,21 @@ def get_open_alerts(action=None, success=None, container=None, results=None, han
 def playbook_update_alert_1(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
     phantom.debug("playbook_update_alert_1() called")
 
-    get_open_alerts_result_data = phantom.collect2(container=container, datapath=["get_open_alerts:action_result.data.*.event_id","get_open_alerts:action_result.data.*.owner","get_open_alerts:action_result.data.*.status_label","get_open_alerts:action_result.data.*.disposition_label"], action_results=results)
+    list_open_alerts_result_data = phantom.collect2(container=container, datapath=["list_open_alerts:action_result.data.*.items.*.event_id","list_open_alerts:action_result.data.*.items.*.owner","list_open_alerts:action_result.data.*.items.*.status_label","list_open_alerts:action_result.data.*.items.*.disposition_label"], action_results=results)
     container_artifact_data = phantom.collect2(container=container, datapath=["artifact:*.cef.random1","artifact:*.cef.random2"])
 
-    get_open_alerts_result_item_0 = [item[0] for item in get_open_alerts_result_data]
-    get_open_alerts_result_item_1 = [item[1] for item in get_open_alerts_result_data]
-    get_open_alerts_result_item_2 = [item[2] for item in get_open_alerts_result_data]
-    get_open_alerts_result_item_3 = [item[3] for item in get_open_alerts_result_data]
+    list_open_alerts_result_item_0 = [item[0] for item in list_open_alerts_result_data]
+    list_open_alerts_result_item_1 = [item[1] for item in list_open_alerts_result_data]
+    list_open_alerts_result_item_2 = [item[2] for item in list_open_alerts_result_data]
+    list_open_alerts_result_item_3 = [item[3] for item in list_open_alerts_result_data]
     container_artifact_cef_item_0 = [item[0] for item in container_artifact_data]
     container_artifact_cef_item_1 = [item[1] for item in container_artifact_data]
 
     inputs = {
-        "event_id": get_open_alerts_result_item_0,
-        "owner": get_open_alerts_result_item_1,
-        "status_label": get_open_alerts_result_item_2,
-        "disposition_label": get_open_alerts_result_item_3,
+        "event_id": list_open_alerts_result_item_0,
+        "owner": list_open_alerts_result_item_1,
+        "status_label": list_open_alerts_result_item_2,
+        "disposition_label": list_open_alerts_result_item_3,
         "random1": container_artifact_cef_item_0,
         "random2": container_artifact_cef_item_1,
     }
@@ -121,59 +86,8 @@ def playbook_update_alert_1(action=None, success=None, container=None, results=N
 
 
 @phantom.playbook_block()
-def join_debug_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("join_debug_4() called")
-
-    if phantom.completed(action_names=["get_open_alerts", "list_findings_2"]):
-        # call connected block "debug_4"
-        debug_4(container=container, handle=handle)
-
-    return
-
-
-@phantom.playbook_block()
-def debug_4(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("debug_4() called")
-
-    get_open_alerts_result_data = phantom.collect2(container=container, datapath=["get_open_alerts:action_result.data.*.event_id","get_open_alerts:action_result.parameter.context.artifact_id"], action_results=results)
-    list_findings_2_result_data = phantom.collect2(container=container, datapath=["list_findings_2:action_result.data.*.items.*.event_id","list_findings_2:action_result.parameter.context.artifact_id"], action_results=results)
-
-    get_open_alerts_result_item_0 = [item[0] for item in get_open_alerts_result_data]
-    list_findings_2_result_item_0 = [item[0] for item in list_findings_2_result_data]
-
-    parameters = []
-
-    parameters.append({
-        "input_1": get_open_alerts_result_item_0,
-        "input_2": list_findings_2_result_item_0,
-        "input_3": None,
-        "input_4": None,
-        "input_5": None,
-        "input_6": None,
-        "input_7": None,
-        "input_8": None,
-        "input_9": None,
-        "input_10": None,
-    })
-
-    ################################################################################
-    ## Custom Code Start
-    ################################################################################
-
-    # Write your custom code here...
-
-    ################################################################################
-    ## Custom Code End
-    ################################################################################
-
-    phantom.custom_function(custom_function="community/debug", parameters=parameters, name="debug_4")
-
-    return
-
-
-@phantom.playbook_block()
-def list_findings_2(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
-    phantom.debug("list_findings_2() called")
+def list_open_alerts(action=None, success=None, container=None, results=None, handle=None, filtered_artifacts=None, filtered_results=None, custom_function=None, loop_state_json=None, **kwargs):
+    phantom.debug("list_open_alerts() called")
 
     # phantom.debug('Action: {0} {1}'.format(action['name'], ('SUCCEEDED' if success else 'FAILED')))
 
@@ -194,7 +108,7 @@ def list_findings_2(action=None, success=None, container=None, results=None, han
     ## Custom Code End
     ################################################################################
 
-    phantom.act("list findings", parameters=parameters, name="list_findings_2", assets=["builtin_mc_connector"], callback=join_debug_4)
+    phantom.act("list findings", parameters=parameters, name="list_open_alerts", assets=["builtin_mc_connector"], callback=playbook_update_alert_1)
 
     return
 

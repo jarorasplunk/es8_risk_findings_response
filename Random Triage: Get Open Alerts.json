@@ -27,19 +27,6 @@
                     "targetPort": "1_in"
                 },
                 {
-                    "conditions": [
-                        {
-                            "conditionKey": "condition_key_3",
-                            "index": 1
-                        }
-                    ],
-                    "id": "port_2_to_port_5",
-                    "sourceNode": "2",
-                    "sourcePort": "2_out",
-                    "targetNode": "5",
-                    "targetPort": "5_in"
-                },
-                {
                     "id": "port_6_to_port_1",
                     "sourceNode": "6",
                     "sourcePort": "6_out",
@@ -47,18 +34,7 @@
                     "targetPort": "1_in"
                 },
                 {
-                    "id": "port_5_to_port_7",
-                    "sourceNode": "5",
-                    "sourcePort": "5_out",
-                    "targetNode": "7",
-                    "targetPort": "7_in"
-                },
-                {
                     "conditions": [
-                        {
-                            "conditionKey": "condition_key_0",
-                            "index": 0
-                        },
                         {
                             "conditionKey": "condition_key_3",
                             "index": 1
@@ -71,14 +47,14 @@
                     "targetPort": "8_in"
                 },
                 {
-                    "id": "port_8_to_port_7",
+                    "id": "port_8_to_port_6",
                     "sourceNode": "8",
                     "sourcePort": "8_out",
-                    "targetNode": "7",
-                    "targetPort": "7_in"
+                    "targetNode": "6",
+                    "targetPort": "6_in"
                 }
             ],
-            "hash": "2bfff45aebf53dc3360805d5d4c1cd3e2c97a66a",
+            "hash": "f5a241943bcbe29674db519f616cba0b63381077",
             "nodes": {
                 "0": {
                     "data": {
@@ -169,74 +145,6 @@
                     "x": 1060,
                     "y": 644.5
                 },
-                "5": {
-                    "data": {
-                        "action": "run query",
-                        "actionType": "investigate",
-                        "advanced": {
-                            "customName": "Get Open Alerts",
-                            "customNameId": 0,
-                            "join": []
-                        },
-                        "connector": "Splunk",
-                        "connectorConfigs": [
-                            "es"
-                        ],
-                        "connectorId": "91883aa8-9c81-470b-97a1-5d8f7995f560",
-                        "connectorVersion": "v1",
-                        "functionId": 1,
-                        "functionName": "get_open_alerts",
-                        "id": "5",
-                        "loop": {
-                            "conditions": [
-                                {
-                                    "comparisons": [
-                                        {
-                                            "conditionIndex": 0,
-                                            "op": "==",
-                                            "param": "",
-                                            "value": ""
-                                        }
-                                    ],
-                                    "conditionIndex": 0,
-                                    "conditionKey": "condition_key_0",
-                                    "display": "If",
-                                    "logic": "and",
-                                    "type": "if"
-                                }
-                            ],
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "parameters": {
-                            "add_raw_field": true,
-                            "command": "search",
-                            "display": "event_id,owner, status_label, disposition_label",
-                            "end_time": "now",
-                            "query": "(515f9487-1993-43a0-b416-db3e4593d2fa@@notable@@515f9487199343a0b416db3e4593d2fa OR 047ca399-3872-4155-a045-f1ad49ce0ef3@@notable@@047ca39938724155a045f1ad49ce0ef3)  detection_type=ebd `notable` | where status_end=\"false\" | table event_id owner status* disposition*",
-                            "search_mode": "smart",
-                            "start_time": "-24h"
-                        },
-                        "requiredParameters": [
-                            {
-                                "data_type": "string",
-                                "field": "query"
-                            }
-                        ],
-                        "type": "action"
-                    },
-                    "errors": {},
-                    "id": "5",
-                    "type": "action",
-                    "warnings": {},
-                    "x": 1520,
-                    "y": 800
-                },
                 "6": {
                     "data": {
                         "advanced": {
@@ -248,19 +156,19 @@
                         "inputs": {
                             "disposition_label": {
                                 "datapaths": [
-                                    "get_open_alerts:action_result.data.*.disposition_label"
+                                    "list_open_alerts:action_result.data.*.items.*.disposition_label"
                                 ],
                                 "deduplicate": false
                             },
                             "event_id": {
                                 "datapaths": [
-                                    "get_open_alerts:action_result.data.*.event_id"
+                                    "list_open_alerts:action_result.data.*.items.*.event_id"
                                 ],
                                 "deduplicate": false
                             },
                             "owner": {
                                 "datapaths": [
-                                    "get_open_alerts:action_result.data.*.owner"
+                                    "list_open_alerts:action_result.data.*.items.*.owner"
                                 ],
                                 "deduplicate": false
                             },
@@ -278,7 +186,7 @@
                             },
                             "status_label": {
                                 "datapaths": [
-                                    "get_open_alerts:action_result.data.*.status_label"
+                                    "list_open_alerts:action_result.data.*.items.*.status_label"
                                 ],
                                 "deduplicate": false
                             }
@@ -319,202 +227,17 @@
                     "errors": {},
                     "id": "6",
                     "type": "playbook",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ],
-                        "context": [
-                            "Connect block to playbook flow."
-                        ]
-                    },
-                    "x": 1500,
-                    "y": 1240
-                },
-                "7": {
-                    "data": {
-                        "advanced": {
-                            "join": []
-                        },
-                        "customFunction": {
-                            "draftMode": false,
-                            "name": "debug",
-                            "repoName": "community"
-                        },
-                        "functionId": 4,
-                        "functionName": "debug_4",
-                        "id": "7",
-                        "loop": {
-                            "enabled": false,
-                            "exitAfterUnit": "m",
-                            "exitAfterValue": 10,
-                            "exitConditionEnabled": false,
-                            "exitLoopAfter": 2,
-                            "pauseUnit": "m",
-                            "pauseValue": 2
-                        },
-                        "selectMore": false,
-                        "type": "utility",
-                        "utilities": {
-                            "debug": {
-                                "description": "Print debug messages with the type and value of 0-10 different inputs. This is useful for checking the values of input data or the outputs of other playbook blocks.",
-                                "fields": [
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_1",
-                                        "name": "input_1",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_2",
-                                        "name": "input_2",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_3",
-                                        "name": "input_3",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_4",
-                                        "name": "input_4",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_5",
-                                        "name": "input_5",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_6",
-                                        "name": "input_6",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_7",
-                                        "name": "input_7",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_8",
-                                        "name": "input_8",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_9",
-                                        "name": "input_9",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    },
-                                    {
-                                        "dataTypes": [
-                                            "*"
-                                        ],
-                                        "description": "",
-                                        "inputType": "list",
-                                        "label": "input_10",
-                                        "name": "input_10",
-                                        "placeholder": "",
-                                        "renderType": "datapath",
-                                        "required": false
-                                    }
-                                ],
-                                "label": "debug",
-                                "name": "debug"
-                            }
-                        },
-                        "utilityType": "custom_function",
-                        "values": {
-                            "debug": {
-                                "input_1": [
-                                    "get_open_alerts:action_result.data.*.event_id"
-                                ],
-                                "input_10": null,
-                                "input_2": [
-                                    "list_findings_2:action_result.data.*.items.*.event_id"
-                                ],
-                                "input_3": null,
-                                "input_4": null,
-                                "input_5": null,
-                                "input_6": null,
-                                "input_7": null,
-                                "input_8": null,
-                                "input_9": null
-                            }
-                        }
-                    },
-                    "errors": {},
-                    "id": "7",
-                    "type": "utility",
                     "warnings": {},
-                    "x": 1500,
-                    "y": 1024.5
+                    "x": 1480,
+                    "y": 1040
                 },
                 "8": {
                     "data": {
                         "action": "list findings",
                         "actionType": "get",
                         "advanced": {
+                            "customName": "List Open Alerts",
+                            "customNameId": 0,
                             "join": []
                         },
                         "connector": "Enterprise Security",
@@ -524,7 +247,7 @@
                         "connectorId": "7e971d03-6ae7-4429-b4e1-cf461003e75b",
                         "connectorVersion": "v1",
                         "functionId": 2,
-                        "functionName": "list_findings_2",
+                        "functionName": "list_open_alerts",
                         "id": "8",
                         "loop": {
                             "enabled": false,
@@ -546,7 +269,7 @@
                     "id": "8",
                     "type": "enterpriseSecurity",
                     "warnings": {},
-                    "x": 1260,
+                    "x": 1500,
                     "y": 840
                 }
             },
@@ -560,7 +283,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T07:57:45.839677+00:00",
+    "create_time": "2025-06-25T08:01:59.212386+00:00",
     "draft_mode": false,
     "labels": [
         "*"
