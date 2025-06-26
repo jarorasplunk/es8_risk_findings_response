@@ -89,6 +89,7 @@
                     "targetPort": "6_in"
                 }
             ],
+            "hash": "572ea1ba4d4a7c831293e5ad08f0e88c731a74e9",
             "nodes": {
                 "0": {
                     "data": {
@@ -104,7 +105,7 @@
                     "type": "start",
                     "warnings": {},
                     "x": 190,
-                    "y": 7
+                    "y": 6.999999999999936
                 },
                 "1": {
                     "data": {
@@ -130,7 +131,7 @@
                             "join": [],
                             "notRequiredJoins": [
                                 "generate_random_number",
-                                "playbook_Update_Alert_1"
+                                "regex_split_5"
                             ],
                             "refreshNotableData": true
                         },
@@ -561,7 +562,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-26T00:25:40.332112+00:00",
+    "create_time": "2025-06-26T23:38:14.332080+00:00",
     "draft_mode": false,
     "labels": [
         "auto_triage",

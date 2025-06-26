@@ -106,12 +106,11 @@ def join_close_container(action=None, success=None, container=None, results=None
     if phantom.get_run_data(key="join_close_container_called"):
         return
 
-    if phantom.completed(custom_function_names=["regex_split_5"]):
-        # save the state that the joined function has now been called
-        phantom.save_block_result(key="join_close_container_called", value="close_container")
+    # save the state that the joined function has now been called
+    phantom.save_block_result(key="join_close_container_called", value="close_container")
 
-        # call connected block "close_container"
-        close_container(container=container, handle=handle)
+    # call connected block "close_container"
+    close_container(container=container, handle=handle)
 
     return
 
@@ -197,13 +196,13 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
     parameters = []
 
     parameters.append({
+        "query": "detection_type=ebd source!=\"ESCU - Malicious PowerShell Process - Encoded Command - Rule\" `notable` | where status_end=\"false\" | tail 4 | stats values(event_id) as event_id  | nomv event_id",
         "command": "search",
+        "display": "event_id",
+        "end_time": "-15m",
+        "start_time": "-24h",
         "search_mode": "smart",
         "add_raw_field": False,
-        "query": "detection_type=ebd source!=\"ESCU - Malicious PowerShell Process - Encoded Command - Rule\" `notable` | where status_end=\"false\" | tail 4 | stats values(event_id) as event_id  | nomv event_id",
-        "display": "event_id",
-        "start_time": "-24h",
-        "end_time": "-15m",
     })
 
     ################################################################################
@@ -232,8 +231,8 @@ def regex_split_5(action=None, success=None, container=None, results=None, handl
     # build parameters list for 'regex_split_5' call
     for run_query_1_result_item in run_query_1_result_data:
         parameters.append({
-            "input_string": run_query_1_result_item[0],
             "regex": " ",
+            "input_string": run_query_1_result_item[0],
             "strip_whitespace": None,
         })
 
