@@ -89,7 +89,7 @@
                     "targetPort": "6_in"
                 }
             ],
-            "hash": "f06ce7aecd0fcb6312a9bdeaff2afe7081e49b93",
+            "hash": "24327befd1291591c5c03603803128d155b8f7e7",
             "nodes": {
                 "0": {
                     "data": {
@@ -320,7 +320,7 @@
                             "command": "search",
                             "display": "event_id",
                             "end_time": "-15m",
-                            "query": "detection_type=ebd `notable` | where status_end=\"false\" | tail 4 | stats values(event_id) as event_id  | nomv event_id",
+                            "query": "detection_type=ebd source!=\"ESCU - Malicious PowerShell Process - Encoded Command - Rule\" `notable` | where status_end=\"false\" | tail 4 | stats values(event_id) as event_id  | nomv event_id",
                             "search_mode": "smart",
                             "start_time": "-24h"
                         },
@@ -337,7 +337,7 @@
                     "type": "action",
                     "warnings": {},
                     "x": 0,
-                    "y": 490
+                    "y": 500
                 },
                 "16": {
                     "data": {
@@ -548,8 +548,8 @@
                     "type": "code",
                     "userCode": "\n    import random\n    generate_random_number__random1_odds = random.randint(1, 100)\n\n",
                     "warnings": {},
-                    "x": 170,
-                    "y": 162
+                    "x": 180,
+                    "y": 160
                 }
             },
             "notes": ""
@@ -562,7 +562,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T22:11:35.042200+00:00",
+    "create_time": "2025-06-26T00:25:40.332112+00:00",
     "draft_mode": false,
     "labels": [
         "auto_triage",

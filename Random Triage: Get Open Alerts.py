@@ -200,7 +200,7 @@ def run_query_1(action=None, success=None, container=None, results=None, handle=
         "command": "search",
         "search_mode": "smart",
         "add_raw_field": False,
-        "query": "detection_type=ebd `notable` | where status_end=\"false\" | tail 4 | stats values(event_id) as event_id  | nomv event_id",
+        "query": "detection_type=ebd source!=\"ESCU - Malicious PowerShell Process - Encoded Command - Rule\" `notable` | where status_end=\"false\" | tail 4 | stats values(event_id) as event_id  | nomv event_id",
         "display": "event_id",
         "start_time": "-24h",
         "end_time": "-15m",
