@@ -185,7 +185,7 @@
                     "targetPort": "69_in"
                 }
             ],
-            "hash": "0f1d1275a1c7d9e5601106c11feffabe941eab74",
+            "hash": "3767a3e83a4fc9bd36836f8cb4b8d65d91d49590",
             "nodes": {
                 "0": {
                     "customCode": "@phantom.playbook_block()\ndef on_start(container):\n    phantom.debug('on_start() called')\n    # call 'refresh_finding_or_investigation_1' block\n    get_finding_or_investigation_1(container=container)\n    return",
@@ -388,11 +388,7 @@
                     "errors": {},
                     "id": "27",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 0,
                     "y": 2200
                 },
@@ -449,11 +445,7 @@
                     "errors": {},
                     "id": "31",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 0,
                     "y": 2338
                 },
@@ -506,11 +498,7 @@
                     "errors": {},
                     "id": "33",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 180,
                     "y": 440
                 },
@@ -568,11 +556,7 @@
                     "errors": {},
                     "id": "34",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 180,
                     "y": 560
                 },
@@ -732,11 +716,7 @@
                     "errors": {},
                     "id": "50",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 180,
                     "y": 660
                 },
@@ -763,7 +743,7 @@
                     "errors": {},
                     "id": "53",
                     "type": "code",
-                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n\n    included_findings__finding_id = []\n    included_findings__intermediate_finding_id = []\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        for long_key_string in item.keys():\n            matches = re.findall(r'(\\w+)=\"(.*?)\"', long_key_string)\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    included_findings__findings_list = final_result[\"finding_ids\"]\n    included_findings__finding_id = final_result[\"finding_ids\"]\n    included_findings__intermediate_finding_id = final_result[\"intermediate_finding_ids\"]\n    \n    included_findings__finding_id = str(included_findings__finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    included_findings__intermediate_finding_id = str(included_findings__intermediate_finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    \n    phantom.debug(included_findings__finding_id)\n    phantom.debug(included_findings__intermediate_finding_id)\n    \n",
+                    "userCode": "\n    # Write your custom code here...\n    #phantom.debug(get_finding_or_investigation_1_result_item_0)\n    #phantom.debug(type(get_finding_or_investigation_1_result_item_0))\n    import json\n    import re\n\n    included_findings__finding_id = []\n    included_findings__intermediate_finding_id = []\n    final_result = {\n        \"finding_ids\": [],\n        \"intermediate_finding_ids\": []\n    }\n\n    # Loop through each dictionary in the list\n    for item in get_finding_or_investigation_1_result_item_0:\n        for long_key_string in item.keys():\n            matches = re.findall(r'(\\w+)=\"(.*?)\"', long_key_string)\n            for key, value in matches:\n                if key in [\"finding_ids\", \"intermediate_finding_ids\"]:\n                    final_result[key].append(value)\n\n    included_findings__findings_list = final_result[\"finding_ids\"]\n    included_findings__finding_id = final_result[\"finding_ids\"]\n    included_findings__intermediate_finding_id = final_result[\"intermediate_finding_ids\"]\n    \n    included_findings__finding_id = str(included_findings__finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    included_findings__intermediate_finding_id = str(included_findings__intermediate_finding_id).replace(\"[\",\"\").replace(\"]\",\"\").replace(\"'\",\"\\\"\")\n    \n    phantom.debug(included_findings__finding_id)\n    phantom.debug(included_findings__intermediate_finding_id)\n    phantom.debug(included_findings__findings_list)\n    \n",
                     "warnings": {},
                     "x": 180,
                     "y": 320
@@ -890,11 +870,7 @@
                     "errors": {},
                     "id": "63",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 340,
                     "y": 2340
                 },
@@ -1150,11 +1126,7 @@
                     "errors": {},
                     "id": "75",
                     "type": "enterpriseSecurity",
-                    "warnings": {
-                        "config": [
-                            "Reconfigure invalid datapath."
-                        ]
-                    },
+                    "warnings": {},
                     "x": 680,
                     "y": 1580
                 },
@@ -1219,7 +1191,7 @@
         "schema": "5.0.20",
         "version": "6.4.1.361"
     },
-    "create_time": "2025-06-25T05:27:33.910450+00:00",
+    "create_time": "2025-07-02T02:02:06.888533+00:00",
     "draft_mode": false,
     "labels": [
         "es_soar_integration"

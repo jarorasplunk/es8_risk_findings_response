@@ -390,6 +390,7 @@ def included_findings(action=None, success=None, container=None, results=None, h
     
     phantom.debug(included_findings__finding_id)
     phantom.debug(included_findings__intermediate_finding_id)
+    phantom.debug(included_findings__findings_list)
     
     ################################################################################
     ## Custom Code End
