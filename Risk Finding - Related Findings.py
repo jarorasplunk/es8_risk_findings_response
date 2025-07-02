@@ -365,7 +365,10 @@ def included_findings(action=None, success=None, container=None, results=None, h
     #phantom.debug(type(get_finding_or_investigation_1_result_item_0))
     import json
     import re
-
+    
+    phantom.debug(type(get_finding_or_investigation_1_result_item_0))
+    phantom.debug(get_finding_or_investigation_1_result_item_0)
+    
     included_findings__finding_id = []
     included_findings__intermediate_finding_id = []
     final_result = {
